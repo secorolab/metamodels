@@ -1,8 +1,6 @@
 from os.path import join, dirname
 import unittest
-import rdflib
-from bdd_dsl.coordination import EventLoop
-from bdd_dsl.util import query_graph_with_file, frame_graph_with_file
+from bdd_dsl.util import load_metamodels, create_event_loop_from_graph
 
 
 PKG_ROOT = join(dirname(__file__), "..")
@@ -13,34 +11,25 @@ MODELS_PATH = join(PKG_ROOT, "models")
 class TestEventLoop(unittest.TestCase):
 
     def test_event_loop_from_json(self):
-        g = rdflib.Graph()
-        g.parse(join(META_MODELs_PATH, "coordination.json"), format="json-ld")
-        g.parse(join(MODELS_PATH, "pickup-events.json"), format="json-ld")
+        g = load_metamodels()
+        event_loop_model_file = join(MODELS_PATH, "pickup-events.json")
+        g.parse(event_loop_model_file, format="json-ld")
 
-        model = query_graph_with_file(g, join(MODELS_PATH, "queries", "get-event-loop.rq"))
-        framed_model = frame_graph_with_file(model, join(MODELS_PATH, "frames", "event-loop-frame.json"))
+        event_loops = create_event_loop_from_graph(g)
+        self.assertTrue(len(event_loops) > 0, f"no event loop created from '{event_loop_model_file}'")
 
-        def test_event_loop(el: EventLoop, event_names: list):
-            for e_name in event_names:
-                self.assertFalse(el.consume(e_name))
+        for el in event_loops:
+            self.assertTrue(len(el.event_data) > 0, f"no event created for '{el.id}'")
+
+            for e_name in el.event_data:
+                self.assertFalse(el.consume(e_name), f"event not initialized to 'False': {e_name}")
                 el.produce(e_name)
 
             # trigger event value update
             el.reconfigure()
 
-            for e_name in event_names:
-                self.assertTrue(el.consume(e_name))
-
-        if "data" in framed_model:
-            # multiple matches
-            for event_loop_data in framed_model["data"]:
-                event_names = [event["name"] for event in event_loop_data["events"]]
-                el = EventLoop(event_loop_data["name"], event_names)
-                test_event_loop(el, event_names)
-        else:
-            event_names = [event["name"] for event in framed_model["events"]]
-            el = EventLoop(framed_model["name"], event_names)
-            test_event_loop(el, event_names)
+            for e_name in el.event_data:
+                self.assertTrue(el.consume(e_name), f"event not set to 'True' after reconfigure: {e_name}")
 
 
 if __name__ == '__main__':

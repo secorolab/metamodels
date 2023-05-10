@@ -1,6 +1,19 @@
+import glob
 import json
-import rdflib
+from os.path import join
 from pyld import jsonld
+import rdflib
+from bdd_dsl.coordination import EventLoop
+from bdd_dsl.metamodels import META_MODELs_PATH
+from bdd_dsl.models import EVENT_LOOP_QUERY, EVENT_LOOP_FRAME
+
+
+def load_metamodels() -> rdflib.Graph:
+    graph = rdflib.Graph()
+    mm_files = glob.glob(join(META_MODELs_PATH, '*.json'))
+    for mm_file in mm_files:
+        graph.parse(mm_file, format="json-ld")
+    return graph
 
 
 def query_graph(graph: rdflib.Graph, query_str: str):
@@ -23,7 +36,25 @@ def frame_model(model: dict, frame_str: str):
 
 
 def frame_graph_with_file(model: dict, frame_file: str):
-    # load query and frame files
     with open(frame_file) as infile:
         frame_str = infile.read()
     return frame_model(model, frame_str)
+
+
+def create_event_loop_from_graph(graph: rdflib.Graph) -> list:
+    model = query_graph_with_file(graph, EVENT_LOOP_QUERY)
+    framed_model = frame_graph_with_file(model, EVENT_LOOP_FRAME)
+
+    if "data" in framed_model:
+        # multiple matches
+        event_loops = []
+        for event_loop_data in framed_model["data"]:
+            event_names = [event["name"] for event in event_loop_data["events"]]
+            el = EventLoop(event_loop_data["name"], event_names)
+            event_loops.append(el)
+        return event_loops
+
+    # single match
+    event_names = [event["name"] for event in framed_model["events"]]
+    el = EventLoop(framed_model["name"], event_names)
+    return [el]
