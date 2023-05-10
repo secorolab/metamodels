@@ -1,0 +1,25 @@
+{
+    "@context": {
+        "@base": "https://my.url/models/coordination/",
+        "crdn": "https://my.url/metamodels/coordination#",
+
+        "event-loop": { "@id": "crdn:event-loop", "@type": "@id" },
+        "events": { "@id": "crdn:events", "@type": "@id" }
+    },
+    "@graph": [
+        { "@id": "approach-start", "@type": "crdn:Event" },
+        { "@id": "approach-end", "@type": "crdn:Event" },
+        { "@id": "grasp-start", "@type": "crdn:Event" },
+        { "@id": "grasp-end", "@type": "crdn:Event" },
+        { "@id": "lift-start", "@type": "crdn:Event" },
+        { "@id": "lift-end", "@type": "crdn:Event" },
+        { "@id": "pickup-event-loop", "@type": "crdn:EventLoop" },
+        {
+            "@id": "pickup-event-loop-conn", "@type": "crdn:EventLoopConn",
+            "event-loop": "pickup-event-loop",
+            "events": [
+                "approach-start", "approach-end", "grasp-start", "grasp-end", "lift-start", "lift-end"
+            ]
+        }
+    ]
+}

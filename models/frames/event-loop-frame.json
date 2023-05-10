@@ -1,0 +1,14 @@
+{
+    "@context": {
+        "@base": "https://my.url/models/coordination/",
+        "crdn": "https://my.url/metamodels/coordination#",
+        "trans": "https://my.url/transformations/",
+        "data": "@graph",
+        "name": "@id",
+        "events": "trans:has-events"
+    },
+    "data": {
+        "@explicit": true,
+        "events" : { }
+    }
+}

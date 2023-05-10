@@ -1,0 +1,12 @@
+{
+    "@context": {
+        "crdn": "https://my.url/metamodels/coordination#",
+
+        "Event": { "@id": "crdn:Event" },
+        "EventLoop": { "@id": "crdn:EventLoop" },
+        "EventLoopConn": { "@id": "crdn:EventLoopConn" },
+
+        "event-loop": { "@id": "crdn:event-loop", "@type": "@id" },
+        "events": { "@id": "crdn:events", "@type": "@id" }
+    }
+}

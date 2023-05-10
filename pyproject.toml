@@ -19,8 +19,11 @@ classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
 ]
+dependencies = [
+  'rdflib',
+  'pyld'
+]
 
 [project.urls]
 "Homepage" = "https://github.com/minhnh/bdd-dsl"
 "SESAME Project" = "https://www.sesame-project.org/"
-
