@@ -5,7 +5,8 @@ from pyld import jsonld
 import rdflib
 from bdd_dsl.coordination import EventLoop
 from bdd_dsl.metamodels import META_MODELs_PATH
-from bdd_dsl.models import EVENT_LOOP_QUERY, EVENT_LOOP_FRAME
+from bdd_dsl.models.queries import EVENT_LOOP_QUERY
+from bdd_dsl.models.frames import EVENT_LOOP_FRAME
 
 
 def load_metamodels() -> rdflib.Graph:
@@ -34,7 +35,7 @@ def frame_model(model: dict, frame_dict: dict):
     return model_framed
 
 
-def frame_graph_with_file(model: dict, frame_file: str):
+def frame_model_with_file(model: dict, frame_file: str):
     with open(frame_file) as infile:
         frame_str = infile.read()
     frame_dict = json.loads(frame_str)
@@ -42,8 +43,8 @@ def frame_graph_with_file(model: dict, frame_file: str):
 
 
 def create_event_loop_from_graph(graph: rdflib.Graph) -> list:
-    model = query_graph_with_file(graph, EVENT_LOOP_QUERY)
-    framed_model = frame_graph_with_file(model, EVENT_LOOP_FRAME)
+    model = query_graph(graph, EVENT_LOOP_QUERY)
+    framed_model = frame_model(model, EVENT_LOOP_FRAME)
 
     if "data" in framed_model:
         # multiple matches

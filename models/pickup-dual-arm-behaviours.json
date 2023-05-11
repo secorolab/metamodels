@@ -1,0 +1,54 @@
+{
+    "@context": {
+        "@base": "https://my.url/models/coordination/bt/",
+        "crdn-m": "https://my.url/models/coordination/",
+
+        "bt": "https://my.url/metamodels/behaviour-tree#",
+
+        "of-action": { "@id": "bt:of-action", "@type": "@id" },
+        "start-event": { "@id": "bt:start-event", "@type": "@id" },
+        "end-event": { "@id": "bt:end-event", "@type": "@id" },
+        "children" : { "@id": "bt:children", "@type": "@id" },
+        "parent": { "@id": "bt:parent", "@type": "@id" },
+        "subroot": { "@id": "bt:subroot", "@type": "@id" }
+    },
+    "@graph": [
+        { "@id": "pickup", "@type": "bt:Action" },
+        { "@id": "approach", "@type": "bt:Action" },
+        { "@id": "approach-arm1", "@type": "bt:Action" },
+        { "@id": "approach-arm2", "@type": "bt:Action" },
+        { "@id": "grasp", "@type": "bt:Action" },
+        { "@id": "lift", "@type": "bt:Action" },
+        {
+            "@id": "approach2-events", "@type": "bt:ActionWithEvents", "of-action": "approach-arm2",
+            "start-event": "crdn-m:approach-start", "end-event": "crdn-m:approach-end"
+        },
+
+        {
+            "@id": "approach-parallel", "@type": "bt:Parallel",
+            "children": [ "approach-arm1", "approach-arm2" ]
+        },
+        {
+            "@id": "approach-subtree", "@type": "bt:ActionSubtree",
+            "parent": "approach", "subroot": "approach-parallel"
+        },
+
+        {
+            "@id": "grasp-events", "@type": "bt:ActionWithEvents", "of-action": "grasp",
+            "start-event": "crdn-m:grasp-start", "end-event": "crdn-m:grasp-end"
+        },
+        {
+            "@id": "lift-events", "@type": "bt:ActionWithEvents", "of-action": "lift",
+            "start-event": "crdn-m:lift-start", "end-event": "crdn-m:lift-end"
+        },
+
+        {
+            "@id": "pickup-sequence", "@type": "bt:Sequence",
+            "children": [ "approach", "grasp", "lift" ]
+        },
+        {
+            "@id": "pickup-subtree", "@type": "bt:ActionSubtree",
+            "parent": "pickup", "subroot": "pickup-sequence"
+        }
+    ]
+}
