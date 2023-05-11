@@ -20,6 +20,10 @@
         { "@id": "grasp", "@type": "bt:Action" },
         { "@id": "lift", "@type": "bt:Action" },
         {
+            "@id": "approach1-events", "@type": "bt:ActionWithEvents", "of-action": "approach-arm1",
+            "start-event": "crdn-m:approach-start", "end-event": "crdn-m:approach-end"
+        },
+        {
             "@id": "approach2-events", "@type": "bt:ActionWithEvents", "of-action": "approach-arm2",
             "start-event": "crdn-m:approach-start", "end-event": "crdn-m:approach-end"
         },

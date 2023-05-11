@@ -2,7 +2,9 @@ import glob
 import json
 from os.path import join
 from pyld import jsonld
+import py_trees
 import rdflib
+from bdd_dsl.behaviours.mockup import Heartbeat
 from bdd_dsl.coordination import EventLoop
 from bdd_dsl.metamodels import META_MODELs_PATH
 from bdd_dsl.models.queries import EVENT_LOOP_QUERY
@@ -59,3 +61,38 @@ def create_event_loop_from_graph(graph: rdflib.Graph) -> list:
     event_names = [event["name"] for event in framed_model["events"]]
     el = EventLoop(framed_model["name"], event_names)
     return [el]
+
+
+def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> py_trees.composites.Composite:
+    subtree_name = subtree_data["name"]
+    composite_type = subtree_data["subtree"]["type"]["name"]
+    subtree_root = None
+    if composite_type == "bt:Sequence":
+        subtree_root = py_trees.composites.Sequence(name=subtree_name, memory=True)
+    elif composite_type == "bt:Parallel":
+        # TODO: annotate policy on graph
+        policy = py_trees.common.ParallelPolicy.SuccessOnAll(synchronise=True)
+        subtree_root = py_trees.composites.Parallel(name=subtree_name, policy=policy)
+    else:
+        raise ValueError(f"composite type '{composite_type}' is not handled")
+
+    for child_data in subtree_data["subtree"]["children"]:
+        if "subtree" in child_data:
+            # recursive call TODO: confirm/check no cycle
+            subtree_root.add_child(create_subtree_behaviours(child_data, event_loop))
+            continue
+
+        child_type = child_data["type"]["name"]
+        if child_type != "bt:Action":
+            raise ValueError(f"child node of type '{child_type}' is not handled")
+
+        # TODO: load actual behaviour
+        child_name = child_data["name"]
+        if "start_event" not in child_data or "end_event" not in child_data:
+            raise ValueError(f"start or end events not found for action '{child_name}'")
+        action = Heartbeat(child_name, event_loop,
+                           child_data["start_event"]["name"],
+                           child_data["end_event"]["name"])
+        subtree_root.add_child(action)
+
+    return subtree_root

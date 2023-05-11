@@ -17,6 +17,7 @@ PREFIX trans: <https://my.url/transformations/>
 
 CONSTRUCT {
     ?root trans:has-subtree ?childRoot .
+    ?root trans:has-parent ?hasParent .
     ?childRoot trans:has-children ?child ;
                trans:has-type ?childRootType .
     ?child trans:has-type ?childType ;
@@ -27,9 +28,15 @@ WHERE {
     ?subtree a bt:ActionSubtree ;
         bt:parent ?root ;
         bt:subroot ?childRoot .
+    OPTIONAL {
+        ?root ^bt:children ?composite .
+        ?composite ^bt:subroot / bt:parent ?rootParent .
+    }
+    bind ( bound(?rootParent) as ?hasParent )
+
     ?childRoot bt:children ?child ;
                a ?childRootType .
-    ?child a ?childType ;
+    ?child a ?childType .
     OPTIONAL {
         ?child a bt:Action ;
             ^bt:of-action / bt:start-event ?startEvent ;

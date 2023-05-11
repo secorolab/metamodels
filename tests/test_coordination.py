@@ -1,6 +1,6 @@
 from os.path import join, dirname
 import unittest
-from bdd_dsl.util import load_metamodels, create_event_loop_from_graph
+from bdd_dsl.json_utils import load_metamodels, create_event_loop_from_graph
 
 
 PKG_ROOT = join(dirname(__file__), "..")

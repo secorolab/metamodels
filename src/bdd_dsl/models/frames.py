@@ -23,6 +23,7 @@ BEHAVIOUR_TREE_FRAME = {
         "subtree": "trans:has-subtree",
         "type": "trans:has-type",
         "children": "trans:has-children",
+        "has_parent": "trans:has-parent",
         "start_event": "trans:has-start-event",
         "end_event": "trans:has-end-event"
     },
