@@ -29,16 +29,16 @@ def query_graph_with_file(graph: rdflib.Graph, query_file: str):
     return query_graph(graph, query_str)
 
 
-def frame_model(model: dict, frame_str: str):
-    frame = json.loads(frame_str)
-    model_framed = jsonld.frame(model, frame)
+def frame_model(model: dict, frame_dict: dict):
+    model_framed = jsonld.frame(model, frame_dict)
     return model_framed
 
 
 def frame_graph_with_file(model: dict, frame_file: str):
     with open(frame_file) as infile:
         frame_str = infile.read()
-    return frame_model(model, frame_str)
+    frame_dict = json.loads(frame_str)
+    return frame_model(model, frame_dict)
 
 
 def create_event_loop_from_graph(graph: rdflib.Graph) -> list:

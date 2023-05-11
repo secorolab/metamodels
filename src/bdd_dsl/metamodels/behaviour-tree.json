@@ -1,0 +1,23 @@
+{
+    "@context": {
+        "bt": "https://my.url/metamodels/behaviour-tree#",
+
+        "Action": { "@id": "bt:Action" },
+        "Condition": { "@id": "bt:Condition" },
+
+        "ActionWithEvents": { "@id": "bt:ActionWithEvents" },
+        "of-action": { "@id": "bt:of-action", "@type": "@id" },
+        "start-event": { "@id": "bt:start-event", "@type": "@id" },
+        "end-event": { "@id": "bt:end-event", "@type": "@id" },
+
+        "Sequence": { "@id": "bt:Sequence" },
+        "Selector": { "@id": "bt:Selector" },
+        "Parallel": { "@id": "bt:Parallel" },
+
+        "children": { "@id": "bt:children", "@type": "@id" },
+
+        "ActionSubtree": { "@id": "bt:ActionSubtree" },
+        "parent": { "@id": "bt:parent", "@type": "@id" },
+        "subroot": { "@id": "bt:subroot", "@type": "@id" }
+    }
+}
