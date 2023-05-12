@@ -25,7 +25,9 @@ BEHAVIOUR_TREE_FRAME = {
         "children": "trans:has-children",
         "has_parent": "trans:has-parent",
         "start_event": "trans:has-start-event",
-        "end_event": "trans:has-end-event"
+        "end_event": "trans:has-end-event",
+        "impl_module": "trans:impl-module",
+        "impl_class": "trans:impl-class"
     },
     "data": {
         "subtree": {}

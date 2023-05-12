@@ -1,10 +1,10 @@
 import glob
+from importlib import import_module
 import json
 from os.path import join
 from pyld import jsonld
 import py_trees
 import rdflib
-from bdd_dsl.behaviours.mockup import Heartbeat
 from bdd_dsl.coordination import EventLoop
 from bdd_dsl.metamodels import META_MODELs_PATH
 from bdd_dsl.models.queries import EVENT_LOOP_QUERY
@@ -90,9 +90,10 @@ def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> py_t
         child_name = child_data["name"]
         if "start_event" not in child_data or "end_event" not in child_data:
             raise ValueError(f"start or end events not found for action '{child_name}'")
-        action = Heartbeat(child_name, event_loop,
-                           child_data["start_event"]["name"],
-                           child_data["end_event"]["name"])
+        action_cls = getattr(import_module('bdd_dsl.behaviours.mockup'), 'Heartbeat')
+        action = action_cls(child_name, event_loop,
+                            child_data["start_event"]["name"],
+                            child_data["end_event"]["name"])
         subtree_root.add_child(action)
 
     return subtree_root

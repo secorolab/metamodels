@@ -1,6 +1,8 @@
 {
     "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
         "bt": "https://my.url/metamodels/behaviour-tree#",
+        "py": "https://my.url/metamodels/languages/python#",
 
         "Action": { "@id": "bt:Action" },
         "Condition": { "@id": "bt:Condition" },
@@ -18,6 +20,10 @@
 
         "ActionSubtree": { "@id": "bt:ActionSubtree" },
         "parent": { "@id": "bt:parent", "@type": "@id" },
-        "subroot": { "@id": "bt:subroot", "@type": "@id" }
+        "subroot": { "@id": "bt:subroot", "@type": "@id" },
+
+        "PythonActionImpl": { "@id": "bt:PythonActionImpl" },
+        "module": { "@id": "py:module", "@type": "xsd:string" },
+        "class": { "@id": "py:class", "@type": "xsd:string" }
     }
 }

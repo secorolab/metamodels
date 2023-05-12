@@ -4,6 +4,7 @@
         "crdn-m": "https://my.url/models/coordination/",
 
         "bt": "https://my.url/metamodels/behaviour-tree#",
+        "py": "https://my.url/metamodels/languages/python#",
 
         "of-action": { "@id": "bt:of-action", "@type": "@id" },
         "start-event": { "@id": "bt:start-event", "@type": "@id" },
@@ -38,6 +39,22 @@
         {
             "@id": "pickup-subtree", "@type": "bt:ActionSubtree",
             "parent": "pickup", "subroot": "pickup-sequence"
+        },
+
+        {
+            "@id": "approach-impl", "@type": "bt:PythonActionImpl",
+            "of-action": "approach",
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat"
+        },
+        {
+            "@id": "grasp-impl", "@type": "bt:PythonActionImpl",
+            "of-action": "grasp",
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat"
+        },
+        {
+            "@id": "lift-impl", "@type": "bt:PythonActionImpl",
+            "of-action": "lift",
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat"
         }
     ]
 }

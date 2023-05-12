@@ -13,6 +13,7 @@ WHERE {
 
 BEHAVIOUR_TREE_QUERY = """
 PREFIX bt: <https://my.url/metamodels/behaviour-tree#>
+PREFIX py: <https://my.url/metamodels/languages/python#>
 PREFIX trans: <https://my.url/transformations/>
 
 CONSTRUCT {
@@ -22,7 +23,10 @@ CONSTRUCT {
                trans:has-type ?childRootType .
     ?child trans:has-type ?childType ;
            trans:has-start-event ?startEvent ;
-           trans:has-end-event ?endEvent .
+           trans:has-end-event ?endEvent ;
+           trans:impl-module ?implModule ;
+           trans:impl-class ?implClass ;
+           trans:kwargs-dict ?kwargsDict .
 }
 WHERE {
     ?subtree a bt:ActionSubtree ;
@@ -40,7 +44,9 @@ WHERE {
     OPTIONAL {
         ?child a bt:Action ;
             ^bt:of-action / bt:start-event ?startEvent ;
-            ^bt:of-action / bt:end-event ?endEvent .
+            ^bt:of-action / bt:end-event ?endEvent ;
+            ^bt:of-action / py:module ?implModule ;
+            ^bt:of-action / py:class ?implClass .
     }
 }
 """
