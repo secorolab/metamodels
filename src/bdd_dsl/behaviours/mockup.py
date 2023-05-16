@@ -4,9 +4,10 @@ from py_trees.common import Status as PTStatus
 
 
 class Heartbeat(ActionWithEvents):
-    def __init__(self, name, event_loop, start_event, end_event, heartbeat_duration=1.0):
+    def __init__(self, name, event_loop, start_event, end_event, **kwargs):
         super().__init__(name, event_loop, start_event, end_event)
-        self.heartbeat_duration = heartbeat_duration
+        self.heartbeat_duration = kwargs.get("heartbeat_duration", 1.0)
+        self.message = kwargs.get("message", "THUMP!")
         self._heartbeat_time = None
 
     def _initialise(self):
@@ -17,6 +18,6 @@ class Heartbeat(ActionWithEvents):
 
     def update(self) -> PTStatus:
         if time.time() - self._heartbeat_time > self.heartbeat_duration:
-            self.logger.info("THUMP!")
+            self.logger.info(self.message)
             return PTStatus.SUCCESS
         return PTStatus.RUNNING

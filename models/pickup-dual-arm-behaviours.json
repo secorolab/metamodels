@@ -59,22 +59,30 @@
         {
             "@id": "approach-arm1-impl", "@type": "bt:PythonActionImpl",
             "of-action": "approach-arm1",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat"
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat",
+            "py:ArgName": [ "heartbeat_duration", "message" ],
+            "py:ArgValue": [ 0.6, "left!" ]
         },
         {
             "@id": "approach-arm2-impl", "@type": "bt:PythonActionImpl",
             "of-action": "approach-arm2",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat"
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat",
+            "py:ArgName": [ "heartbeat_duration", "message" ],
+            "py:ArgValue": [ 0.7, "right!" ]
         },
         {
             "@id": "grasp-impl", "@type": "bt:PythonActionImpl",
             "of-action": "grasp",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat"
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat",
+            "py:ArgName": [ "heartbeat_duration", "message" ],
+            "py:ArgValue": [ 0.2, "grasp!" ]
         },
         {
             "@id": "lift-impl", "@type": "bt:PythonActionImpl",
             "of-action": "lift",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat"
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat",
+            "py:ArgName": [ "heartbeat_duration", "message" ],
+            "py:ArgValue": [ 0.5, "lift!" ]
         }
     ]
 }
