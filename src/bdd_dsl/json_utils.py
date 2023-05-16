@@ -7,9 +7,9 @@ import py_trees
 import rdflib
 from bdd_dsl.coordination import EventLoop
 from bdd_dsl.metamodels import META_MODELs_PATH
-from bdd_dsl.models.queries import EVENT_LOOP_QUERY, Q_BT_SEQUENCE, Q_BT_PARALLEL, Q_BT_ACTION
-from bdd_dsl.models.frames import EVENT_LOOP_FRAME, \
-    FR_NAME, FR_DATA, FR_EVENTS, FR_SUBTREE, FR_TYPE, FR_CHILDREN, FR_START_E, FR_END_E, \
+from bdd_dsl.models.queries import EVENT_LOOP_QUERY, BEHAVIOUR_TREE_QUERY, Q_BT_SEQUENCE, Q_BT_PARALLEL, Q_BT_ACTION
+from bdd_dsl.models.frames import EVENT_LOOP_FRAME, BEHAVIOUR_TREE_FRAME, \
+    FR_NAME, FR_DATA, FR_EVENTS, FR_SUBTREE, FR_TYPE, FR_HAS_PARENT, FR_CHILDREN, FR_START_E, FR_END_E, \
     FR_IMPL_MODULE, FR_IMPL_CLASS, FR_IMPL_ARG_NAMES, FR_IMPL_ARG_VALS
 
 
@@ -116,3 +116,26 @@ def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> py_t
         subtree_root.add_child(action)
 
     return subtree_root
+
+
+def create_bt_from_graph(graph: rdflib.Graph, event_loop: EventLoop):
+    bt_model = query_graph(graph, BEHAVIOUR_TREE_QUERY)
+    bt_model_framed = frame_model(bt_model, BEHAVIOUR_TREE_FRAME)
+
+    if FR_DATA not in bt_model_framed:
+        subtree_roots = [bt_model_framed]
+    else:
+        subtree_roots = bt_model_framed[FR_DATA]
+
+    roots = []
+    for root in subtree_roots:
+        root_name = root[FR_NAME]
+        if root[FR_HAS_PARENT]:
+            # skipping non-root subtree
+            continue
+        # recursively create behaviour tree
+        print(f"creating behaviour tree for root '{root_name}'")
+        root_node = create_subtree_behaviours(root, event_loop)
+        roots.append(root_node)
+
+    return roots
