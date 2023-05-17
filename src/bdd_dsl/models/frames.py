@@ -1,7 +1,7 @@
 from bdd_dsl.models.queries import \
-    Q_URI_MM_COORD, Q_URI_MM_BT, Q_URI_TRANS, Q_PREFIX_TRANS, Q_HAS_EVENTS, Q_HAS_SUBTREE, \
-    Q_HAS_TYPE, Q_HAS_CHILDREN, Q_HAS_PARENT, Q_HAS_START_E, Q_HAS_END_E, Q_IMPL_MODULE, \
-    Q_IMPL_CLASS, Q_IMPL_ARG_NAMES, Q_IMPL_ARG_VALUES, Q_PREFIX_CRDN, Q_PREFIX_BT
+    Q_URI_MM_CRDN, Q_URI_MM_BT, Q_URI_TRANS, Q_URI_M_CRDN, Q_PREFIX_TRANS, Q_HAS_EVENTS, Q_HAS_SUBTREE, \
+    Q_HAS_TYPE, Q_HAS_CHILDREN, Q_HAS_PARENT, Q_HAS_START_E, Q_HAS_END_E, Q_IMPL_MODULE, Q_IMPL_CLASS, \
+    Q_IMPL_ARG_NAMES, Q_IMPL_ARG_VALUES, Q_PREFIX_CRDN, Q_PREFIX_BT
 
 
 FR_NAME = "name"
@@ -20,8 +20,8 @@ FR_IMPL_ARG_VALS = "impl_arg_values"
 
 EVENT_LOOP_FRAME = {
     "@context": {
-        "@base": "https://my.url/models/coordination/",
-        Q_PREFIX_CRDN: Q_URI_MM_COORD,
+        "@base": Q_URI_M_CRDN,
+        Q_PREFIX_CRDN: Q_URI_MM_CRDN,
         Q_PREFIX_TRANS: Q_URI_TRANS,
         FR_DATA: "@graph",
         FR_NAME: "@id",
@@ -35,7 +35,7 @@ EVENT_LOOP_FRAME = {
 
 BEHAVIOUR_TREE_FRAME = {
     "@context": {
-        "@base": "https://my.url/models/coordination/",
+        "@base": Q_URI_M_CRDN,
         Q_PREFIX_BT: Q_URI_MM_BT,
         Q_PREFIX_TRANS: Q_URI_TRANS,
         FR_DATA: "@graph",

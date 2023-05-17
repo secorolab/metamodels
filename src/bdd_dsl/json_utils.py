@@ -131,7 +131,7 @@ def create_bt_from_graph(graph: rdflib.Graph, event_loop: EventLoop):
     for root in subtree_roots:
         root_name = root[FR_NAME]
         if root[FR_HAS_PARENT]:
-            # skipping non-root subtree
+            # skipping subtree without parent
             continue
         # recursively create behaviour tree
         print(f"creating behaviour tree for root '{root_name}'")
