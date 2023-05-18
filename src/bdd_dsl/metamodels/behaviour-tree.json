@@ -1,7 +1,7 @@
 {
     "@context": {
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "bt": "https://my.url/metamodels/behaviour-tree#",
+        "bt": "https://my.url/metamodels/coordination/behaviour-tree#",
         "py": "https://my.url/metamodels/languages/python#",
 
         "Action": { "@id": "bt:Action" },

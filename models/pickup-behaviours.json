@@ -3,7 +3,7 @@
         "@base": "https://my.url/models/coordination/bt/",
         "crdn-m": "https://my.url/models/coordination/",
 
-        "bt": "https://my.url/metamodels/behaviour-tree#",
+        "bt": "https://my.url/metamodels/coordination/behaviour-tree#",
         "py": "https://my.url/metamodels/languages/python#",
 
         "of-action": { "@id": "bt:of-action", "@type": "@id" },

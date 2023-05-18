@@ -1,6 +1,6 @@
 Q_URI_TRANS = "https://my.url/transformations/"
 Q_URI_MM_CRDN = "https://my.url/metamodels/coordination#"
-Q_URI_MM_BT = "https://my.url/metamodels/behaviour-tree#"
+Q_URI_MM_BT = "https://my.url/metamodels/coordination/behaviour-tree#"
 Q_URI_MM_PY = "https://my.url/metamodels/languages/python#"
 Q_URI_M_CRDN = "https://my.url/models/coordination/"
 

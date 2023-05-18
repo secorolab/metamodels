@@ -50,7 +50,7 @@ def create_event_loop_from_graph(graph: rdflib.Graph) -> list:
     model = query_graph(graph, EVENT_LOOP_QUERY)
     framed_model = frame_model(model, EVENT_LOOP_FRAME)
 
-    if "data" in framed_model:
+    if FR_DATA in framed_model:
         # multiple matches
         event_loops = []
         for event_loop_data in framed_model[FR_DATA]:
