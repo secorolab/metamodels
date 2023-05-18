@@ -4,7 +4,7 @@
         "crdn": "https://my.url/metamodels/coordination#",
 
         "event-loop": { "@id": "crdn:event-loop", "@type": "@id" },
-        "events": { "@id": "crdn:events", "@type": "@id" }
+        "has-event": { "@id": "crdn:has-event", "@type": "@id" }
     },
     "@graph": [
         { "@id": "approach-start", "@type": "crdn:Event" },
@@ -17,7 +17,7 @@
         {
             "@id": "pickup-event-loop-conn", "@type": "crdn:EventLoopConn",
             "event-loop": "pickup-event-loop",
-            "events": [
+            "has-event": [
                 "approach-start", "approach-end", "grasp-start", "grasp-end", "lift-start", "lift-end"
             ]
         }

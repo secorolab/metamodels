@@ -9,7 +9,7 @@
         "of-action": { "@id": "bt:of-action", "@type": "@id" },
         "start-event": { "@id": "bt:start-event", "@type": "@id" },
         "end-event": { "@id": "bt:end-event", "@type": "@id" },
-        "children" : { "@id": "bt:children", "@type": "@id" },
+        "has-child" : { "@id": "bt:has-child", "@type": "@id" },
         "parent": { "@id": "bt:parent", "@type": "@id" },
         "subroot": { "@id": "bt:subroot", "@type": "@id" }
     },
@@ -33,7 +33,7 @@
 
         {
             "@id": "pickup-sequence", "@type": "bt:Sequence",
-            "children": [ "approach", "grasp", "lift" ]
+            "has-child": [ "approach", "grasp", "lift" ]
         },
 
         {

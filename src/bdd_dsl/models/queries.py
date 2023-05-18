@@ -6,23 +6,23 @@ Q_URI_M_CRDN = "https://my.url/models/coordination/"
 
 # transformation concepts and relations
 Q_PREFIX_TRANS = "trans"
-Q_HAS_EVENTS = f"{Q_PREFIX_TRANS}:has-events"
+Q_HAS_EVENT = f"{Q_PREFIX_TRANS}:has-event"
 Q_HAS_SUBTREE = f"{Q_PREFIX_TRANS}:has-subtree"
 Q_HAS_PARENT = f"{Q_PREFIX_TRANS}:has-parent"
-Q_HAS_CHILDREN = f"{Q_PREFIX_TRANS}:has-children"
+Q_HAS_CHILD = f"{Q_PREFIX_TRANS}:has-child"
 Q_HAS_TYPE = f"{Q_PREFIX_TRANS}:has-type"
 Q_HAS_START_E = f"{Q_PREFIX_TRANS}:has-start-event"
 Q_HAS_END_E = f"{Q_PREFIX_TRANS}:has-end-event"
 Q_IMPL_MODULE = f"{Q_PREFIX_TRANS}:impl-module"
 Q_IMPL_CLASS = f"{Q_PREFIX_TRANS}:impl-class"
-Q_IMPL_ARG_NAMES = f"{Q_PREFIX_TRANS}:impl-arg-names"
-Q_IMPL_ARG_VALUES = f"{Q_PREFIX_TRANS}:impl-arg-values"
+Q_IMPL_ARG_NAME = f"{Q_PREFIX_TRANS}:impl-arg-name"
+Q_IMPL_ARG_VALUE = f"{Q_PREFIX_TRANS}:impl-arg-value"
 
 # coordination concepts & relations
 Q_PREFIX_CRDN = "crdn"
 Q_CRDN_EVENT_LOOP = f"{Q_PREFIX_CRDN}:EventLoop"
 Q_CRDN_HAS_EL = f"{Q_PREFIX_CRDN}:event-loop"
-Q_CRDN_EVENTS = f"{Q_PREFIX_CRDN}:events"
+Q_CRDN_HAS_EVENT = f"{Q_PREFIX_CRDN}:has-event"
 
 # behaviour tree concepts & relations
 Q_PREFIX_BT = "bt"
@@ -32,7 +32,7 @@ Q_BT_ACTION = f"{Q_PREFIX_BT}:Action"
 Q_BT_ACTION_SUBTREE = f"{Q_PREFIX_BT}:ActionSubtree"
 Q_BT_SUBROOT = f"{Q_PREFIX_BT}:subroot"
 Q_BT_PARENT = f"{Q_PREFIX_BT}:parent"
-Q_BT_CHILDREN = f"{Q_PREFIX_BT}:children"
+Q_BT_CHILDREN = f"{Q_PREFIX_BT}:has-child"
 Q_BT_OF_ACTION = f"{Q_PREFIX_BT}:of-action"
 Q_BT_START_E = f"{Q_PREFIX_BT}:start-event"
 Q_BT_END_E = f"{Q_PREFIX_BT}:end-event"
@@ -50,11 +50,11 @@ PREFIX {Q_PREFIX_CRDN}: <{Q_URI_MM_CRDN}>
 PREFIX {Q_PREFIX_TRANS}: <{Q_URI_TRANS}>
 
 CONSTRUCT {{
-    ?eventLoop {Q_HAS_EVENTS} ?event .
+    ?eventLoop {Q_HAS_EVENT} ?event .
 }}
 WHERE {{
     ?eventLoop a {Q_CRDN_EVENT_LOOP} ;
-        ^{Q_CRDN_HAS_EL} / {Q_CRDN_EVENTS} ?event .
+        ^{Q_CRDN_HAS_EL} / {Q_CRDN_HAS_EVENT} ?event .
 }}
 """
 
@@ -67,15 +67,15 @@ PREFIX {Q_PREFIX_TRANS}: <{Q_URI_TRANS}>
 CONSTRUCT {{
     ?root {Q_HAS_SUBTREE} ?childRoot .
     ?root {Q_HAS_PARENT} ?hasParent .
-    ?childRoot {Q_HAS_CHILDREN} ?child ;
+    ?childRoot {Q_HAS_CHILD} ?child ;
                {Q_HAS_TYPE} ?childRootType .
     ?child {Q_HAS_TYPE} ?childType ;
            {Q_HAS_START_E} ?startEvent ;
            {Q_HAS_END_E} ?endEvent ;
            {Q_IMPL_MODULE} ?implModule ;
            {Q_IMPL_CLASS} ?implClass ;
-           {Q_IMPL_ARG_NAMES} ?implArgNames ;
-           {Q_IMPL_ARG_VALUES} ?implArgValues .
+           {Q_IMPL_ARG_NAME} ?implArgNames ;
+           {Q_IMPL_ARG_VALUE} ?implArgValues .
 }}
 WHERE {{
     ?subtree a {Q_BT_ACTION_SUBTREE} ;

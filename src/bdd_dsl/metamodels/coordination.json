@@ -7,6 +7,6 @@
         "EventLoopConn": { "@id": "crdn:EventLoopConn" },
 
         "event-loop": { "@id": "crdn:event-loop", "@type": "@id" },
-        "events": { "@id": "crdn:events", "@type": "@id" }
+        "has-event": { "@id": "crdn:has-event", "@type": "@id" }
     }
 }

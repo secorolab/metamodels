@@ -16,7 +16,7 @@
         "Selector": { "@id": "bt:Selector" },
         "Parallel": { "@id": "bt:Parallel" },
 
-        "children": { "@id": "bt:children", "@type": "@id" },
+        "has-child": { "@id": "bt:has-child", "@type": "@id" },
 
         "ActionSubtree": { "@id": "bt:ActionSubtree" },
         "parent": { "@id": "bt:parent", "@type": "@id" },
