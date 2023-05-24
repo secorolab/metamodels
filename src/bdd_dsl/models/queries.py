@@ -21,7 +21,8 @@ Q_IMPL_ARG_VALUE = f"{Q_PREFIX_TRANS}:impl-arg-value"
 # coordination concepts & relations
 Q_PREFIX_CRDN = "crdn"
 Q_CRDN_EVENT_LOOP = f"{Q_PREFIX_CRDN}:EventLoop"
-Q_CRDN_HAS_EL = f"{Q_PREFIX_CRDN}:event-loop"
+Q_CRDN_EVENT_LOOP_CONN = f"{Q_PREFIX_CRDN}:EventLoopConn"
+Q_CRDN_OF_EL = f"{Q_PREFIX_CRDN}:event-loop"
 Q_CRDN_HAS_EVENT = f"{Q_PREFIX_CRDN}:has-event"
 
 # behaviour tree concepts & relations
@@ -40,7 +41,7 @@ Q_BT_END_E = f"{Q_PREFIX_BT}:end-event"
 # Python concepts & relations
 Q_PREFIX_PY = "py"
 Q_PY_MODULE = f"{Q_PREFIX_PY}:module"
-Q_PY_CLASS = f"{Q_PREFIX_PY}:class"
+Q_PY_CLASS = f"{Q_PREFIX_PY}:class-name"
 Q_PY_ARG_NAME = f"{Q_PREFIX_PY}:ArgName"
 Q_PY_ARG_VAL = f"{Q_PREFIX_PY}:ArgValue"
 
@@ -50,11 +51,13 @@ PREFIX {Q_PREFIX_CRDN}: <{Q_URI_MM_CRDN}>
 PREFIX {Q_PREFIX_TRANS}: <{Q_URI_TRANS}>
 
 CONSTRUCT {{
-    ?eventLoop {Q_HAS_EVENT} ?event .
+    ?eventLoopConn {Q_HAS_EVENT} ?event .
 }}
 WHERE {{
-    ?eventLoop a {Q_CRDN_EVENT_LOOP} ;
-        ^{Q_CRDN_HAS_EL} / {Q_CRDN_HAS_EVENT} ?event .
+    ?eventLoopConn a {Q_CRDN_EVENT_LOOP_CONN} ;
+        {Q_CRDN_OF_EL} ?eventLoop ;
+        {Q_CRDN_HAS_EVENT} ?event .
+    ?eventLoop a {Q_CRDN_EVENT_LOOP} .
 }}
 """
 

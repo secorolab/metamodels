@@ -44,17 +44,17 @@
         {
             "@id": "approach-impl", "@type": "bt:PythonActionImpl",
             "of-action": "approach",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat"
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat"
         },
         {
             "@id": "grasp-impl", "@type": "bt:PythonActionImpl",
             "of-action": "grasp",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat"
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat"
         },
         {
             "@id": "lift-impl", "@type": "bt:PythonActionImpl",
             "of-action": "lift",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class": "Heartbeat"
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat"
         }
     ]
 }

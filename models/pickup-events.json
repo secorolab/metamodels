@@ -15,10 +15,23 @@
         { "@id": "lift-end", "@type": "crdn:Event" },
         { "@id": "pickup-event-loop", "@type": "crdn:EventLoop" },
         {
-            "@id": "pickup-event-loop-conn", "@type": "crdn:EventLoopConn",
+            "@id": "pickup-event-loop", "@type": "crdn:EventLoopConn",
             "event-loop": "pickup-event-loop",
             "has-event": [
                 "approach-start", "approach-end", "grasp-start", "grasp-end", "lift-start", "lift-end"
+            ]
+        },
+        { "@id": "approach-arm1-start", "@type": "crdn:Event" },
+        { "@id": "approach-arm1-end", "@type": "crdn:Event" },
+        { "@id": "approach-arm2-start", "@type": "crdn:Event" },
+        { "@id": "approach-arm2-end", "@type": "crdn:Event" },
+        {
+            "@id": "dual-arm-pickup-event-loop", "@type": "crdn:EventLoopConn",
+            "event-loop": "pickup-event-loop",
+            "has-event": [
+                "approach-arm1-start", "approach-arm1-end",
+                "approach-arm2-start", "approach-arm2-end",
+                "grasp-start", "grasp-end", "lift-start", "lift-end"
             ]
         }
     ]
