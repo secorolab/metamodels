@@ -3,15 +3,21 @@
         "@base": "https://my.url/models/coordination/bt/",
         "crdn-m": "https://my.url/models/coordination/",
 
-        "bt": "https://my.url/metamodels/coordination/behaviour-tree#",
         "py": "https://my.url/metamodels/languages/python#",
 
+        "bt": "https://my.url/metamodels/coordination/behaviour-tree#",
+        "root": { "@id": "bt:root", "@type": "@id" },
+        "uses-impl": { "@id": "bt:uses-implementation", "@type": "@id" },
         "of-action": { "@id": "bt:of-action", "@type": "@id" },
         "start-event": { "@id": "bt:start-event", "@type": "@id" },
         "end-event": { "@id": "bt:end-event", "@type": "@id" },
         "has-child" : { "@id": "bt:has-child", "@type": "@id" },
         "parent": { "@id": "bt:parent", "@type": "@id" },
-        "subroot": { "@id": "bt:subroot", "@type": "@id" }
+        "subroot": { "@id": "bt:subroot", "@type": "@id" },
+        "of-subtree": { "@id": "bt:of-subtree", "@type": "@id" },
+
+        "crdn": "https://my.url/metamodels/coordination#",
+        "el-conn": { "@id": "crdn:event-loop-connection", "@type": "@id" }
     },
     "@graph": [
         { "@id": "pickup", "@type": "bt:Action" },
@@ -35,26 +41,43 @@
             "@id": "pickup-sequence", "@type": "bt:Sequence",
             "has-child": [ "approach", "grasp", "lift" ]
         },
-
         {
             "@id": "pickup-subtree", "@type": "bt:ActionSubtree",
             "parent": "pickup", "subroot": "pickup-sequence"
         },
 
         {
-            "@id": "approach-impl", "@type": "bt:PythonActionImpl",
+            "@id": "approach-mockup", "@type": "bt:PythonActionImpl",
             "of-action": "approach",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat"
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat",
+            "py:ArgName": [ "heartbeat_duration", "message" ],
+            "py:ArgValue": [ 0.2, "approach!" ]
         },
         {
-            "@id": "grasp-impl", "@type": "bt:PythonActionImpl",
+            "@id": "grasp-mockup", "@type": "bt:PythonActionImpl",
             "of-action": "grasp",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat"
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat",
+            "py:ArgName": [ "heartbeat_duration", "message" ],
+            "py:ArgValue": [ 0.2, "grasp!" ]
         },
         {
-            "@id": "lift-impl", "@type": "bt:PythonActionImpl",
+            "@id": "lift-mockup", "@type": "bt:PythonActionImpl",
             "of-action": "lift",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat"
+            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat",
+            "py:ArgName": [ "heartbeat_duration", "message" ],
+            "py:ArgValue": [ 0.5, "lift!" ]
+        },
+
+        {
+            "@id": "pickup-subtree-single-arm-mockup", "@type": "bt:SubtreeImpl",
+            "of-subtree": "pickup-subtree",
+            "uses-impl": [ "approach-mockup", "grasp-mockup", "lift-mockup" ]
+        },
+
+        {
+            "@id": "pickup-single-arm-mockup", "@type": "bt:BehaviourTreeWithEvents",
+            "uses-impl": "pickup-subtree-single-arm-mockup",
+            "el-conn": "crdn-m:single-arm-pickup-el"
         }
     ]
 }

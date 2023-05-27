@@ -13,9 +13,8 @@ MODELS_PATH = join(PKG_ROOT, "models")
 def main():
     g = load_metamodels()
     g.parse(join(MODELS_PATH, "pickup-events.json"), format="json-ld")
-    # g.parse(join(MODELS_PATH, "pickup-behaviours.json"), format="json-ld")
+    g.parse(join(MODELS_PATH, "pickup-behaviours.json"), format="json-ld")
     g.parse(join(MODELS_PATH, "pickup-dual-arm-behaviours.json"), format="json-ld")
-    # pprint(list(g))
 
     event_loops = create_event_loop_from_graph(g)
     for el in event_loops:

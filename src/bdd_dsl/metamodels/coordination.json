@@ -3,10 +3,12 @@
         "crdn": "https://my.url/metamodels/coordination#",
 
         "Event": { "@id": "crdn:Event" },
-        "EventLoop": { "@id": "crdn:EventLoop" },
-        "EventLoopConn": { "@id": "crdn:EventLoopConn" },
+        "has-event": { "@id": "crdn:has-event", "@type": "@id" },
 
+        "EventLoop": { "@id": "crdn:EventLoop" },
         "event-loop": { "@id": "crdn:event-loop", "@type": "@id" },
-        "has-event": { "@id": "crdn:has-event", "@type": "@id" }
+
+        "EventLoopConn": { "@id": "crdn:EventLoopConn" },
+        "el-conn": { "@id": "crdn:event-loop-connection", "@type": "@id" }
     }
 }

@@ -15,7 +15,7 @@
         { "@id": "lift-end", "@type": "crdn:Event" },
         { "@id": "pickup-event-loop", "@type": "crdn:EventLoop" },
         {
-            "@id": "pickup-event-loop", "@type": "crdn:EventLoopConn",
+            "@id": "single-arm-pickup-el", "@type": "crdn:EventLoopConn",
             "event-loop": "pickup-event-loop",
             "has-event": [
                 "approach-start", "approach-end", "grasp-start", "grasp-end", "lift-start", "lift-end"
@@ -26,7 +26,7 @@
         { "@id": "approach-arm2-start", "@type": "crdn:Event" },
         { "@id": "approach-arm2-end", "@type": "crdn:Event" },
         {
-            "@id": "dual-arm-pickup-event-loop", "@type": "crdn:EventLoopConn",
+            "@id": "dual-arm-pickup-el", "@type": "crdn:EventLoopConn",
             "event-loop": "pickup-event-loop",
             "has-event": [
                 "approach-arm1-start", "approach-arm1-end",

@@ -7,6 +7,8 @@ Q_URI_M_CRDN = "https://my.url/models/coordination/"
 # transformation concepts and relations
 Q_PREFIX_TRANS = "trans"
 Q_HAS_EVENT = f"{Q_PREFIX_TRANS}:has-event"
+Q_HAS_EL_CONN = f"{Q_PREFIX_TRANS}:has-el-conn"
+Q_HAS_ROOT = f"{Q_PREFIX_TRANS}:has-root"
 Q_HAS_SUBTREE = f"{Q_PREFIX_TRANS}:has-subtree"
 Q_HAS_PARENT = f"{Q_PREFIX_TRANS}:has-parent"
 Q_HAS_CHILD = f"{Q_PREFIX_TRANS}:has-child"
@@ -22,15 +24,21 @@ Q_IMPL_ARG_VALUE = f"{Q_PREFIX_TRANS}:impl-arg-value"
 Q_PREFIX_CRDN = "crdn"
 Q_CRDN_EVENT_LOOP = f"{Q_PREFIX_CRDN}:EventLoop"
 Q_CRDN_EVENT_LOOP_CONN = f"{Q_PREFIX_CRDN}:EventLoopConn"
+Q_CRDN_HAS_EL_CONN = f"{Q_PREFIX_CRDN}:event-loop-connection"
 Q_CRDN_OF_EL = f"{Q_PREFIX_CRDN}:event-loop"
 Q_CRDN_HAS_EVENT = f"{Q_PREFIX_CRDN}:has-event"
 
 # behaviour tree concepts & relations
 Q_PREFIX_BT = "bt"
+Q_BT_WITH_EVENTS = f"{Q_PREFIX_BT}:BehaviourTreeWithEvents"
+Q_BT_USES_IMPL = f"{Q_PREFIX_BT}:uses-implementation"
 Q_BT_SEQUENCE = f"{Q_PREFIX_BT}:Sequence"
 Q_BT_PARALLEL = f"{Q_PREFIX_BT}:Parallel"
 Q_BT_ACTION = f"{Q_PREFIX_BT}:Action"
+Q_BT_ACTION_IMPL = f"{Q_PREFIX_BT}:PythonActionImpl"
 Q_BT_ACTION_SUBTREE = f"{Q_PREFIX_BT}:ActionSubtree"
+Q_BT_SUBTREE_IMPL = f"{Q_PREFIX_BT}:SubtreeImpl"
+Q_BT_OF_SUBTREE = f"{Q_PREFIX_BT}:of-subtree"
 Q_BT_SUBROOT = f"{Q_PREFIX_BT}:subroot"
 Q_BT_PARENT = f"{Q_PREFIX_BT}:parent"
 Q_BT_CHILDREN = f"{Q_PREFIX_BT}:has-child"
@@ -61,48 +69,66 @@ WHERE {{
 }}
 """
 
-# Query for behaviour trees from graph
 BEHAVIOUR_TREE_QUERY = f"""
 PREFIX {Q_PREFIX_BT}: <{Q_URI_MM_BT}>
 PREFIX {Q_PREFIX_PY}: <{Q_URI_MM_PY}>
 PREFIX {Q_PREFIX_TRANS}: <{Q_URI_TRANS}>
 
 CONSTRUCT {{
-    ?root {Q_HAS_SUBTREE} ?childRoot .
-    ?root {Q_HAS_PARENT} ?hasParent .
-    ?childRoot {Q_HAS_CHILD} ?child ;
-               {Q_HAS_TYPE} ?childRootType .
-    ?child {Q_HAS_TYPE} ?childType ;
-           {Q_HAS_START_E} ?startEvent ;
-           {Q_HAS_END_E} ?endEvent ;
-           {Q_IMPL_MODULE} ?implModule ;
-           {Q_IMPL_CLASS} ?implClass ;
-           {Q_IMPL_ARG_NAME} ?implArgNames ;
-           {Q_IMPL_ARG_VALUE} ?implArgValues .
+    ?rootImpl
+        {Q_HAS_EL_CONN} ?elConn ;
+        {Q_HAS_SUBTREE} ?rootChildImpl .
+    ?subtreeImpl
+        {Q_HAS_CHILD} ?childImpl ;
+        {Q_HAS_TYPE} ?compositeType .
+    ?childImpl
+        {Q_HAS_START_E} ?startEvent ;
+        {Q_HAS_END_E} ?endEvent ;
+        {Q_IMPL_MODULE} ?implModule ;
+        {Q_IMPL_CLASS} ?implClass ;
+        {Q_IMPL_ARG_NAME} ?implArgNames ;
+        {Q_IMPL_ARG_VALUE} ?implArgValues.
 }}
 WHERE {{
+    ?subtreeImpl a {Q_BT_SUBTREE_IMPL} ;
+        {Q_BT_USES_IMPL} ?childImpl ;
+        {Q_BT_OF_SUBTREE} ?subtree .
     ?subtree a {Q_BT_ACTION_SUBTREE} ;
-        {Q_BT_PARENT} ?root ;
-        {Q_BT_SUBROOT} ?childRoot .
-    OPTIONAL {{
-        ?root ^{Q_BT_CHILDREN} ?composite .
-        ?composite ^{Q_BT_SUBROOT} / {Q_BT_PARENT} ?rootParent .
-    }}
-    bind ( bound(?rootParent) as ?hasParent )
+        {Q_BT_PARENT} ?subtreeRootAction ;
+        {Q_BT_SUBROOT} ?subtreeComposite .
+    ?subtreeComposite a ?compositeType ;
+        {Q_BT_CHILDREN} ?childRootAction .
 
-    ?childRoot {Q_BT_CHILDREN} ?child ;
-               a ?childRootType .
-    ?child a ?childType .
     OPTIONAL {{
-        ?child a {Q_BT_ACTION} ;
+        ?subtreeImpl ^{Q_BT_USES_IMPL} ?rootImpl .
+        ?subtree {Q_BT_PARENT} ?root ;
+            {Q_BT_SUBROOT} ?rootComposite .
+        ?rootImpl a {Q_BT_WITH_EVENTS} ;
+            {Q_CRDN_HAS_EL_CONN} ?elConn ;
+            {Q_BT_USES_IMPL} ?rootChildImpl .
+    }}
+
+    OPTIONAL {{
+        ?childImpl a {Q_BT_SUBTREE_IMPL} ;
+            {Q_BT_OF_SUBTREE} ?childSubtree .
+        ?childSubtree a {Q_BT_ACTION_SUBTREE} ;
+            {Q_BT_PARENT} ?childRootAction ;
+            {Q_BT_SUBROOT} ?childComposite .
+    }}
+
+    OPTIONAL {{
+        ?childImpl a {Q_BT_ACTION_IMPL} ;
+            {Q_BT_OF_ACTION} ?childAction ;
+            {Q_PY_MODULE} ?implModule ;
+            {Q_PY_CLASS} ?implClass .
+        ?childAction a {Q_BT_ACTION} ;
             ^{Q_BT_OF_ACTION} / {Q_BT_START_E} ?startEvent ;
-            ^{Q_BT_OF_ACTION} / {Q_BT_END_E} ?endEvent ;
-            ^{Q_BT_OF_ACTION} / {Q_PY_MODULE} ?implModule ;
-            ^{Q_BT_OF_ACTION} / {Q_PY_CLASS} ?implClass .
+            ^{Q_BT_OF_ACTION} / {Q_BT_END_E} ?endEvent .
         OPTIONAL {{
-            ?child ^{Q_BT_OF_ACTION} / {Q_PY_ARG_NAME} ?implArgNames ;
-                   ^{Q_BT_OF_ACTION} / {Q_PY_ARG_VAL} ?implArgValues .
+            ?childImpl {Q_PY_ARG_NAME} ?implArgNames ;
+                {Q_PY_ARG_VAL} ?implArgValues .
         }}
     }}
+
 }}
 """

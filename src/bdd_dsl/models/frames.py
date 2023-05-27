@@ -1,12 +1,17 @@
-from bdd_dsl.models.queries import \
-    Q_URI_MM_CRDN, Q_URI_MM_BT, Q_URI_TRANS, Q_URI_M_CRDN, Q_PREFIX_TRANS, Q_HAS_EVENT, Q_HAS_SUBTREE, \
-    Q_HAS_TYPE, Q_HAS_CHILD, Q_HAS_PARENT, Q_HAS_START_E, Q_HAS_END_E, Q_IMPL_MODULE, Q_IMPL_CLASS, \
-    Q_IMPL_ARG_NAME, Q_IMPL_ARG_VALUE, Q_PREFIX_CRDN, Q_PREFIX_BT
+from bdd_dsl.models.queries import (
+    Q_URI_MM_CRDN, Q_URI_MM_BT, Q_URI_TRANS, Q_URI_M_CRDN,
+    Q_PREFIX_TRANS, Q_HAS_EVENT, Q_HAS_ROOT, Q_HAS_EL_CONN,
+    Q_HAS_TYPE, Q_HAS_CHILD, Q_HAS_PARENT, Q_HAS_START_E, Q_HAS_END_E,
+    Q_IMPL_MODULE, Q_IMPL_CLASS, Q_IMPL_ARG_NAME, Q_IMPL_ARG_VALUE,
+    Q_PREFIX_CRDN, Q_PREFIX_BT, Q_HAS_SUBTREE
+)
 
 
 FR_NAME = "name"
 FR_DATA = "data"
 FR_EVENTS = "events"
+FR_EL = "event_loop"
+FR_ROOT = "root"
 FR_SUBTREE = "subtree"
 FR_TYPE = "type"
 FR_CHILDREN = "children"
@@ -40,7 +45,9 @@ BEHAVIOUR_TREE_FRAME = {
         Q_PREFIX_TRANS: Q_URI_TRANS,
         FR_DATA: "@graph",
         FR_NAME: "@id",
+        FR_ROOT: Q_HAS_ROOT,
         FR_SUBTREE: Q_HAS_SUBTREE,
+        FR_EL: Q_HAS_EL_CONN,
         FR_TYPE: Q_HAS_TYPE,
         FR_CHILDREN: Q_HAS_CHILD,
         FR_HAS_PARENT: Q_HAS_PARENT,
@@ -52,6 +59,6 @@ BEHAVIOUR_TREE_FRAME = {
         FR_IMPL_ARG_VALS: Q_IMPL_ARG_VALUE
     },
     FR_DATA: {
-        FR_SUBTREE: {}
+        FR_EL: {}
     }
 }

@@ -1,3 +1,4 @@
+from pprint import pprint
 import glob
 from importlib import import_module
 import json
@@ -7,9 +8,9 @@ import py_trees
 import rdflib
 from bdd_dsl.coordination import EventLoop
 from bdd_dsl.metamodels import META_MODELs_PATH
-from bdd_dsl.models.queries import EVENT_LOOP_QUERY, BEHAVIOUR_TREE_QUERY, Q_BT_SEQUENCE, Q_BT_PARALLEL, Q_BT_ACTION
+from bdd_dsl.models.queries import EVENT_LOOP_QUERY, BEHAVIOUR_TREE_QUERY, Q_BT_SEQUENCE, Q_BT_PARALLEL
 from bdd_dsl.models.frames import EVENT_LOOP_FRAME, BEHAVIOUR_TREE_FRAME, \
-    FR_NAME, FR_DATA, FR_EVENTS, FR_SUBTREE, FR_TYPE, FR_HAS_PARENT, FR_CHILDREN, FR_START_E, FR_END_E, \
+    FR_NAME, FR_DATA, FR_EVENTS, FR_SUBTREE, FR_TYPE, FR_CHILDREN, FR_START_E, FR_END_E, \
     FR_IMPL_MODULE, FR_IMPL_CLASS, FR_IMPL_ARG_NAMES, FR_IMPL_ARG_VALS
 
 
@@ -91,7 +92,7 @@ def load_python_event_action(node_data: dict, event_loop: EventLoop):
 
 def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> py_trees.composites.Composite:
     subtree_name = subtree_data[FR_NAME]
-    composite_type = subtree_data[FR_SUBTREE][FR_TYPE][FR_NAME]
+    composite_type = subtree_data[FR_TYPE][FR_NAME]
     subtree_root = None
     if composite_type == Q_BT_SEQUENCE:
         subtree_root = py_trees.composites.Sequence(name=subtree_name, memory=True)
@@ -102,15 +103,11 @@ def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> py_t
     else:
         raise ValueError(f"composite type '{composite_type}' is not handled")
 
-    for child_data in subtree_data[FR_SUBTREE][FR_CHILDREN]:
-        if FR_SUBTREE in child_data:
+    for child_data in subtree_data[FR_CHILDREN]:
+        if FR_CHILDREN in child_data:
             # recursive call TODO: confirm/check no cycle
             subtree_root.add_child(create_subtree_behaviours(child_data, event_loop))
             continue
-
-        child_type = child_data[FR_TYPE][FR_NAME]
-        if child_type != Q_BT_ACTION:
-            raise ValueError(f"child node of type '{child_type}' is not handled")
 
         action = load_python_event_action(child_data, event_loop)
         subtree_root.add_child(action)
@@ -120,7 +117,9 @@ def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> py_t
 
 def create_bt_from_graph(graph: rdflib.Graph, event_loop: EventLoop):
     bt_model = query_graph(graph, BEHAVIOUR_TREE_QUERY)
+    # pprint(bt_model)
     bt_model_framed = frame_model(bt_model, BEHAVIOUR_TREE_FRAME)
+    pprint(bt_model_framed)
 
     if FR_DATA not in bt_model_framed:
         subtree_roots = [bt_model_framed]
@@ -130,12 +129,10 @@ def create_bt_from_graph(graph: rdflib.Graph, event_loop: EventLoop):
     roots = []
     for root in subtree_roots:
         root_name = root[FR_NAME]
-        if root[FR_HAS_PARENT]:
-            # skipping subtree without parent
-            continue
+
         # recursively create behaviour tree
-        print(f"creating behaviour tree for root '{root_name}'")
-        root_node = create_subtree_behaviours(root, event_loop)
+        print(f"creating behaviour tree for root implementation '{root_name}'")
+        root_node = create_subtree_behaviours(root[FR_SUBTREE], event_loop)
         roots.append(root_node)
 
     return roots

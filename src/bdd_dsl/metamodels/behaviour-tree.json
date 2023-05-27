@@ -4,10 +4,11 @@
         "bt": "https://my.url/metamodels/coordination/behaviour-tree#",
 
         "Action": { "@id": "bt:Action" },
+        "of-action": { "@id": "bt:of-action", "@type": "@id" },
+
         "Condition": { "@id": "bt:Condition" },
 
         "ActionWithEvents": { "@id": "bt:ActionWithEvents" },
-        "of-action": { "@id": "bt:of-action", "@type": "@id" },
         "start-event": { "@id": "bt:start-event", "@type": "@id" },
         "end-event": { "@id": "bt:end-event", "@type": "@id" },
 
@@ -18,9 +19,17 @@
         "has-child": { "@id": "bt:has-child", "@type": "@id" },
 
         "ActionSubtree": { "@id": "bt:ActionSubtree" },
+        "of-subtree": { "@id": "bt:of-subtree", "@type": "@id" },
         "parent": { "@id": "bt:parent", "@type": "@id" },
         "subroot": { "@id": "bt:subroot", "@type": "@id" },
 
-        "PythonActionImpl": { "@id": "bt:PythonActionImpl" }
+        "BehaviourTreeWithEvents": { "@id": "bt:BehaviourTreeWithEvents" },
+        "root": { "@id": "bt:root", "@type": "@id" },
+
+        "SubtreeImpl": { "@id": "bt:SubtreeImpl" },
+
+        "PythonActionImpl": { "@id": "bt:PythonActionImpl" },
+
+        "uses-impl": { "@id": "bt:uses-implementation", "@type": "@id" }
     }
 }

@@ -3,23 +3,25 @@
         "@base": "https://my.url/models/coordination/bt/",
         "crdn-m": "https://my.url/models/coordination/",
 
-        "bt": "https://my.url/metamodels/coordination/behaviour-tree#",
         "py": "https://my.url/metamodels/languages/python#",
 
+        "bt": "https://my.url/metamodels/coordination/behaviour-tree#",
+        "root": { "@id": "bt:root", "@type": "@id" },
+        "uses-impl": { "@id": "bt:uses-implementation", "@type": "@id" },
         "of-action": { "@id": "bt:of-action", "@type": "@id" },
         "start-event": { "@id": "bt:start-event", "@type": "@id" },
         "end-event": { "@id": "bt:end-event", "@type": "@id" },
         "has-child" : { "@id": "bt:has-child", "@type": "@id" },
         "parent": { "@id": "bt:parent", "@type": "@id" },
-        "subroot": { "@id": "bt:subroot", "@type": "@id" }
+        "subroot": { "@id": "bt:subroot", "@type": "@id" },
+        "of-subtree": { "@id": "bt:of-subtree", "@type": "@id" },
+
+        "crdn": "https://my.url/metamodels/coordination#",
+        "el-conn": { "@id": "crdn:event-loop-connection", "@type": "@id" }
     },
     "@graph": [
-        { "@id": "pickup", "@type": "bt:Action" },
-        { "@id": "approach", "@type": "bt:Action" },
         { "@id": "approach-arm1", "@type": "bt:Action" },
         { "@id": "approach-arm2", "@type": "bt:Action" },
-        { "@id": "grasp", "@type": "bt:Action" },
-        { "@id": "lift", "@type": "bt:Action" },
         {
             "@id": "approach1-events", "@type": "bt:ActionWithEvents", "of-action": "approach-arm1",
             "start-event": "crdn-m:approach-arm1-start", "end-event": "crdn-m:approach-arm1-end"
@@ -39,50 +41,35 @@
         },
 
         {
-            "@id": "grasp-events", "@type": "bt:ActionWithEvents", "of-action": "grasp",
-            "start-event": "crdn-m:grasp-start", "end-event": "crdn-m:grasp-end"
-        },
-        {
-            "@id": "lift-events", "@type": "bt:ActionWithEvents", "of-action": "lift",
-            "start-event": "crdn-m:lift-start", "end-event": "crdn-m:lift-end"
-        },
-
-        {
-            "@id": "pickup-sequence", "@type": "bt:Sequence",
-            "has-child": [ "approach", "grasp", "lift" ]
-        },
-        {
-            "@id": "pickup-subtree", "@type": "bt:ActionSubtree",
-            "parent": "pickup", "subroot": "pickup-sequence"
-        },
-
-        {
-            "@id": "approach-arm1-impl", "@type": "bt:PythonActionImpl",
+            "@id": "approach-arm1-mockup", "@type": "bt:PythonActionImpl",
             "of-action": "approach-arm1",
             "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat",
             "py:ArgName": [ "heartbeat_duration", "message" ],
             "py:ArgValue": [ 0.6, "left!" ]
         },
         {
-            "@id": "approach-arm2-impl", "@type": "bt:PythonActionImpl",
+            "@id": "approach-arm2-mockup", "@type": "bt:PythonActionImpl",
             "of-action": "approach-arm2",
             "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat",
             "py:ArgName": [ "heartbeat_duration", "message" ],
             "py:ArgValue": [ 0.7, "right!" ]
         },
+
         {
-            "@id": "grasp-impl", "@type": "bt:PythonActionImpl",
-            "of-action": "grasp",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat",
-            "py:ArgName": [ "heartbeat_duration", "message" ],
-            "py:ArgValue": [ 0.2, "grasp!" ]
+            "@id": "approach-subtree-dual-arm-mockup", "@type": "bt:SubtreeImpl",
+            "of-subtree": "approach-subtree",
+            "uses-impl": [ "approach-arm1-mockup", "approach-arm2-mockup" ]
         },
         {
-            "@id": "lift-impl", "@type": "bt:PythonActionImpl",
-            "of-action": "lift",
-            "py:module": "bdd_dsl.behaviours.mockup", "py:class-name": "Heartbeat",
-            "py:ArgName": [ "heartbeat_duration", "message" ],
-            "py:ArgValue": [ 0.5, "lift!" ]
+            "@id": "pickup-subtree-dual-arm-mockup", "@type": "bt:SubtreeImpl",
+            "of-subtree": "pickup-subtree",
+            "uses-impl": [ "approach-subtree-dual-arm-mockup", "grasp-mockup", "lift-mockup" ]
+        },
+
+        {
+            "@id": "pickup-dual-arm-mockup", "@type": "bt:BehaviourTreeWithEvents",
+            "uses-impl": "pickup-subtree-dual-arm-mockup",
+            "el-conn": "crdn-m:dual-arm-pickup-el"
         }
     ]
 }

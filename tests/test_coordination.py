@@ -14,6 +14,7 @@ class NominalCoordination(unittest.TestCase):
         self.graph = load_metamodels()
         self.event_loop_model_file = join(MODELS_PATH, "pickup-events.json")
         self.graph.parse(self.event_loop_model_file, format="json-ld")
+        self.graph.parse(join(MODELS_PATH, "pickup-behaviours.json"), format="json-ld")
         self.graph.parse(join(MODELS_PATH, "pickup-dual-arm-behaviours.json"), format="json-ld")
         self.event_loops = create_event_loop_from_graph(self.graph)
 
