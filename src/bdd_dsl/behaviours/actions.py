@@ -28,7 +28,7 @@ class ActionWithEvents(PTBehaviour, metaclass=abc.ABCMeta):
         """
         called before start event get produced
         """
-        raise NotImplementedError(f'[{self.name}]: EventBehaviour._initialise() not implemented')
+        raise NotImplementedError(f"[{self.name}]: EventBehaviour._initialise() not implemented")
 
     def terminate(self, new_status: PTStatus):
         self._event_loop.produce(self._end_event)
@@ -39,4 +39,4 @@ class ActionWithEvents(PTBehaviour, metaclass=abc.ABCMeta):
         """
         called after end event get produced
         """
-        raise NotImplementedError(f'[{self.name}]: EventBehaviour._terminate() not implemented')
+        raise NotImplementedError(f"[{self.name}]: EventBehaviour._terminate() not implemented")

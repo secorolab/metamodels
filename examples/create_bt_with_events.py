@@ -1,8 +1,11 @@
 from os.path import join, dirname
 import time
-import py_trees
+import py_trees as pt
 from pprint import pprint
-from bdd_dsl.json_utils import create_event_loop_from_graph, load_metamodels, create_bt_from_graph
+from bdd_dsl.json_utils import (
+    load_metamodels,
+    create_bt_from_graph,
+)
 
 
 PKG_ROOT = join(dirname(__file__), "..")
@@ -16,22 +19,23 @@ def main():
     g.parse(join(MODELS_PATH, "pickup-behaviours.json"), format="json-ld")
     g.parse(join(MODELS_PATH, "pickup-dual-arm-behaviours.json"), format="json-ld")
 
-    event_loops = create_event_loop_from_graph(g)
-    for el in event_loops:
+    els_and_bts = create_bt_from_graph(g)
+    for el, bt in els_and_bts:
+        print(f"found behaviour tree '{bt.name}' associated with event loop '{el.id}'")
         pprint(el.event_data)
 
-    roots = create_bt_from_graph(g, event_loops[0])
+    selected_el, selected_bt_root = els_and_bts[0]
+    pt.display.render_dot_tree(selected_bt_root)
+    selected_bt = pt.trees.BehaviourTree(selected_bt_root)
 
-    py_trees.display.render_dot_tree(roots[0])
-    behaviour_tree = py_trees.trees.BehaviourTree(roots[0])
     while True:
         try:
-            behaviour_tree.tick()
-            event_loops[0].reconfigure()
+            selected_bt.tick()
+            selected_el.reconfigure()
             time.sleep(0.01)
         except KeyboardInterrupt:
             break
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

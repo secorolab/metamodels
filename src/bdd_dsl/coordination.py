@@ -1,5 +1,4 @@
 class EventLoop(object):
-
     def __init__(self, id: str, events: list = None) -> None:
         self.id = id
         self.events = [] if events is None else events
@@ -21,13 +20,15 @@ class EventLoop(object):
     def produce(self, event_id: str) -> None:
         if event_id not in self._current_events:
             raise ValueError(
-                "Event loop '{}': 'produce' request unrecognized event: {}".format(self.id, event_id))
+                f"Event loop '{self.id}': 'produce' request unrecognized event: {event_id}"
+            )
         self._future_events[event_id] = True
 
     def consume(self, event_id: str):
         if event_id not in self._current_events:
             raise ValueError(
-                "Event loop '{}': 'consume' request unrecognized event: {}".format(self.id, event_id))
+                f"Event loop '{self.id}': 'consume' request unrecognized event: {event_id}"
+            )
         return self._current_events[event_id]
 
     def reconfigure(self):

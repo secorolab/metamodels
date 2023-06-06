@@ -1,22 +1,41 @@
-from pprint import pprint
 import glob
 from importlib import import_module
+from typing import List, Tuple
 import json
 from os.path import join
 from pyld import jsonld
-import py_trees
+import py_trees as pt
 import rdflib
 from bdd_dsl.coordination import EventLoop
 from bdd_dsl.metamodels import META_MODELs_PATH
-from bdd_dsl.models.queries import EVENT_LOOP_QUERY, BEHAVIOUR_TREE_QUERY, Q_BT_SEQUENCE, Q_BT_PARALLEL
-from bdd_dsl.models.frames import EVENT_LOOP_FRAME, BEHAVIOUR_TREE_FRAME, \
-    FR_NAME, FR_DATA, FR_EVENTS, FR_SUBTREE, FR_TYPE, FR_CHILDREN, FR_START_E, FR_END_E, \
-    FR_IMPL_MODULE, FR_IMPL_CLASS, FR_IMPL_ARG_NAMES, FR_IMPL_ARG_VALS
+from bdd_dsl.models.queries import (
+    EVENT_LOOP_QUERY,
+    BEHAVIOUR_TREE_QUERY,
+    Q_BT_SEQUENCE,
+    Q_BT_PARALLEL,
+)
+from bdd_dsl.models.frames import (
+    EVENT_LOOP_FRAME,
+    BEHAVIOUR_TREE_FRAME,
+    FR_NAME,
+    FR_DATA,
+    FR_EVENTS,
+    FR_SUBTREE,
+    FR_TYPE,
+    FR_CHILDREN,
+    FR_START_E,
+    FR_END_E,
+    FR_IMPL_MODULE,
+    FR_IMPL_CLASS,
+    FR_IMPL_ARG_NAMES,
+    FR_IMPL_ARG_VALS,
+    FR_EL,
+)
 
 
 def load_metamodels() -> rdflib.Graph:
     graph = rdflib.Graph()
-    mm_files = glob.glob(join(META_MODELs_PATH, '*.json'))
+    mm_files = glob.glob(join(META_MODELs_PATH, "*.json"))
     for mm_file in mm_files:
         graph.parse(mm_file, format="json-ld")
     return graph
@@ -47,6 +66,14 @@ def frame_model_with_file(model: dict, frame_file: str):
     return frame_model(model, frame_dict)
 
 
+def create_event_loop_from_data(el_data: dict) -> EventLoop:
+    """
+    create an EventLoop object from framed, dictionary-like data
+    """
+    event_names = [event[FR_NAME] for event in el_data[FR_EVENTS]]
+    return EventLoop(el_data[FR_NAME], event_names)
+
+
 def create_event_loop_from_graph(graph: rdflib.Graph) -> list:
     model = query_graph(graph, EVENT_LOOP_QUERY)
     framed_model = frame_model(model, EVENT_LOOP_FRAME)
@@ -55,15 +82,11 @@ def create_event_loop_from_graph(graph: rdflib.Graph) -> list:
         # multiple matches
         event_loops = []
         for event_loop_data in framed_model[FR_DATA]:
-            event_names = [event[FR_NAME] for event in event_loop_data[FR_EVENTS]]
-            el = EventLoop(event_loop_data[FR_NAME], event_names)
-            event_loops.append(el)
+            event_loops.append(create_event_loop_from_data(event_loop_data))
         return event_loops
 
     # single match
-    event_names = [event[FR_NAME] for event in framed_model[FR_EVENTS]]
-    el = EventLoop(framed_model[FR_NAME], event_names)
-    return [el]
+    return [create_event_loop_from_data(framed_model)]
 
 
 def load_python_event_action(node_data: dict, event_loop: EventLoop):
@@ -86,20 +109,25 @@ def load_python_event_action(node_data: dict, event_loop: EventLoop):
             raise ValueError(f"argument count mismatch for action '{node_name}")
         for i in range(len(kwarg_names)):
             kwarg_dict[kwarg_names[i]] = kwarg_vals[i]
-    return action_cls(node_name, event_loop, node_data[FR_START_E][FR_NAME],
-                      node_data[FR_END_E][FR_NAME], **kwarg_dict)
+    return action_cls(
+        node_name,
+        event_loop,
+        node_data[FR_START_E][FR_NAME],
+        node_data[FR_END_E][FR_NAME],
+        **kwarg_dict,
+    )
 
 
-def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> py_trees.composites.Composite:
+def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> pt.composites.Composite:
     subtree_name = subtree_data[FR_NAME]
     composite_type = subtree_data[FR_TYPE][FR_NAME]
     subtree_root = None
     if composite_type == Q_BT_SEQUENCE:
-        subtree_root = py_trees.composites.Sequence(name=subtree_name, memory=True)
+        subtree_root = pt.composites.Sequence(name=subtree_name, memory=True)
     elif composite_type == Q_BT_PARALLEL:
         # TODO: annotate policy on graph
-        policy = py_trees.common.ParallelPolicy.SuccessOnAll(synchronise=True)
-        subtree_root = py_trees.composites.Parallel(name=subtree_name, policy=policy)
+        policy = pt.common.ParallelPolicy.SuccessOnAll(synchronise=True)
+        subtree_root = pt.composites.Parallel(name=subtree_name, policy=policy)
     else:
         raise ValueError(f"composite type '{composite_type}' is not handled")
 
@@ -109,30 +137,43 @@ def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> py_t
             subtree_root.add_child(create_subtree_behaviours(child_data, event_loop))
             continue
 
+        # TODO: confirm action events are available in event_loop
         action = load_python_event_action(child_data, event_loop)
         subtree_root.add_child(action)
 
     return subtree_root
 
 
-def create_bt_from_graph(graph: rdflib.Graph, event_loop: EventLoop):
+def create_bt_el_from_data(
+    bt_root_data: dict,
+) -> Tuple[EventLoop, pt.composites.Composite]:
+    bt_root_name = bt_root_data[FR_NAME]
+    if FR_EL not in bt_root_data:
+        raise ValueError(f"key '{FR_EL}' not in data of behaviour tree '{bt_root_name}'")
+    event_loop = create_event_loop_from_data(bt_root_data[FR_EL])
+
+    # recursively create behaviour tree
+    bt_root_node = create_subtree_behaviours(bt_root_data[FR_SUBTREE], event_loop)
+
+    return event_loop, bt_root_node
+
+
+def create_bt_from_graph(graph: rdflib.Graph, bt_name: str = None) -> List[Tuple]:
     bt_model = query_graph(graph, BEHAVIOUR_TREE_QUERY)
-    # pprint(bt_model)
     bt_model_framed = frame_model(bt_model, BEHAVIOUR_TREE_FRAME)
-    pprint(bt_model_framed)
 
     if FR_DATA not in bt_model_framed:
-        subtree_roots = [bt_model_framed]
-    else:
-        subtree_roots = bt_model_framed[FR_DATA]
+        # single BT root
+        return [create_bt_el_from_data(bt_model_framed)]
 
-    roots = []
-    for root in subtree_roots:
-        root_name = root[FR_NAME]
+    # multiple BT roots
+    els_and_bts = []
+    for root_data in bt_model_framed[FR_DATA]:
+        root_name = root_data[FR_NAME]
+        if bt_name is not None and root_name != bt_name:
+            # not the requested tree
+            continue
 
-        # recursively create behaviour tree
-        print(f"creating behaviour tree for root implementation '{root_name}'")
-        root_node = create_subtree_behaviours(root[FR_SUBTREE], event_loop)
-        roots.append(root_node)
+        els_and_bts.append(create_bt_el_from_data(root_data))
 
-    return roots
+    return els_and_bts

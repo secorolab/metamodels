@@ -87,7 +87,8 @@ CONSTRUCT {{
         {Q_IMPL_MODULE} ?implModule ;
         {Q_IMPL_CLASS} ?implClass ;
         {Q_IMPL_ARG_NAME} ?implArgNames ;
-        {Q_IMPL_ARG_VALUE} ?implArgValues.
+        {Q_IMPL_ARG_VALUE} ?implArgValues .
+    ?elConn {Q_HAS_EVENT} ?event .
 }}
 WHERE {{
     ?subtreeImpl a {Q_BT_SUBTREE_IMPL} ;
@@ -106,6 +107,8 @@ WHERE {{
         ?rootImpl a {Q_BT_WITH_EVENTS} ;
             {Q_CRDN_HAS_EL_CONN} ?elConn ;
             {Q_BT_USES_IMPL} ?rootChildImpl .
+        ?elConn a {Q_CRDN_EVENT_LOOP_CONN} ;
+            {Q_CRDN_HAS_EVENT} ?event .
     }}
 
     OPTIONAL {{

@@ -27,3 +27,9 @@ dependencies = [
 [project.urls]
 "Homepage" = "https://github.com/minhnh/bdd-dsl"
 "SESAME Project" = "https://www.sesame-project.org/"
+
+[tool.ruff]
+line-length = 100
+
+[tool.black]
+line-length = 100
