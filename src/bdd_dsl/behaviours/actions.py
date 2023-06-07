@@ -8,6 +8,12 @@ class ActionWithEvents(PTBehaviour, metaclass=abc.ABCMeta):
     def __init__(self, name: str, event_loop: EventLoop, start_event: str, end_event: str):
         super().__init__(name)
         self._event_loop = event_loop
+        for e_id in [start_event, end_event]:
+            if event_loop.has_event(e_id):
+                continue
+            raise ValueError(
+                f"event '{e_id}' used by action '{name}' not found in event loop '{event_loop.id}'"
+            )
         self._start_event = start_event
         self._end_event = end_event
 

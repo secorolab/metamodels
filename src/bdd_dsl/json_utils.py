@@ -6,6 +6,7 @@ from os.path import join
 from pyld import jsonld
 import py_trees as pt
 import rdflib
+from bdd_dsl.behaviours.actions import ActionWithEvents
 from bdd_dsl.coordination import EventLoop
 from bdd_dsl.metamodels import META_MODELs_PATH
 from bdd_dsl.models.queries import (
@@ -100,6 +101,10 @@ def load_python_event_action(node_data: dict, event_loop: EventLoop):
         raise ValueError(f"required key '{k}' not found in data for action '{node_name}'")
 
     action_cls = getattr(import_module(node_data[FR_IMPL_MODULE]), node_data[FR_IMPL_CLASS])
+    if not issubclass(action_cls, ActionWithEvents):
+        raise ValueError(
+            f"'{action_cls.__name__}' is not a subclass of '{ActionWithEvents.__name__}'"
+        )
 
     kwarg_dict = {}
     if FR_IMPL_ARG_NAMES in node_data and FR_IMPL_ARG_VALS in node_data:
@@ -137,16 +142,13 @@ def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> pt.c
             subtree_root.add_child(create_subtree_behaviours(child_data, event_loop))
             continue
 
-        # TODO: confirm action events are available in event_loop
         action = load_python_event_action(child_data, event_loop)
         subtree_root.add_child(action)
 
     return subtree_root
 
 
-def create_bt_el_from_data(
-    bt_root_data: dict,
-) -> Tuple[EventLoop, pt.composites.Composite]:
+def create_bt_el_from_data(bt_root_data: dict) -> Tuple[EventLoop, pt.composites.Composite]:
     bt_root_name = bt_root_data[FR_NAME]
     if FR_EL not in bt_root_data:
         raise ValueError(f"key '{FR_EL}' not in data of behaviour tree '{bt_root_name}'")
