@@ -25,7 +25,6 @@ def main():
 
     selected_el, selected_bt_root = els_and_bts[0]
     pt.display.render_dot_tree(selected_bt_root)
-    # selected_bt = pt.trees.BehaviourTree(selected_bt_root)
 
     pickup_scenario = SimulatedScenario(
         g, env_name="PickPlace", robots=["Panda"], bt_root_name="bt/pickup-single-arm-rs"

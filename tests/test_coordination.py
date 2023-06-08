@@ -1,5 +1,6 @@
 from os.path import join, dirname
 import unittest
+from py_trees.trees import BehaviourTree
 from bdd_dsl.json_utils import (
     load_metamodels,
     create_event_loop_from_graph,
@@ -48,7 +49,16 @@ class NominalCoordination(unittest.TestCase):
                 )
 
     def test_behaviour_tree(self):
-        _ = create_bt_from_graph(self.graph)
+        els_and_bts = create_bt_from_graph(self.graph, bt_name="bt/bogus-invalid-name")
+        num_result = len(els_and_bts)
+        self.assertEqual(num_result, 0, f"expect no result for invalid name, got {num_result}")
+        els_and_bts = create_bt_from_graph(self.graph, bt_name="bt/pickup-dual-arm-mockup")
+        num_result = len(els_and_bts)
+        self.assertEqual(num_result, 1, f"expect exactly 1 result, got {num_result}")
+        el, bt_root = els_and_bts[0]
+        bt = BehaviourTree(bt_root)
+        el.reconfigure()
+        bt.tick()
 
 
 if __name__ == "__main__":
