@@ -125,7 +125,7 @@ def load_python_event_action(node_data: dict, event_loop: EventLoop):
 
 def create_subtree_behaviours(subtree_data: dict, event_loop: EventLoop) -> pt.composites.Composite:
     subtree_name = subtree_data[FR_NAME]
-    composite_type = subtree_data[FR_TYPE][FR_NAME]
+    composite_type = subtree_data[FR_TYPE]
     subtree_root = None
     if composite_type == Q_BT_SEQUENCE:
         subtree_root = pt.composites.Sequence(name=subtree_name, memory=True)

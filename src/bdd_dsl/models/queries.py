@@ -16,6 +16,7 @@ Q_HAS_VARIATION = f"{Q_PREFIX_TRANS}:has-variation"
 Q_GIVEN = f"{Q_PREFIX_TRANS}:given"
 Q_WHEN = f"{Q_PREFIX_TRANS}:when"
 Q_THEN = f"{Q_PREFIX_TRANS}:then"
+Q_PREDICATE = f"{Q_PREFIX_TRANS}:predicate"
 Q_HAS_CLAUSE = f"{Q_PREFIX_TRANS}:has-clause"
 Q_HAS_OBJECT = f"{Q_PREFIX_TRANS}:has-object"
 Q_HAS_WS = f"{Q_PREFIX_TRANS}:has-workspace"
@@ -26,7 +27,6 @@ Q_HAS_ROOT = f"{Q_PREFIX_TRANS}:has-root"
 Q_HAS_SUBTREE = f"{Q_PREFIX_TRANS}:has-subtree"
 Q_HAS_PARENT = f"{Q_PREFIX_TRANS}:has-parent"
 Q_HAS_CHILD = f"{Q_PREFIX_TRANS}:has-child"
-Q_HAS_TYPE = f"{Q_PREFIX_TRANS}:has-type"
 Q_HAS_START_E = f"{Q_PREFIX_TRANS}:has-start-event"
 Q_HAS_END_E = f"{Q_PREFIX_TRANS}:has-end-event"
 Q_IMPL_MODULE = f"{Q_PREFIX_TRANS}:impl-module"
@@ -80,6 +80,7 @@ Q_BDD_GIVEN = f"{Q_PREFIX_BDD}:given"
 Q_BDD_WHEN = f"{Q_PREFIX_BDD}:when"
 Q_BDD_THEN = f"{Q_PREFIX_BDD}:then"
 Q_BDD_CLAUSE_OF = f"{Q_PREFIX_BDD}:clause-of"
+Q_BDD_PREDICATE = f"{Q_PREFIX_BDD}:predicate"
 Q_BDD_OF_VARIABLE = f"{Q_PREFIX_BDD}:of-variable"
 Q_BDD_HAS_VAR_CONN = f"{Q_PREFIX_BDD}:has-var-connection"
 Q_BDD_HAS_VARIATION = f"{Q_PREFIX_BDD}:has-variation"
@@ -112,9 +113,8 @@ CONSTRUCT {{
     ?rootImpl
         {Q_HAS_EL_CONN} ?elConn ;
         {Q_HAS_SUBTREE} ?rootChildImpl .
-    ?subtreeImpl
-        {Q_HAS_CHILD} ?childImpl ;
-        {Q_HAS_TYPE} ?compositeType .
+    ?subtreeImpl a ?compositeType ;
+        {Q_HAS_CHILD} ?childImpl .
     ?childImpl
         {Q_HAS_START_E} ?startEvent ;
         {Q_HAS_END_E} ?endEvent ;
@@ -185,9 +185,11 @@ CONSTRUCT {{
     ?variable {Q_HAS_VARIATION} ?variation .
     ?clauseOrigin {Q_HAS_CLAUSE} ?clause .
     ?clause
+        {Q_PREDICATE} ?predicate ;
         {Q_HAS_OBJECT} ?clauseObject ;
         {Q_HAS_WS} ?clauseWorkspace ;
         {Q_HAS_AGENT} ?clauseAgent .
+    ?predicate a ?predicateType .
 }}
 WHERE {{
     ?scenarioVar a {Q_BDD_SCENARIO_VARIANT} ;
@@ -206,9 +208,12 @@ WHERE {{
     ?when a {Q_BDD_WHEN_CLAUSE} .
 
     ?clause a {Q_BDD_FLUENT_CLAUSE} ;
+        {Q_BDD_PREDICATE} ?predicate ;
         {Q_BDD_CLAUSE_OF} ?clauseOrigin .
     OPTIONAL {{ ?clause {Q_BDD_REF_OBJECT} ?clauseObject }}
     OPTIONAL {{ ?clause {Q_BDD_REF_WS} ?clauseWorkspace }}
     OPTIONAL {{ ?clause {Q_BDD_REF_AGENT} ?clauseAgent }}
+
+    ?predicate a ?predicateType ;
 }}
 """

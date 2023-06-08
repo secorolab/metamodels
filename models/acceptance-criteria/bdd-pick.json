@@ -35,6 +35,13 @@
             "has-var-connection": [
                 "object-connection", "workspace-connection", "robot-connection"
             ]
+        },
+        {
+            "@id": "scenario-approach-1-arm", "@type": "bdd:ScenarioVariant",
+            "of-scenario": "bdd-templ:scenario-approach",
+            "has-var-connection": [
+                "object-connection", "workspace-connection", "robot-connection"
+            ]
         }
     ]
 }
