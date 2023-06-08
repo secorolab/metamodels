@@ -1,12 +1,4 @@
-Q_URI_TRANS = "https://my.url/transformations/"
-Q_URI_MM_BDD = "https://my.url/metamodels/acceptance-criteria/bdd#"
-Q_URI_MM_CRDN = "https://my.url/metamodels/coordination#"
-Q_URI_MM_BT = "https://my.url/metamodels/coordination/behaviour-tree#"
-Q_URI_MM_PY = "https://my.url/metamodels/languages/python#"
-Q_URI_M_CRDN = "https://my.url/models/coordination/"
-Q_URI_M_AC = "https://my.url/models/acceptance-criteria/"
-Q_URI_M_ENV = "https://my.url/models/environments/"
-Q_URI_M_AGENT = "https://my.url/models/agents/"
+from bdd_dsl.models.uri import URI_TRANS, URI_MM_BDD, URI_MM_CRDN, URI_MM_BT, URI_MM_PY
 
 # transformation concepts and relations
 Q_PREFIX_TRANS = "trans"
@@ -90,8 +82,8 @@ Q_BDD_REF_AGENT = f"{Q_PREFIX_BDD}:ref-agent"
 
 # Query for event loops from graph
 EVENT_LOOP_QUERY = f"""
-PREFIX {Q_PREFIX_CRDN}: <{Q_URI_MM_CRDN}>
-PREFIX {Q_PREFIX_TRANS}: <{Q_URI_TRANS}>
+PREFIX {Q_PREFIX_CRDN}: <{URI_MM_CRDN}>
+PREFIX {Q_PREFIX_TRANS}: <{URI_TRANS}>
 
 CONSTRUCT {{
     ?eventLoopConn {Q_HAS_EVENT} ?event .
@@ -105,9 +97,9 @@ WHERE {{
 """
 
 BEHAVIOUR_TREE_QUERY = f"""
-PREFIX {Q_PREFIX_BT}: <{Q_URI_MM_BT}>
-PREFIX {Q_PREFIX_PY}: <{Q_URI_MM_PY}>
-PREFIX {Q_PREFIX_TRANS}: <{Q_URI_TRANS}>
+PREFIX {Q_PREFIX_BT}: <{URI_MM_BT}>
+PREFIX {Q_PREFIX_PY}: <{URI_MM_PY}>
+PREFIX {Q_PREFIX_TRANS}: <{URI_TRANS}>
 
 CONSTRUCT {{
     ?rootImpl
@@ -171,8 +163,8 @@ WHERE {{
 """
 
 BDD_QUERY = f"""
-PREFIX {Q_PREFIX_TRANS}: <{Q_URI_TRANS}>
-PREFIX {Q_PREFIX_BDD}: <{Q_URI_MM_BDD}>
+PREFIX {Q_PREFIX_TRANS}: <{URI_TRANS}>
+PREFIX {Q_PREFIX_BDD}: <{URI_MM_BDD}>
 
 CONSTRUCT {{
     ?scenarioVar

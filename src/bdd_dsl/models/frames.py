@@ -1,12 +1,14 @@
+from bdd_dsl.models.uri import (
+    URI_TRANS,
+    URI_MM_BDD,
+    URI_MM_CRDN,
+    URI_MM_BT,
+    URI_M_CRDN,
+    URI_M_AC,
+    URI_M_ENV,
+    URI_M_AGENT,
+)
 from bdd_dsl.models.queries import (
-    Q_URI_MM_BDD,
-    Q_URI_MM_CRDN,
-    Q_URI_MM_BT,
-    Q_URI_TRANS,
-    Q_URI_M_CRDN,
-    Q_URI_M_AC,
-    Q_URI_M_ENV,
-    Q_URI_M_AGENT,
     Q_PREFIX_TRANS,
     Q_HAS_VARIABLE,
     Q_HAS_VARIATION,
@@ -63,9 +65,9 @@ FR_AGENTS = "agents"
 
 EVENT_LOOP_FRAME = {
     "@context": {
-        "@base": Q_URI_M_CRDN,
-        Q_PREFIX_CRDN: Q_URI_MM_CRDN,
-        Q_PREFIX_TRANS: Q_URI_TRANS,
+        "@base": URI_M_CRDN,
+        Q_PREFIX_CRDN: URI_MM_CRDN,
+        Q_PREFIX_TRANS: URI_TRANS,
         FR_DATA: "@graph",
         FR_NAME: "@id",
         FR_EVENTS: Q_HAS_EVENT,
@@ -75,9 +77,9 @@ EVENT_LOOP_FRAME = {
 
 BEHAVIOUR_TREE_FRAME = {
     "@context": {
-        "@base": Q_URI_M_CRDN,
-        Q_PREFIX_BT: Q_URI_MM_BT,
-        Q_PREFIX_TRANS: Q_URI_TRANS,
+        "@base": URI_M_CRDN,
+        Q_PREFIX_BT: URI_MM_BT,
+        Q_PREFIX_TRANS: URI_TRANS,
         FR_DATA: "@graph",
         FR_NAME: "@id",
         FR_TYPE: "@type",
@@ -99,11 +101,11 @@ BEHAVIOUR_TREE_FRAME = {
 
 BDD_FRAME = {
     "@context": {
-        "@base": Q_URI_M_AC,
-        Q_PREFIX_TRANS: Q_URI_TRANS,
-        "bdd": Q_URI_MM_BDD,
-        "env": Q_URI_M_ENV,
-        "agn": Q_URI_M_AGENT,
+        "@base": URI_M_AC,
+        Q_PREFIX_TRANS: URI_TRANS,
+        "bdd": URI_MM_BDD,
+        "env": URI_M_ENV,
+        "agn": URI_M_AGENT,
         FR_DATA: "@graph",
         FR_NAME: "@id",
         FR_TYPE: "@type",
