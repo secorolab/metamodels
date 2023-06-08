@@ -15,10 +15,14 @@ MODELS_PATH = join(PKG_ROOT, "models")
 class NominalCoordination(unittest.TestCase):
     def setUp(self):
         self.graph = load_metamodels()
-        self.event_loop_model_file = join(MODELS_PATH, "pickup-events.json")
+        self.event_loop_model_file = join(MODELS_PATH, "coordination", "pickup-events.json")
         self.graph.parse(self.event_loop_model_file, format="json-ld")
-        self.graph.parse(join(MODELS_PATH, "pickup-behaviours.json"), format="json-ld")
-        self.graph.parse(join(MODELS_PATH, "pickup-dual-arm-behaviours.json"), format="json-ld")
+        self.graph.parse(
+            join(MODELS_PATH, "coordination", "pickup-behaviours.json"), format="json-ld"
+        )
+        self.graph.parse(
+            join(MODELS_PATH, "coordination", "pickup-dual-arm-behaviours.json"), format="json-ld"
+        )
 
     def test_event_loop(self):
         event_loops = create_event_loop_from_graph(self.graph)

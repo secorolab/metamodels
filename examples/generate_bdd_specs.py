@@ -12,8 +12,8 @@ MODELS_PATH = join(PKG_ROOT, "models")
 
 def main():
     g = load_metamodels()
-    g.parse(join(MODELS_PATH, "bdd-templates-pick.json"), format="json-ld")
-    g.parse(join(MODELS_PATH, "bdd-pick.json"), format="json-ld")
+    g.parse(join(MODELS_PATH, "acceptance-criteria", "bdd-templates-pick.json"), format="json-ld")
+    g.parse(join(MODELS_PATH, "acceptance-criteria", "bdd-pick.json"), format="json-ld")
     g.parse(join(MODELS_PATH, "brsu-robots.json"), format="json-ld")
     g.parse(join(MODELS_PATH, "brsu-env.json"), format="json-ld")
 
