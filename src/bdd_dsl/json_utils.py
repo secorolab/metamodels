@@ -42,7 +42,7 @@ def load_metamodels() -> rdflib.Graph:
     return graph
 
 
-def query_graph(graph: rdflib.Graph, query_str: str):
+def query_graph(graph: rdflib.Graph, query_str: str) -> dict:
     res = graph.query(query_str)
     res_json = json.loads(res.serialize(format="json-ld"))
     transformed_model = {"@graph": res_json}
@@ -55,16 +55,11 @@ def query_graph_with_file(graph: rdflib.Graph, query_file: str):
     return query_graph(graph, query_str)
 
 
-def frame_model(model: dict, frame_dict: dict):
-    model_framed = jsonld.frame(model, frame_dict)
-    return model_framed
-
-
 def frame_model_with_file(model: dict, frame_file: str):
     with open(frame_file) as infile:
         frame_str = infile.read()
     frame_dict = json.loads(frame_str)
-    return frame_model(model, frame_dict)
+    return jsonld.frame(model, frame_dict)
 
 
 def create_event_loop_from_data(el_data: dict) -> EventLoop:
@@ -77,7 +72,7 @@ def create_event_loop_from_data(el_data: dict) -> EventLoop:
 
 def create_event_loop_from_graph(graph: rdflib.Graph) -> list:
     model = query_graph(graph, EVENT_LOOP_QUERY)
-    framed_model = frame_model(model, EVENT_LOOP_FRAME)
+    framed_model = jsonld.frame(model, EVENT_LOOP_FRAME)
 
     if FR_DATA in framed_model:
         # multiple matches
@@ -110,6 +105,11 @@ def load_python_event_action(node_data: dict, event_loop: EventLoop):
     if FR_IMPL_ARG_NAMES in node_data and FR_IMPL_ARG_VALS in node_data:
         kwarg_names = node_data[FR_IMPL_ARG_NAMES]
         kwarg_vals = node_data[FR_IMPL_ARG_VALS]
+        if not isinstance(kwarg_names, List):
+            kwarg_names = [kwarg_names]
+        if not isinstance(kwarg_vals, List):
+            kwarg_vals = [kwarg_vals]
+
         if len(kwarg_names) != len(kwarg_vals):
             raise ValueError(f"argument count mismatch for action '{node_name}")
         for i in range(len(kwarg_names)):
@@ -162,7 +162,7 @@ def create_bt_el_from_data(bt_root_data: dict) -> Tuple[EventLoop, pt.composites
 
 def create_bt_from_graph(graph: rdflib.Graph, bt_name: str = None) -> List[Tuple]:
     bt_model = query_graph(graph, BEHAVIOUR_TREE_QUERY)
-    bt_model_framed = frame_model(bt_model, BEHAVIOUR_TREE_FRAME)
+    bt_model_framed = jsonld.frame(bt_model, BEHAVIOUR_TREE_FRAME)
 
     if FR_DATA not in bt_model_framed:
         # single BT root

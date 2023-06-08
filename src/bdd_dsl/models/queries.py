@@ -1,11 +1,25 @@
 Q_URI_TRANS = "https://my.url/transformations/"
+Q_URI_MM_BDD = "https://my.url/metamodels/acceptance-criteria/bdd#"
 Q_URI_MM_CRDN = "https://my.url/metamodels/coordination#"
 Q_URI_MM_BT = "https://my.url/metamodels/coordination/behaviour-tree#"
 Q_URI_MM_PY = "https://my.url/metamodels/languages/python#"
 Q_URI_M_CRDN = "https://my.url/models/coordination/"
+Q_URI_M_AC = "https://my.url/models/acceptance-criteria/"
+Q_URI_M_ENV = "https://my.url/models/environments/"
+Q_URI_M_AGENT = "https://my.url/models/agents/"
 
 # transformation concepts and relations
 Q_PREFIX_TRANS = "trans"
+Q_OF_SCENARIO = f"{Q_PREFIX_TRANS}:of-scenario"
+Q_HAS_VARIABLE = f"{Q_PREFIX_TRANS}:has-variable"
+Q_HAS_VARIATION = f"{Q_PREFIX_TRANS}:has-variation"
+Q_GIVEN = f"{Q_PREFIX_TRANS}:given"
+Q_WHEN = f"{Q_PREFIX_TRANS}:when"
+Q_THEN = f"{Q_PREFIX_TRANS}:then"
+Q_HAS_CLAUSE = f"{Q_PREFIX_TRANS}:has-clause"
+Q_HAS_OBJECT = f"{Q_PREFIX_TRANS}:has-object"
+Q_HAS_WS = f"{Q_PREFIX_TRANS}:has-workspace"
+Q_HAS_AGENT = f"{Q_PREFIX_TRANS}:has-agent"
 Q_HAS_EVENT = f"{Q_PREFIX_TRANS}:has-event"
 Q_HAS_EL_CONN = f"{Q_PREFIX_TRANS}:has-el-conn"
 Q_HAS_ROOT = f"{Q_PREFIX_TRANS}:has-root"
@@ -52,6 +66,26 @@ Q_PY_MODULE = f"{Q_PREFIX_PY}:module"
 Q_PY_CLASS = f"{Q_PREFIX_PY}:class-name"
 Q_PY_ARG_NAME = f"{Q_PREFIX_PY}:ArgName"
 Q_PY_ARG_VAL = f"{Q_PREFIX_PY}:ArgValue"
+
+# BDD concepts & relations
+Q_PREFIX_BDD = "bdd"
+Q_BDD_SCENARIO = f"{Q_PREFIX_BDD}:Scenario"
+Q_BDD_SCENARIO_VARIANT = f"{Q_PREFIX_BDD}:ScenarioVariant"
+Q_BDD_GIVEN_CLAUSE = f"{Q_PREFIX_BDD}:GivenClause"
+Q_BDD_WHEN_CLAUSE = f"{Q_PREFIX_BDD}:WhenClause"
+Q_BDD_THEN_CLAUSE = f"{Q_PREFIX_BDD}:ThenClause"
+Q_BDD_FLUENT_CLAUSE = f"{Q_PREFIX_BDD}:FluentClause"
+Q_BDD_OF_SCENARIO = f"{Q_PREFIX_BDD}:of-scenario"
+Q_BDD_GIVEN = f"{Q_PREFIX_BDD}:given"
+Q_BDD_WHEN = f"{Q_PREFIX_BDD}:when"
+Q_BDD_THEN = f"{Q_PREFIX_BDD}:then"
+Q_BDD_CLAUSE_OF = f"{Q_PREFIX_BDD}:clause-of"
+Q_BDD_OF_VARIABLE = f"{Q_PREFIX_BDD}:of-variable"
+Q_BDD_HAS_VAR_CONN = f"{Q_PREFIX_BDD}:has-var-connection"
+Q_BDD_HAS_VARIATION = f"{Q_PREFIX_BDD}:has-variation"
+Q_BDD_REF_OBJECT = f"{Q_PREFIX_BDD}:ref-object"
+Q_BDD_REF_WS = f"{Q_PREFIX_BDD}:ref-workspace"
+Q_BDD_REF_AGENT = f"{Q_PREFIX_BDD}:ref-agent"
 
 # Query for event loops from graph
 EVENT_LOOP_QUERY = f"""
@@ -133,5 +167,48 @@ WHERE {{
         }}
     }}
 
+}}
+"""
+
+BDD_QUERY = f"""
+PREFIX {Q_PREFIX_TRANS}: <{Q_URI_TRANS}>
+PREFIX {Q_PREFIX_BDD}: <{Q_URI_MM_BDD}>
+
+CONSTRUCT {{
+    ?scenarioVar
+        {Q_OF_SCENARIO} ?scenario ;
+        {Q_HAS_VARIABLE} ?variable .
+    ?scenario
+        {Q_GIVEN} ?given ;
+        {Q_WHEN} ?when ;
+        {Q_THEN} ?then .
+    ?variable {Q_HAS_VARIATION} ?variation .
+    ?clauseOrigin {Q_HAS_CLAUSE} ?clause .
+    ?clause
+        {Q_HAS_OBJECT} ?clauseObject ;
+        {Q_HAS_WS} ?clauseWorkspace ;
+        {Q_HAS_AGENT} ?clauseAgent .
+}}
+WHERE {{
+    ?scenarioVar a {Q_BDD_SCENARIO_VARIANT} ;
+        {Q_BDD_OF_SCENARIO} ?scenario ;
+        {Q_BDD_HAS_VAR_CONN} ?connection .
+
+    ?scenario a {Q_BDD_SCENARIO} ;
+        {Q_BDD_GIVEN} ?given ;
+        {Q_BDD_WHEN} ?when ;
+        {Q_BDD_THEN} ?then .
+
+    ?connection
+        {Q_BDD_OF_VARIABLE} ?variable ;
+        {Q_BDD_HAS_VARIATION} ?variation .
+
+    ?when a {Q_BDD_WHEN_CLAUSE} .
+
+    ?clause a {Q_BDD_FLUENT_CLAUSE} ;
+        {Q_BDD_CLAUSE_OF} ?clauseOrigin .
+    OPTIONAL {{ ?clause {Q_BDD_REF_OBJECT} ?clauseObject }}
+    OPTIONAL {{ ?clause {Q_BDD_REF_WS} ?clauseWorkspace }}
+    OPTIONAL {{ ?clause {Q_BDD_REF_AGENT} ?clauseAgent }}
 }}
 """

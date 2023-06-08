@@ -3,7 +3,20 @@ from bdd_dsl.models.queries import (
     Q_URI_MM_BT,
     Q_URI_TRANS,
     Q_URI_M_CRDN,
+    Q_URI_M_AC,
+    Q_URI_M_ENV,
+    Q_URI_M_AGENT,
     Q_PREFIX_TRANS,
+    Q_HAS_VARIABLE,
+    Q_HAS_VARIATION,
+    Q_OF_SCENARIO,
+    Q_GIVEN,
+    Q_WHEN,
+    Q_THEN,
+    Q_HAS_CLAUSE,
+    Q_HAS_OBJECT,
+    Q_HAS_WS,
+    Q_HAS_AGENT,
     Q_HAS_EVENT,
     Q_HAS_ROOT,
     Q_HAS_EL_CONN,
@@ -37,6 +50,16 @@ FR_IMPL_MODULE = "impl_module"
 FR_IMPL_CLASS = "impl_class"
 FR_IMPL_ARG_NAMES = "impl_arg_names"
 FR_IMPL_ARG_VALS = "impl_arg_values"
+FR_SCENARIO = "scenario"
+FR_GIVEN = "given"
+FR_WHEN = "when"
+FR_THEN = "then"
+FR_CLAUSES = "clauses"
+FR_VARIABLES = "variables"
+FR_VARIATIONS = "variations"
+FR_OBJECTS = "objects"
+FR_WS = "workspaces"
+FR_AGENTS = "agents"
 
 EVENT_LOOP_FRAME = {
     "@context": {
@@ -72,4 +95,26 @@ BEHAVIOUR_TREE_FRAME = {
         FR_IMPL_ARG_VALS: Q_IMPL_ARG_VALUE,
     },
     FR_DATA: {FR_EL: {}},
+}
+
+BDD_FRAME = {
+    "@context": {
+        "@base": Q_URI_M_AC,
+        Q_PREFIX_TRANS: Q_URI_TRANS,
+        "env": Q_URI_M_ENV,
+        "agn": Q_URI_M_AGENT,
+        FR_DATA: "@graph",
+        FR_NAME: "@id",
+        FR_VARIABLES: Q_HAS_VARIABLE,
+        FR_VARIATIONS: Q_HAS_VARIATION,
+        FR_SCENARIO: Q_OF_SCENARIO,
+        FR_GIVEN: Q_GIVEN,
+        FR_WHEN: Q_WHEN,
+        FR_THEN: Q_THEN,
+        FR_CLAUSES: Q_HAS_CLAUSE,
+        FR_OBJECTS: Q_HAS_OBJECT,
+        FR_WS: Q_HAS_WS,
+        FR_AGENTS: Q_HAS_AGENT,
+    },
+    FR_DATA: {FR_VARIABLES: {FR_VARIATIONS: {}}},
 }

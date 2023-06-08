@@ -1,0 +1,11 @@
+{
+    "@context": {
+        "@base": "https://my.url/models/agents/brsu/",
+        "agn": "https://my.url/metamodels/agent#",
+        "kinova": "https://www.kinovarobotics.com/product/"
+    },
+    "@graph": [
+        { "@id": "kinova1", "@type": [ "agn:Agent", "kinova:gen3-robots" ] },
+        { "@id": "kinova2", "@type": [ "agn:Agent", "kinova:gen3-robots" ] }
+    ]
+}
