@@ -1,46 +1,53 @@
 {
     "@context": {
         "@base": "https://my.url/models/acceptance-criteria/",
+        "bdd-tmpl": "https://my.url/models/acceptance-criteria/bdd-templates/",
+
+        "hbrs-agents": "https://my.url/models/agents/brsu/",
+        "hbrs-env": "https://my.url/models/environments/brsu/",
 
         "bdd": "https://my.url/metamodels/acceptance-criteria/bdd#",
-        "bdd-templ": "https://my.url/models/acceptance-criteria/bdd-templates/",
+        "has-criteria": { "@id":"bdd:has-criteria", "@type": "@id" },
         "of-scenario":{ "@id": "bdd:of-scenario", "@type": "@id" },
         "has-var-connection": { "@id": "bdd:has-var-connection", "@type": "@id" },
         "of-variable": { "@id": "bdd:of-variable", "@type": "@id" },
-        "has-variation": { "@id": "bdd:has-variation", "@type": "@id" },
-
-        "hbrs-agents": "https://my.url/models/agents/brsu/",
-        "hbrs-env": "https://my.url/models/environments/brsu/"
+        "has-variation": { "@id": "bdd:has-variation", "@type": "@id" }
     },
 
     "@graph": [
         {
             "@id": "object-connection", "@type": "bdd:VariableConnection",
-            "of-variable": "bdd-templ:pick-object",
+            "of-variable": "bdd-tmpl:pick-object",
             "has-variation": [ "hbrs-env:box", "hbrs-env:bottle" ]
         },
         {
             "@id": "workspace-connection", "@type": "bdd:VariableConnection",
-            "of-variable": "bdd-templ:pick-workspace",
+            "of-variable": "bdd-tmpl:pick-workspace",
             "has-variation": [ "hbrs-env:dining-table" ]
         },
         {
             "@id": "robot-connection", "@type": "bdd:VariableConnection",
-            "of-variable": "bdd-templ:pick-robot",
+            "of-variable": "bdd-tmpl:pick-robot",
             "has-variation": [ "hbrs-agents:kinova1" ]
         },
         {
             "@id": "scenario-pick-1-arm", "@type": "bdd:ScenarioVariant",
-            "of-scenario": "bdd-templ:scenario-pick",
+            "of-scenario": "bdd-tmpl:scenario-pick",
             "has-var-connection": [
                 "object-connection", "workspace-connection", "robot-connection"
             ]
         },
         {
             "@id": "scenario-approach-1-arm", "@type": "bdd:ScenarioVariant",
-            "of-scenario": "bdd-templ:scenario-approach",
+            "of-scenario": "bdd-tmpl:scenario-approach",
             "has-var-connection": [
                 "object-connection", "workspace-connection", "robot-connection"
+            ]
+        },
+        {
+            "@id": "us-obj-transport-single-arm", "@type": "bdd:UserStory",
+            "has-criteria": [
+                "scenario-approach-1-arm", "scenario-pick-1-arm"
             ]
         }
     ]

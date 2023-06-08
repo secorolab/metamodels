@@ -2,8 +2,8 @@
     "@context": {
         "bdd": "https://my.url/metamodels/acceptance-criteria/bdd#",
 
-        "Feature": { "@id": "bdd:Feature" },
-        "has-scenario": { "@id":"bdd:has-scenario", "@type": "@id" },
+        "UserStory": { "@id": "bdd:UserStory" },
+        "has-criteria": { "@id":"bdd:has-criteria", "@type": "@id" },
 
         "Scenario": { "@id": "bdd:Scenario" },
         "of-scenario": { "@id": "bdd:of-scenario", "@type": "@id" },

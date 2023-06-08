@@ -12,6 +12,7 @@ from bdd_dsl.models.queries import (
     Q_PREFIX_TRANS,
     Q_HAS_VARIABLE,
     Q_HAS_VARIATION,
+    Q_HAS_AC,
     Q_OF_SCENARIO,
     Q_GIVEN,
     Q_WHEN,
@@ -52,6 +53,7 @@ FR_IMPL_MODULE = "impl_module"
 FR_IMPL_CLASS = "impl_class"
 FR_IMPL_ARG_NAMES = "impl_arg_names"
 FR_IMPL_ARG_VALS = "impl_arg_values"
+FR_CRITERIA = "criteria"
 FR_SCENARIO = "scenario"
 FR_GIVEN = "given"
 FR_WHEN = "when"
@@ -111,6 +113,7 @@ BDD_FRAME = {
         FR_TYPE: "@type",
         FR_VARIABLES: Q_HAS_VARIABLE,
         FR_VARIATIONS: Q_HAS_VARIATION,
+        FR_CRITERIA: Q_HAS_AC,
         FR_SCENARIO: Q_OF_SCENARIO,
         FR_GIVEN: Q_GIVEN,
         FR_WHEN: Q_WHEN,
@@ -120,5 +123,5 @@ BDD_FRAME = {
         FR_WS: Q_HAS_WS,
         FR_AGENTS: Q_HAS_AGENT,
     },
-    FR_DATA: {FR_VARIABLES: {FR_VARIATIONS: {}}},
+    FR_DATA: {FR_CRITERIA: {}},
 }

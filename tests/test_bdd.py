@@ -2,7 +2,7 @@ from os.path import join, dirname
 import unittest
 from bdd_dsl.json_utils import load_metamodels, query_graph
 from bdd_dsl.models.queries import BDD_QUERY
-from bdd_dsl.models.frames import BDD_FRAME, FR_DATA, FR_SCENARIO
+from bdd_dsl.models.frames import BDD_FRAME, FR_DATA, FR_CRITERIA
 from pyld import jsonld
 
 
@@ -26,7 +26,7 @@ class BDD(unittest.TestCase):
     def test_bdd(self):
         bdd_result = query_graph(self.graph, BDD_QUERY)
         model_framed = jsonld.frame(bdd_result, BDD_FRAME)
-        self.assertTrue(FR_DATA in model_framed or FR_SCENARIO in model_framed)
+        self.assertTrue(FR_DATA in model_framed or FR_CRITERIA in model_framed)
 
 
 if __name__ == "__main__":

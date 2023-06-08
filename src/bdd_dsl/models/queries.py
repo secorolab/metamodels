@@ -2,6 +2,7 @@ from bdd_dsl.models.uri import URI_TRANS, URI_MM_BDD, URI_MM_CRDN, URI_MM_BT, UR
 
 # transformation concepts and relations
 Q_PREFIX_TRANS = "trans"
+Q_HAS_AC = f"{Q_PREFIX_TRANS}:has-criteria"
 Q_OF_SCENARIO = f"{Q_PREFIX_TRANS}:of-scenario"
 Q_HAS_VARIABLE = f"{Q_PREFIX_TRANS}:has-variable"
 Q_HAS_VARIATION = f"{Q_PREFIX_TRANS}:has-variation"
@@ -61,12 +62,14 @@ Q_PY_ARG_VAL = f"{Q_PREFIX_PY}:ArgValue"
 
 # BDD concepts & relations
 Q_PREFIX_BDD = "bdd"
+Q_BDD_US = f"{Q_PREFIX_BDD}:UserStory"
 Q_BDD_SCENARIO = f"{Q_PREFIX_BDD}:Scenario"
 Q_BDD_SCENARIO_VARIANT = f"{Q_PREFIX_BDD}:ScenarioVariant"
 Q_BDD_GIVEN_CLAUSE = f"{Q_PREFIX_BDD}:GivenClause"
 Q_BDD_WHEN_CLAUSE = f"{Q_PREFIX_BDD}:WhenClause"
 Q_BDD_THEN_CLAUSE = f"{Q_PREFIX_BDD}:ThenClause"
 Q_BDD_FLUENT_CLAUSE = f"{Q_PREFIX_BDD}:FluentClause"
+Q_BDD_HAS_AC = f"{Q_PREFIX_BDD}:has-criteria"
 Q_BDD_OF_SCENARIO = f"{Q_PREFIX_BDD}:of-scenario"
 Q_BDD_GIVEN = f"{Q_PREFIX_BDD}:given"
 Q_BDD_WHEN = f"{Q_PREFIX_BDD}:when"
@@ -167,6 +170,7 @@ PREFIX {Q_PREFIX_TRANS}: <{URI_TRANS}>
 PREFIX {Q_PREFIX_BDD}: <{URI_MM_BDD}>
 
 CONSTRUCT {{
+    ?us {Q_HAS_AC} ?scenarioVar .
     ?scenarioVar
         {Q_OF_SCENARIO} ?scenario ;
         {Q_HAS_VARIABLE} ?variable .
@@ -184,6 +188,8 @@ CONSTRUCT {{
     ?predicate a ?predicateType .
 }}
 WHERE {{
+    ?us a {Q_BDD_US} ;
+        {Q_BDD_HAS_AC} ?scenarioVar .
     ?scenarioVar a {Q_BDD_SCENARIO_VARIANT} ;
         {Q_BDD_OF_SCENARIO} ?scenario ;
         {Q_BDD_HAS_VAR_CONN} ?connection .
