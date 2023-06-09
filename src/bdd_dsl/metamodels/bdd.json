@@ -14,6 +14,9 @@
         "GivenClause": { "@id": "bdd:GivenClause" },
         "WhenClause": { "@id": "bdd:WhenClause" },
         "ThenClause": { "@id": "bdd:ThenClause" },
+        "of-clause": { "@id": "bdd:of-clause", "@type": "@id" },
+
+        "WhenEvent": { "@id": "bdd:WhenEvent" },
 
         "ScenarioVariable": { "@id": "bdd:ScenarioVariable" },
         "of-variable": { "@id": "bdd:of-variable", "@type": "@id" },

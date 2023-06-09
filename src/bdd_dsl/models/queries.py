@@ -4,7 +4,8 @@ from bdd_dsl.models.uri import URI_TRANS, URI_MM_BDD, URI_MM_CRDN, URI_MM_BT, UR
 Q_PREFIX_TRANS = "trans"
 Q_HAS_AC = f"{Q_PREFIX_TRANS}:has-criteria"
 Q_OF_SCENARIO = f"{Q_PREFIX_TRANS}:of-scenario"
-Q_HAS_VARIABLE = f"{Q_PREFIX_TRANS}:has-variable"
+Q_OF_VARIABLE = f"{Q_PREFIX_TRANS}:of-variable"
+Q_HAS_CONN = f"{Q_PREFIX_TRANS}:has-connection"
 Q_HAS_VARIATION = f"{Q_PREFIX_TRANS}:has-variation"
 Q_GIVEN = f"{Q_PREFIX_TRANS}:given"
 Q_WHEN = f"{Q_PREFIX_TRANS}:when"
@@ -65,6 +66,7 @@ Q_PREFIX_BDD = "bdd"
 Q_BDD_US = f"{Q_PREFIX_BDD}:UserStory"
 Q_BDD_SCENARIO = f"{Q_PREFIX_BDD}:Scenario"
 Q_BDD_SCENARIO_VARIANT = f"{Q_PREFIX_BDD}:ScenarioVariant"
+Q_BDD_SCENARIO_VARIABLE = f"{Q_PREFIX_BDD}:ScenarioVariable"
 Q_BDD_GIVEN_CLAUSE = f"{Q_PREFIX_BDD}:GivenClause"
 Q_BDD_WHEN_CLAUSE = f"{Q_PREFIX_BDD}:WhenClause"
 Q_BDD_THEN_CLAUSE = f"{Q_PREFIX_BDD}:ThenClause"
@@ -75,6 +77,7 @@ Q_BDD_GIVEN = f"{Q_PREFIX_BDD}:given"
 Q_BDD_WHEN = f"{Q_PREFIX_BDD}:when"
 Q_BDD_THEN = f"{Q_PREFIX_BDD}:then"
 Q_BDD_CLAUSE_OF = f"{Q_PREFIX_BDD}:clause-of"
+Q_BDD_OF_CLAUSE = f"{Q_PREFIX_BDD}:of-clause"
 Q_BDD_PREDICATE = f"{Q_PREFIX_BDD}:predicate"
 Q_BDD_OF_VARIABLE = f"{Q_PREFIX_BDD}:of-variable"
 Q_BDD_HAS_VAR_CONN = f"{Q_PREFIX_BDD}:has-var-connection"
@@ -173,12 +176,15 @@ CONSTRUCT {{
     ?us {Q_HAS_AC} ?scenarioVar .
     ?scenarioVar
         {Q_OF_SCENARIO} ?scenario ;
-        {Q_HAS_VARIABLE} ?variable .
+        {Q_HAS_CONN} ?connection .
     ?scenario
         {Q_GIVEN} ?given ;
         {Q_WHEN} ?when ;
         {Q_THEN} ?then .
-    ?variable {Q_HAS_VARIATION} ?variation .
+    ?when {Q_HAS_EVENT} ?event .
+    ?connection
+        {Q_OF_VARIABLE} ?variable ;
+        {Q_HAS_VARIATION} ?variation .
     ?clauseOrigin {Q_HAS_CLAUSE} ?clause .
     ?clause
         {Q_PREDICATE} ?predicate ;
@@ -203,7 +209,10 @@ WHERE {{
         {Q_BDD_OF_VARIABLE} ?variable ;
         {Q_BDD_HAS_VARIATION} ?variation .
 
+    ?variable a {Q_BDD_SCENARIO_VARIABLE} .
     ?when a {Q_BDD_WHEN_CLAUSE} .
+
+    OPTIONAL {{ ?when ^{Q_BDD_OF_CLAUSE} / {Q_CRDN_HAS_EVENT} ?event }}
 
     ?clause a {Q_BDD_FLUENT_CLAUSE} ;
         {Q_BDD_PREDICATE} ?predicate ;

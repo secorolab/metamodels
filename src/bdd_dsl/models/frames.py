@@ -10,7 +10,7 @@ from bdd_dsl.models.uri import (
 )
 from bdd_dsl.models.queries import (
     Q_PREFIX_TRANS,
-    Q_HAS_VARIABLE,
+    Q_PREFIX_BDD,
     Q_HAS_VARIATION,
     Q_HAS_AC,
     Q_OF_SCENARIO,
@@ -58,6 +58,8 @@ FR_SCENARIO = "scenario"
 FR_GIVEN = "given"
 FR_WHEN = "when"
 FR_THEN = "then"
+FR_CONN_DATA = "conn_data"
+FR_VAR_CONN_DICT = "var_conn_dict"
 FR_CLAUSES = "clauses"
 FR_VARIABLES = "variables"
 FR_VARIATIONS = "variations"
@@ -105,13 +107,14 @@ BDD_FRAME = {
     "@context": {
         "@base": URI_M_AC,
         Q_PREFIX_TRANS: URI_TRANS,
-        "bdd": URI_MM_BDD,
+        Q_PREFIX_CRDN: URI_MM_CRDN,
+        Q_PREFIX_BDD: URI_MM_BDD,
         "env": URI_M_ENV,
         "agn": URI_M_AGENT,
+        f"{Q_PREFIX_CRDN}m": URI_M_CRDN,
         FR_DATA: "@graph",
         FR_NAME: "@id",
         FR_TYPE: "@type",
-        FR_VARIABLES: Q_HAS_VARIABLE,
         FR_VARIATIONS: Q_HAS_VARIATION,
         FR_CRITERIA: Q_HAS_AC,
         FR_SCENARIO: Q_OF_SCENARIO,

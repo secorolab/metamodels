@@ -1,9 +1,7 @@
 from os.path import join, dirname
 import unittest
-from bdd_dsl.json_utils import load_metamodels, query_graph
-from bdd_dsl.models.queries import BDD_QUERY
-from bdd_dsl.models.frames import BDD_FRAME, FR_DATA, FR_CRITERIA
-from pyld import jsonld
+from bdd_dsl.json_utils import load_metamodels, process_bdd_us_from_graph
+from bdd_dsl.models.frames import FR_CONN_DATA, FR_VAR_CONN_DICT
 
 
 PKG_ROOT = join(dirname(__file__), "..")
@@ -24,9 +22,11 @@ class BDD(unittest.TestCase):
         self.graph.parse(join(MODELS_PATH, "brsu-env.json"), format="json-ld")
 
     def test_bdd(self):
-        bdd_result = query_graph(self.graph, BDD_QUERY)
-        model_framed = jsonld.frame(bdd_result, BDD_FRAME)
-        self.assertTrue(FR_DATA in model_framed or FR_CRITERIA in model_framed)
+        bdd_result = process_bdd_us_from_graph(self.graph)
+        self.assertIsInstance(bdd_result, list)
+        for us_data in bdd_result:
+            for var_name in us_data[FR_VAR_CONN_DICT]:
+                self.assertIn(us_data[FR_VAR_CONN_DICT][var_name], us_data[FR_CONN_DATA])
 
 
 if __name__ == "__main__":

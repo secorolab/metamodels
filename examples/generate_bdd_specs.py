@@ -1,8 +1,5 @@
 from os.path import join, dirname
-from bdd_dsl.json_utils import load_metamodels, query_graph
-from pyld import jsonld
-from bdd_dsl.models.queries import BDD_QUERY
-from bdd_dsl.models.frames import BDD_FRAME
+from bdd_dsl.json_utils import load_metamodels, process_bdd_us_from_graph
 from pprint import pprint
 
 
@@ -14,13 +11,12 @@ def main():
     g = load_metamodels()
     g.parse(join(MODELS_PATH, "acceptance-criteria", "bdd-templates-pick.json"), format="json-ld")
     g.parse(join(MODELS_PATH, "acceptance-criteria", "bdd-pick.json"), format="json-ld")
+    g.parse(join(MODELS_PATH, "coordination", "pickup-events.json"), format="json-ld")
     g.parse(join(MODELS_PATH, "brsu-robots.json"), format="json-ld")
     g.parse(join(MODELS_PATH, "brsu-env.json"), format="json-ld")
 
-    bdd_result = query_graph(g, BDD_QUERY)
-    pprint(bdd_result)
-    model_framed = jsonld.frame(bdd_result, BDD_FRAME)
-    pprint(model_framed)
+    processed_bdd_data = process_bdd_us_from_graph(g)
+    pprint(processed_bdd_data)
 
 
 if __name__ == "__main__":

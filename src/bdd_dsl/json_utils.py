@@ -12,12 +12,19 @@ from bdd_dsl.metamodels import META_MODELs_PATH
 from bdd_dsl.models.queries import (
     EVENT_LOOP_QUERY,
     BEHAVIOUR_TREE_QUERY,
+    BDD_QUERY,
     Q_BT_SEQUENCE,
     Q_BT_PARALLEL,
+    Q_HAS_CONN,
+    Q_OF_VARIABLE,
+    Q_BDD_SCENARIO_VARIANT,
+    Q_BDD_SCENARIO_VARIABLE,
+    Q_BDD_US,
 )
 from bdd_dsl.models.frames import (
     EVENT_LOOP_FRAME,
     BEHAVIOUR_TREE_FRAME,
+    BDD_FRAME,
     FR_NAME,
     FR_DATA,
     FR_EVENTS,
@@ -31,7 +38,12 @@ from bdd_dsl.models.frames import (
     FR_IMPL_ARG_NAMES,
     FR_IMPL_ARG_VALS,
     FR_EL,
+    FR_CRITERIA,
+    FR_CONN_DATA,
+    FR_VAR_CONN_DICT,
+    FR_VARIATIONS,
 )
+from bdd_dsl.exception import BDDConstraintViolation
 
 
 def load_metamodels() -> rdflib.Graph:
@@ -179,3 +191,48 @@ def create_bt_from_graph(graph: rdflib.Graph, bt_name: str = None) -> List[Tuple
         els_and_bts.append(create_bt_el_from_data(root_data))
 
     return els_and_bts
+
+
+def process_bdd_scenario_from_data(scenario_data: dict, conn_dict: dict, var_to_conn_dict: dict):
+    scenario_name = scenario_data[FR_NAME]
+    if Q_HAS_CONN not in scenario_data:
+        raise BDDConstraintViolation(
+            f"{Q_BDD_SCENARIO_VARIANT} '{scenario_name}' has no connection"
+        )
+    for conn_data in scenario_data[Q_HAS_CONN]:
+        if FR_VARIATIONS not in conn_data:
+            continue
+        conn_name = conn_data[FR_NAME]
+        conn_dict[conn_name] = conn_data
+        var_name = conn_data[Q_OF_VARIABLE][FR_NAME]
+        if var_name in var_to_conn_dict:
+            raise BDDConstraintViolation(
+                f"multiple connections for {Q_BDD_SCENARIO_VARIABLE} '{var_name}'"
+            )
+        var_to_conn_dict[var_name] = conn_name
+
+
+def process_bdd_us_from_data(us_data: dict):
+    var_to_conn_dict = {}
+    conn_dict = {}
+    us_name = us_data[FR_NAME]
+    if isinstance(us_data[FR_CRITERIA], dict):
+        process_bdd_scenario_from_data(us_data[FR_CRITERIA], conn_dict, var_to_conn_dict)
+    elif isinstance(us_data[FR_CRITERIA], list):
+        for scenario_data in us_data[FR_CRITERIA]:
+            process_bdd_scenario_from_data(scenario_data, conn_dict, var_to_conn_dict)
+    else:
+        raise ValueError(f"invalid data for {Q_BDD_US} '{us_name}'")
+
+    us_data[FR_CONN_DATA] = conn_dict
+    us_data[FR_VAR_CONN_DICT] = var_to_conn_dict
+    return us_data
+
+
+def process_bdd_us_from_graph(graph: rdflib.Graph) -> List:
+    """Query and process all UserStory in the JSON-LD graph"""
+    bdd_result = query_graph(graph, BDD_QUERY)
+    model_framed = jsonld.frame(bdd_result, BDD_FRAME)
+    if FR_DATA in model_framed:
+        return [process_bdd_us_from_data(us_data) for us_data in model_framed[FR_DATA]]
+    return [process_bdd_us_from_data(model_framed)]
