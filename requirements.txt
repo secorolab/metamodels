@@ -1,3 +1,4 @@
 rdflib
 pyld
 py_trees
+jinja2
