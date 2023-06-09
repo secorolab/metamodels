@@ -1,7 +1,7 @@
 from os.path import join, dirname
 import unittest
 from py_trees.trees import BehaviourTree
-from bdd_dsl.json_utils import (
+from bdd_dsl.utils.json import (
     load_metamodels,
     create_event_loop_from_graph,
     create_bt_from_graph,

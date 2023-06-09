@@ -1,5 +1,5 @@
 from os.path import join, dirname
-from bdd_dsl.json_utils import load_metamodels, process_bdd_us_from_graph
+from bdd_dsl.utils.json import load_metamodels, process_bdd_us_from_graph
 from pprint import pprint
 
 

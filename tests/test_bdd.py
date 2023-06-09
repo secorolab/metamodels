@@ -1,6 +1,6 @@
 from os.path import join, dirname
 import unittest
-from bdd_dsl.json_utils import load_metamodels, process_bdd_us_from_graph
+from bdd_dsl.utils.json import load_metamodels, process_bdd_us_from_graph
 from bdd_dsl.models.frames import FR_CONN_DATA, FR_VAR_CONN_DICT
 
 

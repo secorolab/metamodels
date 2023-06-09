@@ -1,7 +1,7 @@
 from os.path import join, dirname
 import py_trees as pt
 from pprint import pprint
-from bdd_dsl.json_utils import (
+from bdd_dsl.utils.json import (
     load_metamodels,
     create_bt_from_graph,
 )

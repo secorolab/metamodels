@@ -4,7 +4,7 @@ import robosuite as rs
 import rdflib
 import py_trees as pt
 from bdd_dsl.behaviours.actions import ActionWithEvents
-from bdd_dsl.json_utils import create_bt_from_graph
+from bdd_dsl.utils.json import create_bt_from_graph
 
 # from pprint import pprint
 
