@@ -1,7 +1,12 @@
 import re
 
 
-def get_valid_filename(name):
+FILENAME_REPLACEMENTS = {" ": "_", ":": "__", "/": "_"}
+VAR_NAME_REPLACEMENTS = {"-": "_"}
+VAR_NAME_REPLACEMENTS.update(FILENAME_REPLACEMENTS)
+
+
+def get_valid_name(name: str, replacement_dict: dict) -> str:
     """
     based on same function from https://github.com/django/django/blob/main/django/utils/text.py
     also convert ':' to '__' and '/' to '_'
@@ -13,11 +18,21 @@ def get_valid_filename(name):
     >>> get_valid_filename("john's portrait in 2004.jpg")
     'johns_portrait_in_2004.jpg'
     """
-    s = str(name).strip().replace(" ", "_")
-    s = str(s).strip().replace(":", "__")
-    s = str(s).strip().replace("/", "_")
+    s = str(name).strip()
+    for char in replacement_dict:
+        s = s.replace(char, replacement_dict[char])
+
+    # remove remaining characters
     s = re.sub(r"(?u)[^-\w.]", "", s)
     if s in {"", ".", ".."}:
         # suspicious file name
         raise ValueError(f"Could not derive file name from '{name}'")
     return s
+
+
+def get_valid_filename(name: str) -> str:
+    return get_valid_name(name, FILENAME_REPLACEMENTS)
+
+
+def get_valid_var_name(name: str) -> str:
+    return get_valid_name(name, VAR_NAME_REPLACEMENTS)

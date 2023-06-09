@@ -11,6 +11,7 @@ from bdd_dsl.models.uri import (
 from bdd_dsl.models.queries import (
     Q_PREFIX_TRANS,
     Q_PREFIX_BDD,
+    Q_HAS_CONN,
     Q_HAS_VARIATION,
     Q_HAS_AC,
     Q_OF_SCENARIO,
@@ -58,14 +59,14 @@ FR_SCENARIO = "scenario"
 FR_GIVEN = "given"
 FR_WHEN = "when"
 FR_THEN = "then"
-FR_CONN_DATA = "conn_data"
-FR_VAR_CONN_DICT = "var_conn_dict"
 FR_CLAUSES = "clauses"
+FR_CONN = "connections"
 FR_VARIABLES = "variables"
 FR_VARIATIONS = "variations"
 FR_OBJECTS = "objects"
 FR_WS = "workspaces"
 FR_AGENTS = "agents"
+FR_FLUENT_DATA = "fluent_data"
 
 EVENT_LOOP_FRAME = {
     "@context": {
@@ -115,6 +116,7 @@ BDD_FRAME = {
         FR_DATA: "@graph",
         FR_NAME: "@id",
         FR_TYPE: "@type",
+        FR_CONN: Q_HAS_CONN,
         FR_VARIATIONS: Q_HAS_VARIATION,
         FR_CRITERIA: Q_HAS_AC,
         FR_SCENARIO: Q_OF_SCENARIO,

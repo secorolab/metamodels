@@ -1,8 +1,15 @@
 from os.path import join, dirname
 import unittest
 from bdd_dsl.utils.json import load_metamodels, process_bdd_us_from_graph
-from bdd_dsl.models.frames import FR_CONN_DATA, FR_VAR_CONN_DICT
-
+from bdd_dsl.models.frames import (
+    FR_CRITERIA,
+    FR_SCENARIO,
+    FR_GIVEN,
+    FR_THEN,
+    FR_CLAUSES,
+    FR_FLUENT_DATA,
+)
+from bdd_dsl.utils.jinja import create_given_clauses_strings, create_then_clauses_strings
 
 PKG_ROOT = join(dirname(__file__), "..")
 META_MODELs_PATH = join(PKG_ROOT, "metamodels")
@@ -25,8 +32,15 @@ class BDD(unittest.TestCase):
         bdd_result = process_bdd_us_from_graph(self.graph)
         self.assertIsInstance(bdd_result, list)
         for us_data in bdd_result:
-            for var_name in us_data[FR_VAR_CONN_DICT]:
-                self.assertIn(us_data[FR_VAR_CONN_DICT][var_name], us_data[FR_CONN_DATA])
+            for scenario_data in us_data[FR_CRITERIA]:
+                given_clause_strings = create_given_clauses_strings(
+                    scenario_data[FR_SCENARIO][FR_GIVEN][FR_CLAUSES], us_data[FR_FLUENT_DATA]
+                )
+                self.assertTrue(len(given_clause_strings) > 0)
+                then_clause_strings = create_then_clauses_strings(
+                    scenario_data[FR_SCENARIO][FR_THEN][FR_CLAUSES], us_data[FR_FLUENT_DATA]
+                )
+                self.assertTrue(len(then_clause_strings) > 0)
 
 
 if __name__ == "__main__":

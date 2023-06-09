@@ -1,6 +1,7 @@
 import glob
 from importlib import import_module
 from typing import List, Tuple
+import itertools
 import json
 from os.path import join
 from pyld import jsonld
@@ -15,11 +16,10 @@ from bdd_dsl.models.queries import (
     BDD_QUERY,
     Q_BT_SEQUENCE,
     Q_BT_PARALLEL,
-    Q_HAS_CONN,
     Q_OF_VARIABLE,
     Q_BDD_SCENARIO_VARIANT,
     Q_BDD_SCENARIO_VARIABLE,
-    Q_BDD_US,
+    Q_PREDICATE,
 )
 from bdd_dsl.models.frames import (
     EVENT_LOOP_FRAME,
@@ -38,12 +38,18 @@ from bdd_dsl.models.frames import (
     FR_IMPL_ARG_NAMES,
     FR_IMPL_ARG_VALS,
     FR_EL,
+    FR_SCENARIO,
+    FR_GIVEN,
+    FR_THEN,
+    FR_CLAUSES,
     FR_CRITERIA,
-    FR_CONN_DATA,
-    FR_VAR_CONN_DICT,
+    FR_FLUENT_DATA,
+    FR_VARIABLES,
     FR_VARIATIONS,
+    FR_CONN,
 )
 from bdd_dsl.exception import BDDConstraintViolation
+from bdd_dsl.utils.common import get_valid_var_name
 
 
 def load_metamodels() -> rdflib.Graph:
@@ -193,39 +199,91 @@ def create_bt_from_graph(graph: rdflib.Graph, bt_name: str = None) -> List[Tuple
     return els_and_bts
 
 
-def process_bdd_scenario_from_data(scenario_data: dict, conn_dict: dict, var_to_conn_dict: dict):
+def process_bdd_scenario_from_data(
+    scenario_data: dict, conn_dict: dict, var_set: set, fluent_dict: dict
+):
     scenario_name = scenario_data[FR_NAME]
-    if Q_HAS_CONN not in scenario_data:
+
+    # variable connections
+    if FR_CONN not in scenario_data:
         raise BDDConstraintViolation(
             f"{Q_BDD_SCENARIO_VARIANT} '{scenario_name}' has no connection"
         )
-    for conn_data in scenario_data[Q_HAS_CONN]:
+    for conn_data in scenario_data[FR_CONN]:
         if FR_VARIATIONS not in conn_data:
             continue
         conn_name = conn_data[FR_NAME]
         conn_dict[conn_name] = conn_data
         var_name = conn_data[Q_OF_VARIABLE][FR_NAME]
-        if var_name in var_to_conn_dict:
+        if var_name in var_set:
             raise BDDConstraintViolation(
                 f"multiple connections for {Q_BDD_SCENARIO_VARIABLE} '{var_name}'"
             )
-        var_to_conn_dict[var_name] = conn_name
+        var_set.add(var_name)
+
+    # fluent clauses
+    clauses_data = []
+    given_clauses_data = scenario_data[FR_SCENARIO][FR_GIVEN][FR_CLAUSES]
+    if not isinstance(given_clauses_data, list):
+        scenario_data[FR_SCENARIO][FR_GIVEN][FR_CLAUSES] = [given_clauses_data]
+    clauses_data.extend(scenario_data[FR_SCENARIO][FR_GIVEN][FR_CLAUSES])
+
+    then_clauses_data = scenario_data[FR_SCENARIO][FR_THEN][FR_CLAUSES]
+    if not isinstance(then_clauses_data, list):
+        scenario_data[FR_SCENARIO][FR_THEN][FR_CLAUSES] = [then_clauses_data]
+    clauses_data.extend(scenario_data[FR_SCENARIO][FR_THEN][FR_CLAUSES])
+
+    for clause_data in clauses_data:
+        if Q_PREDICATE not in clause_data:
+            continue
+        clause_id = clause_data[FR_NAME]
+        if clause_id in fluent_dict:
+            continue
+        fluent_dict[clause_id] = clause_data
+
+
+def create_scenario_variations(scenario_data: dict, conn_dict: dict) -> Tuple[list, list]:
+    var_names = []
+    entities_list = []
+    for conn_data in scenario_data[FR_CONN]:
+        conn_name = conn_data[FR_NAME]
+        var_name = conn_dict[conn_name][Q_OF_VARIABLE][FR_NAME]
+        var_names.append(get_valid_var_name(var_name))
+        var_entities = conn_dict[conn_name][FR_VARIATIONS]
+        if isinstance(var_entities, dict):
+            entities_list.append([var_entities[FR_NAME]])
+        elif isinstance(var_entities, list):
+            entities_list.append([ent_data[FR_NAME] for ent_data in var_entities])
+        else:
+            raise (
+                ValueError(
+                    "unhandled entity collection type '{}' for variable '{}'".format(
+                        type(var_entities), var_name
+                    )
+                )
+            )
+    return var_names, list(itertools.product(*entities_list))
 
 
 def process_bdd_us_from_data(us_data: dict):
-    var_to_conn_dict = {}
     conn_dict = {}
-    us_name = us_data[FR_NAME]
-    if isinstance(us_data[FR_CRITERIA], dict):
-        process_bdd_scenario_from_data(us_data[FR_CRITERIA], conn_dict, var_to_conn_dict)
-    elif isinstance(us_data[FR_CRITERIA], list):
-        for scenario_data in us_data[FR_CRITERIA]:
-            process_bdd_scenario_from_data(scenario_data, conn_dict, var_to_conn_dict)
-    else:
-        raise ValueError(f"invalid data for {Q_BDD_US} '{us_name}'")
+    fluent_dict = {}
+    var_set = set()
+    if not isinstance(us_data[FR_CRITERIA], list):
+        us_data[FR_CRITERIA] = [us_data[FR_CRITERIA]]
 
-    us_data[FR_CONN_DATA] = conn_dict
-    us_data[FR_VAR_CONN_DICT] = var_to_conn_dict
+    # framing will include child concepts once for the same entity within one match,
+    # so need to collect data for variable connections and fluent clauses to refer to later
+    for scenario_data in us_data[FR_CRITERIA]:
+        process_bdd_scenario_from_data(scenario_data, conn_dict, var_set, fluent_dict)
+
+    for scenario_data in us_data[FR_CRITERIA]:
+        # create variations for each scenario
+        scenario_data[FR_VARIABLES], scenario_data[FR_VARIATIONS] = create_scenario_variations(
+            scenario_data, conn_dict
+        )
+
+    us_data[FR_FLUENT_DATA] = fluent_dict
     return us_data
 
 
