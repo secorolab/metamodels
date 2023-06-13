@@ -1,7 +1,7 @@
 from os.path import join, dirname
 import unittest
 from py_trees.trees import BehaviourTree
-from bdd_dsl.coordination import SimpleEventLoop
+from bdd_dsl.events.event_handler import SimpleEventLoop
 from bdd_dsl.utils.json import (
     load_metamodels,
     create_event_loop_from_graph,

@@ -1,5 +1,5 @@
 import abc
-from bdd_dsl.coordination import EventHandler
+from bdd_dsl.events.event_handler import EventHandler
 from py_trees.behaviour import Behaviour as PTBehaviour
 from py_trees.common import Status as PTStatus
 

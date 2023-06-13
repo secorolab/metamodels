@@ -3,9 +3,9 @@ from typing import List
 
 
 class EventHandler(ABC):
-    def __init__(self, id: str, events: List[str] = None) -> None:
+    def __init__(self, id: str, events: List[str]) -> None:
         self.id = id
-        self._events = [] if events is None else events
+        self._events = events
 
     @abstractmethod
     def has_event(self, event_id: str) -> bool:
@@ -21,7 +21,7 @@ class EventHandler(ABC):
 
 
 class SimpleEventLoop(EventHandler):
-    def __init__(self, id: str, events: list = None) -> None:
+    def __init__(self, id: str, events: List[str]) -> None:
         super().__init__(id, events)
         self._current_events = {}
         self._future_events = {}
