@@ -1,10 +1,31 @@
-class EventLoop(object):
-    def __init__(self, id: str, events: list = None) -> None:
+from abc import abstractmethod, ABC
+from typing import List
+
+
+class EventHandler(ABC):
+    def __init__(self, id: str, events: List[str] = None) -> None:
         self.id = id
-        self.events = [] if events is None else events
+        self._events = [] if events is None else events
+
+    @abstractmethod
+    def has_event(self, event_id: str) -> bool:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def produce(self, event_id: str) -> None:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def consume(self, event_id: str):
+        raise NotImplementedError()
+
+
+class SimpleEventLoop(EventHandler):
+    def __init__(self, id: str, events: list = None) -> None:
+        super().__init__(id, events)
         self._current_events = {}
         self._future_events = {}
-        for event_id in self.events:
+        for event_id in self._events:
             self.register_event(event_id)
 
     @property

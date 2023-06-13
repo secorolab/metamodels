@@ -1,11 +1,11 @@
 import abc
-from bdd_dsl.coordination import EventLoop
+from bdd_dsl.coordination import EventHandler
 from py_trees.behaviour import Behaviour as PTBehaviour
 from py_trees.common import Status as PTStatus
 
 
 class ActionWithEvents(PTBehaviour, metaclass=abc.ABCMeta):
-    def __init__(self, name: str, event_loop: EventLoop, start_event: str, end_event: str):
+    def __init__(self, name: str, event_loop: EventHandler, start_event: str, end_event: str):
         super().__init__(name)
         self._event_loop = event_loop
         for e_id in [start_event, end_event]:

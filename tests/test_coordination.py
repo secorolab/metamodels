@@ -1,6 +1,7 @@
 from os.path import join, dirname
 import unittest
 from py_trees.trees import BehaviourTree
+from bdd_dsl.coordination import SimpleEventLoop
 from bdd_dsl.utils.json import (
     load_metamodels,
     create_event_loop_from_graph,
@@ -26,7 +27,7 @@ class NominalCoordination(unittest.TestCase):
         )
 
     def test_event_loop(self):
-        event_loops = create_event_loop_from_graph(self.graph)
+        event_loops = create_event_loop_from_graph(self.graph, SimpleEventLoop, {})
         self.assertTrue(
             len(event_loops) > 0,
             f"no event loop created from '{self.event_loop_model_file}'",

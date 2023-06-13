@@ -1,7 +1,7 @@
 Feature: {{ data.name }}
 {% for scenario_data in data.criteria %}
   Scenario Outline: {{ scenario_data.name }}
-  {% for clause in scenario_data.given_clauses %}
+    {% for clause in scenario_data.given_clauses %}
     {{ clause|safe }}{% endfor %}
 
     When "{{ scenario_data.when_event }}"
