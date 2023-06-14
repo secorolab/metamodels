@@ -91,7 +91,7 @@ def create_event_handler_from_data(
     return e_handler_cls(el_data[FR_NAME], event_names, **e_handler_kwargs)
 
 
-def create_event_loop_from_graph(
+def create_event_handler_from_graph(
     graph: rdflib.Graph, e_handler_cls: Type[EventHandler], e_handler_kwargs: dict
 ) -> list:
     model = query_graph(graph, EVENT_LOOP_QUERY)
