@@ -1,6 +1,6 @@
 {
     "@context": {
-        "agn": "https://my.url/metamodels/agent#",
+        "agn": "https://hbrs-sesame.github.io/metamodels/agent#",
 
         "Agent": { "@id": "agn:Agent" },
         "of-agent": { "@id": "agn:of-agent", "@type": "@id" },

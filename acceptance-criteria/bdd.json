@@ -1,6 +1,6 @@
 {
     "@context": {
-        "bdd": "https://my.url/metamodels/acceptance-criteria/bdd#",
+        "bdd": "https://hbrs-sesame.github.io/metamodels/acceptance-criteria/bdd#",
 
         "UserStory": { "@id": "bdd:UserStory" },
         "has-criteria": { "@id":"bdd:has-criteria", "@type": "@id" },
