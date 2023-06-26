@@ -21,10 +21,6 @@
         "ScenarioVariable": { "@id": "bdd:ScenarioVariable" },
         "of-variable": { "@id": "bdd:of-variable", "@type": "@id" },
 
-        "VariableConnection": { "@id": "bdd:VariableConnection" },
-        "has-var-connection": { "@id": "bdd:has-var-connection", "@type": "@id" },
-        "has-variation": { "@id": "bdd:has-variation", "@type": "@id" },
-
         "TimeConstraint": { "@id": "bdd:TimeConstraint" },
 
         "FluentClause": { "@id": "bdd:FluentClause" },
