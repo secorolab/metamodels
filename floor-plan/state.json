@@ -1,6 +1,6 @@
 {
     "@context": {
-        "st": "file:///home/samuel/Documents/SESAME/dynamic-dsl/object-extension/metamodel/state#",
+        "st": "https://hbrs-sesame.github.io/metamodels/state#",
         "State": "st:State",
         "Transition": "st:Transition",
         "TransitionTable": "st:TransitionTable",
