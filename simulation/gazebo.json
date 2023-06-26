@@ -1,0 +1,22 @@
+{
+    "@context": {
+        "gzb": "https://hbrs-sesame.github.io/metamodels/gazebo#",
+        "GazeboLinkRepresentation": "gzb:GazeboLinkRepresentation",
+        "visual": {
+            "@id": "gzb:visual",
+            "@type": "@id"
+        },
+        "collision": {
+            "@id": "gzb:collision",
+            "@type": "@id"
+        },
+        "inertia": {
+            "@id": "gzb:inertia",
+            "@type": "@id"
+        },
+        "material": {
+            "@id": "gzb:material",
+            "@type": "xsd:string"
+        }
+    }
+}
