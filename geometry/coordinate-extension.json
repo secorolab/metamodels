@@ -1,9 +1,9 @@
 {
     "@context": {
-        "coord-ext": "https://hbrs-sesame.github.io/metamodels/coordinates#",
-        "VectorXY": "coord-ext:VectorXY",
+        "coordinate": "https://hbrs-sesame.github.io/metamodels/coordinates#",
+        "VectorXY": "coordinate:VectorXY",
         "theta": {
-            "@id": "coord-ext:theta",
+            "@id": "coordinate:theta",
             "@type": "xsd:double"
         }
     }
