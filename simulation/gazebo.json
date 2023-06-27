@@ -17,6 +17,10 @@
         "material": {
             "@id": "gzb:material",
             "@type": "xsd:string"
+        },
+        "gz-link": {
+            "@id": "gzb:gz-link",
+            "@type": "@id"
         }
     }
 }
