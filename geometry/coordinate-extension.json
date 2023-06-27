@@ -1,5 +1,5 @@
 {
-    "@contex": {
+    "@context": {
         "coord-ext": "https://hbrs-sesame.github.io/metamodels/coordinates#",
         "VectorXY": "coord-ext:VectorXY",
         "theta": {
