@@ -1,7 +1,7 @@
 {
     "@contex": {
-        "coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
-        "VectorXY": "coord:VectorXY",
-        "theta": "coord:theta"
+        "coord-ext": "https://hbrs-sesame.github.io/metamodels/coordinates#",
+        "VectorXY": "coord-ext:VectorXY",
+        "theta": "coord-ext:theta"
     }
 }
