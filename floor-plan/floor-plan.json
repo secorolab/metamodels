@@ -1,22 +1,22 @@
 {
     "@context": {
-        "fp": "https://hbrs-sesame.github.io/metamodels/floorplan#",
+        "floorplan": "https://hbrs-sesame.github.io/metamodels/floorplan#",
         "spaces": {
-            "@id": "fp:spaces",
+            "@id": "floorplan:spaces",
             "@container": "@list",
             "@type": "@id"
         },
         "walls": {
-            "@id": "fp:walls",
+            "@id": "floorplan:walls",
             "@container": "@list",
             "@type": "@id"
         },
         "shape": {
-            "@id": "fp:shape",
+            "@id": "floorplan:shape",
             "@type": "@id"
         },
-        "Wall": "fp:Wall",
-        "Space": "fp:Space",
-        "FloorPlan": "fp:FloorPlan"
+        "Wall": "floorplan:Wall",
+        "Space": "floorplan:Space",
+        "FloorPlan": "floorplan:FloorPlan"
     }
 }
