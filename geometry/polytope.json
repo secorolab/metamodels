@@ -17,10 +17,6 @@
             "@id": "poly:z-size",
             "@type": "xsd:double"
         },
-        "theta": {
-            "@id": "poly:theta",
-            "@type": "xsd:double"
-        },
         "points": {
             "@id": "poly:points",
             "@container": "@list",
