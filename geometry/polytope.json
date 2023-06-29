@@ -2,6 +2,7 @@
     "@context": {
         "poly": "https://hbrs-sesame.github.io/metamodels/polytope#",
         "Polytope": "poly:Polytope",
+        "Polygon": "poly:Polygon",
         "3DPolytope": "poly:3DPolytope",
         "Cuboid": "poly:Cuboid",
         "CuboidWithSize": "poly:CuboidWithSize",
