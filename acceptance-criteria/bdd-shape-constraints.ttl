@@ -1,0 +1,74 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix bdd: <https://hbrs-sesame.github.io/metamodels/acceptance-criteria/bdd#> .
+
+# A Scenario has exactly one GivenClause, WhenClause, and ThenClause
+bdd:ScenarioShape
+  a sh:NodeShape ;
+  sh:targetClass bdd:Scenario ;
+  sh:property [
+    sh:path bdd:given ;
+    sh:class bdd:GivenClause ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path bdd:when ;
+    sh:class bdd:WhenClause ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path bdd:then ;
+    sh:class bdd:ThenClause ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+# TODO(minhnh): no dangling GivenClause, WhenClause, and ThenClause
+
+# A ScenarioVariable must be associated with one or more Scenario
+bdd:ScenarioVariableShape
+  a sh:NodeShape ;
+  sh:targetClass bdd:ScenarioVariable ;
+  sh:property [
+    sh:path bdd:of-scenario ;
+    sh:class bdd:Scenario ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+  ] .
+
+# A FluentClause must be asssociated with
+# - exactly one Predicate
+# - one or more TimeConstraint
+# - one or more GivenClause or ThenClause
+bdd:FluentClauseShape
+  a sh:NodeShape ;
+  sh:targetClass bdd:FluentClause ;
+  sh:property [
+    sh:path bdd:predicate ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path bdd:time-constraint ;
+    sh:class bdd:TimeConstraint ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path bdd:clause-of ;
+    sh:minCount 1 ;
+    sh:or (
+      [
+        sh:class bdd:GivenClause ;
+      ]
+      [
+        sh:class bdd:ThenClause ;
+      ]
+    )
+  ] .
