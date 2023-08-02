@@ -1,8 +1,12 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix bdd: <https://hbrs-sesame.github.io/metamodels/acceptance-criteria/bdd#> .
+@prefix task: <https://hbrs-sesame.github.io/metamodels/task#> .
 
-# A Scenario has exactly one GivenClause, WhenClause, and ThenClause
+#######################################
+# Constraints for scenario templates
+#######################################
+# A Scenario has exactly 1 GivenClause, WhenClause, and ThenClause
 bdd:ScenarioShape
   a sh:NodeShape ;
   sh:targetClass bdd:Scenario ;
@@ -30,7 +34,7 @@ bdd:ScenarioShape
 
 # TODO(minhnh): no dangling GivenClause, WhenClause, and ThenClause
 
-# A ScenarioVariable must be associated with one or more Scenario
+# A ScenarioVariable must be associated with 1 or more Scenario
 bdd:ScenarioVariableShape
   a sh:NodeShape ;
   sh:targetClass bdd:ScenarioVariable ;
@@ -41,10 +45,10 @@ bdd:ScenarioVariableShape
     sh:minCount 1 ;
   ] .
 
-# A FluentClause must be asssociated with
-# - exactly one Predicate
-# - one or more TimeConstraint
-# - one or more GivenClause or ThenClause
+# A FluentClause must be associated with
+# - exactly 1 Predicate
+# - 1 or more TimeConstraint
+# - 1 or more GivenClause or ThenClause
 bdd:FluentClauseShape
   a sh:NodeShape ;
   sh:targetClass bdd:FluentClause ;
@@ -71,4 +75,49 @@ bdd:FluentClauseShape
         sh:class bdd:ThenClause ;
       ]
     )
+  ] .
+
+#######################################
+# Constraints for scenario variants
+#######################################
+bdd:VariationShape
+  a sh:NodeShape ;
+  sh:targetClass task:Variation ;
+  sh:property [
+    sh:path bdd:of-variable ;
+    sh:class bdd:ScenarioVariable ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path task:can-be ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+  ] .
+
+bdd:ScenarioVariantShape
+  a sh:NodeShape ;
+  sh:targetClass bdd:ScenarioVariant ;
+  sh:property [
+    sh:path bdd:of-scenario ;
+    sh:class bdd:Scenario ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path task:has-variation ;
+    sh:class task:Variation ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+  ] .
+
+bdd:UserStoryShape
+  a sh:NodeShape ;
+  sh:targetClass bdd:UserStory ;
+  sh:property [
+    sh:path bdd:has-criteria ;
+    sh:class bdd:ScenarioVariant ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
   ] .
