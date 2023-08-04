@@ -32,18 +32,56 @@ bdd:ScenarioShape
     sh:maxCount 1 ;
   ] .
 
-# TODO(minhnh): no dangling GivenClause, WhenClause, and ThenClause
+# bdd:GivenClause, bdd:WhenClause, and bdd:ThenClause must be associtated with exactly 1 bdd:Scenario
+bdd:GivenClauseShape
+  a sh:NodeShape ;
+  sh:targetClass bdd:GivenClause ;
+  sh:property [
+    sh:path [ sh:inversePath bdd:given ] ;
+    sh:class bdd:Scenario ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+bdd:WhenClauseShape
+  a sh:NodeShape ;
+  sh:targetClass bdd:WhenClause ;
+  sh:property [
+    sh:path [ sh:inversePath bdd:when ] ;
+    sh:class bdd:Scenario ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+bdd:ThenClauseShape
+  a sh:NodeShape ;
+  sh:targetClass bdd:ThenClause ;
+  sh:property [
+    sh:path [ sh:inversePath bdd:then ] ;
+    sh:class bdd:Scenario ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+# bdd:of-scenario must refer to a bdd:Scenario
+bdd:OfScenarioShape
+  a sh:PropertyShape ;
+  sh:description ":of-scenario must link to :Scenario" ;
+  sh:path bdd:of-scenario ;
+  sh:class bdd:Scenario ;
+  sh:nodeKind sh:IRI ;
+  sh:minCount 1 .
 
 # A ScenarioVariable must be associated with 1 or more Scenario
 bdd:ScenarioVariableShape
   a sh:NodeShape ;
   sh:targetClass bdd:ScenarioVariable ;
-  sh:property [
-    sh:path bdd:of-scenario ;
-    sh:class bdd:Scenario ;
-    sh:nodeKind sh:IRI ;
-    sh:minCount 1 ;
-  ] .
+  sh:property bdd:OfScenarioShape .
+bdd:OfVariableShape
+  a sh:PropertyShape ;
+  sh:description ":of-variable must link to at least 1 :ScenarioVariable" ;
+  sh:path bdd:of-variable ;
+  sh:class bdd:ScenarioVariable ;
+  sh:nodeKind sh:IRI ;
+  sh:minCount 1 .
 
 # A FluentClause must be associated with
 # - exactly 1 Predicate
@@ -83,13 +121,13 @@ bdd:FluentClauseShape
 bdd:VariationShape
   a sh:NodeShape ;
   sh:targetClass task:Variation ;
-  sh:property [
-    sh:path bdd:of-variable ;
-    sh:class bdd:ScenarioVariable ;
-    sh:nodeKind sh:IRI ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
+  sh:and (
+    bdd:OfVariableShape
+    [
+      sh:path bdd:of-variable ;
+      sh:maxCount 1 ;
+    ]
+	) ;
   sh:property [
     sh:path task:can-be ;
     sh:nodeKind sh:IRI ;
@@ -99,12 +137,7 @@ bdd:VariationShape
 bdd:ScenarioVariantShape
   a sh:NodeShape ;
   sh:targetClass bdd:ScenarioVariant ;
-  sh:property [
-    sh:path bdd:of-scenario ;
-    sh:class bdd:Scenario ;
-    sh:nodeKind sh:IRI ;
-    sh:minCount 1 ;
-  ] ;
+  sh:property bdd:OfScenarioShape ;
   sh:property [
     sh:path task:has-variation ;
     sh:class task:Variation ;
