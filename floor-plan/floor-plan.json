@@ -1,6 +1,6 @@
 {
     "@context": {
-        "floorplan": "https://hbrs-sesame.github.io/metamodels/floorplan#",
+        "floorplan": "https://secorolab.github.io/metamodels/floorplan#",
         "spaces": {
             "@id": "floorplan:spaces",
             "@container": "@list",

@@ -1,6 +1,6 @@
 {
     "@context": {
-        "gzb": "https://hbrs-sesame.github.io/metamodels/gazebo#",
+        "gzb": "https://secorolab.github.io/metamodels/gazebo#",
         "GazeboLinkRepresentation": "gzb:GazeboLinkRepresentation",
         "visual": {
             "@id": "gzb:visual",

@@ -1,6 +1,6 @@
 {
     "@context": {
-        "evt": "https://hbrs-sesame.github.io/metamodels/coordination/event#",
+        "evt": "https://secorolab.github.io/metamodels/coordination/event#",
 
         "Event": { "@id": "evt:Event" },
         "has-event": { "@id": "evt:has-event", "@type": "@id" },

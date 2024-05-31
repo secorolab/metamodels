@@ -1,6 +1,6 @@
 {
     "@context": {
-        "st": "https://hbrs-sesame.github.io/metamodels/state#",
+        "st": "https://secorolab.github.io/metamodels/state#",
         "State": "st:State",
         "Transition": "st:Transition",
         "TransitionTable": "st:TransitionTable",

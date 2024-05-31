@@ -1,7 +1,7 @@
 {
     "@context": {
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "bt": "https://hbrs-sesame.github.io/metamodels/coordination/behaviour-tree#",
+        "bt": "https://secorolab.github.io/metamodels/coordination/behaviour-tree#",
 
         "Action": { "@id": "bt:Action" },
         "of-action": { "@id": "bt:of-action", "@type": "@id" },

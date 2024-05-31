@@ -1,6 +1,6 @@
 {
     "@context": {
-        "coordinate": "https://hbrs-sesame.github.io/metamodels/coordinates#",
+        "coordinate": "https://secorolab.github.io/metamodels/coordinates#",
         "VectorXY": "coordinate:VectorXY",
         "theta": {
             "@id": "coordinate:theta",

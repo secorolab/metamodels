@@ -1,6 +1,6 @@
 {
     "@context": {
-        "obj": "https://hbrs-sesame.github.io/metamodels/object#",
+        "obj": "https://secorolab.github.io/metamodels/object#",
         "Object": "obj:Object",
         "ObjectWithKinematicChain": "obj:ObjectWithKinematicChain",
         "ObjectLink": "obj:ObjectLink",

@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix bdd: <https://hbrs-sesame.github.io/metamodels/acceptance-criteria/bdd#> .
-@prefix task: <https://hbrs-sesame.github.io/metamodels/task#> .
+@prefix bdd: <https://secorolab.github.io/metamodels/acceptance-criteria/bdd#> .
+@prefix task: <https://secorolab.github.io/metamodels/task#> .
 
 #######################################
 # Constraints for scenario templates

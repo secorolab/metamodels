@@ -1,6 +1,6 @@
 {
     "@context": {
-        "env": "https://hbrs-sesame.github.io/metamodels/environment#",
+        "env": "https://secorolab.github.io/metamodels/environment#",
 
         "Object": { "@id": "env:Object" },
         "has-object": { "@id": "env:has-object", "@type": "@id" },

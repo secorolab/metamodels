@@ -1,7 +1,7 @@
 {
     "@context": {
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "py": "https://hbrs-sesame.github.io/metamodels/languages/python#",
+        "py": "https://secorolab.github.io/metamodels/languages/python#",
 
         "module": { "@id": "py:module", "@type": "xsd:string" },
         "class-name": { "@id": "py:class-name", "@type": "xsd:string" },
