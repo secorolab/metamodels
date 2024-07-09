@@ -1,0 +1,12 @@
+remote_theme: pages-themes/minimal@v0.2.0
+plugins:
+- jekyll-remote-theme
+
+# General info
+title: Executable Scenario Metamodels
+logo: assets/img/sesame_logo_tagline.svg
+project_url: https://www.sesame-project.org/
+description: Repository of metamodels created to support the ExSce workbench in the context of the SESAME project
+show_downloads: true
+google_analytics:
+theme: jekyll-theme-minimal
