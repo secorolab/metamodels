@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# ExSce Models
+# ExSce Metamodels
 
 In the below table are all the models created during the development
 of the ExSce Workbench. They are referred to from the various tutorials

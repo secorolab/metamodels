@@ -17,7 +17,7 @@ IGNORE_DIRS = [
     "script",
 ]
 IGNORE_EXTENSIONS = [".html", ".md", ".gitignore", ".gemspec"]
-IGNORE_PATHS = ["_config.yaml", "LICENSE", "Gemfile"]
+IGNORE_FILES = ["_config.yaml", "LICENSE", "Gemfile", "Gemfile.lock"]
 
 PATHS_FILE = "file_paths.yml"
 CUSTOM_DIR_FILE = "custom_dirs.yml"
@@ -37,9 +37,6 @@ def main():
                 custom_view_dirs.append(rel_path)
             continue
 
-        if rel_path in IGNORE_PATHS:
-            continue
-
         skip_dir = False
         for ignore_dir in IGNORE_DIRS:
             if rel_path.startswith(ignore_dir):
@@ -49,6 +46,9 @@ def main():
             continue
 
         dir_name, file_name = os.path.split(rel_path)
+        if file_name in IGNORE_FILES:
+            continue
+
         _, extension = os.path.splitext(file_name)
 
         if extension in IGNORE_EXTENSIONS:
