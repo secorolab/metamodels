@@ -30,6 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: 'gh-pages'
+          submodules: 'true'
       - name: Populate data files
         run: python scripts/generate_dir_tree.py
       - name: Setup Pages
