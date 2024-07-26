@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Author: Minh Nguyen (minh@mail.minhnh.com)
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix py: <https://secorolab.github.io/metamodels/languages/python#> .
+
+py:ModuleAttributeShape
+    a sh:NodeShape ;
+    sh:property [
+        sh:path py:module-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path py:attribute-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .
