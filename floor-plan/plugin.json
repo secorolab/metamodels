@@ -1,0 +1,28 @@
+{
+    "@context": {
+        "pl": "https://secorolab.github.io/metamodels/plugin#",
+        "Plugin": "pl:Plugin",
+        "PluginConfiguration": "pl:PluginConfiguration",
+        "config": {
+            "@id": "pl:config",
+            "@type": "PluginConfiguration"
+        },
+        "plugin": {
+            "@id": "pl:plugin",
+            "@type": "PluginConfiguration"
+        },
+        "plugin-type": {
+            "@id": "pl:plugin-type",
+            "@type": "PluginConfiguration"
+        },
+        "distance": {
+            "@id": "pl:distance",
+            "@type": "PluginConfiguration"
+        },
+        "uri": {
+            "@id": "pl:uri",
+            "@type": "PluginConfiguration"
+        }
+    }
+}
+

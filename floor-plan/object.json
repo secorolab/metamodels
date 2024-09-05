@@ -72,6 +72,10 @@
         "world": {
             "@id": "obj:world",
             "@type": "@id"
+        },
+        "plugins": {
+            "@id": "obj:plugins",
+            "@type": "@id"
         }
     } 
 }
