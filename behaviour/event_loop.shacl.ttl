@@ -1,0 +1,54 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Author: Minh Nguyen (minh@mail.minhnh.com)
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix el: <https://secorolab.github.io/metamodels/behaviour/event_loop#> .
+
+el:RefEventShape
+  a sh:PropertyShape ;
+  sh:description ":ref-event must link to exactly 1 :Event" ;
+  sh:path el:ref-event ;
+  sh:class el:Event ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+el:RefFlagShape
+  a sh:PropertyShape ;
+  sh:description ":ref-flag must link to exactly 1 :Flag" ;
+  sh:path el:ref-flag ;
+  sh:class el:Flag ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+el:EventLoopShape
+  a sh:NodeShape ;
+  sh:targetClass el:EventLoop ;
+  sh:property [
+    sh:path el:has-event ;
+    sh:class el:Event ;
+    sh:minCount 0 ;
+  ] ;
+  sh:property [
+    sh:path el:has-flag ;
+    sh:class el:Flag ;
+    sh:minCount 0 ;
+  ] ;
+  sh:property [
+    sh:path el:has-evt-reaction ;
+    sh:class el:EventReaction ;
+    sh:minCount 0 ;
+  ] ;
+  sh:property [
+    sh:path el:has-flg-reaction ;
+    sh:class el:FlagReaction ;
+    sh:minCount 0 ;
+  ] .
+
+el:EventReactionShape
+  a sh:NodeShape ;
+  sh:targetClass el:EventReaction ;
+  sh:property el:RefEventShape .
+
+el:FlagReactionShape
+  a sh:NodeShape ;
+  sh:targetClass el:FlagReaction ;
+  sh:property el:RefFlagShape .
