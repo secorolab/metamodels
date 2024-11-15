@@ -1,9 +1,0 @@
-{
-    "@context": {
-        "task": "https://secorolab.github.io/metamodels/task#",
-
-        "Variation": { "@id": "task:Variation" },
-        "has-variation": { "@id": "task:has-variation", "@type": "@id" },
-        "can-be": { "@id": "task:can-be", "@type": "@id" }
-    }
-}

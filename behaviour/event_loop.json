@@ -1,0 +1,20 @@
+{
+    "@context": {
+        "el": "https://secorolab.github.io/metamodels/behaviour/event_loop#",
+        "EventLoop": { "@id": "el:EventLoop" },
+
+        "Event": { "@id": "el:Event" },
+        "has-event": { "@id": "el:has-event", "@type": "@id" },
+        "ref-event": { "@id": "el:ref-event", "@type": "@id" },
+
+        "Flag": { "@id": "el:Flag" },
+        "has-flag": { "@id": "el:has-flag", "@type": "@id" },
+        "ref-flag": { "@id": "el:ref-flag", "@type": "@id" },
+
+        "EventReaction": { "@id": "el:EventReaction" },
+        "has-evt-reaction": { "@id": "el:has-evt-reaction", "@type": "@id" },
+
+        "FlagReaction": { "@id": "el:FlagReaction" },
+        "has-flg-reaction": { "@id": "el:has-flg-reaction", "@type": "@id" }
+    }
+}

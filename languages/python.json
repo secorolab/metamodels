@@ -3,8 +3,11 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "py": "https://secorolab.github.io/metamodels/languages/python#",
 
-        "module": { "@id": "py:module", "@type": "xsd:string" },
-        "class-name": { "@id": "py:class-name", "@type": "xsd:string" },
+        "PyClass": { "@id": "py:Class" },
+        "PyModuleAttribute": { "@id": "py:ModuleAttribute" },
+        "module-name": { "@id": "py:module-name", "@type": "xsd:string" },
+        "attribute-name": { "@id": "py:attribute-name", "@type": "xsd:string" },
+
         "ArgValue": { "@id": "py:ArgValue" },
         "ArgName": { "@id": "py:ArgName", "@type": "xsd:string" }
     }
