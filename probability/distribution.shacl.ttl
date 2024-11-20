@@ -1,0 +1,48 @@
+# SPDX-License-Identifier:  MPL-2.0
+# Author: Minh Nguyen (minh@mail.minhnh.com)
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix distrib: <https://secorolab.github.io/metamodels/probability/distribution#> .
+
+distrib:SampledQuantityShape
+  a sh:NodeShape ;
+  sh:targetClass distrib:SampledQuantity;
+  sh:property [
+    sh:path distrib:from-distribution ;
+    sh:class distrib:Distribution ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+distrib:DimensionShape
+  a sh:PropertyShape ;
+  sh:description ":dimension property must be a positive integer" ;
+  sh:path distrib:dimension ;
+  sh:datatype xsd:positiveInteger ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+distrib:UniformShape
+  a sh:NodeShape ;
+  sh:targetClass distrib:Uniform ;
+  sh:property distrib:DimensionShape ;
+  sh:property [
+    sh:path distrib:lower-bound ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path distrib:upper-bound ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+distrib:NormalShape
+  a sh:NodeShape ;
+  sh:targetClass distrib:Normal ;
+  sh:property distrib:DimensionShape ;
+  sh:property [
+    sh:path distrib:mean ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
