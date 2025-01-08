@@ -9,10 +9,6 @@
         "beta": {
             "@id": "coordinate:beta",
             "@type": "xsd:double"
-        },
-        "with-respect-to": {
-            "@id": "geom-coord:with-respect-to",
-            "@type": "@id"
         }
     }
 }
