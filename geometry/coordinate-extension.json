@@ -2,9 +2,17 @@
     "@context": {
         "coordinate": "https://secorolab.github.io/metamodels/coordinates#",
         "VectorXY": "coordinate:VectorXY",
-        "theta": {
-            "@id": "coordinate:theta",
+        "alpha": {
+            "@id": "coordinate:alpha",
             "@type": "xsd:double"
+        },
+        "beta": {
+            "@id": "coordinate:beta",
+            "@type": "xsd:double"
+        },
+        "with-respect-to": {
+            "@id": "geom-coord:with-respect-to",
+            "@type": "@id"
         }
     }
 }
