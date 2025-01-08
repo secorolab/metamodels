@@ -11,11 +11,23 @@
             "@container": "@list",
             "@type": "@id"
         },
+        "features": {
+            "@id": "floorplan:features",
+            "@container": "@list",
+            "@type": "@id"
+        },
+        "openings": {
+            "@id": "floorplan:openings",
+            "@container": "@list",
+            "@type": "@id"
+        },
         "shape": {
             "@id": "floorplan:shape",
             "@type": "@id"
         },
         "Wall": "floorplan:Wall",
+        "Feature": "floorplan:Feature",
+        "Opening": "floorplan:Opening",
         "Space": "floorplan:Space",
         "FloorPlan": "floorplan:FloorPlan"
     }
