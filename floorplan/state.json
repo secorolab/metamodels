@@ -1,6 +1,6 @@
 {
     "@context": {
-        "st": "https://secorolab.github.io/metamodels/state#",
+        "st": "https://secorolab.github.io/metamodels/floorplan/state#",
         "State": "st:State",
         "Transition": "st:Transition",
         "TransitionTable": "st:TransitionTable",

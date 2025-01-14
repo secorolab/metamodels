@@ -1,6 +1,6 @@
 {
     "@context": {
-        "poly": "https://secorolab.github.io/metamodels/polytope#",
+        "poly": "https://secorolab.github.io/metamodels/geometry/polytope#",
 
         "Polytope": "poly:Polytope",
         "Polygon": "poly:Polygon",

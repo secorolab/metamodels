@@ -1,6 +1,6 @@
 {
     "@context": {
-        "coordinate": "https://secorolab.github.io/metamodels/coordinates#",
+        "coordinate": "https://secorolab.github.io/metamodels/geometry/coordinates#",
         "VectorXY": "coordinate:VectorXY",
         "alpha": {
             "@id": "coordinate:alpha",
