@@ -1,0 +1,30 @@
+{
+    "@context": {
+        "coordinate": "https://secorolab.github.io/metamodels/geometry/coordinates#",
+        "VectorXY": "coordinate:VectorXY",
+        "alpha": {
+            "@id": "coordinate:alpha",
+            "@type": "xsd:double"
+        },
+        "beta": {
+            "@id": "coordinate:beta",
+            "@type": "xsd:double"
+        },
+        "gamma": {
+            "@id": "coordinate:gamma",
+            "@type": "xsd:double"
+        },
+        "yaw": {
+            "@id": "coordinate:yaw",
+            "@type": "xsd:double"
+        },
+        "pitch": {
+            "@id": "coordinate:pitch",
+            "@type": "xsd:double"
+        },
+        "roll": {
+            "@id": "coordinate:roll",
+            "@type": "xsd:double"
+        }
+    }
+}

@@ -1,25 +1,18 @@
 {
     "@context": {
-        "poly": "https://secorolab.github.io/metamodels/polytope#",
+        "poly": "https://secorolab.github.io/metamodels/geometry/polytope#",
+
         "Polytope": "poly:Polytope",
         "Polygon": "poly:Polygon",
-        "3DPolytope": "poly:3DPolytope",
-        "Cuboid": "poly:Cuboid",
-        "CuboidWithSize": "poly:CuboidWithSize",
-        "x-size": {
-            "@id": "poly:x-size",
-            "@type": "xsd:double"
-        },
-        "y-size": {
-            "@id": "poly:y-size",
-            "@type": "xsd:double"
-        },
-        "z-size": {
-            "@id": "poly:z-size",
-            "@type": "xsd:double"
-        },
+        "Polyhedron": "poly:Polyhedron",
+
         "points": {
             "@id": "poly:points",
+            "@container": "@list",
+            "@type": "@id"
+        },
+        "faces": {
+            "@id": "poly:faces",
             "@container": "@list",
             "@type": "@id"
         }
