@@ -27,7 +27,11 @@
         },
         "Wall": "floorplan:Wall",
         "Feature": "floorplan:Feature",
+        "Column": "floorplan:Column",
+        "Divider": "floorplan:Divider",
         "Opening": "floorplan:Opening",
+        "Entryway": "floorplan:Entryway",
+        "Window": "floorplan:Window",
         "Space": "floorplan:Space",
         "FloorPlan": "floorplan:FloorPlan"
     }
