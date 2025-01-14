@@ -1,6 +1,6 @@
 {
     "@context": {
-        "floorplan": "https://secorolab.github.io/metamodels/floorplan#",
+        "floorplan": "https://secorolab.github.io/metamodels/floorplan/floorplan#",
         "spaces": {
             "@id": "floorplan:spaces",
             "@container": "@list",
