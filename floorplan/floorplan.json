@@ -25,6 +25,11 @@
             "@id": "floorplan:shape",
             "@type": "@id"
         },
+        "voids": {
+            "@id": "floorplan:voids",
+            "@container": "@list",
+            "@type": "@id"
+        },
         "Wall": "floorplan:Wall",
         "Feature": "floorplan:Feature",
         "Column": "floorplan:Column",
