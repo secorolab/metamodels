@@ -25,6 +25,10 @@
             "@id": "floorplan:shape",
             "@type": "@id"
         },
+        "3d-shape": {
+            "@id": "floorplan:3d-shape",
+            "@type": "@id"
+        },
         "voids": {
             "@id": "floorplan:voids",
             "@container": "@list",
