@@ -30,6 +30,14 @@
             "@container": "@list",
             "@type": "@id"
         },
+        "thickness": {
+            "@id": "floorplan:thickness",
+            "@type": "xsd:double"
+        },
+        "height": {
+            "@id": "floorplan:height",
+            "@type": "xsd:double"
+        },
         "Wall": "floorplan:Wall",
         "Feature": "floorplan:Feature",
         "Column": "floorplan:Column",
