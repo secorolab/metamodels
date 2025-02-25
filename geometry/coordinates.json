@@ -1,29 +1,34 @@
 {
     "@context": {
-        "coordinate": "https://secorolab.github.io/metamodels/geometry/coordinates#",
-        "VectorXY": "coordinate:VectorXY",
+        "geom-coord-scr": "https://secorolab.github.io/metamodels/geometry/coordinates#",
+
+        "Quaternion": { "@id": "geom-coord-scr:Quaternion" },
+        "RotationMatrix": { "@id": "geom-coord-scr:RotationMatrix" },
+        "EulerAngles": { "@id": "geom-coord-scr:EulerAngles" },
+
+        "VectorXY": "geom-coord-scr:VectorXY",
         "alpha": {
-            "@id": "coordinate:alpha",
+            "@id": "geom-coord-scr:alpha",
             "@type": "xsd:double"
         },
         "beta": {
-            "@id": "coordinate:beta",
+            "@id": "geom-coord-scr:beta",
             "@type": "xsd:double"
         },
         "gamma": {
-            "@id": "coordinate:gamma",
+            "@id": "geom-coord-scr:gamma",
             "@type": "xsd:double"
         },
         "yaw": {
-            "@id": "coordinate:yaw",
+            "@id": "geom-coord-scr:yaw",
             "@type": "xsd:double"
         },
         "pitch": {
-            "@id": "coordinate:pitch",
+            "@id": "geom-coord-scr:pitch",
             "@type": "xsd:double"
         },
         "roll": {
-            "@id": "coordinate:roll",
+            "@id": "geom-coord-scr:roll",
             "@type": "xsd:double"
         }
     }
