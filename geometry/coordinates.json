@@ -1,10 +1,15 @@
 {
     "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
         "geom-coord-scr": "https://secorolab.github.io/metamodels/geometry/coordinates#",
 
         "Quaternion": { "@id": "geom-coord-scr:Quaternion" },
-        "RotationMatrix": { "@id": "geom-coord-scr:RotationMatrix" },
+
         "EulerAngles": { "@id": "geom-coord-scr:EulerAngles" },
+        "axes-sequence": {
+            "@id": "geom-coord-scr:axes-sequence",
+            "@type": "xsd:string"
+        },
 
         "VectorXY": "geom-coord-scr:VectorXY",
         "alpha": {

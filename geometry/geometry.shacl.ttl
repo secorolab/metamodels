@@ -1,0 +1,49 @@
+# SPDX-License-Identifier:  MPL-2.0
+# Author: Minh Nguyen (minh@mail.minhnh.com)
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
+@prefix geom-coord-scr: <https://secorolab.github.io/metamodels/geometry/coordinates#> .
+@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
+
+geom-coord:AsSeenByShape
+  a sh:PropertyShape ;
+  sh:path geom-coord:as-seen-by ;
+  sh:class geom:Frame ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+geom-coord:PositionCoordinateShape
+  a sh:NodeShape ;
+  sh:targetClass geom-coord:PositionCoordinate ;
+  sh:property [
+    sh:path geom-coord:of-position ;
+    sh:class geom-rel:Position ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property geom-coord:AsSeenByShape .
+
+geom-coord:PoseCoordinateShape
+  a sh:NodeShape ;
+  sh:targetClass geom-coord:PoseCoordinate ;
+  sh:property [
+    sh:path geom-coord:of-pose ;
+    sh:class geom-rel:Pose ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property geom-coord:AsSeenByShape .
+
+geom-coord-scr:EulerAnglesShape
+  a sh:NodeShape ;
+  sh:targetClass geom-coord-scr:EulerAngles ;
+  sh:property [
+    sh:path geom-coord-scr:axes-sequence ;
+    sh:datatype xsd:string ;
+    sh:pattern "^(xyz|xzy|yxz|yzx|zxy|zyx|xyx|xzx|yxy|yzy|zxz|zyz)$";
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
