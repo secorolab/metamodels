@@ -7,6 +7,56 @@
 @prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 @prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
 
+# **********
+# Relation constraints
+geom-rel:PositionShape
+  a sh:NodeShape ;
+  sh:targetClass geom-rel:Position ;
+  sh:property [
+    sh:path geom-rel:of ;
+    sh:class geom:Point ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path geom-rel:with-respect-to ;
+    sh:class geom:Point ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+geom-rel:OrientationShape
+  a sh:NodeShape ;
+  sh:targetClass geom-rel:Orientation ;
+  sh:property [
+    sh:path geom-rel:of ;
+    sh:class geom:Frame ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path geom-rel:with-respect-to ;
+    sh:class geom:Frame ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+geom-rel:PoseShape
+  a sh:NodeShape ;
+  sh:targetClass geom-rel:Pose ;
+  sh:property [
+    sh:path geom-rel:of ;
+    sh:class geom:Frame ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path geom-rel:with-respect-to ;
+    sh:class geom:Frame ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+# **********
+# Coordinates constraints
 geom-coord:AsSeenByShape
   a sh:PropertyShape ;
   sh:path geom-coord:as-seen-by ;
