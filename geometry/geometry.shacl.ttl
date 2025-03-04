@@ -64,26 +64,34 @@ geom-coord:AsSeenByShape
   sh:minCount 1 ;
   sh:maxCount 1 .
 
-geom-coord:PositionCoordinateShape
+geom-coord:PositionReferenceShape
   a sh:NodeShape ;
-  sh:targetClass geom-coord:PositionCoordinate ;
+  sh:targetClass geom-coord:PositionReference ;
   sh:property [
     sh:path geom-coord:of-position ;
     sh:class geom-rel:Position ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
-  ] ;
+  ] .
+
+geom-coord:PositionCoordinateShape
+  a sh:NodeShape ;
+  sh:targetClass geom-coord:PositionCoordinate ;
   sh:property geom-coord:AsSeenByShape .
 
-geom-coord:PoseCoordinateShape
+geom-coord:PoseReferenceShape
   a sh:NodeShape ;
-  sh:targetClass geom-coord:PoseCoordinate ;
+  sh:targetClass geom-coord:PoseReference ;
   sh:property [
     sh:path geom-coord:of-pose ;
     sh:class geom-rel:Pose ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
-  ] ;
+  ] .
+
+geom-coord:PoseCoordinateShape
+  a sh:NodeShape ;
+  sh:targetClass geom-coord:PoseCoordinate ;
   sh:property geom-coord:AsSeenByShape .
 
 geom-coord-scr:EulerAnglesShape
