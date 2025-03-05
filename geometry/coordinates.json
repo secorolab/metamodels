@@ -1,29 +1,32 @@
 {
     "@context": {
-        "coordinate": "https://secorolab.github.io/metamodels/geometry/coordinates#",
-        "VectorXY": "coordinate:VectorXY",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "geom-coord-scr": "https://secorolab.github.io/metamodels/geometry/coordinates#",
+
+        "VectorXY": "geom-coord-scr:VectorXY",
+
+        "Quaternion": { "@id": "geom-coord-scr:Quaternion" },
+        "w": { "@id": "geom-coord-scr:w", "@type": "xsd:double" },
+
+        "EulerAngles": { "@id": "geom-coord-scr:EulerAngles" },
+        "Intrinsic": { "@id": "geom-coord-scr:Intrinsic" },
+        "Extrinsic": { "@id": "geom-coord-scr:Extrinsic" },
+        "axes-sequence": {
+            "@id": "geom-coord-scr:axes-sequence",
+            "@type": "xsd:string"
+        },
+
+        "AnglesABG": { "@id": "geom-coord-scr:AnglesAlphaBetaGamma" },
         "alpha": {
-            "@id": "coordinate:alpha",
+            "@id": "geom-coord-scr:alpha",
             "@type": "xsd:double"
         },
         "beta": {
-            "@id": "coordinate:beta",
+            "@id": "geom-coord-scr:beta",
             "@type": "xsd:double"
         },
         "gamma": {
-            "@id": "coordinate:gamma",
-            "@type": "xsd:double"
-        },
-        "yaw": {
-            "@id": "coordinate:yaw",
-            "@type": "xsd:double"
-        },
-        "pitch": {
-            "@id": "coordinate:pitch",
-            "@type": "xsd:double"
-        },
-        "roll": {
-            "@id": "coordinate:roll",
+            "@id": "geom-coord-scr:gamma",
             "@type": "xsd:double"
         }
     }
