@@ -2,6 +2,7 @@
 # Author: Minh Nguyen (minh@mail.minhnh.com)
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
 @prefix geom-coord-scr: <https://secorolab.github.io/metamodels/geometry/coordinates#> .
 @prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
@@ -105,3 +106,28 @@ geom-coord-scr:EulerAnglesShape
     sh:maxCount 1 ;
   ] .
 
+geom-coord-scr:AnglesAlphaBetaGammaShape
+  a sh:NodeShape ;
+  sh:targetClass geom-coord-scr:AnglesAlphaBetaGamma ;
+  sh:property [
+    sh:path qudt:unit ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path geom-coord-scr:alpha ;
+    sh:datatype xsd:double ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path geom-coord-scr:beta ;
+    sh:datatype xsd:double ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path geom-coord-scr:gamma ;
+    sh:datatype xsd:double ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
