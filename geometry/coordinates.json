@@ -4,7 +4,9 @@
         "geom-coord-scr": "https://secorolab.github.io/metamodels/geometry/coordinates#",
 
         "VectorXY": "geom-coord-scr:VectorXY",
+
         "Quaternion": { "@id": "geom-coord-scr:Quaternion" },
+        "w": { "@id": "geom-coord-scr:w", "@type": "xsd:double" },
 
         "EulerAngles": { "@id": "geom-coord-scr:EulerAngles" },
         "Intrinsic": { "@id": "geom-coord-scr:Intrinsic" },
