@@ -4,7 +4,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
-@prefix geom-coord-scr: <https://secorolab.github.io/metamodels/geometry/coordinates#> .
 @prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 @prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
 
@@ -95,38 +94,38 @@ geom-coord:PoseCoordinateShape
   sh:targetClass geom-coord:PoseCoordinate ;
   sh:property geom-coord:AsSeenByShape .
 
-geom-coord-scr:EulerAnglesShape
+geom-coord:EulerAnglesShape
   a sh:NodeShape ;
-  sh:targetClass geom-coord-scr:EulerAngles ;
+  sh:targetClass geom-coord:EulerAngles ;
   sh:property [
-    sh:path geom-coord-scr:axes-sequence ;
+    sh:path geom-coord:axes-sequence ;
     sh:datatype xsd:string ;
     sh:pattern "^(xyz|xzy|yxz|yzx|zxy|zyx|xyx|xzx|yxy|yzy|zxz|zyz)$";
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] .
 
-geom-coord-scr:AnglesAlphaBetaGammaShape
+geom-coord:AnglesAlphaBetaGammaShape
   a sh:NodeShape ;
-  sh:targetClass geom-coord-scr:AnglesAlphaBetaGamma ;
+  sh:targetClass geom-coord:AnglesAlphaBetaGamma ;
   sh:property [
     sh:path qudt:unit ;
     sh:minCount 1 ;
   ] ;
   sh:property [
-    sh:path geom-coord-scr:alpha ;
+    sh:path geom-coord:alpha ;
     sh:datatype xsd:double ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
-    sh:path geom-coord-scr:beta ;
+    sh:path geom-coord:beta ;
     sh:datatype xsd:double ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
-    sh:path geom-coord-scr:gamma ;
+    sh:path geom-coord:gamma ;
     sh:datatype xsd:double ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
