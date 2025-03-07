@@ -1,32 +1,32 @@
 {
     "@context": {
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "geom-coord-scr": "https://secorolab.github.io/metamodels/geometry/coordinates#",
+        "geom-coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
 
-        "VectorXY": "geom-coord-scr:VectorXY",
+        "VectorXY": "geom-coord:VectorXY",
 
-        "Quaternion": { "@id": "geom-coord-scr:Quaternion" },
-        "w": { "@id": "geom-coord-scr:w", "@type": "xsd:double" },
+        "Quaternion": { "@id": "geom-coord:Quaternion" },
+        "w": { "@id": "geom-coord:w", "@type": "xsd:double" },
 
-        "EulerAngles": { "@id": "geom-coord-scr:EulerAngles" },
-        "Intrinsic": { "@id": "geom-coord-scr:Intrinsic" },
-        "Extrinsic": { "@id": "geom-coord-scr:Extrinsic" },
+        "EulerAngles": { "@id": "geom-coord:EulerAngles" },
+        "Intrinsic": { "@id": "geom-coord:Intrinsic" },
+        "Extrinsic": { "@id": "geom-coord:Extrinsic" },
         "axes-sequence": {
-            "@id": "geom-coord-scr:axes-sequence",
+            "@id": "geom-coord:axes-sequence",
             "@type": "xsd:string"
         },
 
-        "AnglesABG": { "@id": "geom-coord-scr:AnglesAlphaBetaGamma" },
+        "AnglesABG": { "@id": "geom-coord:AnglesAlphaBetaGamma" },
         "alpha": {
-            "@id": "geom-coord-scr:alpha",
+            "@id": "geom-coord:alpha",
             "@type": "xsd:double"
         },
         "beta": {
-            "@id": "geom-coord-scr:beta",
+            "@id": "geom-coord:beta",
             "@type": "xsd:double"
         },
         "gamma": {
-            "@id": "geom-coord-scr:gamma",
+            "@id": "geom-coord:gamma",
             "@type": "xsd:double"
         }
     }
