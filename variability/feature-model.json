@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "fm": "https://secorolab.github.io/metamodels/variability/feature-model#",
+
+    "Feature": { "@id": "fm:Feature" },
+    "RootFeature": {
+      "@id": "fm:RootFeature"
+    },
+    "SolitaryFeature": { "@id": "fm:SolitaryFeature" },
+    "GroupedFeature": { "@id": "fm:GroupedFeature" },
+    "Group": { "@id": "fm:Group" },
+    "OrGroup": { "@id": "fm:OrGroup" },
+    "XORGroup": { "@id": "fm:XORGroup" },
+
+    "features": {
+      "@id": "fm:features"
+    },
+    "group-members": {
+      "@id": "fm:group-members",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "optional-subfeatures": {
+      "@id": "fm:optional-subfeatures",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "mandatory-subfeatures": {
+      "@id": "fm:mandatory-subfeatures",
+      "@container": "@set",
+      "@type": "@id"
+    }
+  }
+}
