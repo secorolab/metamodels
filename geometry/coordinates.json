@@ -28,6 +28,10 @@
         "gamma": {
             "@id": "geom-coord:gamma",
             "@type": "xsd:double"
+        },
+        "coordinates": {
+            "@id": "geom-coord:coordinates",
+            "@container": "@list"
         }
     }
 }
