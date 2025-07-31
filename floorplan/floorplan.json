@@ -34,6 +34,10 @@
             "@container": "@list",
             "@type": "@id"
         },
+        "fills": {
+            "@id": "floorplan:fills",
+            "@type": "@id"
+        },
         "thickness": {
             "@id": "floorplan:thickness",
             "@type": "xsd:double"
@@ -46,6 +50,9 @@
         "Feature": "floorplan:Feature",
         "Column": "floorplan:Column",
         "Divider": "floorplan:Divider",
+        "Door": "floorplan:Door",
+        "DoorLining": "floorplan:DoorLining",
+        "DoorPanel": "floorplan:DoorPanel",
         "Opening": "floorplan:Opening",
         "Entryway": "floorplan:Entryway",
         "Window": "floorplan:Window",
