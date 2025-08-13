@@ -5,6 +5,7 @@
         "Polytope": "poly:Polytope",
         "Polygon": "poly:Polygon",
         "Polyhedron": "poly:Polyhedron",
+        "Circle": "poly:Circle",
 
         "points": {
             "@id": "poly:points",
@@ -30,6 +31,18 @@
         "z-size": {
             "@id": "poly:z-size",
             "@type": "xsd:double"
+        },
+        "radius": {
+            "@id": "poly:radius",
+            "@type": "xsd:double"
+        },
+        "diameter": {
+            "@id": "poly:diameter",
+            "@type": "xsd:double"
+        },
+        "center": {
+            "@id": "poly:center",
+            "@type": "@id"
         }
     }
 }
