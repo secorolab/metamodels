@@ -43,6 +43,24 @@
         "center": {
             "@id": "poly:center",
             "@type": "@id"
+        },
+        "Cylinder": {
+            "@id": "poly:Cylinder",
+            "@context": {
+                "base": {
+                    "@id": "poly:base",
+                    "@type": "@id"
+                },
+                "height": {
+                    "@id": "poly:height",
+                    "@type": "xsd:double"
+                },
+                "axis": {
+                    "@id": "poly:axis",
+                    "@type": "xsd:double",
+                    "@container": "@list"
+                }
+            }
         }
     }
 }
