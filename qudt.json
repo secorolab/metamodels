@@ -1,0 +1,15 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "qudt-schema": "http://qudt.org/schema/qudt/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+         "unit": {
+            "@id": "qudt-schema:unit",
+            "@type": "@id",
+            "@container" : "@list",
+            "@context": {
+                "@base": "http://qudt.org/vocab/unit/"
+            }
+        }
+    }
+}
