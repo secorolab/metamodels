@@ -1,0 +1,84 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "prov": "http://www.w3.org/ns/prov#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "dcterms": "http://purl.org/dc/terms/",
+
+
+        "Entity": "prov:Entity",
+        "Agent": "prov:Agent",
+        "Activity": "prov:Activity",
+        "Collection": "prov:Collection",
+        "Bundle": "prov:Bundle",
+
+        "wasGeneratedBy": {
+            "@id": "prov:wasGeneratedBy",
+            "@type": "@id"
+        },
+        "wasDerivedFrom": {
+            "@id": "prov:wasDerivedFrom",
+            "@type": "@id"
+        },
+        "wasAttributedTo": {
+            "@id": "prov:wasAttributedTo",
+            "@type": "@id"
+        },
+        "startedAtTime": {
+            "@id": "prov:startedAtTime",
+            "@type": "xsd:dateTime"
+        },
+        "used": {
+            "@id": "prov:used",
+            "@type": "@id"
+        },
+        "wasInformedBy": {
+            "@id": "prov:wasInformedBy",
+            "@type": "@id"
+        },
+        "endedAtTime": {
+            "@id": "prov:endedAtTime",
+            "@type": "xsd:dateTime"
+        },
+        "wasAssociatedWith": {
+            "@id": "prov:wasAssociatedWith",
+            "@type": "@id"
+        },
+        "actedOnBehalfOf": {
+            "@id": "prov:actedOnBehalfOf",
+            "@type": "@id"
+        },
+
+        "atLocation": {
+            "@id": "prov:atLocation"
+        },
+        "hadMember": {
+            "@id": "prov:hadMember",
+            "@type": "@id"
+        },
+        "generatedAtTime": {
+            "@id": "prov:generatedAtTime",
+            "@type": "xsd:dateTime"
+        },
+        "specializationOf": {
+            "@id": "prov:specializationOf",
+            "@type": "@id"
+        },
+        "wasRevisionOf": {
+            "@id": "prov:wasRevisionOf",
+            "@type": "@id"
+        },
+        "wasInvalidatedBy": {
+            "@id": "prov:wasInvalidatedBy",
+            "@type": "@id"
+        },
+        "alternateOf": {
+            "@id": "prov:alternateOf",
+            "@type": "@id"
+        },
+        "references": {
+            "@id": "dcterms:references",
+            "@type": "@id"
+        }
+    }
+}
