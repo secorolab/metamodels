@@ -1,0 +1,25 @@
+{
+    "@context": {
+        "mm": "https://secorolab.github.io/metamodels/scenarios#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+        "AbstractScenario": "mm:AbstractScenario",
+        "ConcreteScenario": "mm:ConcreteScenario",
+
+        "TestRun": "mm:TestRun",
+        "run_number": {
+            "@type": "xsd:int"
+        },
+
+        "Environment": "mm:Environment",
+        "Mesh": "mm:Mesh",
+        "OccupancyGrid": "mm:OccupancyGrid",
+        "GazeboModel": "mm:GazeboModel",
+
+        "Artefact": "mm:Artefact",
+
+        "Robot": "mm:Robot",
+        "ConfigFile": "mm:ConfigFile"
+
+    }
+}
