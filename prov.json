@@ -24,6 +24,10 @@
             "@id": "prov:wasAttributedTo",
             "@type": "@id"
         },
+        "wasInfluencedBy": {
+            "@id": "prov:wasInfluencedBy",
+            "@type": "@id"
+        },
         "startedAtTime": {
             "@id": "prov:startedAtTime",
             "@type": "xsd:dateTime"
@@ -50,7 +54,8 @@
         },
 
         "atLocation": {
-            "@id": "prov:atLocation"
+            "@id": "prov:atLocation",
+            "@type": "@id"
         },
         "hadMember": {
             "@id": "prov:hadMember",
@@ -79,6 +84,10 @@
         "references": {
             "@id": "dcterms:references",
             "@type": "@id"
+        },
+        "hasVersion": {
+            "@id": "dcterms:hasVersion",
+            "@type": "xsd:string"
         }
     }
 }
