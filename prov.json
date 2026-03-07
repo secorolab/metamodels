@@ -8,6 +8,9 @@
 
         "Entity": "prov:Entity",
         "Agent": "prov:Agent",
+        "Person": "prov:Person",
+        "SoftwareAgent": "prov:SoftwareAgent",
+        "Organization": "prov:Organization",
         "Activity": "prov:Activity",
         "Collection": "prov:Collection",
         "Bundle": "prov:Bundle",
