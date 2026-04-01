@@ -1,0 +1,111 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fsm: <https://secorolab.github.io/metamodels/behaviour/fsm#> .
+@prefix el: <https://secorolab.github.io/metamodels/behaviour/event_loop#> .
+
+fsm:FSMShape
+  a sh:NodeShape ;
+  sh:targetClass fsm:FSM ;
+
+  sh:property [
+    sh:path fsm:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:description ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:states ;
+    sh:node fsm:StateShape ;
+    sh:minCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:start-state ;
+    sh:class fsm:State ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:end-state ;
+    sh:class fsm:State ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:current-state ;
+    sh:class fsm:State ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:events ;
+    sh:class el:Event ;
+    sh:minCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:transitions ;
+    sh:node fsm:TransitionShape ;
+    sh:minCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:reactions ;
+    sh:node fsm:ReactionShape ;
+    sh:minCount 1 ;
+  ] .
+
+fsm:StateShape
+  a sh:NodeShape ;
+  sh:targetClass fsm:State .
+
+fsm:TransitionShape
+  a sh:NodeShape ;
+  sh:targetClass fsm:Transition ;
+
+  sh:property [
+    sh:path fsm:transition-from ;
+    sh:class fsm:State ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:transition-to ;
+    sh:class fsm:State ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+fsm:ReactionShape
+  a sh:NodeShape ;
+  sh:targetClass fsm:Reaction ;
+
+  sh:property [
+    sh:path fsm:when-event ;
+    sh:class el:Event ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:do-transition ;
+    sh:class fsm:Transition ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:fires-events ;
+    sh:class el:Event ;
+  ] .

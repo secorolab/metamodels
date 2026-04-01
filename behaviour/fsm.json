@@ -1,0 +1,68 @@
+{
+    "@context": {
+        "fsm": "https://secorolab.github.io/metamodels/behaviour/fsm#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+        "FSM": "fsm:FSM",
+
+        "name": { "@id": "fsm:name", "@type": "xsd:string" },
+        "description": { "@id": "fsm:description", "@type": "xsd:string" },
+
+        "State": "fsm:State",
+        "Transition": {
+            "@id": "fsm:Transition",
+            "@context": {
+                "transition-from": {
+                    "@id": "fsm:transition-from",
+                    "@type": "@id"
+                },
+                "transition-to": {
+                    "@id": "fsm:transition-to",
+                    "@type": "@id"
+                }
+            }
+        },
+        "Reaction": { 
+            "@id": "fsm:Reaction",
+            "@context": {
+                "when-event": {
+                    "@id": "fsm:when-event",
+                    "@type": "@id"
+                },
+                "do-transition": {
+                    "@id": "fsm:do-transition",
+                    "@type": "@id"
+                },
+                "fires-events": {
+                    "@id": "fsm:fires-events",
+                    "@container": "@set",
+                    "@type": "@id"
+                }
+            }
+        },
+
+        "states": {
+            "@id": "fsm:states",
+            "@container": "@set"
+        },
+
+        "start-state": { "@id": "fsm:start-state", "@type": "@id" },
+        "current-state": { "@id": "fsm:current-state", "@type": "@id" },
+        "end-state": { "@id": "fsm:end-state", "@type": "@id" },
+
+        "events": {
+            "@id": "fsm:events",
+            "@container": "@set"
+        },
+
+        "transitions": {
+            "@id": "fsm:transitions",
+            "@container": "@set"
+        },
+
+        "reactions": {
+            "@id": "fsm:reactions",
+            "@container": "@set"
+        }
+    }
+}
