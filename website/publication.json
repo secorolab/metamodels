@@ -1,0 +1,32 @@
+{
+    "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "publication": "https://secorolab.github.io/metamodels/website/publication#",
+
+        "Publication": { "@id": "publication:Publication" },
+        "Venue":       { "@id": "publication:Venue" },
+        "PersonRef":   { "@id": "publication:PersonRef" },
+
+        "name":           { "@id": "publication:name",           "@type": "xsd:string" },
+        "date-published": { "@id": "publication:date-published", "@type": "xsd:date" },
+        "url":            { "@id": "publication:url",            "@type": "@id" },
+        "doi":            { "@id": "publication:doi",            "@type": "@id" },
+        "same-as":        { "@id": "publication:same-as",        "@type": "@id" },
+
+        "venue-name": { "@id": "publication:venue-name", "@type": "xsd:string" },
+
+        "author": {
+            "@id":        "publication:author",
+            "@type":      "@id",
+            "@container": "@set"
+        },
+
+        "is-part-of": { "@id": "publication:is-part-of", "@type": "@id" },
+
+        "about": {
+            "@id":        "publication:about",
+            "@type":      "@id",
+            "@container": "@list"
+        }
+    }
+}
