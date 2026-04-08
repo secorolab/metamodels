@@ -1,0 +1,26 @@
+{
+    "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "project": "https://secorolab.github.io/metamodels/website/project#",
+
+        "Project":      { "@id": "project:Project" },
+        "FunderOrg":    { "@id": "project:FunderOrg" },
+
+        "name":        { "@id": "project:name",        "@type": "xsd:string" },
+        "description": { "@id": "project:description", "@type": "xsd:string" },
+        "start-date":  { "@id": "project:start-date",  "@type": "xsd:date" },
+        "end-date":    { "@id": "project:end-date",    "@type": "xsd:date" },
+        "url":         { "@id": "project:url",         "@type": "@id" },
+
+        "funder": { "@id": "project:funder", "@type": "@id" },
+
+        "funder-name": { "@id": "project:funder-name", "@type": "xsd:string" },
+        "funder-url":  { "@id": "project:funder-url",  "@type": "@id" },
+
+        "member": {
+            "@id":        "project:member",
+            "@type":      "@id",
+            "@container": "@list"
+        }
+    }
+}

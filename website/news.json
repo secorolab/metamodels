@@ -1,0 +1,24 @@
+{
+    "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "news": "https://secorolab.github.io/metamodels/website/news#",
+
+        "NewsArticle": { "@id": "news:NewsArticle" },
+
+        "name":           { "@id": "news:name",           "@type": "xsd:string" },
+        "description":    { "@id": "news:description",    "@type": "xsd:string" },
+        "date-published": { "@id": "news:date-published", "@type": "xsd:date" },
+        "url":            { "@id": "news:url",            "@type": "@id" },
+
+        "about": {
+            "@id":        "news:about",
+            "@type":      "@id",
+            "@container": "@list"
+        },
+
+        "keywords": {
+            "@id":        "news:keywords",
+            "@container": "@list"
+        }
+    }
+}

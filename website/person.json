@@ -1,0 +1,31 @@
+{
+    "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "person": "https://secorolab.github.io/metamodels/website/person#",
+
+        "Person":     { "@id": "person:Person" },
+
+        "name":       { "@id": "person:name",      "@type": "xsd:string" },
+        "job-title":  { "@id": "person:job-title", "@type": "xsd:string" },
+        "email":      { "@id": "person:email",     "@type": "xsd:string" },
+        "url":        { "@id": "person:url",       "@type": "@id" },
+        "orcid":      { "@id": "person:orcid",     "@type": "@id" },
+        "g-scholar":  { "@id": "person:g-scholar", "@type": "@id" },
+        "linkedin":   { "@id": "person:linkedin",  "@type": "@id" },
+        "github":     { "@id": "person:github",    "@type": "@id" },
+        "twitter":    { "@id": "person:twitter",   "@type": "@id" },
+        "image":      { "@id": "person:image",     "@type": "@id" },
+
+        "same-as": {
+            "@id":        "person:same-as",
+            "@type":      "@id",
+            "@container": "@list"
+        },
+
+        "knows-about": {
+            "@id":        "person:knows-about",
+            "@type":      "@id",
+            "@container": "@list"
+        }
+    }
+}
