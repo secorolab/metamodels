@@ -20,7 +20,7 @@
         "member": {
             "@id":        "project:member",
             "@type":      "@id",
-            "@container": "@list"
+            "@container": "@set"
         }
     }
 }

@@ -1,0 +1,79 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec: <https://secorolab.github.io/metamodels/website/> .
+@prefix robot:  <https://secorolab.github.io/metamodels/website/robot#> .
+
+sh_sec:RobotShape
+    a sh:NodeShape ;
+    sh:targetClass robot:Robot ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     robot:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:severity sh:Violation ;
+        sh:message  "Robot must have a name." ;
+    ] ;
+
+    sh:property [
+        sh:path     robot:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "Robot should have a description." ;
+    ] ;
+
+    sh:property [
+        sh:path     robot:image ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     robot:url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     robot:model ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     robot:weight ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     robot:brand ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     robot:manufacturer ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+sh_sec:BrandShape
+    a sh:NodeShape ;
+    sh:targetClass robot:Brand ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     robot:brand-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Brand must have a name." ;
+    ] ;
+.

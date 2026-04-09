@@ -11,7 +11,7 @@
         "date-published": { "@id": "publication:date-published", "@type": "xsd:date" },
         "url":            { "@id": "publication:url",            "@type": "@id" },
         "doi":            { "@id": "publication:doi",            "@type": "@id" },
-        "same-as":        { "@id": "publication:same-as",        "@type": "@id" },
+        "external-url":   { "@id": "publication:external-url",   "@type": "@id" },
 
         "venue-name": { "@id": "publication:venue-name", "@type": "xsd:string" },
 
@@ -26,7 +26,7 @@
         "about": {
             "@id":        "publication:about",
             "@type":      "@id",
-            "@container": "@list"
+            "@container": "@set"
         }
     }
 }

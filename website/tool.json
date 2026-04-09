@@ -9,7 +9,7 @@
         "name":                 { "@id": "tool:name",                 "@type": "xsd:string" },
         "description":          { "@id": "tool:description",          "@type": "xsd:string" },
         "url":                  { "@id": "tool:url",                  "@type": "@id" },
-        "same-as":              { "@id": "tool:same-as",              "@type": "@id" },
+        "external-url":         { "@id": "tool:external-url",         "@type": "@id" },
         "application-category": { "@id": "tool:application-category", "@type": "xsd:string" },
 
         "video": { "@id": "tool:video", "@type": "@id" },
@@ -19,7 +19,7 @@
 
         "keywords": {
             "@id":        "tool:keywords",
-            "@container": "@list"
+            "@container": "@set"
         }
     }
 }
