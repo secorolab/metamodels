@@ -1,0 +1,82 @@
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec:  <https://secorolab.github.io/metamodels/website/> .
+@prefix project: <https://secorolab.github.io/metamodels/website/project#> .
+
+sh_sec:ProjectShape
+    a sh:NodeShape ;
+    sh:targetClass project:Project ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     project:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:severity sh:Violation ;
+        sh:message  "Project must have a name." ;
+    ] ;
+
+    sh:property [
+        sh:path     project:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "Project should have a description." ;
+    ] ;
+
+    sh:property [
+        sh:path     project:url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     project:start-date ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "start-date should be a valid xsd:date." ;
+    ] ;
+
+    sh:property [
+        sh:path     project:end-date ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "end-date should be a valid xsd:date." ;
+    ] ;
+
+    sh:property [
+        sh:path     project:funder ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     project:member ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+.
+
+sh_sec:FunderOrgShape
+    a sh:NodeShape ;
+    sh:targetClass project:FunderOrg ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     project:funder-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Funder organisation must have a name." ;
+    ] ;
+
+    sh:property [
+        sh:path     project:funder-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+.

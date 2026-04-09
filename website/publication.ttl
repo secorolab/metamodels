@@ -1,0 +1,103 @@
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec:      <https://secorolab.github.io/metamodels/website/> .
+@prefix publication: <https://secorolab.github.io/metamodels/website/publication#> .
+
+sh_sec:PublicationShape
+    a sh:NodeShape ;
+    sh:targetClass publication:Publication ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     publication:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 5 ;
+        sh:severity sh:Violation ;
+        sh:message  "Publication must have a title." ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:author ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Publication must have at least one author." ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:date-published ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "date-published should be a valid xsd:date." ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:doi ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:external-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:is-part-of ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "Publication should reference a venue via is-part-of." ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:about ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+.
+
+sh_sec:VenueShape
+    a sh:NodeShape ;
+    sh:targetClass publication:Venue ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     publication:venue-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Venue must have a name." ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+sh_sec:PublicationPersonRefShape
+    a sh:NodeShape ;
+    sh:targetClass publication:PersonRef ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     publication:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Author reference must have a name." ;
+    ] ;
+.

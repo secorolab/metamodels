@@ -1,0 +1,20 @@
+{
+    "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "robot": "https://secorolab.github.io/metamodels/website/robot#",
+
+        "Robot": { "@id": "robot:Robot" },
+        "Brand": { "@id": "robot:Brand" },
+
+        "name":        { "@id": "robot:name",        "@type": "xsd:string" },
+        "description": { "@id": "robot:description", "@type": "xsd:string" },
+        "image":       { "@id": "robot:image",       "@type": "@id" },
+        "url":         { "@id": "robot:url",         "@type": "@id" },
+        "model":       { "@id": "robot:model",       "@type": "xsd:string" },
+        "weight":      { "@id": "robot:weight",      "@type": "xsd:string" },
+
+        "brand":        { "@id": "robot:brand",        "@type": "@id" },
+        "brand-name":   { "@id": "robot:brand-name",   "@type": "xsd:string" },
+        "manufacturer": { "@id": "robot:manufacturer", "@type": "@id" }
+    }
+}
