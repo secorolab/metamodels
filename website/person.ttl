@@ -1,0 +1,117 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec: <https://secorolab.github.io/metamodels/website/> .
+@prefix person: <https://secorolab.github.io/metamodels/website/person#> .
+
+sh_sec:PersonShape
+    a sh:NodeShape ;
+    sh:targetClass person:Person ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     person:first-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Person must have exactly one first name." ;
+    ] ;
+
+    sh:property [
+        sh:path     person:last-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Person must have exactly one last name." ;
+    ] ;
+
+    sh:property [
+        sh:path     person:middle-name ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:job-title ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:email ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern  "^$|^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$" ;
+        sh:severity sh:Warning ;
+        sh:message  "Email should be a valid address or empty string." ;
+    ] ;
+
+    sh:property [
+        sh:path     person:url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:orcid ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:g-scholar ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:linkedin ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:github ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:twitter ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:image ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:start-date ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:end-date ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:name-alias ;
+        sh:datatype xsd:string ;
+    ] ;
+
+    sh:property [
+        sh:path     person:knows-about ;
+        sh:class    <https://secorolab.github.io/metamodels/website/research-area#ResearchArea> ;
+        sh:severity sh:Warning ;
+        sh:message  "knows-about should reference a research-area:ResearchArea." ;
+    ] ;
+.

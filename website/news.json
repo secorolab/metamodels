@@ -13,12 +13,12 @@
         "about": {
             "@id":        "news:about",
             "@type":      "@id",
-            "@container": "@list"
+            "@container": "@set"
         },
 
         "keywords": {
             "@id":        "news:keywords",
-            "@container": "@list"
+            "@container": "@set"
         }
     }
 }

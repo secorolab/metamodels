@@ -1,0 +1,90 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec: <https://secorolab.github.io/metamodels/website/> .
+@prefix thesis: <https://secorolab.github.io/metamodels/website/thesis#> .
+
+sh_sec:ThesisShape
+    a sh:NodeShape ;
+    sh:targetClass thesis:Thesis ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     thesis:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 5 ;
+        sh:severity sh:Violation ;
+        sh:message  "Thesis must have a title." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:author ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Thesis must have exactly one author." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:date-published ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "date-published should be a valid xsd:date." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:educational-level ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in       ( "PhD" "MSc" "BSc" "Master" "Bachelor" "Doctoral" ) ;
+        sh:severity sh:Warning ;
+        sh:message  "educational-level should be one of: PhD, MSc, BSc, Master, Bachelor, Doctoral." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:in-support-of ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:advisor ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:source-organization ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+sh_sec:ThesisPersonRefShape
+    a sh:NodeShape ;
+    sh:targetClass thesis:PersonRef ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     thesis:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Person reference must have a name." ;
+    ] ;
+.

@@ -3,29 +3,33 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "person": "https://secorolab.github.io/metamodels/website/person#",
 
-        "Person":     { "@id": "person:Person" },
+        "Person":       { "@id": "person:Person" },
 
-        "name":       { "@id": "person:name",      "@type": "xsd:string" },
-        "job-title":  { "@id": "person:job-title", "@type": "xsd:string" },
-        "email":      { "@id": "person:email",     "@type": "xsd:string" },
-        "url":        { "@id": "person:url",       "@type": "@id" },
-        "orcid":      { "@id": "person:orcid",     "@type": "@id" },
-        "g-scholar":  { "@id": "person:g-scholar", "@type": "@id" },
-        "linkedin":   { "@id": "person:linkedin",  "@type": "@id" },
-        "github":     { "@id": "person:github",    "@type": "@id" },
-        "twitter":    { "@id": "person:twitter",   "@type": "@id" },
-        "image":      { "@id": "person:image",     "@type": "@id" },
+        "first-name":   { "@id": "person:first-name",  "@type": "xsd:string" },
+        "last-name":    { "@id": "person:last-name",   "@type": "xsd:string" },
+        "middle-name":  { "@id": "person:middle-name", "@type": "xsd:string" },
+        "job-title":    { "@id": "person:job-title",   "@type": "xsd:string" },
+        "email":        { "@id": "person:email",       "@type": "xsd:string" },
+        "url":          { "@id": "person:url",         "@type": "@id" },
+        "orcid":        { "@id": "person:orcid",       "@type": "@id" },
+        "g-scholar":    { "@id": "person:g-scholar",   "@type": "@id" },
+        "linkedin":     { "@id": "person:linkedin",    "@type": "@id" },
+        "github":       { "@id": "person:github",      "@type": "@id" },
+        "twitter":      { "@id": "person:twitter",     "@type": "@id" },
+        "image":        { "@id": "person:image",       "@type": "@id" },
+        "start-date":   { "@id": "person:start-date",  "@type": "xsd:date" },
+        "end-date":     { "@id": "person:end-date",    "@type": "xsd:date" },
 
-        "same-as": {
-            "@id":        "person:same-as",
-            "@type":      "@id",
-            "@container": "@list"
+        "name-alias": {
+            "@id":        "person:name-alias",
+            "@type":      "xsd:string",
+            "@container": "@set"
         },
 
         "knows-about": {
             "@id":        "person:knows-about",
             "@type":      "@id",
-            "@container": "@list"
+            "@container": "@set"
         }
     }
 }

@@ -24,7 +24,7 @@
 
         "applicant-location-requirements": {
             "@id":        "opening:applicant-location-requirements",
-            "@container": "@list"
+            "@container": "@set"
         }
     }
 }

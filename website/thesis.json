@@ -18,7 +18,7 @@
         "advisor": {
             "@id":        "thesis:advisor",
             "@type":      "@id",
-            "@container": "@list"
+            "@container": "@set"
         },
 
         "source-organization": { "@id": "thesis:source-organization", "@type": "@id" }
