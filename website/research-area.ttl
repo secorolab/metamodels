@@ -1,0 +1,79 @@
+@prefix sh:            <http://www.w3.org/ns/shacl#> .
+@prefix xsd:           <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec:        <https://secorolab.github.io/metamodels/website/> .
+@prefix research-area: <https://secorolab.github.io/metamodels/website/research-area#> .
+
+sh_sec:ResearchAreaShape
+    a sh:NodeShape ;
+    sh:targetClass research-area:ResearchArea ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     research-area:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 3 ;
+        sh:severity sh:Violation ;
+        sh:message  "Research area must have exactly one name." ;
+    ] ;
+
+    sh:property [
+        sh:path     research-area:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "Research area should have a description." ;
+    ] ;
+
+    sh:property [
+        sh:path     research-area:term-code ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern  "^[a-z0-9]+(-[a-z0-9]+)*$" ;
+        sh:severity sh:Warning ;
+        sh:message  "term-code should be a lowercase hyphenated slug." ;
+    ] ;
+.
+
+sh_sec:ResearchObjectiveShape
+    a sh:NodeShape ;
+    sh:targetClass research-area:ResearchObjective ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     research-area:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 3 ;
+        sh:severity sh:Violation ;
+        sh:message  "Research objective must have exactly one name." ;
+    ] ;
+
+    sh:property [
+        sh:path     research-area:acronym ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:maxLength 6 ;
+        sh:severity sh:Warning ;
+        sh:message  "Research objective should have a short acronym (2-6 characters)." ;
+    ] ;
+
+    sh:property [
+        sh:path     research-area:term-code ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern  "^[a-z0-9]+(-[a-z0-9]+)*$" ;
+        sh:severity sh:Warning ;
+        sh:message  "term-code should be a lowercase hyphenated slug." ;
+    ] ;
+
+    sh:property [
+        sh:path     research-area:topics ;
+        sh:class    research-area:ResearchArea ;
+        sh:severity sh:Warning ;
+        sh:message  "Objective topics should reference ResearchArea instances." ;
+    ] ;
+.
