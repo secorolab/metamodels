@@ -3,10 +3,17 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "research-area": "https://secorolab.github.io/metamodels/website/research-area#",
 
-        "ResearchArea": { "@id": "research-area:ResearchArea" },
+        "ResearchArea":      { "@id": "research-area:ResearchArea" },
+        "ResearchObjective": { "@id": "research-area:ResearchObjective" },
 
         "name":        { "@id": "research-area:name",        "@type": "xsd:string" },
         "description": { "@id": "research-area:description", "@type": "xsd:string" },
-        "term-code":   { "@id": "research-area:term-code",   "@type": "xsd:string" }
+        "term-code":   { "@id": "research-area:term-code",   "@type": "xsd:string" },
+        "acronym":     { "@id": "research-area:acronym",     "@type": "xsd:string" },
+        "topics": {
+            "@id":       "research-area:topics",
+            "@type":     "@id",
+            "@container": "@set"
+        }
     }
 }
