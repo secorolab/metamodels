@@ -1,0 +1,14 @@
+{
+    "@context": {
+        "mot-ext": "https://secorolab.github.io/metamodels/task/motion-specification#",
+
+        "ConstraintConjunction": "mot-ext:ConstraintConjunction",
+        "ConstraintDisjunction": "mot-ext:ConstraintDisjunction",
+
+        "has-constraint": {
+            "@id": "mot-ext:has-constraint",
+            "@type": "@id",
+            "@container": "@set"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "snap": "https://secorolab.github.io/metamodels/snapshot#",
+
+        "Snapshot": { "@id": "snap:Snapshot" },
+
+        "snapshot-of": { "@id": "snap:snapshot-of", "@type": "@id" }
+    }
+}

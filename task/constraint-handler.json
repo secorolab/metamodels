@@ -1,0 +1,12 @@
+{
+    "@context": {
+        "cstr-hdl": "https://comp-rob2b.github.io/metamodels/task/constraint-handler#",
+
+        "JointTorque": "cstr-hdl:JointTorque",
+
+        "control-mode": {
+            "@id": "cstr-hdl:control-mode",
+            "@type": "@id"
+        }
+    }
+}

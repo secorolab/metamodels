@@ -1,0 +1,15 @@
+{
+    "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "mj": "https://secorolab.github.io/metamodels/simulation/mujoco#",
+
+        "MjcfModel": { "@id": "mj:MjcfModel" },
+        "MuJoCoBody": { "@id": "mj:MuJoCoBody" },
+        "MuJoCoSite": { "@id": "mj:MuJoCoSite" },
+
+        "body-name": { "@id": "mj:body-name", "@type": "xsd:string" },
+        "site-name":  { "@id": "mj:site-name",  "@type": "xsd:string" },
+        "tool-body":  { "@id": "mj:tool-body",  "@type": "@id" },
+        "tcp-site":   { "@id": "mj:tcp-site",   "@type": "@id" }
+    }
+}

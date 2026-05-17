@@ -1,0 +1,12 @@
+{
+    "@context": {
+        "geom": "https://comp-rob2b.github.io/metamodels/geometry/structural-entities#",
+
+        "KinematicChain": "geom:KinematicChain",
+
+        "kinematic-chain": {
+            "@id": "geom:kinematic-chain",
+            "@type": "@id"
+        }
+    }
+}
