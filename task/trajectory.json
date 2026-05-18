@@ -19,6 +19,10 @@
                 "alpha": {
                     "@id": "traj:alpha",
                     "@type": "@id"
+                },
+                "trajectory": {
+                    "@id": "traj:trajectory",
+                    "@type": "@id"
                 }
             }
         }
