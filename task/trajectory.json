@@ -1,0 +1,26 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "traj": "https://secorolab.github.io/metamodels/task/trajectory#",
+
+        "Trajectory": "traj:Trajectory",
+
+        "Lerp": {
+            "@id": "traj:Lerp",
+            "@context": {
+                "start": {
+                    "@id": "traj:start",
+                    "@type": "@id"
+                },
+                "goal": {
+                    "@id": "traj:goal",
+                    "@type": "@id"
+                },
+                "alpha": {
+                    "@id": "traj:alpha",
+                    "@type": "@id"
+                }
+            }
+        }
+    }
+}
