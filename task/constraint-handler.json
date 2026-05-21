@@ -1,11 +1,74 @@
 {
     "@context": {
         "cstr-hdl": "https://comp-rob2b.github.io/metamodels/task/constraint-handler#",
-
         "JointTorque": "cstr-hdl:JointTorque",
-
         "control-mode": {
             "@id": "cstr-hdl:control-mode",
+            "@type": "@id"
+        },
+        "FeedForwardController": "cstr-hdl:FeedForwardController",
+        "Controller": "cstr-hdl:Controller",
+        "ProportionalIntegralDerivative": "cstr-hdl:ProportionalIntegralDerivative",
+        "ImpedanceController": "cstr-hdl:ImpedanceController",
+        "DecayingIntegralTerm": "cstr-hdl:DecayingIntegralTerm",
+        "Monitor": "cstr-hdl:Monitor",
+        "EdgeTriggeredMonitor": "cstr-hdl:EdgeTriggeredMonitor",
+        "LevelTriggeredMonitor": "cstr-hdl:LevelTriggeredMonitor",
+        "ConstraintEvaluator": "cstr-hdl:ConstraintEvaluator",
+        "AssignmentEvaluator": "cstr-hdl:AssignmentEvaluator",
+        "ErrorEvaluator": "cstr-hdl:ErrorEvaluator",
+        "motion": {
+            "@id": "cstr-hdl:motion",
+            "@type": "@id"
+        },
+        "evaluators": {
+            "@id": "cstr-hdl:evaluators",
+            "@type": "@id"
+        },
+        "monitors": {
+            "@id": "cstr-hdl:monitors",
+            "@type": "@id"
+        },
+        "controllers": {
+            "@id": "cstr-hdl:controllers",
+            "@type": "@id"
+        },
+        "constraint": {
+            "@id": "cstr-hdl:constraint",
+            "@type": "@id"
+        },
+        "error": {
+            "@id": "cstr-hdl:error",
+            "@type": "@id"
+        },
+        "event": {
+            "@id": "cstr-hdl:event",
+            "@type": "@id"
+        },
+        "flag": {
+            "@id": "cstr-hdl:flag",
+            "@type": "@id"
+        },
+        "error-signal": {
+            "@id": "cstr-hdl:error-signal",
+            "@type": "@id"
+        },
+        "control-signal": {
+            "@id": "cstr-hdl:control-signal",
+            "@type": "@id"
+        },
+        "reference-signal": {
+            "@id": "cstr-hdl:reference-signal",
+            "@type": "@id"
+        },
+        "proportional-gain": "cstr-hdl:proportional-gain",
+        "integral-gain": "cstr-hdl:integral-gain",
+        "derivative-gain": "cstr-hdl:derivative-gain",
+        "decay-rate": "cstr-hdl:decay-rate",
+        "stiffness": "cstr-hdl:stiffness",
+        "damping": "cstr-hdl:damping",
+        "monitors-until": {
+            "@id": "cstr-hdl:monitors-until",
             "@type": "@id"
         }
     }
