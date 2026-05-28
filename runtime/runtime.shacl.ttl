@@ -1,0 +1,13 @@
+@prefix rt: <https://secorolab.github.io/metamodels/runtime#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+rt:RuntimeUserShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf rt:uses-runtime ;
+    sh:property [
+        sh:path rt:uses-runtime ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( rt:MuJoCoRuntime rt:RealRobotRuntime )
+    ] .

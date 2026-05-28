@@ -1,0 +1,13 @@
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix snap: <https://secorolab.github.io/metamodels/snapshot#> .
+
+snap:Snapshot
+    a sh:NodeShape ;
+    sh:property [
+        sh:path snap:snapshot-of ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .

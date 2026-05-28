@@ -1,0 +1,24 @@
+@prefix mj: <https://secorolab.github.io/metamodels/simulation/mujoco#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mj:MuJoCoBody
+    a sh:NodeShape ;
+    sh:property [
+        sh:path mj:body-name ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
+    ] .
+
+mj:MuJoCoSite
+    a sh:NodeShape ;
+    sh:property [
+        sh:path mj:site-name ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
+    ] .
+
+mj:MjcfModel
+    a sh:NodeShape .

@@ -1,0 +1,37 @@
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix traj: <https://secorolab.github.io/metamodels/task/trajectory#> .
+
+traj:Trajectory
+    a sh:NodeShape .
+
+traj:Lerp
+    a sh:NodeShape ;
+    sh:property [
+        sh:path traj:start ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:goal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:alpha ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:trajectory ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class traj:Trajectory
+    ] .
