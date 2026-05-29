@@ -115,3 +115,46 @@ sh_sec:PersonShape
         sh:message  "knows-about should reference a research-area:ResearchArea." ;
     ] ;
 .
+
+# -- Person role subtypes ------------------------------------------------------
+# These classes are used as additional rdf:type values alongside person:Person.
+
+person:Professor
+    a sh:NodeShape ;
+    sh:targetClass person:Professor ;
+.
+
+person:Administration
+    a sh:NodeShape ;
+    sh:targetClass person:Administration ;
+.
+
+person:PhDStudent
+    a sh:NodeShape ;
+    sh:targetClass person:PhDStudent ;
+.
+
+person:HiWiStudent
+    a sh:NodeShape ;
+    sh:targetClass person:HiWiStudent ;
+.
+
+person:Postdoc
+    a sh:NodeShape ;
+    sh:targetClass person:Postdoc ;
+.
+
+person:Researcher
+    a sh:NodeShape ;
+    sh:targetClass person:Researcher ;
+.
+
+person:ExternalCollaborator
+    a sh:NodeShape ;
+    sh:targetClass person:ExternalCollaborator ;
+.
+
+person:ExternalPhDStudent
+    a sh:NodeShape ;
+    sh:targetClass person:ExternalPhDStudent ;
+.
