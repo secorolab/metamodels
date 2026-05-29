@@ -52,9 +52,9 @@ sh_sec:ToolShape
 
     sh:property [
         sh:path     tool:keywords ;
-        sh:datatype xsd:string ;
+        sh:nodeKind sh:IRI ;
         sh:severity sh:Warning ;
-        sh:message  "Tool should have at least one keyword." ;
+        sh:message  "Tool keywords should reference keyword IRIs." ;
     ] ;
 .
 
