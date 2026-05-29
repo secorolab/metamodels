@@ -1,18 +1,84 @@
-@prefix mj: <https://secorolab.github.io/metamodels/simulation/mujoco#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mj:         <https://secorolab.github.io/metamodels/simulation/mujoco#> .
+@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix geom-rel:   <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
+@prefix sh:         <http://www.w3.org/ns/shacl#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+
+mj:MjcfModel
+    a sh:NodeShape ;
+    sh:targetClass mj:MjcfModel .
 
 mj:MuJoCoBody
     a sh:NodeShape ;
+    sh:targetClass mj:MuJoCoBody ;
     sh:property [
         sh:path mj:body-name ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path mj:tool-body ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class mj:MuJoCoBody
+    ] ;
+    sh:property [
+        sh:path mj:tcp-site ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class mj:MuJoCoSite
+    ] ;
+    sh:property [
+        sh:path mj:friction-slide ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0
+    ] ;
+    sh:property [
+        sh:path mj:friction-torsion ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0
+    ] ;
+    sh:property [
+        sh:path mj:friction-roll ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0
+    ] ;
+    sh:property [
+        sh:path mj:color-r ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1
+    ] ;
+    sh:property [
+        sh:path mj:color-g ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1
+    ] ;
+    sh:property [
+        sh:path mj:color-b ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1
+    ] ;
+    sh:property [
+        sh:path mj:color-a ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1
     ] .
 
 mj:MuJoCoSite
     a sh:NodeShape ;
+    sh:targetClass mj:MuJoCoSite ;
     sh:property [
         sh:path mj:site-name ;
         sh:minCount 1 ;
@@ -20,5 +86,68 @@ mj:MuJoCoSite
         sh:datatype xsd:string
     ] .
 
-mj:MjcfModel
-    a sh:NodeShape .
+# Targets any subject that declares mj:attach-to-body, regardless of whether
+# the DSL emits an explicit rdf:type mj:Attachment.
+mj:Attachment
+    a sh:NodeShape ;
+    sh:targetSubjectsOf mj:attach-to-body ;
+    sh:property [
+        sh:path mj:attach-to-body ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:xone (
+            [ sh:class mj:MuJoCoBody ]
+            [ sh:class mj:MuJoCoSite ]
+        )
+    ] ;
+    sh:property [
+        sh:path mj:attach-kind ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in ( "body" "site" )
+    ] ;
+    sh:property [
+        sh:path mj:attach-name ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path mj:attach-position ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:VectorXYZ
+    ] ;
+    sh:property [
+        sh:path mj:attach-orientation ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-rel:Orientation
+    ] ;
+    sh:property [
+        sh:path mj:attach-prefix ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path mj:actuator-name ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path mj:open-command ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double
+    ] ;
+    sh:property [
+        sh:path mj:closed-command ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double
+    ] ;
+    sh:property [
+        sh:path mj:prefix ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
+    ] .

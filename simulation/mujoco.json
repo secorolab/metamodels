@@ -1,15 +1,48 @@
 {
     "@context": {
+        "@version": 1.1,
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "mj": "https://secorolab.github.io/metamodels/simulation/mujoco#",
 
-        "MjcfModel": { "@id": "mj:MjcfModel" },
-        "MuJoCoBody": { "@id": "mj:MuJoCoBody" },
-        "MuJoCoSite": { "@id": "mj:MuJoCoSite" },
+        "MjcfModel":  { "@id": "mj:MjcfModel" },
 
-        "body-name": { "@id": "mj:body-name", "@type": "xsd:string" },
-        "site-name":  { "@id": "mj:site-name",  "@type": "xsd:string" },
-        "tool-body":  { "@id": "mj:tool-body",  "@type": "@id" },
-        "tcp-site":   { "@id": "mj:tcp-site",   "@type": "@id" }
+        "MuJoCoBody": {
+            "@id": "mj:MuJoCoBody",
+            "@context": {
+                "body-name":        { "@id": "mj:body-name",        "@type": "xsd:string" },
+                "tool-body":        { "@id": "mj:tool-body",        "@type": "@id" },
+                "tcp-site":         { "@id": "mj:tcp-site",         "@type": "@id" },
+                "friction-slide":   { "@id": "mj:friction-slide",   "@type": "xsd:double" },
+                "friction-torsion": { "@id": "mj:friction-torsion", "@type": "xsd:double" },
+                "friction-roll":    { "@id": "mj:friction-roll",    "@type": "xsd:double" },
+                "color-r":          { "@id": "mj:color-r",          "@type": "xsd:double" },
+                "color-g":          { "@id": "mj:color-g",          "@type": "xsd:double" },
+                "color-b":          { "@id": "mj:color-b",          "@type": "xsd:double" },
+                "color-a":          { "@id": "mj:color-a",          "@type": "xsd:double" }
+            }
+        },
+
+        "MuJoCoSite": {
+            "@id": "mj:MuJoCoSite",
+            "@context": {
+                "site-name": { "@id": "mj:site-name", "@type": "xsd:string" }
+            }
+        },
+
+        "Attachment": {
+            "@id": "mj:Attachment",
+            "@context": {
+                "attach-to-body":     { "@id": "mj:attach-to-body",     "@type": "@id" },
+                "attach-kind":        { "@id": "mj:attach-kind",        "@type": "xsd:string" },
+                "attach-name":        { "@id": "mj:attach-name",        "@type": "xsd:string" },
+                "attach-prefix":      { "@id": "mj:attach-prefix",      "@type": "xsd:string" },
+                "attach-position":    { "@id": "mj:attach-position",    "@type": "@id" },
+                "attach-orientation": { "@id": "mj:attach-orientation", "@type": "@id" },
+                "actuator-name":      { "@id": "mj:actuator-name",      "@type": "xsd:string" },
+                "open-command":       { "@id": "mj:open-command",       "@type": "xsd:double" },
+                "closed-command":     { "@id": "mj:closed-command",     "@type": "xsd:double" },
+                "prefix":             { "@id": "mj:prefix",             "@type": "xsd:string" }
+            }
+        }
     }
 }

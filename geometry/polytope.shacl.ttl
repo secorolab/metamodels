@@ -1,0 +1,39 @@
+@prefix poly: <https://secorolab.github.io/metamodels/geometry/polytope#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+poly:CuboidWithSize
+    a sh:NodeShape ;
+    sh:targetClass poly:CuboidWithSize ;
+    sh:property [
+        sh:path poly:x-size ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0
+    ] ;
+    sh:property [
+        sh:path poly:y-size ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0
+    ] ;
+    sh:property [
+        sh:path poly:z-size ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0
+    ] .
+
+poly:Cylinder
+    a sh:NodeShape ;
+    sh:targetClass poly:Cylinder ;
+    sh:property [
+        sh:path poly:height ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minInclusive 0
+    ] .

@@ -5,6 +5,9 @@
 traj:Trajectory
     a sh:NodeShape .
 
+traj:Progress
+    a sh:NodeShape .
+
 traj:Lerp
     a sh:NodeShape ;
     sh:property [

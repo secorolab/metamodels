@@ -4,6 +4,7 @@
         "traj": "https://secorolab.github.io/metamodels/task/trajectory#",
 
         "Trajectory": "traj:Trajectory",
+        "Progress": "traj:Progress",
 
         "Lerp": {
             "@id": "traj:Lerp",

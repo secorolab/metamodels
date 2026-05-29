@@ -70,6 +70,10 @@
         "monitors-until": {
             "@id": "cstr-hdl:monitors-until",
             "@type": "@id"
+        },
+        "event-queue": {
+            "@id": "cstr-hdl:event-queue",
+            "@type": "@id"
         }
     }
 }

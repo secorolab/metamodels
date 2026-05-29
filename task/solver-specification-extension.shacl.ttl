@@ -1,0 +1,46 @@
+@prefix slv:    <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
+@prefix kc_ent: <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
+@prefix qudt:   <http://qudt.org/schema/qudt/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+
+# Secorolab extension to the upstream comp-rob2b solver-specification.
+# Models a pass-through "command forwarding" solver that drives a single joint
+# actuator with a feed-forward control signal (used for gripper actuation in
+# motion-spec-dsl). The upstream solver-specification.ttl does not cover this
+# case because slv:SolverWithInputAndOutput restricts slv:solver to dynamics
+# algorithms (RNEA / ABA / ACHD).
+
+slv:CommandForwardingSolver
+    a sh:NodeShape ;
+    sh:targetClass slv:CommandForwardingSolver ;
+    sh:property [
+        sh:path slv:command-forwarding ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class slv:CommandForwardingSpecification
+    ] ;
+    sh:property [
+        sh:path slv:solver ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( slv:CommandForwardingAlgorithm )
+    ] .
+
+slv:CommandForwardingSpecification
+    a sh:NodeShape ;
+    sh:targetClass slv:CommandForwardingSpecification ;
+    sh:property [
+        sh:path slv:attached-to ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class kc_ent:Joint
+    ] ;
+    sh:property [
+        sh:path slv:control-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
