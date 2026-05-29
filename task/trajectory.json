@@ -26,6 +26,108 @@
                     "@type": "@id"
                 }
             }
+        },
+
+        "Circle": {
+            "@id": "traj:Circle",
+            "@context": {
+                "center": {
+                    "@id": "traj:center",
+                    "@type": "@id"
+                },
+                "radius": {
+                    "@id": "traj:radius",
+                    "@type": "@id"
+                },
+                "plane-normal": {
+                    "@id": "traj:plane-normal",
+                    "@type": "@id"
+                },
+                "orientation": {
+                    "@id": "traj:orientation",
+                    "@type": "@id"
+                },
+                "alpha": {
+                    "@id": "traj:alpha",
+                    "@type": "@id"
+                },
+                "trajectory": {
+                    "@id": "traj:trajectory",
+                    "@type": "@id"
+                }
+            }
+        },
+
+        "SemiCircle": {
+            "@id": "traj:SemiCircle",
+            "@context": {
+                "start": {
+                    "@id": "traj:start",
+                    "@type": "@id"
+                },
+                "end": {
+                    "@id": "traj:end",
+                    "@type": "@id"
+                },
+                "radius": {
+                    "@id": "traj:radius",
+                    "@type": "@id"
+                },
+                "plane-normal": {
+                    "@id": "traj:plane-normal",
+                    "@type": "@id"
+                },
+                "orientation": {
+                    "@id": "traj:orientation",
+                    "@type": "@id"
+                },
+                "alpha": {
+                    "@id": "traj:alpha",
+                    "@type": "@id"
+                },
+                "trajectory": {
+                    "@id": "traj:trajectory",
+                    "@type": "@id"
+                }
+            }
+        },
+
+        "Helix": {
+            "@id": "traj:Helix",
+            "@context": {
+                "center": {
+                    "@id": "traj:center",
+                    "@type": "@id"
+                },
+                "radius": {
+                    "@id": "traj:radius",
+                    "@type": "@id"
+                },
+                "axis": {
+                    "@id": "traj:axis",
+                    "@type": "@id"
+                },
+                "pitch": {
+                    "@id": "traj:pitch",
+                    "@type": "@id"
+                },
+                "revolutions": {
+                    "@id": "traj:revolutions",
+                    "@type": "@id"
+                },
+                "orientation": {
+                    "@id": "traj:orientation",
+                    "@type": "@id"
+                },
+                "alpha": {
+                    "@id": "traj:alpha",
+                    "@type": "@id"
+                },
+                "trajectory": {
+                    "@id": "traj:trajectory",
+                    "@type": "@id"
+                }
+            }
         }
     }
 }
