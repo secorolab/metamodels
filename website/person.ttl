@@ -149,12 +149,17 @@ person:Researcher
     sh:targetClass person:Researcher ;
 .
 
-person:ExternalCollaborator
+person:Internal
     a sh:NodeShape ;
-    sh:targetClass person:ExternalCollaborator ;
+    sh:targetClass person:Internal ;
 .
 
-person:ExternalPhDStudent
+person:External
     a sh:NodeShape ;
-    sh:targetClass person:ExternalPhDStudent ;
+    sh:targetClass person:External ;
+.
+
+person:Collaborator
+    a sh:NodeShape ;
+    sh:targetClass person:Collaborator ;
 .
