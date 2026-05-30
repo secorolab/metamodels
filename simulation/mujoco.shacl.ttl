@@ -48,6 +48,18 @@ mj:MuJoCoBody
         sh:minInclusive 0
     ] ;
     sh:property [
+        sh:path mj:color ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class mj:ColorRGBA
+    ] .
+
+# Grouped RGBA colour value node, shared by scene objects and the trajectory
+# trace overlay. Each channel is a double in [0, 1].
+mj:ColorRGBA
+    a sh:NodeShape ;
+    sh:targetClass mj:ColorRGBA ;
+    sh:property [
         sh:path mj:color-r ;
         sh:maxCount 1 ;
         sh:datatype xsd:double ;
@@ -84,6 +96,42 @@ mj:MuJoCoSite
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string
+    ] .
+
+# Live end-effector trajectory trace overlay drawn in the MuJoCo viewer.
+# Purely a visualisation concern: ignored in headless runs.
+mj:TrajectoryTrace
+    a sh:NodeShape ;
+    sh:targetClass mj:TrajectoryTrace ;
+    sh:property [
+        sh:path mj:trace-enabled ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:boolean
+    ] ;
+    sh:property [
+        sh:path mj:trace-length ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 2 ;
+        sh:maxInclusive 8192
+    ] ;
+    sh:property [
+        sh:path mj:color ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class mj:ColorRGBA
+    ] .
+
+# A workspace may reference at most one trajectory trace overlay.
+mj:TraceHostShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf mj:has-trace ;
+    sh:property [
+        sh:path mj:has-trace ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class mj:TrajectoryTrace
     ] .
 
 # Targets any subject that declares mj:attach-to-body, regardless of whether

@@ -15,10 +15,19 @@
                 "friction-slide":   { "@id": "mj:friction-slide",   "@type": "xsd:double" },
                 "friction-torsion": { "@id": "mj:friction-torsion", "@type": "xsd:double" },
                 "friction-roll":    { "@id": "mj:friction-roll",    "@type": "xsd:double" },
-                "color-r":          { "@id": "mj:color-r",          "@type": "xsd:double" },
-                "color-g":          { "@id": "mj:color-g",          "@type": "xsd:double" },
-                "color-b":          { "@id": "mj:color-b",          "@type": "xsd:double" },
-                "color-a":          { "@id": "mj:color-a",          "@type": "xsd:double" }
+                "color":            { "@id": "mj:color",            "@type": "@id" }
+            }
+        },
+
+        "color": { "@id": "mj:color", "@type": "@id" },
+
+        "ColorRGBA": {
+            "@id": "mj:ColorRGBA",
+            "@context": {
+                "color-r": { "@id": "mj:color-r", "@type": "xsd:double" },
+                "color-g": { "@id": "mj:color-g", "@type": "xsd:double" },
+                "color-b": { "@id": "mj:color-b", "@type": "xsd:double" },
+                "color-a": { "@id": "mj:color-a", "@type": "xsd:double" }
             }
         },
 
@@ -26,6 +35,17 @@
             "@id": "mj:MuJoCoSite",
             "@context": {
                 "site-name": { "@id": "mj:site-name", "@type": "xsd:string" }
+            }
+        },
+
+        "has-trace": { "@id": "mj:has-trace", "@type": "@id" },
+
+        "TrajectoryTrace": {
+            "@id": "mj:TrajectoryTrace",
+            "@context": {
+                "trace-enabled": { "@id": "mj:trace-enabled", "@type": "xsd:boolean" },
+                "trace-length":  { "@id": "mj:trace-length",  "@type": "xsd:integer" },
+                "color":         { "@id": "mj:color",         "@type": "@id" }
             }
         },
 
