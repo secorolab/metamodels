@@ -47,17 +47,34 @@ sh_sec:PublicationShape
     ] ;
 
     sh:property [
-        sh:path     publication:external-url ;
+        sh:path     publication:bib-id ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:website ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1 ;
     ] ;
 
     sh:property [
-        sh:path     publication:is-part-of ;
+        sh:path     publication:published-in ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:maxCount 1 ;
         sh:severity sh:Warning ;
-        sh:message  "Publication should reference a venue via is-part-of." ;
+        sh:message  "Publication should reference where it was published via published-in." ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:preprint ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:related-tools ;
+        sh:nodeKind sh:IRI ;
     ] ;
 
     sh:property [
@@ -66,24 +83,48 @@ sh_sec:PublicationShape
     ] ;
 .
 
-sh_sec:VenueShape
+sh_sec:PublicationVenueShape
     a sh:NodeShape ;
-    sh:targetClass publication:Venue ;
+    sh:targetClass publication:PublicationVenue ;
     sh:closed false ;
 
     sh:property [
-        sh:path     publication:venue-name ;
+        sh:path     publication:name ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:severity sh:Violation ;
-        sh:message  "Venue must have a name." ;
+        sh:message  "PublicationVenue must have a name." ;
     ] ;
 
     sh:property [
         sh:path     publication:url ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1 ;
+    ] ;
+.
+
+sh_sec:PreprintShape
+    a sh:NodeShape ;
+    sh:targetClass publication:Preprint ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     publication:preprint-where ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Preprint must name where it is hosted." ;
+    ] ;
+
+    sh:property [
+        sh:path     publication:url ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Preprint must have a URL." ;
     ] ;
 .
 
