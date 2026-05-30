@@ -1,6 +1,7 @@
 {
     "@context": {
         "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
         "traj": "https://secorolab.github.io/metamodels/task/trajectory#",
 
         "Trajectory": "traj:Trajectory",
@@ -31,20 +32,16 @@
         "Circle": {
             "@id": "traj:Circle",
             "@context": {
+                "start": {
+                    "@id": "traj:start",
+                    "@type": "@id"
+                },
                 "center": {
                     "@id": "traj:center",
                     "@type": "@id"
                 },
-                "radius": {
-                    "@id": "traj:radius",
-                    "@type": "@id"
-                },
                 "plane-normal": {
                     "@id": "traj:plane-normal",
-                    "@type": "@id"
-                },
-                "orientation": {
-                    "@id": "traj:orientation",
                     "@type": "@id"
                 },
                 "alpha": {
@@ -58,8 +55,8 @@
             }
         },
 
-        "SemiCircle": {
-            "@id": "traj:SemiCircle",
+        "Arc": {
+            "@id": "traj:Arc",
             "@context": {
                 "start": {
                     "@id": "traj:start",
@@ -69,16 +66,12 @@
                     "@id": "traj:end",
                     "@type": "@id"
                 },
-                "radius": {
-                    "@id": "traj:radius",
+                "amplitude": {
+                    "@id": "traj:amplitude",
                     "@type": "@id"
                 },
                 "plane-normal": {
                     "@id": "traj:plane-normal",
-                    "@type": "@id"
-                },
-                "orientation": {
-                    "@id": "traj:orientation",
                     "@type": "@id"
                 },
                 "alpha": {
@@ -92,15 +85,45 @@
             }
         },
 
-        "Helix": {
-            "@id": "traj:Helix",
+        "Figure8": {
+            "@id": "traj:Figure8",
             "@context": {
-                "center": {
-                    "@id": "traj:center",
+                "anchor": {
+                    "@id": "traj:anchor",
                     "@type": "@id"
                 },
                 "radius": {
                     "@id": "traj:radius",
+                    "@type": "@id"
+                },
+                "plane-normal": {
+                    "@id": "traj:plane-normal",
+                    "@type": "@id"
+                },
+                "alpha": {
+                    "@id": "traj:alpha",
+                    "@type": "@id"
+                },
+                "trajectory": {
+                    "@id": "traj:trajectory",
+                    "@type": "@id"
+                },
+                "form": {
+                    "@id": "traj:form",
+                    "@type": "xsd:string"
+                }
+            }
+        },
+
+        "Helix": {
+            "@id": "traj:Helix",
+            "@context": {
+                "start": {
+                    "@id": "traj:start",
+                    "@type": "@id"
+                },
+                "center": {
+                    "@id": "traj:center",
                     "@type": "@id"
                 },
                 "axis": {
@@ -113,10 +136,6 @@
                 },
                 "revolutions": {
                     "@id": "traj:revolutions",
-                    "@type": "@id"
-                },
-                "orientation": {
-                    "@id": "traj:orientation",
                     "@type": "@id"
                 },
                 "alpha": {

@@ -1,6 +1,7 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix traj: <https://secorolab.github.io/metamodels/task/trajectory#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 traj:Trajectory
     a sh:NodeShape .
@@ -42,6 +43,13 @@ traj:Lerp
 traj:Circle
     a sh:NodeShape ;
     sh:property [
+        sh:path traj:start ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
         sh:path traj:center ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
@@ -49,21 +57,7 @@ traj:Circle
         sh:class qudt:Quantity
     ] ;
     sh:property [
-        sh:path traj:radius ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
         sh:path traj:plane-normal ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path traj:orientation ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
@@ -84,17 +78,10 @@ traj:Circle
         sh:class traj:Trajectory
     ] .
 
-traj:SemiCircle
+traj:Figure8
     a sh:NodeShape ;
     sh:property [
-        sh:path traj:start ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path traj:end ;
+        sh:path traj:anchor ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
@@ -115,7 +102,52 @@ traj:SemiCircle
         sh:class qudt:Quantity
     ] ;
     sh:property [
-        sh:path traj:orientation ;
+        sh:path traj:alpha ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:trajectory ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class traj:Trajectory
+    ] ;
+    sh:property [
+        sh:path traj:form ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Gerono" "Bernoulli" )
+    ] .
+
+traj:Arc
+    a sh:NodeShape ;
+    sh:property [
+        sh:path traj:start ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:end ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:amplitude ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:plane-normal ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
@@ -139,14 +171,14 @@ traj:SemiCircle
 traj:Helix
     a sh:NodeShape ;
     sh:property [
-        sh:path traj:center ;
+        sh:path traj:start ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class qudt:Quantity
     ] ;
     sh:property [
-        sh:path traj:radius ;
+        sh:path traj:center ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
@@ -168,13 +200,6 @@ traj:Helix
     ] ;
     sh:property [
         sh:path traj:revolutions ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path traj:orientation ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
