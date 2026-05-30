@@ -1,6 +1,9 @@
 @prefix mot-ext: <https://secorolab.github.io/metamodels/task/motion-specification#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
+@prefix map: <https://comp-rob2b.github.io/metamodels/task/map#> .
+@prefix geom_coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 
 mot-ext:ConstraintConjunction
     a sh:NodeShape ;
@@ -18,4 +21,34 @@ mot-ext:ConstraintDisjunction
         sh:minCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class cstr:Constraint
+    ] .
+
+# Coordinate view of the orientation sub-part of a pose, as a per-axis (x/y/z) angle.
+# Upstream map:PoseCoordinateView only models the position sub-part (subspace map:position),
+# so orientation-axis views use this secorolab map extension (subspace map:rotation) instead.
+map:PoseOrientationView
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path map:subobject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path map:subspace ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( map:rotation )
+    ] ;
+    sh:property [
+        sh:path map:axis ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( map:x map:y map:z )
     ] .
