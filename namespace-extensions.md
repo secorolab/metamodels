@@ -68,13 +68,7 @@ Verified secorolab-invented, still emitted under comp-rob2b prefixes:
 | **`geom-coord-ext`** | `EulerAngles`, `axes-sequence`, `has-coordinate`, `angle-axis` | also touches the secorolab `geometry/geometry.shacl.ttl` shapes |
 | **`geom-rel-ext`** | `Direction` | small |
 | **`cstr-ext`** | `AngleConstraint`, `DistanceConstraint`, `OrientationConstraint`, `PoseConstraint`, `LessThanConstraint` | emitted constraint subtypes; read by IR constraint classification |
-| **`cstr-hdl-ext`** 🟡 | `control-mode`, `evaluators`, `monitors-until`, `JointTorque` | "replacement" gray area; `control-mode` is read by `motion-spec-check`. Decide whether to move (consistent with `FeedForwardController`) or keep as part of the local replacement. |
-
-## Couldn't verify
-
-- `app:order` (`comp-rob2b…/application/order`) is emitted, but comp-rob2b publishes no
-  `application` `.ttl`, so membership is undeterminable here. If it's a secorolab addition it
-  should become `app-ext:order`; confirm against the upstream application metamodel first.
+| **`cstr-hdl-ext`** 🟡 | `control-mode`, `evaluators`, `monitors-until`, `JointTorque`, `order` | "replacement" gray area; `control-mode` is read by `motion-spec-check`. Decide whether to move (consistent with `FeedForwardController`) or keep as part of the local replacement. `order` is the per-handler scheduling index (`rdf.py:_emit_constraint_handler` → IR `ConstraintHandler.order`), currently emitted as **`app:order`** in comp-rob2b's `application/` manifest namespace — doubly misplaced (a handler domain property, not manifest vocabulary); belongs here as `cstr-hdl-ext:order`. |
 
 ## Confirmed non-issues (do not re-flag)
 
