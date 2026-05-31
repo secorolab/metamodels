@@ -70,6 +70,12 @@ Verified secorolab-invented, still emitted under comp-rob2b prefixes:
 | **`cstr-ext`** | `AngleConstraint`, `DistanceConstraint`, `OrientationConstraint`, `PoseConstraint`, `LessThanConstraint` | emitted constraint subtypes; read by IR constraint classification |
 | **`cstr-hdl-ext`** 🟡 | `control-mode`, `evaluators`, `monitors-until`, `JointTorque` | "replacement" gray area; `control-mode` is read by `motion-spec-check`. Decide whether to move (consistent with `FeedForwardController`) or keep as part of the local replacement. |
 
+## Couldn't verify
+
+- `app:order` (`comp-rob2b…/application/order`) is emitted, but comp-rob2b publishes no
+  `application` `.ttl`, so membership is undeterminable here. If it's a secorolab addition it
+  should become `app-ext:order`; confirm against the upstream application metamodel first.
+
 ## Confirmed non-issues (do not re-flag)
 
 - Stub-namespace core types (see caveat above): `geom-ent:*`, `kc:*`, `kc-stat:*`,
