@@ -159,21 +159,6 @@ cstr_hdl:ProportionalIntegralDerivative
 cstr_hdl:ImpedanceController
     rdfs:subClassOf cstr_hdl:FeedbackController .
 
-cstr_hdl:FeedForwardController
-    a rdfs:Class, sh:NodeShape ;
-    rdfs:subClassOf cstr_hdl:Controller ;
-    sh:property [
-        sh:path cstr_hdl:reference-signal ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr_hdl:error-signal ;
-        sh:maxCount 0
-    ] .
-
 cstr_hdl:ProportionalIntegralDerivative
     a rdfs:Class, sh:NodeShape ;
     sh:property [

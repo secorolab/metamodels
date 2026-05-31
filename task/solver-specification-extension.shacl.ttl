@@ -1,4 +1,5 @@
-@prefix slv:    <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
+@prefix slv:     <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
+@prefix slv-ext: <https://secorolab.github.io/metamodels/task/solver-specification#> .
 @prefix kc_ent: <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
 @prefix qudt:   <http://qudt.org/schema/qudt/> .
 @prefix sh:     <http://www.w3.org/ns/shacl#> .
@@ -9,27 +10,31 @@
 # motion-spec-dsl). The upstream solver-specification.ttl does not cover this
 # case because slv:SolverWithInputAndOutput restricts slv:solver to dynamics
 # algorithms (RNEA / ABA / ACHD).
+#
+# The new classes/predicate live in the secorolab namespace (slv-ext:) rather
+# than squatting in comp-rob2b's slv#; the upstream slv: predicates (solver,
+# attached-to, control-signal) are reused.
 
-slv:CommandForwardingSolver
+slv-ext:CommandForwardingSolver
     a sh:NodeShape ;
-    sh:targetClass slv:CommandForwardingSolver ;
+    sh:targetClass slv-ext:CommandForwardingSolver ;
     sh:property [
-        sh:path slv:command-forwarding ;
+        sh:path slv-ext:command-forwarding ;
         sh:minCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class slv:CommandForwardingSpecification
+        sh:class slv-ext:CommandForwardingSpecification
     ] ;
     sh:property [
         sh:path slv:solver ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
-        sh:in ( slv:CommandForwardingAlgorithm )
+        sh:in ( slv-ext:CommandForwardingAlgorithm )
     ] .
 
-slv:CommandForwardingSpecification
+slv-ext:CommandForwardingSpecification
     a sh:NodeShape ;
-    sh:targetClass slv:CommandForwardingSpecification ;
+    sh:targetClass slv-ext:CommandForwardingSpecification ;
     sh:property [
         sh:path slv:attached-to ;
         sh:minCount 1 ;
@@ -38,7 +43,7 @@ slv:CommandForwardingSpecification
         sh:class kc_ent:Joint
     ] ;
     sh:property [
-        sh:path slv:control-signal ;
+        sh:path slv-ext:control-signal ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;

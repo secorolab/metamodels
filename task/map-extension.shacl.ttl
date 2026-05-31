@@ -1,0 +1,65 @@
+@prefix map-ext: <https://secorolab.github.io/metamodels/task/map#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix map: <https://comp-rob2b.github.io/metamodels/task/map#> .
+@prefix geom_coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+
+# Secorolab coordinate-view extensions to the upstream comp-rob2b `map` vocabulary.
+# The new view *classes* live in the secorolab namespace (map-ext:) rather than
+# squatting in comp-rob2b's task/map#; the map: predicates (superobject,
+# subobject, subspace, axis) are reused from upstream. Upstream map View classes
+# (map:PoseCoordinateView, *TwistCoordinateView, ...) are inherently per-axis
+# (they mandate map:axis), so these extensions cover the cases upstream does not.
+
+# Coordinate view of the orientation sub-part of a pose, as a per-axis (x/y/z) angle.
+# Upstream map:PoseCoordinateView only models the position sub-part (subspace
+# map:position), so orientation-axis views use this extension (subspace map:rotation).
+map-ext:PoseOrientationView
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path map:subobject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path map:subspace ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( map-ext:rotation )
+    ] ;
+    sh:property [
+        sh:path map:axis ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( map:x map:y map:z )
+    ] .
+
+# Coordinate view of the position sub-part of a pose, as the whole 3-vector.
+# Upstream map:PoseCoordinateView is per-axis (mandates map:axis); this extension
+# exposes the entire position vector (subspace map:position, no axis).
+map-ext:PosePositionView
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path map:subobject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path map:subspace ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( map:position )
+    ] .
