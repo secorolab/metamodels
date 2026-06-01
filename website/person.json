@@ -12,7 +12,6 @@
         "HiWiStudent":    { "@id": "person:HiWiStudent" },
         "Postdoc":        { "@id": "person:Postdoc" },
         "Researcher":     { "@id": "person:Researcher" },
-        "Collaborator":   { "@id": "person:Collaborator" },
 
         "first-name":   { "@id": "person:first-name",  "@type": "xsd:string" },
         "last-name":    { "@id": "person:last-name",   "@type": "xsd:string" },
