@@ -158,8 +158,3 @@ person:External
     a sh:NodeShape ;
     sh:targetClass person:External ;
 .
-
-person:Collaborator
-    a sh:NodeShape ;
-    sh:targetClass person:Collaborator ;
-.
