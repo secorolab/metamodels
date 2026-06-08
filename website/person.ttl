@@ -50,6 +50,18 @@ sh_sec:PersonShape
     ] ;
 
     sh:property [
+        sh:path     person:telephone ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     person:office-address ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
         sh:path     person:url ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1 ;

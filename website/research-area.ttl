@@ -26,14 +26,6 @@ sh_sec:ResearchAreaShape
         sh:message  "Research area should have a description." ;
     ] ;
 
-    sh:property [
-        sh:path     research-area:term-code ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1 ;
-        sh:pattern  "^[a-z0-9]+(-[a-z0-9]+)*$" ;
-        sh:severity sh:Warning ;
-        sh:message  "term-code should be a lowercase hyphenated slug." ;
-    ] ;
 .
 
 sh_sec:ResearchObjectiveShape
@@ -59,15 +51,6 @@ sh_sec:ResearchObjectiveShape
         sh:maxLength 6 ;
         sh:severity sh:Warning ;
         sh:message  "Research objective should have a short acronym (2-6 characters)." ;
-    ] ;
-
-    sh:property [
-        sh:path     research-area:term-code ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1 ;
-        sh:pattern  "^[a-z0-9]+(-[a-z0-9]+)*$" ;
-        sh:severity sh:Warning ;
-        sh:message  "term-code should be a lowercase hyphenated slug." ;
     ] ;
 
     sh:property [

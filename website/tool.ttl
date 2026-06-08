@@ -39,6 +39,29 @@ sh_sec:ToolShape
     ] ;
 
     sh:property [
+        sh:path     tool:code-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:website-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:paper-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:related-publications ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+
+    sh:property [
         sh:path     tool:application-category ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;

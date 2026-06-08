@@ -1,5 +1,6 @@
 {
     "@context": {
+        "@base": "https://secorolab.github.io/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "project": "https://secorolab.github.io/metamodels/website/project#",
 
@@ -11,6 +12,7 @@
         "start-date":  { "@id": "project:start-date",  "@type": "xsd:date" },
         "end-date":    { "@id": "project:end-date",    "@type": "xsd:date" },
         "url":         { "@id": "project:url",         "@type": "@id" },
+        "logo":        { "@id": "project:logo",        "@type": "@id" },
 
         "funder": { "@id": "project:funder", "@type": "@id" },
 
