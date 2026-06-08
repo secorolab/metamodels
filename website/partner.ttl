@@ -18,6 +18,14 @@ sh_sec:PartnerShape
     ] ;
 
     sh:property [
+        sh:path     partner:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "Partner should have a description." ;
+    ] ;
+
+    sh:property [
         sh:path     partner:url ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1 ;
@@ -27,7 +35,7 @@ sh_sec:PartnerShape
 
     sh:property [
         sh:path     partner:logo ;
-        sh:datatype xsd:string ;
+        sh:nodeKind sh:IRI ;
         sh:maxCount 1 ;
         sh:severity sh:Warning ;
         sh:message  "Partner should have a logo." ;

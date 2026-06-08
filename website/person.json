@@ -1,5 +1,6 @@
 {
     "@context": {
+        "@base": "https://secorolab.github.io/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "person": "https://secorolab.github.io/metamodels/website/person#",
 
@@ -18,6 +19,8 @@
         "middle-name":  { "@id": "person:middle-name", "@type": "xsd:string" },
         "job-title":    { "@id": "person:job-title",   "@type": "xsd:string" },
         "email":        { "@id": "person:email",       "@type": "xsd:string" },
+        "telephone":    { "@id": "person:telephone",   "@type": "xsd:string" },
+        "office-address": { "@id": "person:office-address", "@type": "xsd:string" },
         "url":          { "@id": "person:url",         "@type": "@id" },
         "orcid":        { "@id": "person:orcid",       "@type": "@id" },
         "g-scholar":    { "@id": "person:g-scholar",   "@type": "@id" },

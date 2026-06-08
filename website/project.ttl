@@ -34,7 +34,7 @@ sh_sec:ProjectShape
 
     sh:property [
         sh:path     project:logo ;
-        sh:datatype xsd:string ;
+        sh:nodeKind sh:IRI ;
         sh:maxCount 1 ;
         sh:severity sh:Warning ;
         sh:message  "Project should have a logo." ;
