@@ -33,6 +33,14 @@ sh_sec:ProjectShape
     ] ;
 
     sh:property [
+        sh:path     project:logo ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "Project should have a logo." ;
+    ] ;
+
+    sh:property [
         sh:path     project:start-date ;
         sh:datatype xsd:date ;
         sh:maxCount 1 ;

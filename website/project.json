@@ -11,6 +11,7 @@
         "start-date":  { "@id": "project:start-date",  "@type": "xsd:date" },
         "end-date":    { "@id": "project:end-date",    "@type": "xsd:date" },
         "url":         { "@id": "project:url",         "@type": "@id" },
+        "logo":        { "@id": "project:logo",        "@type": "xsd:string" },
 
         "funder": { "@id": "project:funder", "@type": "@id" },
 
