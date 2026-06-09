@@ -1,0 +1,50 @@
+@prefix sh:               <http://www.w3.org/ns/shacl#> .
+@prefix xsd:              <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec:           <https://secorolab.github.io/metamodels/website/> .
+@prefix compute-resource: <https://secorolab.github.io/metamodels/website/compute-resource#> .
+
+sh_sec:ComputeResourceShape
+    a sh:NodeShape ;
+    sh:targetClass compute-resource:ComputeResource ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     compute-resource:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:severity sh:Violation ;
+        sh:message  "Compute resource must have a name." ;
+    ] ;
+
+    sh:property [
+        sh:path     compute-resource:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     compute-resource:gpu ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Compute resource must specify its GPU." ;
+    ] ;
+
+    sh:property [
+        sh:path     compute-resource:vram ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Compute resource must specify its VRAM." ;
+    ] ;
+
+    sh:property [
+        sh:path     compute-resource:purpose ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+.
