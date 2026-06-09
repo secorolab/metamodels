@@ -1,5 +1,6 @@
 {
     "@context": {
+        "@base": "https://secorolab.github.io/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "tool": "https://secorolab.github.io/metamodels/website/tool#",
 
@@ -15,20 +16,17 @@
         "paper-url":            { "@id": "tool:paper-url",            "@type": "@id" },
         "related-publications": {
             "@id":        "tool:related-publications",
-            "@type":      "@id",
-            "@container": "@set"
+            "@type":      "@vocab",
+            "@container": "@set",
+            "@context": {
+                "@vocab": "https://secorolab.github.io/publications/"
+            }
         },
         "application-category": { "@id": "tool:application-category", "@type": "xsd:string" },
 
         "video": { "@id": "tool:video", "@type": "@id" },
 
         "video-name": { "@id": "tool:video-name", "@type": "xsd:string" },
-        "video-url":  { "@id": "tool:video-url",  "@type": "@id" },
-
-        "keywords": {
-            "@id":        "tool:keywords",
-            "@type":      "@id",
-            "@container": "@set"
-        }
+        "video-url":  { "@id": "tool:video-url",  "@type": "@id" }
     }
 }

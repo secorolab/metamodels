@@ -1,10 +1,10 @@
 {
     "@context": {
+        "@base": "https://secorolab.github.io/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "thesis": "https://secorolab.github.io/metamodels/website/thesis#",
 
         "Thesis":    { "@id": "thesis:Thesis" },
-        "PersonRef": { "@id": "thesis:PersonRef" },
 
         "name":              { "@id": "thesis:name",              "@type": "xsd:string" },
         "description":       { "@id": "thesis:description",       "@type": "xsd:string" },

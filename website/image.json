@@ -1,0 +1,15 @@
+{
+    "@context": {
+        "@base": "https://secorolab.github.io/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "img": "https://secorolab.github.io/metamodels/website/image#",
+
+        "Image": { "@id": "img:Image" },
+
+        "image":     { "@id": "img:image",     "@type": "@id" },
+        "logo":      { "@id": "img:logo",      "@type": "@id" },
+        "url":       { "@id": "img:url",       "@type": "@id" },
+        "caption":   { "@id": "img:caption",   "@type": "xsd:string" },
+        "copyright": { "@id": "img:copyright", "@type": "xsd:string" }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "@context": {
+        "@base": "https://secorolab.github.io/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "kw": "https://secorolab.github.io/metamodels/website/keyword#",
+        "Keyword": {
+            "@id": "kw:Keyword",
+            "@context": {
+                "name": {
+                    "@id": "kw:name",
+                    "@type": "xsd:string"
+                }
+            }
+        },
+        "keywords": {
+            "@id": "kw:keywords",
+            "@type": "@vocab",
+            "@container": "@set"
+        },
+        "@vocab": "https://secorolab.github.io/keywords/"
+    }
+}

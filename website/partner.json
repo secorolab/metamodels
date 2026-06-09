@@ -8,7 +8,6 @@
 
         "name":        { "@id": "partner:name",        "@type": "xsd:string" },
         "description": { "@id": "partner:description", "@type": "xsd:string" },
-        "url":         { "@id": "partner:url",         "@type": "@id" },
-        "logo":        { "@id": "partner:logo",        "@type": "@id" }
+        "url":         { "@id": "partner:url",         "@type": "@id" }
     }
 }

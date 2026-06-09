@@ -12,7 +12,6 @@
         "start-date":  { "@id": "project:start-date",  "@type": "xsd:date" },
         "end-date":    { "@id": "project:end-date",    "@type": "xsd:date" },
         "url":         { "@id": "project:url",         "@type": "@id" },
-        "logo":        { "@id": "project:logo",        "@type": "@id" },
 
         "funder": { "@id": "project:funder", "@type": "@id" },
 
@@ -21,8 +20,11 @@
 
         "member": {
             "@id":        "project:member",
-            "@type":      "@id",
-            "@container": "@set"
+            "@type":      "@vocab",
+            "@container": "@set",
+            "@context": {
+                "@vocab": "https://secorolab.github.io/people/"
+            }
         }
     }
 }
