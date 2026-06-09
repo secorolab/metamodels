@@ -26,11 +26,6 @@ sh_sec:RobotShape
         sh:message  "Robot should have a description." ;
     ] ;
 
-    sh:property [
-        sh:path     robot:image ;
-        sh:nodeKind sh:IRI ;
-        sh:maxCount 1 ;
-    ] ;
 
     sh:property [
         sh:path     robot:url ;

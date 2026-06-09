@@ -2,6 +2,7 @@
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 @prefix sh_sec: <https://secorolab.github.io/metamodels/website/> .
 @prefix tool:   <https://secorolab.github.io/metamodels/website/tool#> .
+@prefix kw:     <https://secorolab.github.io/metamodels/website/keyword#> .
 
 sh_sec:ToolShape
     a sh:NodeShape ;
@@ -72,13 +73,13 @@ sh_sec:ToolShape
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:maxCount 1 ;
     ] ;
-
     sh:property [
-        sh:path     tool:keywords ;
+        sh:path     kw:keywords ;
         sh:nodeKind sh:IRI ;
         sh:severity sh:Warning ;
         sh:message  "Tool keywords should reference keyword IRIs." ;
     ] ;
+
 .
 
 sh_sec:DemoVideoShape

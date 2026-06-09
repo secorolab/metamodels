@@ -1,5 +1,6 @@
 {
     "@context": {
+        "@base": "https://secorolab.github.io/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "news": "https://secorolab.github.io/metamodels/website/news#",
 
@@ -13,11 +14,6 @@
         "about": {
             "@id":        "news:about",
             "@type":      "@id",
-            "@container": "@set"
-        },
-
-        "keywords": {
-            "@id":        "news:keywords",
             "@container": "@set"
         }
     }

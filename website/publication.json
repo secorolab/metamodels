@@ -1,5 +1,6 @@
 {
     "@context": {
+        "@base": "https://secorolab.github.io/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "publication": "https://secorolab.github.io/metamodels/website/publication#",
 

@@ -32,6 +32,7 @@ sh_sec:ProjectShape
         sh:maxCount 1 ;
     ] ;
 
+
     sh:property [
         sh:path     project:logo ;
         sh:nodeKind sh:IRI ;

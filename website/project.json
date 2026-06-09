@@ -21,8 +21,11 @@
 
         "member": {
             "@id":        "project:member",
-            "@type":      "@id",
-            "@container": "@set"
+            "@type":      "@vocab",
+            "@container": "@set",
+            "@context": {
+                "@vocab": "https://secorolab.github.io/people/"
+            }
         }
     }
 }

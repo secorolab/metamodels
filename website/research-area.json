@@ -1,5 +1,6 @@
 {
     "@context": {
+        "@base": "https://secorolab.github.io/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "research-area": "https://secorolab.github.io/metamodels/website/research-area#",
 
@@ -11,8 +12,11 @@
         "acronym":     { "@id": "research-area:acronym",     "@type": "xsd:string" },
         "topics": {
             "@id":       "research-area:topics",
-            "@type":     "@id",
-            "@container": "@set"
+            "@type":     "@vocab",
+            "@container": "@set",
+            "@context": {
+                "@vocab": "https://secorolab.github.io/research/"
+            }
         }
     }
 }
