@@ -3,45 +3,24 @@
         "@base": "https://secorolab.github.io/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "thesis": "https://secorolab.github.io/metamodels/website/thesis#",
-        "Thesis": {
-            "@id": "thesis:Thesis"
-        },
-        "name": {
-            "@id": "thesis:name",
-            "@type": "xsd:string"
-        },
-        "description": {
-            "@id": "thesis:description",
-            "@type": "xsd:string"
-        },
-        "date-published": {
-            "@id": "thesis:date-published",
-            "@type": "xsd:date"
-        },
-        "educational-level": {
-            "@id": "thesis:educational-level",
-            "@type": "xsd:string"
-        },
-        "in-support-of": {
-            "@id": "thesis:in-support-of",
-            "@type": "xsd:string"
-        },
-        "url": {
-            "@id": "thesis:url",
-            "@type": "@id"
-        },
-        "author": {
-            "@id": "thesis:author",
-            "@type": "@id"
-        },
+
+        "Thesis":    { "@id": "thesis:Thesis" },
+
+        "name":              { "@id": "thesis:name",              "@type": "xsd:string" },
+        "description":       { "@id": "thesis:description",       "@type": "xsd:string" },
+        "date-published":    { "@id": "thesis:date-published",    "@type": "xsd:date" },
+        "educational-level": { "@id": "thesis:educational-level", "@type": "xsd:string" },
+        "in-support-of":     { "@id": "thesis:in-support-of",     "@type": "xsd:string" },
+        "url":               { "@id": "thesis:url",               "@type": "@id" },
+
+        "author": { "@id": "thesis:author", "@type": "@id" },
+
         "advisor": {
-            "@id": "thesis:advisor",
-            "@type": "@id",
+            "@id":        "thesis:advisor",
+            "@type":      "@id",
             "@container": "@set"
         },
-        "source-organization": {
-            "@id": "thesis:source-organization",
-            "@type": "@id"
-        }
+
+        "source-organization": { "@id": "thesis:source-organization", "@type": "@id" }
     }
 }
