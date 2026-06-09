@@ -1,34 +1,65 @@
 {
     "@context": {
+        "@base": "https://secorolab.github.io/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "tool": "https://secorolab.github.io/metamodels/website/tool#",
-
-        "Tool":        { "@id": "tool:Tool" },
-        "DemoVideo":   { "@id": "tool:DemoVideo" },
-
-        "name":                 { "@id": "tool:name",                 "@type": "xsd:string" },
-        "description":          { "@id": "tool:description",          "@type": "xsd:string" },
-        "url":                  { "@id": "tool:url",                  "@type": "@id" },
-        "external-url":         { "@id": "tool:external-url",         "@type": "@id" },
-        "code-url":             { "@id": "tool:code-url",             "@type": "@id" },
-        "website-url":          { "@id": "tool:website-url",          "@type": "@id" },
-        "paper-url":            { "@id": "tool:paper-url",            "@type": "@id" },
-        "related-publications": {
-            "@id":        "tool:related-publications",
-            "@type":      "@id",
-            "@container": "@set"
+        "Tool": {
+            "@id": "tool:Tool"
         },
-        "application-category": { "@id": "tool:application-category", "@type": "xsd:string" },
-
-        "video": { "@id": "tool:video", "@type": "@id" },
-
-        "video-name": { "@id": "tool:video-name", "@type": "xsd:string" },
-        "video-url":  { "@id": "tool:video-url",  "@type": "@id" },
-
-        "keywords": {
-            "@id":        "tool:keywords",
-            "@type":      "@id",
-            "@container": "@set"
+        "DemoVideo": {
+            "@id": "tool:DemoVideo"
+        },
+        "name": {
+            "@id": "tool:name",
+            "@type": "xsd:string"
+        },
+        "description": {
+            "@id": "tool:description",
+            "@type": "xsd:string"
+        },
+        "url": {
+            "@id": "tool:url",
+            "@type": "@id"
+        },
+        "external-url": {
+            "@id": "tool:external-url",
+            "@type": "@id"
+        },
+        "code-url": {
+            "@id": "tool:code-url",
+            "@type": "@id"
+        },
+        "website-url": {
+            "@id": "tool:website-url",
+            "@type": "@id"
+        },
+        "paper-url": {
+            "@id": "tool:paper-url",
+            "@type": "@id"
+        },
+        "related-publications": {
+            "@id": "tool:related-publications",
+            "@type": "@vocab",
+            "@container": "@set",
+            "@context": {
+                "@vocab": "https://secorolab.github.io/publications/"
+            }
+        },
+        "application-category": {
+            "@id": "tool:application-category",
+            "@type": "xsd:string"
+        },
+        "video": {
+            "@id": "tool:video",
+            "@type": "@id"
+        },
+        "video-name": {
+            "@id": "tool:video-name",
+            "@type": "xsd:string"
+        },
+        "video-url": {
+            "@id": "tool:video-url",
+            "@type": "@id"
         }
     }
 }

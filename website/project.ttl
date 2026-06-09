@@ -32,13 +32,6 @@ sh_sec:ProjectShape
         sh:maxCount 1 ;
     ] ;
 
-    sh:property [
-        sh:path     project:logo ;
-        sh:nodeKind sh:IRI ;
-        sh:maxCount 1 ;
-        sh:severity sh:Warning ;
-        sh:message  "Project should have a logo." ;
-    ] ;
 
     sh:property [
         sh:path     project:start-date ;

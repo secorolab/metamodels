@@ -97,11 +97,6 @@ sh_sec:PersonShape
         sh:maxCount 1 ;
     ] ;
 
-    sh:property [
-        sh:path     person:image ;
-        sh:nodeKind sh:IRI ;
-        sh:maxCount 1 ;
-    ] ;
 
     sh:property [
         sh:path     person:start-date ;

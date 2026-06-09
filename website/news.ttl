@@ -2,6 +2,7 @@
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 @prefix sh_sec: <https://secorolab.github.io/metamodels/website/> .
 @prefix news:   <https://secorolab.github.io/metamodels/website/news#> .
+@prefix kw:     <https://secorolab.github.io/metamodels/website/keyword#> .
 
 sh_sec:NewsShape
     a sh:NodeShape ;
@@ -44,9 +45,11 @@ sh_sec:NewsShape
         sh:path     news:about ;
         sh:nodeKind sh:IRI ;
     ] ;
-
     sh:property [
-        sh:path     news:keywords ;
-        sh:datatype xsd:string ;
+        sh:path     kw:keywords ;
+        sh:nodeKind sh:IRI ;
+        sh:severity sh:Warning ;
+        sh:message  "News keywords should reference keyword IRIs." ;
     ] ;
+
 .

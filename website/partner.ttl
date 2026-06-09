@@ -33,11 +33,4 @@ sh_sec:PartnerShape
         sh:message  "Partner should have a URL." ;
     ] ;
 
-    sh:property [
-        sh:path     partner:logo ;
-        sh:nodeKind sh:IRI ;
-        sh:maxCount 1 ;
-        sh:severity sh:Warning ;
-        sh:message  "Partner should have a logo." ;
-    ] ;
 .
