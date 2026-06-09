@@ -1,0 +1,30 @@
+{
+    "@context": {
+        "@base": "https://secorolab.github.io/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "compute-resource": "https://secorolab.github.io/metamodels/website/compute-resource#",
+        "ComputeResource": {
+            "@id": "compute-resource:ComputeResource"
+        },
+        "name": {
+            "@id": "compute-resource:name",
+            "@type": "xsd:string"
+        },
+        "description": {
+            "@id": "compute-resource:description",
+            "@type": "xsd:string"
+        },
+        "gpu": {
+            "@id": "compute-resource:gpu",
+            "@type": "xsd:string"
+        },
+        "vram": {
+            "@id": "compute-resource:vram",
+            "@type": "xsd:string"
+        },
+        "purpose": {
+            "@id": "compute-resource:purpose",
+            "@type": "xsd:string"
+        }
+    }
+}
