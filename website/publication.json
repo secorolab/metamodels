@@ -1,0 +1,52 @@
+{
+    "@context": {
+        "@base": "https://secorolab.github.io/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "publication": "https://secorolab.github.io/metamodels/website/publication#",
+
+        "Publication": { "@id": "publication:Publication" },
+        "PublicationVenue": {
+            "@id": "publication:PublicationVenue",
+            "@context": {
+                "name": { "@id": "publication:name", "@type": "xsd:string" },
+                "url":  { "@id": "publication:url",  "@type": "@id" }
+            }
+        },
+        "Preprint": {
+            "@id": "publication:Preprint",
+            "@context": {
+                "where": { "@id": "publication:preprint-where", "@type": "xsd:string" },
+                "url":   { "@id": "publication:url",            "@type": "@id" }
+            }
+        },
+        "PersonRef":   { "@id": "publication:PersonRef" },
+
+        "name":           { "@id": "publication:name",           "@type": "xsd:string" },
+        "bib-id":         { "@id": "publication:bib-id",         "@type": "xsd:string" },
+        "date-published": { "@id": "publication:date-published", "@type": "xsd:date" },
+        "url":            { "@id": "publication:url",            "@type": "@id" },
+        "doi":            { "@id": "publication:doi",            "@type": "@id" },
+        "website":        { "@id": "publication:website",        "@type": "@id" },
+
+        "author": {
+            "@id":        "publication:author",
+            "@type":      "@id",
+            "@container": "@set"
+        },
+
+        "published-in": { "@id": "publication:published-in", "@type": "@id" },
+        "preprint":     { "@id": "publication:preprint",     "@type": "@id" },
+
+        "related-tools": {
+            "@id":        "publication:related-tools",
+            "@type":      "@id",
+            "@container": "@set"
+        },
+
+        "about": {
+            "@id":        "publication:about",
+            "@type":      "@id",
+            "@container": "@set"
+        }
+    }
+}

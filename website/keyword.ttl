@@ -1,0 +1,16 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec: <https://secorolab.github.io/metamodels/website/> .
+@prefix kw:     <https://secorolab.github.io/metamodels/website/keyword#> .
+
+sh_sec:KeywordShape
+    a sh:NodeShape ;
+    sh:targetClass kw:Keyword ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     kw:name ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+.

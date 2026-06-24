@@ -1,0 +1,16 @@
+{
+    "@context": {
+        "@base": "https://secorolab.github.io/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "person-ref": "https://secorolab.github.io/metamodels/website/person-ref#",
+        "PersonRef": {
+            "@id": "person-ref:PersonRef",
+            "@context": {
+                "name": {
+                    "@id": "person-ref:name",
+                    "@type": "xsd:string"
+                }
+            }
+        }
+    }
+}

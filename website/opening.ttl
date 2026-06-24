@@ -1,0 +1,119 @@
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec:  <https://secorolab.github.io/metamodels/website/> .
+@prefix opening: <https://secorolab.github.io/metamodels/website/opening#> .
+
+sh_sec:OpeningShape
+    a sh:NodeShape ;
+    sh:targetClass opening:JobPosting ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     opening:title ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 3 ;
+        sh:severity sh:Violation ;
+        sh:message  "Job posting must have a title." ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:description ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Job posting must have a description." ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:employment-type ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in       ( "HiWi" "PhD" "PostDoc" "FullTime" "PartTime" "Internship" "Volunteer" "MSc Thesis" "BSc Thesis" ) ;
+        sh:severity sh:Warning ;
+        sh:message  "employment-type should be a recognised type." ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:date-posted ;
+        sh:datatype xsd:date ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Job posting must have a date-posted." ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:valid-through ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "valid-through should be a valid xsd:date." ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:qualifications ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:responsibilities ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:skills ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:incentive-compensation ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:hiring-organization ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "Job posting should reference a hiring-organization." ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:job-location ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:applicant-location-requirements ;
+        sh:datatype xsd:string ;
+    ] ;
+.
+
+sh_sec:OrganizationShape
+    a sh:NodeShape ;
+    sh:targetClass opening:Organization ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     opening:org-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Organisation must have a name." ;
+    ] ;
+
+    sh:property [
+        sh:path     opening:org-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+.

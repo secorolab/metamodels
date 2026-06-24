@@ -1,0 +1,23 @@
+{
+    "@context": {
+        "@base": "https://secorolab.github.io/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "group": "https://secorolab.github.io/metamodels/website/group#",
+
+        "ResearchGroup": { "@id": "group:ResearchGroup" },
+
+        "name":             { "@id": "group:name",             "@type": "xsd:string" },
+        "alternate-name":   { "@id": "group:alternate-name",   "@type": "xsd:string" },
+        "description":      { "@id": "group:description",      "@type": "xsd:string" },
+        "email":            { "@id": "group:email",            "@type": "xsd:string" },
+        "url":              { "@id": "group:url",              "@type": "@id" },
+        "street-address":   { "@id": "group:street-address",   "@type": "xsd:string" },
+        "address-locality": { "@id": "group:address-locality", "@type": "xsd:string" },
+        "postal-code":      { "@id": "group:postal-code",      "@type": "xsd:string" },
+        "address-country":  { "@id": "group:address-country",  "@type": "xsd:string" },
+        "parent-org-name":  { "@id": "group:parent-org-name",  "@type": "xsd:string" },
+        "parent-org-url":   { "@id": "group:parent-org-url",   "@type": "@id" },
+        "department-name":  { "@id": "group:department-name",  "@type": "xsd:string" },
+        "mission":          { "@id": "group:mission",          "@type": "xsd:string" }
+    }
+}

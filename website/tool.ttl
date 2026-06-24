@@ -1,0 +1,107 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec: <https://secorolab.github.io/metamodels/website/> .
+@prefix tool:   <https://secorolab.github.io/metamodels/website/tool#> .
+@prefix kw:     <https://secorolab.github.io/metamodels/website/keyword#> .
+
+sh_sec:ToolShape
+    a sh:NodeShape ;
+    sh:targetClass tool:Tool ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     tool:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:severity sh:Violation ;
+        sh:message  "Tool must have a name." ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "Tool should have a description." ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:external-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:code-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:website-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:paper-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:related-publications ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:application-category ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:video ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path     kw:keywords ;
+        sh:nodeKind sh:IRI ;
+        sh:severity sh:Warning ;
+        sh:message  "Tool keywords should reference keyword IRIs." ;
+    ] ;
+
+.
+
+sh_sec:DemoVideoShape
+    a sh:NodeShape ;
+    sh:targetClass tool:DemoVideo ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     tool:video-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Demo video must have a name." ;
+    ] ;
+
+    sh:property [
+        sh:path     tool:video-url ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Demo video must have a URL." ;
+    ] ;
+.
