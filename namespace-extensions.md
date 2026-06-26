@@ -52,7 +52,7 @@ constraint-handler,solver-specification}`, `newtonian-rigid-body-dynamics/operat
 | `mot-ext` | `ConstraintConjunction`, `ConstraintDisjunction`, `has-constraint` |
 | `map-ext` | `PoseOrientationView`, `PosePositionView`, `rotation`, `pose`, `ComputeRotationFromPose` |
 | `slv-ext` | `CommandForwarding{Solver,Specification,Algorithm}`, `command-forwarding`, `control-signal`, `gravity-value` |
-| `cstr-hdl-ext` | `FeedForwardController`, `reference-signal` |
+| `cstr-hdl-ext` | `FeedForwardController`, `reference-signal`, `monitors-until`, `monitors-when`, `fallback-motion` |
 | `rbdyn-op-ext` | `AddQuantity` |
 
 `map-ext:PosePositionView` also fixed a conformance bug: upstream `map:PoseCoordinateView`
@@ -68,7 +68,7 @@ Verified secorolab-invented, still emitted under comp-rob2b prefixes:
 | **`geom-coord-ext`** | `EulerAngles`, `axes-sequence`, `has-coordinate`, `angle-axis` | also touches the secorolab `geometry/geometry.shacl.ttl` shapes |
 | **`geom-rel-ext`** | `Direction` | small |
 | **`cstr-ext`** | `AngleConstraint`, `DistanceConstraint`, `OrientationConstraint`, `PoseConstraint`, `LessThanConstraint` | emitted constraint subtypes; read by IR constraint classification |
-| **`cstr-hdl-ext`** 🟡 | `control-mode`, `evaluators`, `monitors-until`, `JointTorque`, `order` | "replacement" gray area; `control-mode` is read by `motion-spec-check`. Decide whether to move (consistent with `FeedForwardController`) or keep as part of the local replacement. `order` is the per-handler scheduling index (`rdf.py:_emit_constraint_handler` → IR `ConstraintHandler.order`), currently emitted as **`app:order`** in comp-rob2b's `application/` manifest namespace — doubly misplaced (a handler domain property, not manifest vocabulary); belongs here as `cstr-hdl-ext:order`. |
+| **`cstr-hdl-ext`** 🟡 | `control-mode`, `evaluators`, `JointTorque`, `order` | "replacement" gray area; `control-mode` is read by `motion-spec-check`. Decide whether to move (consistent with `FeedForwardController`) or keep as part of the local replacement. `order` is the per-handler scheduling index (`rdf.py:_emit_constraint_handler` → IR `ConstraintHandler.order`), currently emitted as **`app:order`** in comp-rob2b's `application/` manifest namespace — doubly misplaced (a handler domain property, not manifest vocabulary); belongs here as `cstr-hdl-ext:order`. |
 
 ## Confirmed non-issues (do not re-flag)
 

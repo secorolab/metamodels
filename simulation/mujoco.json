@@ -45,6 +45,7 @@
             "@context": {
                 "trace-enabled": { "@id": "mj:trace-enabled", "@type": "xsd:boolean" },
                 "trace-length":  { "@id": "mj:trace-length",  "@type": "xsd:integer" },
+                "trace-target":  { "@id": "mj:trace-target",  "@type": "xsd:string" },
                 "color":         { "@id": "mj:color",         "@type": "@id" }
             }
         },

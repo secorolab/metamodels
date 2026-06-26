@@ -3,6 +3,7 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
+@prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
 
 # Secorolab extension to the upstream comp-rob2b constraint-handler vocabulary.
 # A feed-forward controller consumes a reference-signal instead of an error-signal.
@@ -25,4 +26,40 @@ cstr-hdl-ext:FeedForwardController
     sh:property [
         sh:path cstr_hdl:error-signal ;
         sh:maxCount 0
+    ] .
+
+cstr-hdl-ext:UntilAggregateMonitor
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:monitors-until ;
+    sh:class cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr-hdl-ext:monitors-until ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class mot:GuardedMotion
+    ] .
+
+cstr-hdl-ext:WhenAggregateMonitor
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:monitors-when ;
+    sh:class cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr-hdl-ext:monitors-when ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class mot:GuardedMotion
+    ] .
+
+cstr-hdl-ext:FallbackMonitor
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:fallback-motion ;
+    sh:class cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr-hdl-ext:fallback-motion ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class mot:GuardedMotion
     ] .
