@@ -1,5 +1,6 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
@@ -26,6 +27,46 @@ cstr-hdl-ext:FeedForwardController
     sh:property [
         sh:path cstr_hdl:error-signal ;
         sh:maxCount 0
+    ] .
+
+cstr-hdl-ext:VelocityProfile
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr-hdl-ext:max-velocity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:max-acceleration ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:max-jerk ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:shape ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in ( "Trapezoidal" "SCurve" )
+    ] .
+
+cstr-hdl-ext:ProfiledController
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:velocity-profile ;
+    sh:class cstr_hdl:Controller ;
+    sh:property [
+        sh:path cstr-hdl-ext:velocity-profile ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class cstr-hdl-ext:VelocityProfile
     ] .
 
 cstr-hdl-ext:UntilAggregateMonitor

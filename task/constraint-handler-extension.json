@@ -3,8 +3,46 @@
         "@version": 1.1,
         "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
         "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
+        "VelocityProfile": "cstr-hdl-ext:VelocityProfile",
+        "LinearJerk": "cstr-hdl-ext:LinearJerk",
         "reference-signal": {
             "@id": "cstr-hdl-ext:reference-signal",
+            "@type": "@id"
+        },
+        "velocity-profile": {
+            "@id": "cstr-hdl-ext:velocity-profile",
+            "@type": "@id"
+        },
+        "max-velocity": {
+            "@id": "cstr-hdl-ext:max-velocity",
+            "@type": "@id"
+        },
+        "max-acceleration": {
+            "@id": "cstr-hdl-ext:max-acceleration",
+            "@type": "@id"
+        },
+        "max-jerk": {
+            "@id": "cstr-hdl-ext:max-jerk",
+            "@type": "@id"
+        },
+        "shape": {
+            "@id": "cstr-hdl-ext:shape",
+            "@type": "xsd:string"
+        },
+        "goal": {
+            "@id": "cstr-hdl-ext:goal",
+            "@type": "@id"
+        },
+        "measured": {
+            "@id": "cstr-hdl-ext:measured",
+            "@type": "@id"
+        },
+        "reference": {
+            "@id": "cstr-hdl-ext:reference",
+            "@type": "@id"
+        },
+        "controller": {
+            "@id": "cstr-hdl-ext:controller",
             "@type": "@id"
         },
         "monitors-until": {
