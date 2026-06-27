@@ -18,6 +18,10 @@
         "fallback-motion": {
             "@id": "cstr-hdl-ext:fallback-motion",
             "@type": "@id"
+        },
+        "control-period": {
+            "@id": "cstr-hdl-ext:control-period",
+            "@type": "@id"
         }
     }
 }
