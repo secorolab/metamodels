@@ -37,6 +37,10 @@
             "@id": "cstr-hdl-ext:measured",
             "@type": "@id"
         },
+        "measured-velocity": {
+            "@id": "cstr-hdl-ext:measured-velocity",
+            "@type": "@id"
+        },
         "reference": {
             "@id": "cstr-hdl-ext:reference",
             "@type": "@id"

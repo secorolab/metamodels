@@ -52,6 +52,12 @@ cstr-hdl-ext:VelocityProfile
         sh:class qudt:Quantity
     ] ;
     sh:property [
+        sh:path cstr-hdl-ext:measured-velocity ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
         sh:path cstr-hdl-ext:shape ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
