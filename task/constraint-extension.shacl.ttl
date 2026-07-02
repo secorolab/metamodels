@@ -1,0 +1,22 @@
+@prefix cstr-ext: <https://secorolab.github.io/metamodels/task/constraint#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
+
+# Complement of cstr:BilateralConstraint: satisfied when the quantity is outside
+# the [lower-threshold, upper-threshold] band. Reuses the comp-rob2b threshold
+# predicates so the quantity-typed constraint shapes still validate the bounds.
+cstr-ext:OutsideConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:upper-threshold ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path cstr:lower-threshold ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .
