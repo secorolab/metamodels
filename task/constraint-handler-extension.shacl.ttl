@@ -125,15 +125,3 @@ cstr-hdl-ext:DebounceMonitor
         sh:maxCount 1 ;
         sh:minInclusive 0.0
     ] .
-
-# Authored control-loop period on every ConstraintHandler (a qudt:Quantity of kind Time).
-cstr-hdl-ext:ControlPeriod
-    a sh:NodeShape ;
-    sh:targetClass cstr_hdl:ConstraintHandler ;
-    sh:property [
-        sh:path cstr-hdl-ext:control-period ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] .

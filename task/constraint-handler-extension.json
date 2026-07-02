@@ -78,10 +78,6 @@
             "@id": "cstr-hdl-ext:fallback-motion",
             "@type": "@id"
         },
-        "control-period": {
-            "@id": "cstr-hdl-ext:control-period",
-            "@type": "@id"
-        },
         "debounce-seconds": {
             "@id": "cstr-hdl-ext:debounce-seconds",
             "@type": "xsd:double"
