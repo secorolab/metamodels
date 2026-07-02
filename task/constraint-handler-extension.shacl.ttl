@@ -111,6 +111,21 @@ cstr-hdl-ext:FallbackMonitor
         sh:class mot:GuardedMotion
     ] .
 
+# Optional per-monitor debounce: the monitored condition must hold continuously
+# for this many seconds before the edge-triggered monitor fires. Absent = 0 =
+# fire on the plain rising edge (current behaviour).
+cstr-hdl-ext:DebounceMonitor
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:debounce-seconds ;
+    sh:class cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr-hdl-ext:debounce-seconds ;
+        sh:datatype xsd:double ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0.0
+    ] .
+
 # Authored control-loop period on every ConstraintHandler (a qudt:Quantity of kind Time).
 cstr-hdl-ext:ControlPeriod
     a sh:NodeShape ;

@@ -2,8 +2,14 @@
     "@context": {
         "@version": 1.1,
         "slv": "https://comp-rob2b.github.io/metamodels/task/solver-specification#",
+        "slv-ext": "https://secorolab.github.io/metamodels/task/solver-specification#",
 
         "CommandForwardingAlgorithm": { "@id": "slv:CommandForwardingAlgorithm" },
+
+        "damping":          { "@id": "slv-ext:damping",          "@type": "xsd:double" },
+        "torque-limit":     { "@id": "slv-ext:torque-limit",     "@type": "xsd:double" },
+        "max-linear-accel": { "@id": "slv-ext:max-linear-accel", "@type": "xsd:double" },
+        "max-angular-accel": { "@id": "slv-ext:max-angular-accel", "@type": "xsd:double" },
 
         "CommandForwardingSolver": {
             "@id": "slv:CommandForwardingSolver",

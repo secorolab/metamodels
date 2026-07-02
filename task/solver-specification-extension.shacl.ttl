@@ -3,6 +3,7 @@
 @prefix kc_ent: <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
 @prefix qudt:   <http://qudt.org/schema/qudt/> .
 @prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 
 # Secorolab extension to the upstream comp-rob2b solver-specification.
 # Models a pass-through "command forwarding" solver that drives a single joint
@@ -48,4 +49,45 @@ slv-ext:CommandForwardingSpecification
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class qudt:Quantity
+    ] .
+
+# Optional per-solver control-loop tuning, authorable on the RNE/ACHD Solver:
+# - damping: the DLS (damped least-squares) singularity-robustness lambda used
+#   when resolving the constrained joint acceleration.
+# - torque-limit: a scalar override for the per-joint torque saturation applied
+#   when staging the commanded torque; default (unauthored) is the per-joint
+#   limit read from the robot's actuator force range at runtime.
+# - max-linear-accel / max-angular-accel: Cartesian-acceleration ("beta")
+#   saturation caps on the acceleration-energy constraint inputs; default
+#   (unauthored) is non-limiting, i.e. a blow-up guard only.
+slv:SolverWithInputAndOutput
+    a sh:NodeShape ;
+    sh:targetClass slv:SolverWithInputAndOutput ;
+    sh:property [
+        sh:path slv-ext:damping ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minExclusive 0
+    ] ;
+    sh:property [
+        sh:path slv-ext:torque-limit ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minExclusive 0
+    ] ;
+    sh:property [
+        sh:path slv-ext:max-linear-accel ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minExclusive 0
+    ] ;
+    sh:property [
+        sh:path slv-ext:max-angular-accel ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double ;
+        sh:minExclusive 0
     ] .

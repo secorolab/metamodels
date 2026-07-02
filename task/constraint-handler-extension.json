@@ -4,7 +4,24 @@
         "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
         "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
         "VelocityProfile": "cstr-hdl-ext:VelocityProfile",
+        "Admittance": "cstr-hdl-ext:Admittance",
         "LinearJerk": "cstr-hdl-ext:LinearJerk",
+        "mass": {
+            "@id": "cstr-hdl-ext:mass",
+            "@type": "xsd:double"
+        },
+        "damping": {
+            "@id": "cstr-hdl-ext:damping",
+            "@type": "xsd:double"
+        },
+        "stiffness": {
+            "@id": "cstr-hdl-ext:stiffness",
+            "@type": "xsd:double"
+        },
+        "force": {
+            "@id": "cstr-hdl-ext:force",
+            "@type": "@id"
+        },
         "reference-signal": {
             "@id": "cstr-hdl-ext:reference-signal",
             "@type": "@id"
@@ -64,6 +81,10 @@
         "control-period": {
             "@id": "cstr-hdl-ext:control-period",
             "@type": "@id"
+        },
+        "debounce-seconds": {
+            "@id": "cstr-hdl-ext:debounce-seconds",
+            "@type": "xsd:double"
         }
     }
 }

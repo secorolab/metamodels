@@ -5,6 +5,11 @@
 
         "Snapshot": { "@id": "snap:Snapshot" },
 
-        "snapshot-of": { "@id": "snap:snapshot-of", "@type": "@id" }
+        "snapshot-of": { "@id": "snap:snapshot-of", "@type": "@id" },
+
+        "Clock": { "@id": "snap:Clock" },
+        "sampled-on": { "@id": "snap:sampled-on", "@type": "@id" },
+        "task-clock": { "@id": "snap:task-clock" },
+        "entry-clock": { "@id": "snap:entry-clock" }
     }
 }

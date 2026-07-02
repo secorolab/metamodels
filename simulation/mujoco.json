@@ -39,6 +39,7 @@
         },
 
         "has-trace": { "@id": "mj:has-trace", "@type": "@id" },
+        "timestep": { "@id": "mj:timestep", "@type": "xsd:double" },
 
         "TrajectoryTrace": {
             "@id": "mj:TrajectoryTrace",
