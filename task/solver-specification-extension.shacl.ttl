@@ -51,9 +51,10 @@ slv-ext:CommandForwardingSpecification
         sh:class qudt:Quantity
     ] .
 
-# Optional per-solver control-loop tuning, authorable on the RNE/ACHD Solver:
-# - damping: the DLS (damped least-squares) singularity-robustness lambda used
-#   when resolving the constrained joint acceleration.
+# Optional per-solver control-loop tuning:
+# - regularization: DLS (Tikhonov) singularity-robustness lambda for the constrained
+#   joint-acceleration solve. RNE-only (enforced in DSL validation); a numerical
+#   regularization of the inverse, distinct from a physical (velocity) damping.
 # - torque-limit: a scalar override for the per-joint torque saturation applied
 #   when staging the commanded torque; default (unauthored) is the per-joint
 #   limit read from the robot's actuator force range at runtime.
@@ -64,7 +65,7 @@ slv:SolverWithInputAndOutput
     a sh:NodeShape ;
     sh:targetClass slv:SolverWithInputAndOutput ;
     sh:property [
-        sh:path slv-ext:damping ;
+        sh:path slv-ext:regularization ;
         sh:minCount 0 ;
         sh:maxCount 1 ;
         sh:datatype xsd:double ;

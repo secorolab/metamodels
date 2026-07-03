@@ -19,7 +19,7 @@ secorolab = `https://secorolab.github.io/metamodels/…`.
   | `geom-op` → `…/geometry/spatial-operators#` | `geom-op-ext` → `…secorolab…/geometry/spatial-operators#` |
   | `rbdyn-op` → `…/newtonian-rigid-body-dynamics/operators#` | `rbdyn-op-ext` → `…secorolab…` |
 - **Reusing upstream predicates is correct** — only *new* terms move. e.g.
-  `map-ext:PoseOrientationView` still uses `map:superobject`/`subobject`/`axis`;
+  `map-ext:PoseOrientationView` still uses `map:superobject`/`subobject` and optional `axis`;
   `slv-ext:CommandForwardingSolver` still uses `slv:solver`/`attached-to`;
   `rbdyn-op-ext:AddQuantity` still uses `rbdyn-op:in1/in2/out`.
 

@@ -3,6 +3,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix map: <https://comp-rob2b.github.io/metamodels/task/map#> .
 @prefix geom_coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix rbdyn_coord: <https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/coordinates#> .
 
 # Secorolab coordinate-view extensions to the upstream comp-rob2b `map` vocabulary.
 # The new view *classes* live in the secorolab namespace (map-ext:) rather than
@@ -11,9 +12,10 @@
 # (map:PoseCoordinateView, *TwistCoordinateView, ...) are inherently per-axis
 # (they mandate map:axis), so these extensions cover the cases upstream does not.
 
-# Coordinate view of the orientation sub-part of a pose, as a per-axis (x/y/z) angle.
+# Coordinate view of the orientation sub-part of a pose. Without map:axis it exposes
+# the whole orientation coordinate; with map:axis it exposes one x/y/z angle.
 # Upstream map:PoseCoordinateView only models the position sub-part (subspace
-# map:position), so orientation-axis views use this extension (subspace map:rotation).
+# map:position), so orientation views use this extension (subspace map-ext:rotation).
 map-ext:PoseOrientationView
     a rdfs:Class, sh:NodeShape ;
     sh:property [
@@ -35,7 +37,6 @@ map-ext:PoseOrientationView
     ] ;
     sh:property [
         sh:path map:axis ;
-        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:in ( map:x map:y map:z )
@@ -62,4 +63,28 @@ map-ext:PosePositionView
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:in ( map:position )
+    ] .
+
+# Coordinate view of a wrench sub-part (force or torque) as the whole 3-vector.
+# Upstream map:WrenchCoordinateView is per-axis (mandates map:axis); this extension
+# exposes an entire 3-vector sub-part (subspace map:force or map:torque, no axis) —
+# e.g. the input to a `Norm of <wrench>.force` / `Norm of <wrench>.torque` reduction.
+map-ext:WrenchVectorView
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class rbdyn_coord:WrenchCoordinate
+    ] ;
+    sh:property [
+        sh:path map:subobject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path map:subspace ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( map:force map:torque )
     ] .
