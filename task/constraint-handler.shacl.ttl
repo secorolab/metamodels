@@ -1,6 +1,6 @@
-# Local development replacement for comp-rob2b task/constraint-handler.ttl.
-# It preserves the upstream handler/evaluator/monitor shapes, but separates
-# feedback controllers from feed-forward controllers so feed-forward requires
+# Secorolab validation mirror for comp-rob2b task/constraint-handler.ttl.
+# It keeps the upstream handler/evaluator/monitor terms, but separates feedback
+# controllers from feed-forward controllers so feed-forward requires
 # reference-signal rather than error-signal.
 
 @prefix sh: <http://www.w3.org/ns/shacl#> .
@@ -8,7 +8,9 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
+@prefix cstr-ext: <https://secorolab.github.io/metamodels/task/constraint#> .
 @prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
 @prefix el: <https://secorolab.github.io/metamodels/behaviour/event_loop#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
@@ -26,12 +28,13 @@ cstr_hdl:
         sh:namespace "https://comp-rob2b.github.io/metamodels/task/motion-specification#"^^xsd:anyURI ;
     ] ;
     sh:declare [
-        sh:prefix "mot-ext" ;
-        sh:namespace "https://secorolab.github.io/metamodels/task/motion-specification#"^^xsd:anyURI ;
+        sh:prefix "cstr-ext" ;
+        sh:namespace "https://secorolab.github.io/metamodels/task/constraint#"^^xsd:anyURI ;
     ] .
 
 cstr_hdl:ConstraintHandler
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:ConstraintHandler ;
     sh:property [
         sh:path cstr_hdl:motion ;
         sh:minCount 1 ;
@@ -46,14 +49,14 @@ cstr_hdl:ConstraintHandler
         sh:select """
             SELECT $this ?value
             WHERE {
-                $this cstr_hdl:motion / (mot:when | mot:while | mot:until) / (mot-ext:has-constraint)* ?value .
-                FILTER NOT EXISTS { ?value mot-ext:has-constraint ?member } .
+                $this cstr_hdl:motion / (mot:when | mot:while | mot:until) / (cstr-ext:has-constraint)* ?value .
+                FILTER NOT EXISTS { ?value cstr-ext:has-constraint ?member } .
                 FILTER NOT EXISTS { $this cstr_hdl:evaluators / cstr_hdl:constraint ?value } .
             }
         """
     ] ;
     sh:property [
-        sh:path cstr_hdl:constraint-evaluators ;
+        sh:path cstr_hdl:evaluators ;
         sh:minCount 0 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class cstr_hdl:ConstraintEvaluator
@@ -74,6 +77,7 @@ cstr_hdl:ConstraintHandler
 
 cstr_hdl:ConstraintEvaluator
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:ConstraintEvaluator ;
     sh:property [
         sh:path cstr_hdl:constraint ;
         sh:minCount 1 ;
@@ -84,6 +88,7 @@ cstr_hdl:ConstraintEvaluator
 
 cstr_hdl:AssignmentEvaluator
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:AssignmentEvaluator ;
     sh:property [
         sh:path cstr_hdl:constraint ;
         sh:class cstr:EqualityConstraint
@@ -91,6 +96,7 @@ cstr_hdl:AssignmentEvaluator
 
 cstr_hdl:ErrorEvaluator
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:ErrorEvaluator ;
     sh:property [
         sh:path cstr_hdl:error ;
         sh:minCount 1 ;
@@ -102,6 +108,7 @@ cstr_hdl:ErrorEvaluator
 
 cstr_hdl:Monitor
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:Monitor ;
     sh:property [
         sh:path cstr_hdl:error ;
         sh:minCount 1 ;
@@ -112,6 +119,7 @@ cstr_hdl:Monitor
 
 cstr_hdl:EdgeTriggeredMonitor
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:EdgeTriggeredMonitor ;
     sh:property [
         sh:path cstr_hdl:event ;
         sh:minCount 1 ;
@@ -129,6 +137,7 @@ cstr_hdl:EdgeTriggeredMonitor
 
 cstr_hdl:LevelTriggeredMonitor
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:LevelTriggeredMonitor ;
     sh:property [
         sh:path cstr_hdl:flag ;
         sh:minCount 1 ;
@@ -140,6 +149,7 @@ cstr_hdl:LevelTriggeredMonitor
 
 cstr_hdl:Controller
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:Controller ;
     sh:property [
         sh:path cstr_hdl:control-signal ;
         sh:minCount 1 ;
@@ -148,24 +158,15 @@ cstr_hdl:Controller
         sh:class qudt:Quantity
     ] .
 
-cstr_hdl:FeedbackController
-    a rdfs:Class, sh:NodeShape ;
-    sh:property [
-        sh:path cstr_hdl:error-signal ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] .
-
 cstr_hdl:ProportionalIntegralDerivative
-    rdfs:subClassOf cstr_hdl:FeedbackController .
+    rdfs:subClassOf cstr-hdl-ext:FeedbackController .
 
 cstr_hdl:ImpedanceController
-    rdfs:subClassOf cstr_hdl:FeedbackController .
+    rdfs:subClassOf cstr-hdl-ext:FeedbackController .
 
 cstr_hdl:ProportionalIntegralDerivative
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:ProportionalIntegralDerivative ;
     sh:property [
         sh:path cstr_hdl:proportional-gain ;
         sh:minCount 1 ;
@@ -187,6 +188,7 @@ cstr_hdl:ProportionalIntegralDerivative
 
 cstr_hdl:DecayingIntegralTerm
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:DecayingIntegralTerm ;
     sh:property [
         sh:path cstr_hdl:decay-rate ;
         sh:minCount 1 ;
@@ -196,6 +198,7 @@ cstr_hdl:DecayingIntegralTerm
 
 cstr_hdl:DampingController
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:DampingController ;
     sh:property [
         sh:path cstr_hdl:maximum-velocity ;
         sh:minCount 1 ;
@@ -239,6 +242,7 @@ cstr_hdl:DampingController
 
 cstr_hdl:ImpedanceController
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:ImpedanceController ;
     sh:property [
         sh:path cstr_hdl:stiffness ;
         sh:minCount 0 ;

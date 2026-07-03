@@ -2,40 +2,34 @@
 @prefix slv-ext: <https://secorolab.github.io/metamodels/task/solver-specification#> .
 @prefix kc_ent: <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
 @prefix qudt:   <http://qudt.org/schema/qudt/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh:     <http://www.w3.org/ns/shacl#> .
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 
 # Secorolab extension to the upstream comp-rob2b solver-specification.
-# Models a pass-through "command forwarding" solver that drives a single joint
+# Models a pass-through "command forwarding" driver that drives a single joint
 # actuator with a feed-forward control signal (used for gripper actuation in
 # motion-spec-dsl). The upstream solver-specification.ttl does not cover this
 # case because slv:SolverWithInputAndOutput restricts slv:solver to dynamics
 # algorithms (RNEA / ABA / ACHD).
 #
 # The new classes/predicate live in the secorolab namespace (slv-ext:) rather
-# than squatting in comp-rob2b's slv#; the upstream slv: predicates (solver,
-# attached-to, control-signal) are reused.
+# than squatting in comp-rob2b's slv#; the upstream slv:attached-to predicate is
+# reused for the target joint.
 
-slv-ext:CommandForwardingSolver
-    a sh:NodeShape ;
-    sh:targetClass slv-ext:CommandForwardingSolver ;
+slv-ext:CommandForwardingDriver
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass slv-ext:CommandForwardingDriver ;
     sh:property [
-        sh:path slv-ext:command-forwarding ;
+        sh:path slv-ext:forwards-command ;
         sh:minCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class slv-ext:CommandForwardingSpecification
-    ] ;
-    sh:property [
-        sh:path slv:solver ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:in ( slv-ext:CommandForwardingAlgorithm )
+        sh:class slv-ext:ForwardedCommand
     ] .
 
-slv-ext:CommandForwardingSpecification
-    a sh:NodeShape ;
-    sh:targetClass slv-ext:CommandForwardingSpecification ;
+slv-ext:ForwardedCommand
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass slv-ext:ForwardedCommand ;
     sh:property [
         sh:path slv:attached-to ;
         sh:minCount 1 ;
@@ -44,7 +38,7 @@ slv-ext:CommandForwardingSpecification
         sh:class kc_ent:Joint
     ] ;
     sh:property [
-        sh:path slv-ext:control-signal ;
+        sh:path slv-ext:command-signal ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
@@ -55,11 +49,11 @@ slv-ext:CommandForwardingSpecification
 # - regularization: DLS (Tikhonov) singularity-robustness lambda for the constrained
 #   joint-acceleration solve. RNE-only (enforced in DSL validation); a numerical
 #   regularization of the inverse, distinct from a physical (velocity) damping.
-# - torque-limit: a scalar override for the per-joint torque saturation applied
+# - torque-limit: a unit-bearing override for the per-joint torque saturation applied
 #   when staging the commanded torque; default (unauthored) is the per-joint
 #   limit read from the robot's actuator force range at runtime.
 # - max-linear-accel / max-angular-accel: Cartesian-acceleration ("beta")
-#   saturation caps on the acceleration-energy constraint inputs; default
+#   unit-bearing saturation caps on the acceleration-energy constraint inputs; default
 #   (unauthored) is non-limiting, i.e. a blow-up guard only.
 slv:SolverWithInputAndOutput
     a sh:NodeShape ;
@@ -75,20 +69,20 @@ slv:SolverWithInputAndOutput
         sh:path slv-ext:torque-limit ;
         sh:minCount 0 ;
         sh:maxCount 1 ;
-        sh:datatype xsd:double ;
-        sh:minExclusive 0
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
     ] ;
     sh:property [
         sh:path slv-ext:max-linear-accel ;
         sh:minCount 0 ;
         sh:maxCount 1 ;
-        sh:datatype xsd:double ;
-        sh:minExclusive 0
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
     ] ;
     sh:property [
         sh:path slv-ext:max-angular-accel ;
         sh:minCount 0 ;
         sh:maxCount 1 ;
-        sh:datatype xsd:double ;
-        sh:minExclusive 0
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
     ] .

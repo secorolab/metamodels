@@ -1,29 +1,27 @@
 {
     "@context": {
         "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
         "slv": "https://comp-rob2b.github.io/metamodels/task/solver-specification#",
         "slv-ext": "https://secorolab.github.io/metamodels/task/solver-specification#",
 
-        "CommandForwardingAlgorithm": { "@id": "slv:CommandForwardingAlgorithm" },
-
         "regularization":   { "@id": "slv-ext:regularization",   "@type": "xsd:double" },
-        "torque-limit":     { "@id": "slv-ext:torque-limit",     "@type": "xsd:double" },
-        "max-linear-accel": { "@id": "slv-ext:max-linear-accel", "@type": "xsd:double" },
-        "max-angular-accel": { "@id": "slv-ext:max-angular-accel", "@type": "xsd:double" },
+        "torque-limit":     { "@id": "slv-ext:torque-limit",     "@type": "@id" },
+        "max-linear-accel": { "@id": "slv-ext:max-linear-accel", "@type": "@id" },
+        "max-angular-accel": { "@id": "slv-ext:max-angular-accel", "@type": "@id" },
 
-        "CommandForwardingSolver": {
-            "@id": "slv:CommandForwardingSolver",
+        "CommandForwardingDriver": {
+            "@id": "slv-ext:CommandForwardingDriver",
             "@context": {
-                "command-forwarding": { "@id": "slv:command-forwarding", "@type": "@id" },
-                "solver":             { "@id": "slv:solver",             "@type": "@id" }
+                "forwards-command": { "@id": "slv-ext:forwards-command", "@type": "@id" }
             }
         },
 
-        "CommandForwardingSpecification": {
-            "@id": "slv:CommandForwardingSpecification",
+        "ForwardedCommand": {
+            "@id": "slv-ext:ForwardedCommand",
             "@context": {
-                "attached-to":    { "@id": "slv:attached-to",    "@type": "@id" },
-                "control-signal": { "@id": "slv:control-signal", "@type": "@id" }
+                "attached-to":    { "@id": "slv:attached-to",       "@type": "@id" },
+                "command-signal": { "@id": "slv-ext:command-signal", "@type": "@id" }
             }
         }
     }

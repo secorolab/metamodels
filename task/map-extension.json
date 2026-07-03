@@ -1,0 +1,67 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "map": "https://comp-rob2b.github.io/metamodels/task/map#",
+        "map-ext": "https://secorolab.github.io/metamodels/task/map#",
+
+        "PoseOrientationView": {
+            "@id": "map-ext:PoseOrientationView",
+            "@context": {
+                "superobject": { "@id": "map:superobject", "@type": "@id" },
+                "subobject": { "@id": "map:subobject", "@type": "@id" },
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "orientation": "map-ext:orientation"
+                    }
+                },
+                "axis": {
+                    "@id": "map:axis",
+                    "@type": "@vocab",
+                    "@context": {
+                        "x": "map:x",
+                        "y": "map:y",
+                        "z": "map:z"
+                    }
+                }
+            }
+        },
+        "PosePositionView": {
+            "@id": "map-ext:PosePositionView",
+            "@context": {
+                "superobject": { "@id": "map:superobject", "@type": "@id" },
+                "subobject": { "@id": "map:subobject", "@type": "@id" },
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "position": "map:position"
+                    }
+                }
+            }
+        },
+        "WrenchVectorView": {
+            "@id": "map-ext:WrenchVectorView",
+            "@context": {
+                "superobject": { "@id": "map:superobject", "@type": "@id" },
+                "subobject": { "@id": "map:subobject", "@type": "@id" },
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "force": "map:force",
+                        "torque": "map:torque"
+                    }
+                }
+            }
+        },
+        "ComputeRotationFromPose": {
+            "@id": "map-ext:ComputeRotationFromPose",
+            "@context": {
+                "pose": { "@id": "map-ext:pose", "@type": "@id" },
+                "rotation": { "@id": "map-ext:rotation", "@type": "@id" }
+            }
+        }
+    }
+}

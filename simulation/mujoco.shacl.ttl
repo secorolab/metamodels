@@ -53,10 +53,6 @@ mj:MuJoCoBody
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:class mj:ColorRGBA
-    ] ;
-    sh:property [
-        sh:path mj:trace-target ;
-        sh:datatype xsd:string
     ] .
 
 # Grouped RGBA colour value node, shared by scene objects and the trajectory
@@ -120,6 +116,11 @@ mj:TrajectoryTrace
         sh:datatype xsd:integer ;
         sh:minInclusive 2 ;
         sh:maxInclusive 8192
+    ] ;
+    sh:property [
+        sh:path mj:trace-target ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
     ] ;
     sh:property [
         sh:path mj:color ;

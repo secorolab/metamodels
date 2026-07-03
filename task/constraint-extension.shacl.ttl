@@ -1,22 +1,34 @@
-@prefix cstr-ext: <https://secorolab.github.io/metamodels/task/constraint#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
+@prefix cstr-ext: <https://secorolab.github.io/metamodels/task/constraint#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 
-# Complement of cstr:BilateralConstraint: satisfied when the quantity is outside
-# the [lower-threshold, upper-threshold] band. Reuses the comp-rob2b threshold
-# predicates so the quantity-typed constraint shapes still validate the bounds.
-cstr-ext:OutsideConstraint
+cstr-ext:ConstraintConjunction
     a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr:Constraint ;
+    sh:targetClass cstr-ext:ConstraintConjunction ;
     sh:property [
-        sh:path cstr:upper-threshold ;
+        sh:path cstr-ext:has-constraint ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI
-    ] ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:or (
+            [ sh:class cstr:Constraint ]
+            [ sh:class cstr-ext:ConstraintConjunction ]
+            [ sh:class cstr-ext:ConstraintDisjunction ]
+        )
+    ] .
+
+cstr-ext:ConstraintDisjunction
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr:Constraint ;
+    sh:targetClass cstr-ext:ConstraintDisjunction ;
     sh:property [
-        sh:path cstr:lower-threshold ;
+        sh:path cstr-ext:has-constraint ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:or (
+            [ sh:class cstr:Constraint ]
+            [ sh:class cstr-ext:ConstraintConjunction ]
+            [ sh:class cstr-ext:ConstraintDisjunction ]
+        )
     ] .

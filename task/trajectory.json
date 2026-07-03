@@ -6,6 +6,31 @@
 
         "Trajectory": "traj:Trajectory",
         "Progress": "traj:Progress",
+        "VelocityProfile": {
+            "@id": "traj:VelocityProfile",
+            "@context": {
+                "max-velocity": {
+                    "@id": "traj:max-velocity",
+                    "@type": "@id"
+                },
+                "max-acceleration": {
+                    "@id": "traj:max-acceleration",
+                    "@type": "@id"
+                },
+                "max-jerk": {
+                    "@id": "traj:max-jerk",
+                    "@type": "@id"
+                },
+                "measured-velocity": {
+                    "@id": "traj:measured-velocity",
+                    "@type": "@id"
+                },
+                "shape": {
+                    "@id": "traj:shape",
+                    "@type": "xsd:string"
+                }
+            }
+        },
 
         "Lerp": {
             "@id": "traj:Lerp",
@@ -25,6 +50,10 @@
                 "trajectory": {
                     "@id": "traj:trajectory",
                     "@type": "@id"
+                },
+                "profile": {
+                    "@id": "traj:profile",
+                    "@type": "xsd:string"
                 }
             }
         },

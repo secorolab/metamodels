@@ -5,6 +5,7 @@
 @prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
+@prefix traj: <https://secorolab.github.io/metamodels/task/trajectory#> .
 
 # Secorolab extension to the upstream comp-rob2b constraint-handler vocabulary.
 # A feed-forward controller consumes a reference-signal instead of an error-signal.
@@ -14,9 +15,39 @@
 # task/constraint-handler#; the upstream cstr_hdl: predicates (control-signal via the
 # base cstr_hdl:Controller shape, error-signal) are reused.
 
+cstr-hdl-ext:ConstraintHandlerExtensionShape
+    a sh:NodeShape ;
+    sh:targetClass cstr_hdl:ConstraintHandler ;
+    sh:property [
+        sh:path cstr-hdl-ext:control-mode ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( cstr-hdl-ext:JointTorque )
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:order ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:nonNegativeInteger
+    ] .
+
+cstr-hdl-ext:FeedbackController
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr_hdl:Controller ;
+    sh:targetClass cstr-hdl-ext:FeedbackController ;
+    sh:property [
+        sh:path cstr_hdl:error-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
+
 cstr-hdl-ext:FeedForwardController
     a rdfs:Class, sh:NodeShape ;
     rdfs:subClassOf cstr_hdl:Controller ;
+    sh:targetClass cstr-hdl-ext:FeedForwardController ;
     sh:property [
         sh:path cstr-hdl-ext:reference-signal ;
         sh:minCount 1 ;
@@ -29,41 +60,6 @@ cstr-hdl-ext:FeedForwardController
         sh:maxCount 0
     ] .
 
-cstr-hdl-ext:VelocityProfile
-    a rdfs:Class, sh:NodeShape ;
-    sh:property [
-        sh:path cstr-hdl-ext:max-velocity ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:max-acceleration ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:max-jerk ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:measured-velocity ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:shape ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1 ;
-        sh:in ( "Trapezoidal" "SCurve" )
-    ] .
-
 cstr-hdl-ext:ProfiledController
     a sh:NodeShape ;
     sh:targetSubjectsOf cstr-hdl-ext:velocity-profile ;
@@ -72,7 +68,58 @@ cstr-hdl-ext:ProfiledController
         sh:path cstr-hdl-ext:velocity-profile ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class cstr-hdl-ext:VelocityProfile
+        sh:class traj:VelocityProfile
+    ] .
+
+cstr-hdl-ext:Admittance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr-hdl-ext:Admittance ;
+    sh:property [
+        sh:path cstr-hdl-ext:force ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:mass ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:damping ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:stiffness ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:max-velocity ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:controller ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class cstr_hdl:Controller
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:reference ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
     ] .
 
 cstr-hdl-ext:UntilAggregateMonitor
@@ -112,16 +159,16 @@ cstr-hdl-ext:FallbackMonitor
     ] .
 
 # Optional per-monitor debounce: the monitored condition must hold continuously
-# for this many seconds before the edge-triggered monitor fires. Absent = 0 =
+# for this duration before the edge-triggered monitor fires. Absent = 0 =
 # fire on the plain rising edge (current behaviour).
 cstr-hdl-ext:DebounceMonitor
     a sh:NodeShape ;
-    sh:targetSubjectsOf cstr-hdl-ext:debounce-seconds ;
+    sh:targetSubjectsOf cstr-hdl-ext:debounce-duration ;
     sh:class cstr_hdl:Monitor ;
     sh:property [
-        sh:path cstr-hdl-ext:debounce-seconds ;
-        sh:datatype xsd:double ;
+        sh:path cstr-hdl-ext:debounce-duration ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0.0
+        sh:maxCount 1
     ] .

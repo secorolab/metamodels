@@ -1,15 +1,25 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix snap: <https://secorolab.github.io/metamodels/snapshot#> .
+@prefix snap: <https://secorolab.github.io/metamodels/task/snapshot#> .
 
-# A Snapshot is a sample-and-hold of a fluent, defined on a sampling clock.
-# task-clock: sampled once on the task/init clock, held for the whole run.
-# entry-clock: re-sampled on each state-activation (entry) clock tick.
 snap:task-clock a snap:Clock .
 snap:entry-clock a snap:Clock .
 
+snap:snapshot-of
+    a rdf:Property ;
+    rdfs:subPropertyOf prov:wasDerivedFrom .
+
+snap:Clock
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass snap:Clock .
+
 snap:Snapshot
-    a sh:NodeShape ;
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf prov:Entity ;
+    sh:targetClass snap:Snapshot ;
     sh:property [
         sh:path snap:snapshot-of ;
         sh:minCount 1 ;

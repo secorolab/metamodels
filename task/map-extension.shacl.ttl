@@ -1,6 +1,7 @@
 @prefix map-ext: <https://secorolab.github.io/metamodels/task/map#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix map: <https://comp-rob2b.github.io/metamodels/task/map#> .
 @prefix geom_coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 @prefix rbdyn_coord: <https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/coordinates#> .
@@ -15,9 +16,10 @@
 # Coordinate view of the orientation sub-part of a pose. Without map:axis it exposes
 # the whole orientation coordinate; with map:axis it exposes one x/y/z angle.
 # Upstream map:PoseCoordinateView only models the position sub-part (subspace
-# map:position), so orientation views use this extension (subspace map-ext:rotation).
+# map:position), so orientation views use this extension (subspace map-ext:orientation).
 map-ext:PoseOrientationView
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:PoseOrientationView ;
     sh:property [
         sh:path map:superobject ;
         sh:class geom_coord:PoseCoordinate
@@ -26,14 +28,15 @@ map-ext:PoseOrientationView
         sh:path map:subobject ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
     ] ;
     sh:property [
         sh:path map:subspace ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
-        sh:in ( map-ext:rotation )
+        sh:in ( map-ext:orientation )
     ] ;
     sh:property [
         sh:path map:axis ;
@@ -47,6 +50,7 @@ map-ext:PoseOrientationView
 # exposes the entire position vector (subspace map:position, no axis).
 map-ext:PosePositionView
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:PosePositionView ;
     sh:property [
         sh:path map:superobject ;
         sh:class geom_coord:PoseCoordinate
@@ -55,7 +59,8 @@ map-ext:PosePositionView
         sh:path map:subobject ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
     ] ;
     sh:property [
         sh:path map:subspace ;
@@ -71,6 +76,7 @@ map-ext:PosePositionView
 # e.g. the input to a `Norm of <wrench>.force` / `Norm of <wrench>.torque` reduction.
 map-ext:WrenchVectorView
     a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:WrenchVectorView ;
     sh:property [
         sh:path map:superobject ;
         sh:class rbdyn_coord:WrenchCoordinate
@@ -79,7 +85,8 @@ map-ext:WrenchVectorView
         sh:path map:subobject ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
     ] ;
     sh:property [
         sh:path map:subspace ;
@@ -87,4 +94,22 @@ map-ext:WrenchVectorView
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:in ( map:force map:torque )
+    ] .
+
+map-ext:ComputeRotationFromPose
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:ComputeRotationFromPose ;
+    sh:property [
+        sh:path map-ext:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom_coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path map-ext:rotation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
     ] .

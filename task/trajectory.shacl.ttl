@@ -1,16 +1,56 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix traj: <https://secorolab.github.io/metamodels/task/trajectory#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 traj:Trajectory
-    a sh:NodeShape .
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass traj:Trajectory .
 
 traj:Progress
-    a sh:NodeShape .
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass traj:Progress .
+
+traj:VelocityProfile
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass traj:VelocityProfile ;
+    sh:property [
+        sh:path traj:max-velocity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:max-acceleration ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:max-jerk ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:measured-velocity ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path traj:shape ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in ( "Trapezoidal" "SCurve" )
+    ] .
 
 traj:Lerp
-    a sh:NodeShape ;
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass traj:Lerp ;
     sh:property [
         sh:path traj:start ;
         sh:minCount 1 ;
@@ -38,10 +78,17 @@ traj:Lerp
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class traj:Trajectory
+    ] ;
+    sh:property [
+        sh:path traj:profile ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in ( "Linear" "EaseIn" "EaseOut" "EaseInOut" )
     ] .
 
 traj:Circle
-    a sh:NodeShape ;
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass traj:Circle ;
     sh:property [
         sh:path traj:start ;
         sh:minCount 1 ;
@@ -79,7 +126,8 @@ traj:Circle
     ] .
 
 traj:Figure8
-    a sh:NodeShape ;
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass traj:Figure8 ;
     sh:property [
         sh:path traj:anchor ;
         sh:minCount 1 ;
@@ -124,7 +172,8 @@ traj:Figure8
     ] .
 
 traj:Arc
-    a sh:NodeShape ;
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass traj:Arc ;
     sh:property [
         sh:path traj:start ;
         sh:minCount 1 ;
@@ -169,7 +218,8 @@ traj:Arc
     ] .
 
 traj:Helix
-    a sh:NodeShape ;
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass traj:Helix ;
     sh:property [
         sh:path traj:start ;
         sh:minCount 1 ;

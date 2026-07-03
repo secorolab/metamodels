@@ -1,31 +1,32 @@
 @prefix geom-op:  <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#> .
-@prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
-@prefix qudt:     <http://qudt.org/schema/qudt/> .
+@prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
+@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh:       <http://www.w3.org/ns/shacl#> .
 
-# Secorolab extension: evaluator that takes two pose-like quantities and
-# emits their difference as an acceleration twist. Used by motion-spec-dsl
-# (see rdf.py::_emit_pose_diff_evaluator) for pose-equality constraints.
-geom-op:PoseDiffEvaluator
-    a sh:NodeShape ;
+# Secorolab extension: evaluator that takes two pose coordinates and emits
+# their pose-coordinate difference for pose-equality constraints.
+geom-op-ext:PoseDiffEvaluator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PoseDiffEvaluator ;
     sh:property [
         sh:path geom-op:in1 ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
+        sh:class geom-coord:PoseCoordinate
     ] ;
     sh:property [
         sh:path geom-op:in2 ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
+        sh:class geom-coord:PoseCoordinate
     ] ;
     sh:property [
-        sh:path geom-op:out ;
+        sh:path geom-op-ext:out ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class geom-rel:AccelerationTwist
+        sh:class geom-coord:PoseCoordinate
     ] .

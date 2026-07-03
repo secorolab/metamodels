@@ -1,69 +1,50 @@
 {
     "@context": {
         "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "cstr-hdl": "https://comp-rob2b.github.io/metamodels/task/constraint-handler#",
         "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
-        "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
-        "VelocityProfile": "cstr-hdl-ext:VelocityProfile",
-        "Admittance": "cstr-hdl-ext:Admittance",
-        "LinearJerk": "cstr-hdl-ext:LinearJerk",
-        "mass": {
-            "@id": "cstr-hdl-ext:mass",
-            "@type": "xsd:double"
+
+        "FeedbackController": {
+            "@id": "cstr-hdl-ext:FeedbackController",
+            "@context": {
+                "error-signal": { "@id": "cstr-hdl:error-signal", "@type": "@id" }
+            }
         },
-        "damping": {
-            "@id": "cstr-hdl-ext:damping",
-            "@type": "xsd:double"
+        "FeedForwardController": {
+            "@id": "cstr-hdl-ext:FeedForwardController",
+            "@context": {
+                "reference-signal": {
+                    "@id": "cstr-hdl-ext:reference-signal",
+                    "@type": "@id"
+                }
+            }
         },
-        "stiffness": {
-            "@id": "cstr-hdl-ext:stiffness",
-            "@type": "xsd:double"
+        "JointTorque": "cstr-hdl-ext:JointTorque",
+
+        "Admittance": {
+            "@id": "cstr-hdl-ext:Admittance",
+            "@context": {
+                "force": { "@id": "cstr-hdl-ext:force", "@type": "@id" },
+                "mass": { "@id": "cstr-hdl-ext:mass", "@type": "@id" },
+                "damping": { "@id": "cstr-hdl-ext:damping", "@type": "@id" },
+                "stiffness": { "@id": "cstr-hdl-ext:stiffness", "@type": "@id" },
+                "max-velocity": { "@id": "cstr-hdl-ext:max-velocity", "@type": "@id" },
+                "controller": { "@id": "cstr-hdl-ext:controller", "@type": "@id" },
+                "reference": { "@id": "cstr-hdl-ext:reference", "@type": "@id" }
+            }
         },
-        "force": {
-            "@id": "cstr-hdl-ext:force",
+
+        "control-mode": {
+            "@id": "cstr-hdl-ext:control-mode",
             "@type": "@id"
         },
-        "reference-signal": {
-            "@id": "cstr-hdl-ext:reference-signal",
-            "@type": "@id"
+        "order": {
+            "@id": "cstr-hdl-ext:order",
+            "@type": "xsd:nonNegativeInteger"
         },
         "velocity-profile": {
             "@id": "cstr-hdl-ext:velocity-profile",
-            "@type": "@id"
-        },
-        "max-velocity": {
-            "@id": "cstr-hdl-ext:max-velocity",
-            "@type": "@id"
-        },
-        "max-acceleration": {
-            "@id": "cstr-hdl-ext:max-acceleration",
-            "@type": "@id"
-        },
-        "max-jerk": {
-            "@id": "cstr-hdl-ext:max-jerk",
-            "@type": "@id"
-        },
-        "shape": {
-            "@id": "cstr-hdl-ext:shape",
-            "@type": "xsd:string"
-        },
-        "goal": {
-            "@id": "cstr-hdl-ext:goal",
-            "@type": "@id"
-        },
-        "measured": {
-            "@id": "cstr-hdl-ext:measured",
-            "@type": "@id"
-        },
-        "measured-velocity": {
-            "@id": "cstr-hdl-ext:measured-velocity",
-            "@type": "@id"
-        },
-        "reference": {
-            "@id": "cstr-hdl-ext:reference",
-            "@type": "@id"
-        },
-        "controller": {
-            "@id": "cstr-hdl-ext:controller",
             "@type": "@id"
         },
         "monitors-until": {
@@ -78,9 +59,9 @@
             "@id": "cstr-hdl-ext:fallback-motion",
             "@type": "@id"
         },
-        "debounce-seconds": {
-            "@id": "cstr-hdl-ext:debounce-seconds",
-            "@type": "xsd:double"
+        "debounce-duration": {
+            "@id": "cstr-hdl-ext:debounce-duration",
+            "@type": "@id"
         }
     }
 }
