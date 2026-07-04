@@ -4,6 +4,7 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix map: <https://comp-rob2b.github.io/metamodels/task/map#> .
 @prefix geom_coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix geom_coord_ext: <https://secorolab.github.io/metamodels/geometry/coordinates#> .
 @prefix rbdyn_coord: <https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/coordinates#> .
 
 # Secorolab coordinate-view extensions to the upstream comp-rob2b `map` vocabulary.
@@ -94,6 +95,30 @@ map-ext:WrenchVectorView
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:in ( map:force map:torque )
+    ] .
+
+# Per-axis view onto a pose difference: addresses the linear (position-difference)
+# or angular (orientation-difference) part of a geom-coord-ext:PoseDifferenceCoordinate.
+map-ext:PoseDifferenceView
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:PoseDifferenceView ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord_ext:PoseDifferenceCoordinate
+    ] ;
+    sh:property [
+        sh:path map:subobject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path map:subspace ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( geom_coord_ext:linear geom_coord_ext:angular )
     ] .
 
 map-ext:ComputeRotationFromPose
