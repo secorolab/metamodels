@@ -1,10 +1,11 @@
-@prefix slv:     <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
-@prefix slv-ext: <https://secorolab.github.io/metamodels/task/solver-specification#> .
-@prefix kc_ent: <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
-@prefix qudt:   <http://qudt.org/schema/qudt/> .
-@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sh:     <http://www.w3.org/ns/shacl#> .
-@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix slv:      <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
+@prefix slv-ext:  <https://secorolab.github.io/metamodels/task/solver-specification#> .
+@prefix kc_ent:   <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
+@prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
+@prefix qudt:     <http://qudt.org/schema/qudt/> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:       <http://www.w3.org/ns/shacl#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
 
 # Secorolab extension to the upstream comp-rob2b solver-specification.
 # Models a pass-through "command forwarding" driver that drives a single joint
@@ -85,4 +86,28 @@ slv:SolverWithInputAndOutput
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class qudt:Quantity
+    ] .
+
+# Direction-aligned ACHD acceleration constraint: the secorolab-layer sibling of
+# upstream slv:AxisAligned. Where AxisAligned fills the constraint's Jacobian
+# column with a fixed unit axis (x/y/z), DirectionAligned fills it with a
+# runtime unit geom-rel:Direction (e.g. from geom-op:PoseToDirection on a
+# distance-between-two-poses relative pose) -- lets a distance control
+# constraint (`keeping distance between <A> and <B> equal to <target>`) drive
+# the solver like any other Cartesian acceleration constraint.
+slv-ext:DirectionAligned
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path slv:subspace ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( slv:angular-acceleration slv:linear-acceleration )
+    ] ;
+    sh:property [
+        sh:path slv-ext:direction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-rel:Direction
     ] .
