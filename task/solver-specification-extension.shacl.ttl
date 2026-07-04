@@ -1,5 +1,6 @@
 @prefix slv:      <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
 @prefix slv-ext:  <https://secorolab.github.io/metamodels/task/solver-specification#> .
+@prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix kc_ent:   <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
 @prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
 @prefix qudt:     <http://qudt.org/schema/qudt/> .
@@ -50,12 +51,9 @@ slv-ext:ForwardedCommand
 # - regularization: DLS (Tikhonov) singularity-robustness lambda for the constrained
 #   joint-acceleration solve. RNE-only (enforced in DSL validation); a numerical
 #   regularization of the inverse, distinct from a physical (velocity) damping.
-# - torque-limit: a unit-bearing override for the per-joint torque saturation applied
-#   when staging the commanded torque; default (unauthored) is the per-joint
-#   limit read from the robot's actuator force range at runtime.
-# - max-linear-accel / max-angular-accel: Cartesian-acceleration ("beta")
-#   unit-bearing saturation caps on the acceleration-energy constraint inputs; default
-#   (unauthored) is non-limiting, i.e. a blow-up guard only.
+# - torque-limit / max-linear-accel / max-angular-accel are legacy scalar fields.
+#   New models should use explicit cstr-hdl-ext:limits links to
+#   slv-ext:TorqueSaturation or slv-ext:AccelerationSaturation nodes.
 slv:SolverWithInputAndOutput
     a sh:NodeShape ;
     sh:targetClass slv:SolverWithInputAndOutput ;
@@ -83,6 +81,61 @@ slv:SolverWithInputAndOutput
     sh:property [
         sh:path slv-ext:max-angular-accel ;
         sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:limits ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class slv-ext:TorqueSaturation
+    ] .
+
+slv:AccelerationConstraint
+    a sh:NodeShape ;
+    sh:targetClass slv:AccelerationConstraint ;
+    sh:property [
+        sh:path cstr-hdl-ext:limits ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class slv-ext:AccelerationSaturation
+    ] .
+
+slv-ext:AccelerationSaturation
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr-hdl-ext:Saturation ;
+    sh:targetClass slv-ext:AccelerationSaturation ;
+    sh:property [
+        sh:path cstr-hdl-ext:input-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:output-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
+
+slv-ext:TorqueSaturation
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr-hdl-ext:Saturation ;
+    sh:targetClass slv-ext:TorqueSaturation ;
+    sh:property [
+        sh:path cstr-hdl-ext:input-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:output-signal ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class qudt:Quantity

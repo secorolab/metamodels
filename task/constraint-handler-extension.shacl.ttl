@@ -71,6 +71,74 @@ cstr-hdl-ext:ProfiledController
         sh:class traj:VelocityProfile
     ] .
 
+cstr-hdl-ext:LimiterOwner
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:limits ;
+    sh:property [
+        sh:path cstr-hdl-ext:limits ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class cstr-hdl-ext:SignalLimiter
+    ] .
+
+cstr-hdl-ext:SignalLimiter
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr-hdl-ext:SignalLimiter ;
+    sh:property [
+        sh:path cstr-hdl-ext:input-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:output-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
+
+cstr-hdl-ext:Saturation
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr-hdl-ext:SignalLimiter ;
+    sh:targetClass cstr-hdl-ext:Saturation ;
+    sh:xone (
+        [
+            sh:property [
+                sh:path cstr-hdl-ext:maximum-absolute-value ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:nodeKind sh:BlankNodeOrIRI ;
+                sh:class qudt:Quantity
+            ] ;
+            sh:property [ sh:path cstr-hdl-ext:lower-limit ; sh:maxCount 0 ] ;
+            sh:property [ sh:path cstr-hdl-ext:upper-limit ; sh:maxCount 0 ]
+        ]
+        [
+            sh:property [
+                sh:path cstr-hdl-ext:lower-limit ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:nodeKind sh:BlankNodeOrIRI ;
+                sh:class qudt:Quantity
+            ] ;
+            sh:property [
+                sh:path cstr-hdl-ext:upper-limit ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:nodeKind sh:BlankNodeOrIRI ;
+                sh:class qudt:Quantity
+            ] ;
+            sh:property [ sh:path cstr-hdl-ext:maximum-absolute-value ; sh:maxCount 0 ]
+        ]
+    ) .
+
+cstr-hdl-ext:IntegralSaturation
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr-hdl-ext:Saturation ;
+    sh:targetClass cstr-hdl-ext:IntegralSaturation .
+
 cstr-hdl-ext:Admittance
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass cstr-hdl-ext:Admittance ;

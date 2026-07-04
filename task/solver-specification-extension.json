@@ -4,6 +4,7 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "slv": "https://comp-rob2b.github.io/metamodels/task/solver-specification#",
         "slv-ext": "https://secorolab.github.io/metamodels/task/solver-specification#",
+        "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
 
         "regularization":   { "@id": "slv-ext:regularization",   "@type": "xsd:double" },
         "torque-limit":     { "@id": "slv-ext:torque-limit",     "@type": "@id" },
@@ -23,6 +24,30 @@
                 "attached-to":    { "@id": "slv:attached-to",       "@type": "@id" },
                 "command-signal": { "@id": "slv-ext:command-signal", "@type": "@id" }
             }
-        }
+        },
+
+        "AccelerationSaturation": {
+            "@id": "slv-ext:AccelerationSaturation",
+            "@context": {
+                "input-signal": { "@id": "cstr-hdl-ext:input-signal", "@type": "@id" },
+                "output-signal": { "@id": "cstr-hdl-ext:output-signal", "@type": "@id" },
+                "maximum-absolute-value": { "@id": "cstr-hdl-ext:maximum-absolute-value", "@type": "@id" },
+                "lower-limit": { "@id": "cstr-hdl-ext:lower-limit", "@type": "@id" },
+                "upper-limit": { "@id": "cstr-hdl-ext:upper-limit", "@type": "@id" }
+            }
+        },
+
+        "TorqueSaturation": {
+            "@id": "slv-ext:TorqueSaturation",
+            "@context": {
+                "input-signal": { "@id": "cstr-hdl-ext:input-signal", "@type": "@id" },
+                "output-signal": { "@id": "cstr-hdl-ext:output-signal", "@type": "@id" },
+                "maximum-absolute-value": { "@id": "cstr-hdl-ext:maximum-absolute-value", "@type": "@id" },
+                "lower-limit": { "@id": "cstr-hdl-ext:lower-limit", "@type": "@id" },
+                "upper-limit": { "@id": "cstr-hdl-ext:upper-limit", "@type": "@id" }
+            }
+        },
+
+        "limits": { "@id": "cstr-hdl-ext:limits", "@type": "@id" }
     }
 }

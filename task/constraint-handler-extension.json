@@ -22,6 +22,34 @@
         },
         "JointTorque": "cstr-hdl-ext:JointTorque",
 
+        "SignalLimiter": {
+            "@id": "cstr-hdl-ext:SignalLimiter",
+            "@context": {
+                "input-signal": { "@id": "cstr-hdl-ext:input-signal", "@type": "@id" },
+                "output-signal": { "@id": "cstr-hdl-ext:output-signal", "@type": "@id" }
+            }
+        },
+        "Saturation": {
+            "@id": "cstr-hdl-ext:Saturation",
+            "@context": {
+                "input-signal": { "@id": "cstr-hdl-ext:input-signal", "@type": "@id" },
+                "output-signal": { "@id": "cstr-hdl-ext:output-signal", "@type": "@id" },
+                "maximum-absolute-value": { "@id": "cstr-hdl-ext:maximum-absolute-value", "@type": "@id" },
+                "lower-limit": { "@id": "cstr-hdl-ext:lower-limit", "@type": "@id" },
+                "upper-limit": { "@id": "cstr-hdl-ext:upper-limit", "@type": "@id" }
+            }
+        },
+        "IntegralSaturation": {
+            "@id": "cstr-hdl-ext:IntegralSaturation",
+            "@context": {
+                "input-signal": { "@id": "cstr-hdl-ext:input-signal", "@type": "@id" },
+                "output-signal": { "@id": "cstr-hdl-ext:output-signal", "@type": "@id" },
+                "maximum-absolute-value": { "@id": "cstr-hdl-ext:maximum-absolute-value", "@type": "@id" },
+                "lower-limit": { "@id": "cstr-hdl-ext:lower-limit", "@type": "@id" },
+                "upper-limit": { "@id": "cstr-hdl-ext:upper-limit", "@type": "@id" }
+            }
+        },
+
         "Admittance": {
             "@id": "cstr-hdl-ext:Admittance",
             "@context": {
@@ -45,6 +73,30 @@
         },
         "velocity-profile": {
             "@id": "cstr-hdl-ext:velocity-profile",
+            "@type": "@id"
+        },
+        "limits": {
+            "@id": "cstr-hdl-ext:limits",
+            "@type": "@id"
+        },
+        "input-signal": {
+            "@id": "cstr-hdl-ext:input-signal",
+            "@type": "@id"
+        },
+        "output-signal": {
+            "@id": "cstr-hdl-ext:output-signal",
+            "@type": "@id"
+        },
+        "maximum-absolute-value": {
+            "@id": "cstr-hdl-ext:maximum-absolute-value",
+            "@type": "@id"
+        },
+        "lower-limit": {
+            "@id": "cstr-hdl-ext:lower-limit",
+            "@type": "@id"
+        },
+        "upper-limit": {
+            "@id": "cstr-hdl-ext:upper-limit",
             "@type": "@id"
         },
         "monitors-until": {
