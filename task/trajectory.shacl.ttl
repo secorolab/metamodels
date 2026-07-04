@@ -1,4 +1,5 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix traj: <https://secorolab.github.io/metamodels/task/trajectory#> .
@@ -253,7 +254,13 @@ traj:Helix
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
+        sh:class qudt:Quantity ;
+        sh:node [
+            sh:property [
+                sh:path qudt:hasQuantityKind ;
+                sh:hasValue qkind:Dimensionless
+            ]
+        ]
     ] ;
     sh:property [
         sh:path traj:alpha ;

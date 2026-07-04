@@ -97,12 +97,14 @@ cstr-hdl-ext:Admittance
     ] ;
     sh:property [
         sh:path cstr-hdl-ext:stiffness ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class qudt:Quantity
     ] ;
     sh:property [
         sh:path cstr-hdl-ext:max-velocity ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class qudt:Quantity
