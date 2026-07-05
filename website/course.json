@@ -1,0 +1,24 @@
+{
+    "@context": {
+        "@base": "https://secorolab.github.io/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "course": "https://secorolab.github.io/metamodels/website/course#",
+
+        "Course": { "@id": "course:Course" },
+
+        "name":           { "@id": "course:name",           "@type": "xsd:string" },
+        "description":    { "@id": "course:description",    "@type": "xsd:string" },
+        "semester":       { "@id": "course:semester",       "@type": "xsd:string" },
+        "course-code":    { "@id": "course:course-code",    "@type": "xsd:string" },
+        "format":         { "@id": "course:format",         "@type": "xsd:string" },
+        "credits":        { "@id": "course:credits",        "@type": "xsd:string" },
+        "language":       { "@id": "course:language",       "@type": "xsd:string" },
+        "prerequisites":  { "@id": "course:prerequisites",  "@type": "xsd:string" },
+        "learning-focus": {
+            "@id":        "course:learning-focus",
+            "@type":      "xsd:string",
+            "@container": "@set"
+        },
+        "url": { "@id": "course:url", "@type": "@id" }
+    }
+}
