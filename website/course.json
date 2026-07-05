@@ -4,7 +4,9 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "course": "https://secorolab.github.io/metamodels/website/course#",
 
-        "Course": { "@id": "course:Course" },
+        "Course":          { "@id": "course:Course" },
+        "CourseAssistant": { "@id": "course:CourseAssistant" },
+        "CourseMaterial":  { "@id": "course:CourseMaterial" },
 
         "name":           { "@id": "course:name",           "@type": "xsd:string" },
         "description":    { "@id": "course:description",    "@type": "xsd:string" },
@@ -14,11 +16,30 @@
         "credits":        { "@id": "course:credits",        "@type": "xsd:string" },
         "language":       { "@id": "course:language",       "@type": "xsd:string" },
         "prerequisites":  { "@id": "course:prerequisites",  "@type": "xsd:string" },
+        "teaching-assistant": {
+            "@id":        "course:teaching-assistant",
+            "@container": "@set"
+        },
+        "ta-name": { "@id": "course:ta-name", "@type": "xsd:string" },
+        "ta-url":  { "@id": "course:ta-url",  "@type": "@id" },
+        "person-ref": {
+            "@id":   "course:person-ref",
+            "@type": "@vocab",
+            "@context": {
+                "@vocab": "https://secorolab.github.io/people/"
+            }
+        },
         "learning-focus": {
             "@id":        "course:learning-focus",
             "@type":      "xsd:string",
             "@container": "@set"
         },
+        "material": {
+            "@id":        "course:material",
+            "@container": "@set"
+        },
+        "material-text": { "@id": "course:material-text", "@type": "xsd:string" },
+        "material-url":  { "@id": "course:material-url",  "@type": "@id" },
         "url": { "@id": "course:url", "@type": "@id" }
     }
 }

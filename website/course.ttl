@@ -71,12 +71,74 @@ sh_sec:CourseShape
     ] ;
 
     sh:property [
+        sh:path     course:teaching-assistant ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:node     sh_sec:CourseAssistantShape ;
+        sh:message  "Teaching assistant must be an object with ta-name and optional ta-url/person-ref." ;
+    ] ;
+
+    sh:property [
         sh:path     course:learning-focus ;
         sh:datatype xsd:string ;
     ] ;
 
     sh:property [
+        sh:path     course:material ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:node     sh_sec:CourseMaterialShape ;
+        sh:message  "Course material must be a material object with material-text and optional material-url." ;
+    ] ;
+
+    sh:property [
         sh:path     course:url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+sh_sec:CourseAssistantShape
+    a sh:NodeShape ;
+    sh:targetClass course:CourseAssistant ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     course:ta-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:message  "Teaching assistant must have a display name." ;
+    ] ;
+
+    sh:property [
+        sh:path     course:ta-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     course:person-ref ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+sh_sec:CourseMaterialShape
+    a sh:NodeShape ;
+    sh:targetClass course:CourseMaterial ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     course:material-text ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:message  "Course material must have display text." ;
+    ] ;
+
+    sh:property [
+        sh:path     course:material-url ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1 ;
     ] ;
