@@ -74,7 +74,7 @@ sh_sec:CourseShape
         sh:path     course:teaching-assistant ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:node     sh_sec:CourseAssistantShape ;
-        sh:message  "Teaching assistant must be an object with ta-name and optional ta-url/person-ref." ;
+        sh:message  "Teaching assistant must be an object with ta-ref and optional ta-name." ;
     ] ;
 
     sh:property [
@@ -102,9 +102,16 @@ sh_sec:CourseAssistantShape
     sh:closed false ;
 
     sh:property [
+        sh:path     course:ta-ref ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message  "Teaching assistant must have a ta-ref." ;
+    ] ;
+
+    sh:property [
         sh:path     course:ta-name ;
         sh:datatype xsd:string ;
-        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:minLength 2 ;
         sh:message  "Teaching assistant must have a display name." ;
@@ -116,11 +123,6 @@ sh_sec:CourseAssistantShape
         sh:maxCount 1 ;
     ] ;
 
-    sh:property [
-        sh:path     course:person-ref ;
-        sh:nodeKind sh:IRI ;
-        sh:maxCount 1 ;
-    ] ;
 .
 
 sh_sec:CourseMaterialShape

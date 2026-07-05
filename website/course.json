@@ -22,8 +22,8 @@
         },
         "ta-name": { "@id": "course:ta-name", "@type": "xsd:string" },
         "ta-url":  { "@id": "course:ta-url",  "@type": "@id" },
-        "person-ref": {
-            "@id":   "course:person-ref",
+        "ta-ref": {
+            "@id":   "course:ta-ref",
             "@type": "@vocab",
             "@context": {
                 "@vocab": "https://secorolab.github.io/people/"
