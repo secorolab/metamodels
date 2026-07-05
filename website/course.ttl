@@ -117,12 +117,6 @@ sh_sec:CourseAssistantShape
         sh:message  "Teaching assistant must have a display name." ;
     ] ;
 
-    sh:property [
-        sh:path     course:ta-url ;
-        sh:nodeKind sh:IRI ;
-        sh:maxCount 1 ;
-    ] ;
-
 .
 
 sh_sec:CourseMaterialShape

@@ -21,14 +21,7 @@
             "@container": "@set"
         },
         "ta-name": { "@id": "course:ta-name", "@type": "xsd:string" },
-        "ta-url":  { "@id": "course:ta-url",  "@type": "@id" },
-        "ta-ref": {
-            "@id":   "course:ta-ref",
-            "@type": "@vocab",
-            "@context": {
-                "@vocab": "https://secorolab.github.io/people/"
-            }
-        },
+        "ta-ref":  { "@id": "course:ta-ref",  "@type": "@id" },
         "learning-focus": {
             "@id":        "course:learning-focus",
             "@type":      "xsd:string",
