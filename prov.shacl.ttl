@@ -1,0 +1,123 @@
+# SPDX-License-Identifier: MPL-2.0
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+prov:EntityShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Entity ;
+  sh:nodeKind sh:IRI ;
+  sh:property [
+    sh:path prov:wasGeneratedBy ;
+    sh:class prov:Activity ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:wasDerivedFrom ;
+    sh:class prov:Entity ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:wasAttributedTo ;
+    sh:class prov:Agent ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:generatedAtTime ;
+    sh:datatype xsd:dateTime ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:specializationOf ;
+    sh:class prov:Entity ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:wasRevisionOf ;
+    sh:class prov:Entity ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:wasInvalidatedBy ;
+    sh:class prov:Activity ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:alternateOf ;
+    sh:class prov:Entity ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:ActivityShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Activity ;
+  sh:nodeKind sh:IRI ;
+  sh:property [
+    sh:path prov:used ;
+    sh:class prov:Entity ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:wasInformedBy ;
+    sh:class prov:Activity ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:wasAssociatedWith ;
+    sh:class prov:Agent ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:startedAtTime ;
+    sh:datatype xsd:dateTime ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:endedAtTime ;
+    sh:datatype xsd:dateTime ;
+    sh:maxCount 1
+  ] .
+
+prov:AgentShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Agent ;
+  sh:nodeKind sh:IRI ;
+  sh:property [
+    sh:path prov:actedOnBehalfOf ;
+    sh:class prov:Agent ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:InfluenceSubjectShape
+  a sh:NodeShape ;
+  sh:targetSubjectsOf prov:wasInfluencedBy ;
+  sh:property [
+    sh:path prov:wasInfluencedBy ;
+    sh:nodeKind sh:IRI ;
+    sh:or (
+      [ sh:class prov:Entity ]
+      [ sh:class prov:Activity ]
+      [ sh:class prov:Agent ]
+    )
+  ] .
+
+prov:LocationSubjectShape
+  a sh:NodeShape ;
+  sh:targetSubjectsOf prov:atLocation ;
+  sh:property [
+    sh:path prov:atLocation ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:CollectionShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Collection ;
+  sh:property [
+    sh:path prov:hadMember ;
+    sh:class prov:Entity ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:BundleShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Bundle .
