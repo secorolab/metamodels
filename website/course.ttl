@@ -83,10 +83,10 @@ sh_sec:CourseShape
     ] ;
 
     sh:property [
-        sh:path     course:material ;
+        sh:path     course:materials ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:node     sh_sec:CourseMaterialShape ;
-        sh:message  "Course material must be a material object with material-text and optional material-url." ;
+        sh:message  "Course materials must be objects with name and optional ref." ;
     ] ;
 
     sh:property [

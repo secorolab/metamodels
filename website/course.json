@@ -29,19 +29,24 @@
                 }
             }
         },
-        "ta-name": { "@id": "course:ta-name", "@type": "xsd:string" },
-        "ta-ref":  { "@id": "course:ta-ref",  "@type": "@id" },
         "learning-focus": {
             "@id":        "course:learning-focus",
             "@type":      "xsd:string",
             "@container": "@set"
         },
-        "material": {
-            "@id":        "course:material",
-            "@container": "@set"
+        "materials": {
+            "@id": "course:materials",
+            "@container": "@set",
+            "@context": {
+                "name": {
+                "@id": "course:material-text"
+                },
+                "ref": {
+                "@id": "course:material-url",
+                "@type": "@id"
+                }
+            }
         },
-        "material-text": { "@id": "course:material-text", "@type": "xsd:string" },
-        "material-url":  { "@id": "course:material-url",  "@type": "@id" },
         "url": { "@id": "course:url", "@type": "@id" }
     }
 }
