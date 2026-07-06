@@ -16,9 +16,18 @@
         "credits":        { "@id": "course:credits",        "@type": "xsd:string" },
         "language":       { "@id": "course:language",       "@type": "xsd:string" },
         "prerequisites":  { "@id": "course:prerequisites",  "@type": "xsd:string" },
-        "teaching-assistant": {
-            "@id":        "course:teaching-assistant",
-            "@container": "@set"
+        "teaching-assistants": {
+            "@id": "course:teaching-assistants",
+            "@container": "@set",
+            "@context": {
+                "name": {
+                "@id": "course:ta-name"
+                },
+                "ref": {
+                "@id": "course:ta-ref",
+                "@type": "@id"
+                }
+            }
         },
         "ta-name": { "@id": "course:ta-name", "@type": "xsd:string" },
         "ta-ref":  { "@id": "course:ta-ref",  "@type": "@id" },

@@ -71,10 +71,10 @@ sh_sec:CourseShape
     ] ;
 
     sh:property [
-        sh:path     course:teaching-assistant ;
+        sh:path     course:teaching-assistants ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:node     sh_sec:CourseAssistantShape ;
-        sh:message  "Teaching assistant must be an object with ta-ref and optional ta-name." ;
+        sh:message  "Teaching assistants must be objects with ta-ref and optional ta-name." ;
     ] ;
 
     sh:property [
