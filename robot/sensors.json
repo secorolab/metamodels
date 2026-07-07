@@ -1,0 +1,80 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "qudt-quant": "http://qudt.org/vocab/quantitykind/",
+        "sosa": "http://www.w3.org/ns/sosa/",
+        "sens": "https://secorolab.github.io/metamodels/robot/sensors#",
+
+        "Sensor": "sosa:Sensor",
+        "Platform": "sosa:Platform",
+        "hosts": {
+            "@id": "sosa:hosts",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "observes": {
+            "@id": "sosa:observes",
+            "@type": "@id",
+            "@container": "@set"
+        },
+        "made-by-sensor": {
+            "@id": "sosa:madeBySensor",
+            "@type": "@id"
+        },
+
+        "Camera": {
+            "@id": "sens:Camera",
+            "@context": {
+                "camera-kind": {
+                    "@id": "sens:camera-kind",
+                    "@type": "@vocab",
+                    "@context": {
+                        "rgb": "sens:rgb",
+                        "depth": "sens:depth",
+                        "rgbd": "sens:rgbd"
+                    }
+                },
+                "resolution-width": {
+                    "@id": "sens:resolution-width",
+                    "@type": "xsd:integer"
+                },
+                "resolution-height": {
+                    "@id": "sens:resolution-height",
+                    "@type": "xsd:integer"
+                },
+                "field-of-view": {
+                    "@id": "sens:field-of-view",
+                    "@type": "xsd:double"
+                },
+                "field-of-view-unit": {
+                    "@id": "sens:field-of-view-unit",
+                    "@type": "@id"
+                }
+            }
+        },
+        "ForceTorqueSensor": "sens:ForceTorqueSensor",
+        "IMU": "sens:IMU",
+
+        "frame": {
+            "@id": "sens:frame",
+            "@type": "@id"
+        },
+        "update-rate": {
+            "@id": "sens:update-rate",
+            "@type": "xsd:double"
+        },
+        "update-rate-unit": {
+            "@id": "sens:update-rate-unit",
+            "@type": "@id"
+        },
+
+        "force": "qudt-quant:Force",
+        "torque": "qudt-quant:Torque",
+        "angular-velocity": "qudt-quant:AngularVelocity",
+        "linear-acceleration": "qudt-quant:LinearAcceleration",
+        "orientation": "sens:orientation",
+        "image": "sens:image",
+        "depth-image": "sens:depth-image"
+    }
+}

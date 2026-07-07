@@ -1,0 +1,60 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "qudt-schema": "http://qudt.org/schema/qudt/",
+        "kc-ext": "https://secorolab.github.io/metamodels/kinematic-chain/structural-entities-extension#",
+
+        "JointLimit": {
+            "@id": "kc-ext:JointLimit",
+            "@context": {
+                "of-joint": {
+                    "@id": "kc-ext:of-joint",
+                    "@type": "@id"
+                },
+                "limit-kind": {
+                    "@id": "kc-ext:limit-kind",
+                    "@type": "@id"
+                },
+                "lower": {
+                    "@id": "kc-ext:lower",
+                    "@type": "xsd:double"
+                },
+                "upper": {
+                    "@id": "kc-ext:upper",
+                    "@type": "xsd:double"
+                },
+                "unit": {
+                    "@id": "qudt-schema:unit",
+                    "@type": "@id"
+                }
+            }
+        },
+
+        "MimicJointRelation": {
+            "@id": "kc-ext:MimicJointRelation",
+            "@context": {
+                "mimicking-joint": {
+                    "@id": "kc-ext:mimicking-joint",
+                    "@type": "@id"
+                },
+                "mimicked-joint": {
+                    "@id": "kc-ext:mimicked-joint",
+                    "@type": "@id"
+                },
+                "multiplier": {
+                    "@id": "kc-ext:multiplier",
+                    "@type": "xsd:double"
+                },
+                "offset": {
+                    "@id": "kc-ext:offset",
+                    "@type": "xsd:double"
+                },
+                "offset-unit": {
+                    "@id": "kc-ext:offset-unit",
+                    "@type": "@id"
+                }
+            }
+        }
+    }
+}
