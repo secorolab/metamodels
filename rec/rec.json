@@ -1,0 +1,73 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "rec": "https://secorolab.github.io/rec/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+        "Repository": "rec:Repository",
+        "Dependency": "rec:Dependency",
+        "Host": "rec:Host",
+        "Metric": "rec:Metric",
+
+        "role": "rec:role",
+        "path": "rec:path",
+        "sha256": "rec:sha256",
+        "size_bytes": {
+            "@id": "rec:size-bytes",
+            "@type": "xsd:integer"
+        },
+        "status": "rec:status",
+        "run_id": "rec:run-id",
+        "label": "rec:label",
+        "generatedAt": {
+            "@id": "rec:generated-at",
+            "@type": "xsd:dateTime"
+        },
+
+        "repositories": {
+            "@id": "rec:repositories",
+            "@container": "@set"
+        },
+        "sources": {
+            "@id": "rec:sources",
+            "@container": "@set"
+        },
+        "dependencies": {
+            "@id": "rec:dependencies",
+            "@container": "@set"
+        },
+        "host_info": "rec:host-info",
+        "agents": {
+            "@id": "rec:agents",
+            "@container": "@set"
+        },
+        "activities": {
+            "@id": "rec:activities",
+            "@container": "@set"
+        },
+        "resources": {
+            "@id": "rec:resources",
+            "@container": "@set"
+        },
+        "artefacts": {
+            "@id": "rec:artefacts",
+            "@container": "@set"
+        },
+        "metrics": {
+            "@id": "rec:metrics",
+            "@container": "@set"
+        },
+
+        "value": "rec:value",
+        "step": {
+            "@id": "rec:step",
+            "@type": "xsd:integer"
+        },
+        "heartbeat_time": {
+            "@id": "rec:heartbeat-time",
+            "@type": "xsd:dateTime"
+        },
+        "elapsed_time": "rec:elapsed-time",
+        "result": "rec:result"
+    }
+}
