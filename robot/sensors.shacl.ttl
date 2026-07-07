@@ -1,0 +1,133 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+# Author: Vamsi Kalagaturu
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
+@prefix qudt-quant: <http://qudt.org/vocab/quantitykind/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix sens: <https://secorolab.github.io/metamodels/robot/sensors#> .
+
+sens:PlatformShape
+  a sh:NodeShape ;
+  sh:targetClass sosa:Platform ;
+  sh:property [
+    sh:path sosa:hosts ;
+    sh:class sosa:Sensor ;
+  ] .
+
+sens:ObservationShape
+  a sh:NodeShape ;
+  sh:targetClass sosa:Observation ;
+  sh:property [
+    sh:path sosa:madeBySensor ;
+    sh:class sosa:Sensor ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+sens:CameraShape
+  a sh:NodeShape ;
+  sh:targetClass sens:Camera ;
+  sh:property [
+    sh:path rdf:type ;
+    sh:hasValue sosa:Sensor ;
+  ] ;
+  sh:property sens:FrameShape ;
+  sh:property sens:UpdateRateShape ;
+  sh:property sens:UpdateRateUnitShape ;
+  sh:property [
+    sh:path sens:camera-kind ;
+    sh:in (sens:rgb sens:depth sens:rgbd) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path sens:resolution-width ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path sens:resolution-height ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path sens:field-of-view ;
+    sh:datatype xsd:double ;
+    sh:minExclusive 0.0 ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path sens:field-of-view-unit ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+sens:ForceTorqueSensorShape
+  a sh:NodeShape ;
+  sh:targetClass sens:ForceTorqueSensor ;
+  sh:property [
+    sh:path rdf:type ;
+    sh:hasValue sosa:Sensor ;
+  ] ;
+  sh:property sens:FrameShape ;
+  sh:property sens:UpdateRateShape ;
+  sh:property sens:UpdateRateUnitShape ;
+  sh:property [
+    sh:path sosa:observes ;
+    sh:in (qudt-quant:Force qudt-quant:Torque) ;
+    sh:minCount 1 ;
+    sh:maxCount 2 ;
+  ] .
+
+sens:IMUShape
+  a sh:NodeShape ;
+  sh:targetClass sens:IMU ;
+  sh:property [
+    sh:path rdf:type ;
+    sh:hasValue sosa:Sensor ;
+  ] ;
+  sh:property sens:FrameShape ;
+  sh:property sens:UpdateRateShape ;
+  sh:property sens:UpdateRateUnitShape ;
+  sh:property [
+    sh:path sosa:observes ;
+    sh:in (
+      qudt-quant:AngularVelocity
+      qudt-quant:LinearAcceleration
+      sens:orientation
+    ) ;
+    sh:minCount 1 ;
+    sh:maxCount 3 ;
+  ] .
+
+sens:FrameShape
+  a sh:PropertyShape ;
+  sh:path sens:frame ;
+  sh:nodeKind sh:IRI ;
+  sh:class geom:Frame ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+sens:UpdateRateShape
+  a sh:PropertyShape ;
+  sh:path sens:update-rate ;
+  sh:datatype xsd:double ;
+  sh:minExclusive 0.0 ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+sens:UpdateRateUnitShape
+  a sh:PropertyShape ;
+  sh:path sens:update-rate-unit ;
+  sh:nodeKind sh:IRI ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .

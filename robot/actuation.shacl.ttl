@@ -1,0 +1,53 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+# Author: Vamsi Kalagaturu
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix kc: <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
+@prefix act: <https://secorolab.github.io/metamodels/robot/actuation#> .
+
+act:TransmissionShape
+  a sh:NodeShape ;
+  sh:targetClass act:Transmission ;
+  sh:property [
+    sh:path act:joint ;
+    sh:class kc:Joint ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path act:actuator ;
+    sh:class act:Actuator ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path act:mechanical-reduction ;
+    sh:datatype xsd:double ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path act:command-interface ;
+    sh:in (act:position act:velocity act:torque act:current) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path act:state-interface ;
+    sh:in (act:position act:velocity act:torque act:current) ;
+    sh:minCount 1 ;
+  ] ;
+  sh:sparql [
+    sh:message "A transmission mechanical reduction must be nonzero." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this act:mechanical-reduction ?value .
+        FILTER (?value = 0.0)
+      }
+    """ ;
+  ] .
+
+act:ActuatorShape
+  a sh:NodeShape ;
+  sh:targetClass act:Actuator .

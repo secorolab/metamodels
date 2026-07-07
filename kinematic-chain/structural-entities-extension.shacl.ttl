@@ -1,0 +1,86 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+# Author: Vamsi Kalagaturu
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix kc: <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
+@prefix kc-ext: <https://secorolab.github.io/metamodels/kinematic-chain/structural-entities-extension#> .
+
+kc-ext:JointLimitShape
+  a sh:NodeShape ;
+  sh:targetClass kc-ext:JointLimit ;
+  sh:property [
+    sh:path kc-ext:of-joint ;
+    sh:class kc:Joint ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path kc-ext:limit-kind ;
+    sh:in (kc-ext:position kc-ext:velocity kc-ext:acceleration kc-ext:effort) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path kc-ext:lower ;
+    sh:datatype xsd:double ;
+    sh:lessThanOrEquals kc-ext:upper ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path kc-ext:upper ;
+    sh:datatype xsd:double ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path qudt:unit ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+kc-ext:MimicJointRelationShape
+  a sh:NodeShape ;
+  sh:targetClass kc-ext:MimicJointRelation ;
+  sh:property [
+    sh:path kc-ext:mimicking-joint ;
+    sh:class kc:Joint ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path kc-ext:mimicked-joint ;
+    sh:class kc:Joint ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path kc-ext:multiplier ;
+    sh:datatype xsd:double ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path kc-ext:offset ;
+    sh:datatype xsd:double ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path kc-ext:offset-unit ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:sparql [
+    sh:message "A mimic relation must not point a joint at itself." ;
+    sh:select """
+      SELECT $this WHERE {
+        $this kc-ext:mimicking-joint ?joint ;
+              kc-ext:mimicked-joint ?joint .
+      }
+    """ ;
+  ] .
