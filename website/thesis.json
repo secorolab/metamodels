@@ -4,13 +4,23 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "thesis": "https://secorolab.github.io/metamodels/website/thesis#",
 
-        "Thesis":    { "@id": "thesis:Thesis" },
+        "Thesis":       { "@id": "thesis:Thesis" },
+        "ThesisTopic":  { "@id": "thesis:ThesisTopic" },
+        "TopicAdvisor": { "@id": "thesis:TopicAdvisor" },
 
         "name":              { "@id": "thesis:name",              "@type": "xsd:string" },
+        "title":             { "@id": "thesis:name",              "@type": "xsd:string" },
         "description":       { "@id": "thesis:description",       "@type": "xsd:string" },
         "date-published":    { "@id": "thesis:date-published",    "@type": "xsd:date" },
-        "educational-level": { "@id": "thesis:educational-level", "@type": "xsd:string" },
+        "educational-level": {
+            "@id":        "thesis:educational-level",
+            "@type":      "xsd:string",
+            "@container": "@set"
+        },
         "in-support-of":     { "@id": "thesis:in-support-of",     "@type": "xsd:string" },
+        "date-posted":       { "@id": "thesis:date-posted",       "@type": "xsd:date" },
+        "valid-through":     { "@id": "thesis:valid-through",     "@type": "xsd:date" },
+        "prerequisites":     { "@id": "thesis:prerequisites",     "@type": "xsd:string" },
         "url":               { "@id": "thesis:url",               "@type": "@id" },
 
         "author": { "@id": "thesis:author", "@type": "@id" },
@@ -18,7 +28,16 @@
         "advisor": {
             "@id":        "thesis:advisor",
             "@type":      "@id",
-            "@container": "@set"
+            "@container": "@set",
+            "@context": {
+                "name": {
+                    "@id": "thesis:advisor-name"
+                },
+                "ref": {
+                    "@id": "thesis:advisor-ref",
+                    "@type": "@id"
+                }
+            }
         },
 
         "source-organization": { "@id": "thesis:source-organization", "@type": "@id" }
