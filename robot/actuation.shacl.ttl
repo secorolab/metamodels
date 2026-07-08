@@ -30,12 +30,12 @@ act:TransmissionShape
   ] ;
   sh:property [
     sh:path act:command-interface ;
-    sh:in (kc-stat:JointPosition kc-stat:JointVelocity kc-stat:JointForce act:current) ;
+    sh:in (kc-stat:JointPosition kc-stat:JointVelocity kc-stat:JointAcceleration kc-stat:JointForce act:current) ;
     sh:minCount 1 ;
   ] ;
   sh:property [
     sh:path act:state-interface ;
-    sh:in (kc-stat:JointPosition kc-stat:JointVelocity kc-stat:JointForce act:current) ;
+    sh:in (kc-stat:JointPosition kc-stat:JointVelocity kc-stat:JointAcceleration kc-stat:JointForce act:current) ;
     sh:minCount 1 ;
   ] ;
   sh:sparql [
