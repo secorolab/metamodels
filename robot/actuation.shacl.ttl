@@ -23,7 +23,7 @@ act:TransmissionShape
     sh:maxCount 1 ;
   ] ;
   sh:property [
-    sh:path act:mechanical-reduction ;
+    sh:path act:gear-ratio ;
     sh:datatype xsd:double ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
@@ -39,11 +39,11 @@ act:TransmissionShape
     sh:minCount 1 ;
   ] ;
   sh:sparql [
-    sh:message "A transmission mechanical reduction must be nonzero." ;
+    sh:message "A transmission gear ratio must be nonzero." ;
     sh:select """
       PREFIX act: <https://secorolab.github.io/metamodels/robot/actuation#>
       SELECT $this WHERE {
-        $this act:mechanical-reduction ?value .
+        $this act:gear-ratio ?value .
         FILTER (?value = 0.0)
       }
     """ ;

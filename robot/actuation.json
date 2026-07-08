@@ -18,8 +18,8 @@
                     "@id": "act:actuator",
                     "@type": "@id"
                 },
-                "mechanical-reduction": {
-                    "@id": "act:mechanical-reduction",
+                "gear-ratio": {
+                    "@id": "act:gear-ratio",
                     "@type": "xsd:double"
                 },
                 "command-interface": {
