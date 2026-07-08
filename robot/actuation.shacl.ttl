@@ -4,6 +4,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix kc: <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
+@prefix kc-stat: <https://comp-rob2b.github.io/metamodels/kinematic-chain/state#> .
 @prefix act: <https://secorolab.github.io/metamodels/robot/actuation#> .
 
 act:TransmissionShape
@@ -29,25 +30,21 @@ act:TransmissionShape
   ] ;
   sh:property [
     sh:path act:command-interface ;
-    sh:in (act:position act:velocity act:torque act:current) ;
+    sh:in (kc-stat:JointPosition kc-stat:JointVelocity kc-stat:JointForce act:current) ;
     sh:minCount 1 ;
-    sh:maxCount 1 ;
   ] ;
   sh:property [
     sh:path act:state-interface ;
-    sh:in (act:position act:velocity act:torque act:current) ;
+    sh:in (kc-stat:JointPosition kc-stat:JointVelocity kc-stat:JointForce act:current) ;
     sh:minCount 1 ;
   ] ;
   sh:sparql [
     sh:message "A transmission mechanical reduction must be nonzero." ;
     sh:select """
+      PREFIX act: <https://secorolab.github.io/metamodels/robot/actuation#>
       SELECT $this WHERE {
         $this act:mechanical-reduction ?value .
         FILTER (?value = 0.0)
       }
     """ ;
   ] .
-
-act:ActuatorShape
-  a sh:NodeShape ;
-  sh:targetClass act:Actuator .

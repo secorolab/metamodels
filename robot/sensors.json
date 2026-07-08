@@ -2,7 +2,6 @@
     "@context": {
         "@version": 1.1,
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "qudt-quant": "http://qudt.org/vocab/quantitykind/",
         "sosa": "http://www.w3.org/ns/sosa/",
         "sens": "https://secorolab.github.io/metamodels/robot/sensors#",
 
@@ -16,7 +15,10 @@
         "observes": {
             "@id": "sosa:observes",
             "@type": "@id",
-            "@container": "@set"
+            "@container": "@set",
+            "@context": {
+                "@base": "http://qudt.org/vocab/quantitykind/"
+            }
         },
         "made-by-sensor": {
             "@id": "sosa:madeBySensor",
@@ -44,12 +46,7 @@
                     "@type": "xsd:integer"
                 },
                 "field-of-view": {
-                    "@id": "sens:field-of-view",
-                    "@type": "xsd:double"
-                },
-                "field-of-view-unit": {
-                    "@id": "sens:field-of-view-unit",
-                    "@type": "@id"
+                    "@id": "sens:field-of-view"
                 }
             }
         },
@@ -61,18 +58,9 @@
             "@type": "@id"
         },
         "update-rate": {
-            "@id": "sens:update-rate",
-            "@type": "xsd:double"
-        },
-        "update-rate-unit": {
-            "@id": "sens:update-rate-unit",
-            "@type": "@id"
+            "@id": "sens:update-rate"
         },
 
-        "force": "qudt-quant:Force",
-        "torque": "qudt-quant:Torque",
-        "angular-velocity": "qudt-quant:AngularVelocity",
-        "linear-acceleration": "qudt-quant:LinearAcceleration",
         "orientation": "sens:orientation",
         "image": "sens:image",
         "depth-image": "sens:depth-image"

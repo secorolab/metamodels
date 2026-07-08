@@ -1,15 +1,30 @@
 # SPDX-License-Identifier: MPL-2.0
 # SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
 # Author: Vamsi Kalagaturu
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix kc: <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
+@prefix kc-stat: <https://comp-rob2b.github.io/metamodels/kinematic-chain/state#> .
 @prefix kc-ext: <https://secorolab.github.io/metamodels/kinematic-chain/structural-entities-extension#> .
 
 kc-ext:JointLimitShape
   a sh:NodeShape ;
   sh:targetClass kc-ext:JointLimit ;
+  sh:property [
+    sh:path rdf:type ;
+    sh:qualifiedValueShape [
+      sh:in (
+        kc-stat:JointPosition
+        kc-stat:JointVelocity
+        kc-stat:JointAcceleration
+        kc-stat:JointForce
+      ) ;
+    ] ;
+    sh:qualifiedMinCount 1 ;
+    sh:qualifiedMaxCount 1 ;
+  ] ;
   sh:property [
     sh:path kc-ext:of-joint ;
     sh:class kc:Joint ;
@@ -17,21 +32,90 @@ kc-ext:JointLimitShape
     sh:maxCount 1 ;
   ] ;
   sh:property [
-    sh:path kc-ext:limit-kind ;
-    sh:in (kc-ext:position kc-ext:velocity kc-ext:acceleration kc-ext:effort) ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
-  sh:property [
     sh:path kc-ext:lower ;
-    sh:datatype xsd:double ;
-    sh:lessThanOrEquals kc-ext:upper ;
+    sh:node kc-ext:JointLimitValueShape ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
     sh:path kc-ext:upper ;
-    sh:datatype xsd:double ;
+    sh:node kc-ext:JointLimitValueShape ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:sparql [
+    sh:message "Lower value must not exceed upper value." ;
+    sh:select """
+      PREFIX kc-ext: <https://secorolab.github.io/metamodels/kinematic-chain/structural-entities-extension#>
+      PREFIX qudt: <http://qudt.org/schema/qudt/>
+      SELECT $this WHERE {
+        $this kc-ext:lower/qudt:value ?lower ;
+              kc-ext:upper/qudt:value ?upper .
+        FILTER (?lower > ?upper)
+      }
+    """ ;
+  ] ;
+  sh:sparql [
+    sh:message "Lower and upper values must use the same unit." ;
+    sh:select """
+      PREFIX kc-ext: <https://secorolab.github.io/metamodels/kinematic-chain/structural-entities-extension#>
+      PREFIX qudt: <http://qudt.org/schema/qudt/>
+      SELECT $this WHERE {
+        $this kc-ext:lower/qudt:unit ?lowerUnit ;
+              kc-ext:upper/qudt:unit ?upperUnit .
+        FILTER (?lowerUnit != ?upperUnit)
+      }
+    """ ;
+  ] ;
+  sh:sparql [
+    sh:message "Lower and upper values must use the same quantity kind." ;
+    sh:select """
+      PREFIX kc-ext: <https://secorolab.github.io/metamodels/kinematic-chain/structural-entities-extension#>
+      PREFIX qudt: <http://qudt.org/schema/qudt/>
+      SELECT $this WHERE {
+        $this kc-ext:lower/qudt:hasQuantityKind ?lowerKind ;
+              kc-ext:upper/qudt:hasQuantityKind ?upperKind .
+        FILTER (?lowerKind != ?upperKind)
+      }
+    """ ;
+  ] ;
+  sh:sparql [
+    sh:message "Quantity kind must match the joint limit type." ;
+    sh:select """
+      PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+      PREFIX qudt: <http://qudt.org/schema/qudt/>
+      PREFIX kc-stat: <https://comp-rob2b.github.io/metamodels/kinematic-chain/state#>
+      PREFIX kc-ext: <https://secorolab.github.io/metamodels/kinematic-chain/structural-entities-extension#>
+      PREFIX quantitykind: <http://qudt.org/vocab/quantitykind/>
+      SELECT $this WHERE {
+        $this rdf:type ?limitType ;
+              kc-ext:lower/qudt:hasQuantityKind ?kind .
+        FILTER (
+          (?limitType = kc-stat:JointPosition &&
+            ?kind NOT IN (quantitykind:Angle, quantitykind:Length)) ||
+          (?limitType = kc-stat:JointVelocity &&
+            ?kind NOT IN (quantitykind:AngularVelocity, quantitykind:LinearVelocity)) ||
+          (?limitType = kc-stat:JointAcceleration &&
+            ?kind NOT IN (quantitykind:AngularAcceleration, quantitykind:LinearAcceleration)) ||
+          (?limitType = kc-stat:JointForce &&
+            ?kind NOT IN (quantitykind:Torque, quantitykind:Force))
+        )
+      }
+    """ ;
+  ] .
+
+kc-ext:JointLimitValueShape
+  a sh:NodeShape ;
+  sh:class qudt:Quantity ;
+  sh:property [
+    sh:path qudt:hasQuantityKind ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path qudt:value ;
+    sh:nodeKind sh:Literal ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
@@ -70,7 +154,7 @@ kc-ext:MimicJointRelationShape
     sh:maxCount 1 ;
   ] ;
   sh:property [
-    sh:path kc-ext:offset-unit ;
+    sh:path qudt:unit ;
     sh:nodeKind sh:IRI ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
@@ -78,6 +162,7 @@ kc-ext:MimicJointRelationShape
   sh:sparql [
     sh:message "A mimic relation must not point a joint at itself." ;
     sh:select """
+      PREFIX kc-ext: <https://secorolab.github.io/metamodels/kinematic-chain/structural-entities-extension#>
       SELECT $this WHERE {
         $this kc-ext:mimicking-joint ?joint ;
               kc-ext:mimicked-joint ?joint .
