@@ -1,0 +1,141 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec: <https://secorolab.github.io/metamodels/website/> .
+@prefix course: <https://secorolab.github.io/metamodels/website/course#> .
+
+sh_sec:CourseShape
+    a sh:NodeShape ;
+    sh:targetClass course:Course ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     course:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:severity sh:Violation ;
+        sh:message  "Course must have a name." ;
+    ] ;
+
+    sh:property [
+        sh:path     course:course-code ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:severity sh:Violation ;
+        sh:message  "Course must have a course code." ;
+    ] ;
+
+    sh:property [
+        sh:path     course:semester ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:severity sh:Violation ;
+        sh:message  "Course must have a semester." ;
+    ] ;
+
+    sh:property [
+        sh:path     course:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "Course should have a description." ;
+    ] ;
+
+    sh:property [
+        sh:path     course:format ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     course:credits ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     course:language ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     course:prerequisites ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     course:teaching-assistants ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:node     sh_sec:CourseAssistantShape ;
+        sh:message  "Teaching assistants must be objects with ta-ref and optional ta-name." ;
+    ] ;
+
+    sh:property [
+        sh:path     course:learning-focus ;
+        sh:datatype xsd:string ;
+    ] ;
+
+    sh:property [
+        sh:path     course:materials ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:node     sh_sec:CourseMaterialShape ;
+        sh:message  "Course materials must be objects with name and optional ref." ;
+    ] ;
+
+    sh:property [
+        sh:path     course:url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+sh_sec:CourseAssistantShape
+    a sh:NodeShape ;
+    sh:targetClass course:CourseAssistant ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     course:ta-ref ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message  "Teaching assistant must have a ta-ref." ;
+    ] ;
+
+    sh:property [
+        sh:path     course:ta-name ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:message  "Teaching assistant must have a display name." ;
+    ] ;
+
+.
+
+sh_sec:CourseMaterialShape
+    a sh:NodeShape ;
+    sh:targetClass course:CourseMaterial ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     course:material-text ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:message  "Course material must have display text." ;
+    ] ;
+
+    sh:property [
+        sh:path     course:material-url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+.
