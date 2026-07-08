@@ -4,6 +4,8 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "kc-ext": "https://secorolab.github.io/metamodels/kinematic-chain/structural-entities-extension#",
 
+        "Scleronomic": "kc-ext:Scleronomic",
+
         "JointLimit": {
             "@id": "kc-ext:JointLimit",
             "@context": {
@@ -20,15 +22,15 @@
             }
         },
 
-        "MimicJointRelation": {
-            "@id": "kc-ext:MimicJointRelation",
+        "JointCoupling": {
+            "@id": "kc-ext:JointCoupling",
             "@context": {
-                "mimicking-joint": {
-                    "@id": "kc-ext:mimicking-joint",
+                "independent-joint": {
+                    "@id": "kc-ext:independent-joint",
                     "@type": "@id"
                 },
-                "mimicked-joint": {
-                    "@id": "kc-ext:mimicked-joint",
+                "dependent-joint": {
+                    "@id": "kc-ext:dependent-joint",
                     "@type": "@id"
                 },
                 "multiplier": {
@@ -36,8 +38,7 @@
                     "@type": "xsd:double"
                 },
                 "offset": {
-                    "@id": "kc-ext:offset",
-                    "@type": "xsd:double"
+                    "@id": "kc-ext:offset"
                 }
             }
         }
