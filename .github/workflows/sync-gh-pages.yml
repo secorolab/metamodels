@@ -21,6 +21,7 @@ jobs:
         with:
           ref: gh-pages
           fetch-depth: 0
+          token: ${{ secrets.GH_PAGES_SYNC_TOKEN }}
 
       - name: Configure git
         run: |
