@@ -1,0 +1,38 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "act": "https://secorolab.github.io/metamodels/robot/actuation#",
+
+        "Actuator": "act:Actuator",
+        "current": "act:current",
+
+        "Transmission": {
+            "@id": "act:Transmission",
+            "@context": {
+                "joint": {
+                    "@id": "act:joint",
+                    "@type": "@id"
+                },
+                "actuator": {
+                    "@id": "act:actuator",
+                    "@type": "@id"
+                },
+                "gear-ratio": {
+                    "@id": "act:gear-ratio",
+                    "@type": "xsd:double"
+                },
+                "command-interface": {
+                    "@id": "act:command-interface",
+                    "@type": "@vocab",
+                    "@container": "@set"
+                },
+                "state-interface": {
+                    "@id": "act:state-interface",
+                    "@type": "@vocab",
+                    "@container": "@set"
+                }
+            }
+        }
+    }
+}
