@@ -7,18 +7,12 @@
 @prefix kc-stat: <https://comp-rob2b.github.io/metamodels/kinematic-chain/state#> .
 @prefix act: <https://secorolab.github.io/metamodels/robot/actuation#> .
 
-act:TransmissionShape
+act:ActuationShape
   a sh:NodeShape ;
-  sh:targetClass act:Transmission ;
+  sh:targetClass act:Actuation ;
   sh:property [
     sh:path act:joint ;
     sh:class kc:Joint ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
-  sh:property [
-    sh:path act:actuator ;
-    sh:class act:Actuator ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
@@ -30,12 +24,12 @@ act:TransmissionShape
   ] ;
   sh:property [
     sh:path act:command-interface ;
-    sh:in (kc-stat:JointPosition kc-stat:JointVelocity kc-stat:JointAcceleration kc-stat:JointForce act:current) ;
+    sh:in (kc-stat:JointPosition kc-stat:JointVelocity kc-stat:JointAcceleration kc-stat:JointForce act:JointCurrent) ;
     sh:minCount 1 ;
   ] ;
   sh:property [
     sh:path act:state-interface ;
-    sh:in (kc-stat:JointPosition kc-stat:JointVelocity kc-stat:JointAcceleration kc-stat:JointForce act:current) ;
+    sh:in (kc-stat:JointPosition kc-stat:JointVelocity kc-stat:JointAcceleration kc-stat:JointForce act:JointCurrent) ;
     sh:minCount 1 ;
   ] ;
   sh:sparql [
