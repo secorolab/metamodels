@@ -5,7 +5,21 @@
         "act": "https://secorolab.github.io/metamodels/robot/actuation#",
 
         "JointCurrent": { "@id": "act:JointCurrent" },
+
         "act-joint": { "@id": "act:joint", "@type": "@id" },
+        "act-mimic-joint": { "@id": "act:mimic-joint", "@type": "@id" },
+
+        "ScleronomousMimicConstraint": {
+            "@id": "act:ScleronomousMimicConstraint",
+            "@context": {
+                "joint": { "@id": "act:joint", "@type": "@id" },
+                "mimic": { "@id": "act:mimic-joint", "@type": "@id" },
+                "multiplier": { "@id": "act:multiplier", "@type": "xsd:double" },
+                "offset": { "@id": "act:offset", "@type": "xsd:double" }
+            }
+        },
+        "act-multiplier": { "@id": "act:multiplier", "@type": "xsd:double" },
+        "act-offset": { "@id": "act:offset", "@type": "xsd:double" },
 
         "Actuation": {
             "@id": "act:Actuation",

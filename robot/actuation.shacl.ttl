@@ -7,15 +7,17 @@
 @prefix kc-stat: <https://comp-rob2b.github.io/metamodels/kinematic-chain/state#> .
 @prefix act: <https://secorolab.github.io/metamodels/robot/actuation#> .
 
+act:JointShape
+  a sh:PropertyShape ;
+  sh:path act:joint ;
+  sh:class kc:Joint ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
 act:ActuationShape
   a sh:NodeShape ;
   sh:targetClass act:Actuation ;
-  sh:property [
-    sh:path act:joint ;
-    sh:class kc:Joint ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
+  sh:property act:JointShape ;
   sh:property [
     sh:path act:gear-ratio ;
     sh:datatype xsd:double ;
@@ -41,4 +43,27 @@ act:ActuationShape
         FILTER (?value = 0.0)
       }
     """ ;
+  ] .
+
+act:ScleronomousMimicConstraintShape
+  a sh:NodeShape ;
+  sh:targetClass act:ScleronomousMimicConstraint ;
+  sh:property act:JointShape ;
+  sh:property [
+    sh:path act:mimic-joint ;
+    sh:class kc:Joint ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path act:multiplier ;
+    sh:datatype xsd:double ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path act:offset ;
+    sh:datatype xsd:double ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
   ] .
