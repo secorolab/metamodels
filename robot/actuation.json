@@ -4,18 +4,14 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "act": "https://secorolab.github.io/metamodels/robot/actuation#",
 
-        "Actuator": "act:Actuator",
-        "current": "act:current",
+        "JointCurrent": { "@id": "act:JointCurrent" },
+        "act-joint": { "@id": "act:joint", "@type": "@id" },
 
-        "Transmission": {
-            "@id": "act:Transmission",
+        "Actuation": {
+            "@id": "act:Actuation",
             "@context": {
                 "joint": {
                     "@id": "act:joint",
-                    "@type": "@id"
-                },
-                "actuator": {
-                    "@id": "act:actuator",
                     "@type": "@id"
                 },
                 "gear-ratio": {
