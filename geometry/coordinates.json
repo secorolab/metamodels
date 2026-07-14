@@ -2,15 +2,14 @@
     "@context": {
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "geom-coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
-        "geom-coord-ext": "https://secorolab.github.io/metamodels/geometry/coordinates#",
 
         "VectorXY": "geom-coord:VectorXY",
 
         "PoseDifferenceCoordinate": {
-            "@id": "geom-coord-ext:PoseDifferenceCoordinate",
+            "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#PoseDifferenceCoordinate",
             "@context": {
-                "linear": { "@id": "geom-coord-ext:linear", "@type": "@id" },
-                "angular": { "@id": "geom-coord-ext:angular", "@type": "@id" }
+                "linear": { "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#linear", "@type": "@id" },
+                "angular": { "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#angular", "@type": "@id" }
             }
         },
 
