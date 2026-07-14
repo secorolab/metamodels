@@ -55,12 +55,6 @@ cstr-hdl-ext:LimiterOwner
         sh:class algo-ext:Saturation
     ] .
 
-cstr-hdl-ext:IntegralSaturation
-    a rdfs:Class, sh:NodeShape ;
-    rdfs:subClassOf algo-ext:Saturation ;
-    sh:targetClass cstr-hdl-ext:IntegralSaturation ;
-    sh:node algo-ext:Saturation .
-
 cstr-hdl-ext:Admittance
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass cstr-hdl-ext:Admittance ;
