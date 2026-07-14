@@ -46,6 +46,22 @@ prov:EntityShape
     sh:path prov:alternateOf ;
     sh:class prov:Entity ;
     sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:qualifiedGeneration ;
+    sh:class prov:Generation
+  ] ;
+  sh:property [
+    sh:path prov:qualifiedDerivation ;
+    sh:class prov:Derivation
+  ] ;
+  sh:property [
+    sh:path prov:qualifiedAttribution ;
+    sh:class prov:Attribution
+  ] ;
+  sh:property [
+    sh:path prov:qualifiedInvalidation ;
+    sh:class prov:Invalidation
   ] .
 
 prov:ActivityShape
@@ -76,6 +92,18 @@ prov:ActivityShape
     sh:path prov:endedAtTime ;
     sh:datatype xsd:dateTime ;
     sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:qualifiedUsage ;
+    sh:class prov:Usage
+  ] ;
+  sh:property [
+    sh:path prov:qualifiedCommunication ;
+    sh:class prov:Communication
+  ] ;
+  sh:property [
+    sh:path prov:qualifiedAssociation ;
+    sh:class prov:Association
   ] .
 
 prov:AgentShape
@@ -86,6 +114,10 @@ prov:AgentShape
     sh:path prov:actedOnBehalfOf ;
     sh:class prov:Agent ;
     sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:qualifiedDelegation ;
+    sh:class prov:Delegation
   ] .
 
 prov:InfluenceSubjectShape
@@ -121,3 +153,158 @@ prov:CollectionShape
 prov:BundleShape
   a sh:NodeShape ;
   sh:targetClass prov:Bundle .
+
+# Qualified influences (PROV-O). Values may be blank nodes, so no sh:nodeKind
+# on the influence itself; the single-valued pointer to the influenced
+# entity/activity/agent is an IRI. prov:hadRole is left untyped (roles are
+# commonly plain IRIs, not asserted prov:Role instances).
+
+prov:UsageShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Usage ;
+  sh:property [
+    sh:path prov:entity ;
+    sh:class prov:Entity ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:atTime ;
+    sh:datatype xsd:dateTime ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadRole ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:GenerationShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Generation ;
+  sh:property [
+    sh:path prov:activity ;
+    sh:class prov:Activity ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:atTime ;
+    sh:datatype xsd:dateTime ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadRole ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:InvalidationShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Invalidation ;
+  sh:property [
+    sh:path prov:activity ;
+    sh:class prov:Activity ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:atTime ;
+    sh:datatype xsd:dateTime ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadRole ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:CommunicationShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Communication ;
+  sh:property [
+    sh:path prov:activity ;
+    sh:class prov:Activity ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadRole ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:AssociationShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Association ;
+  sh:property [
+    sh:path prov:agent ;
+    sh:class prov:Agent ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadPlan ;
+    sh:class prov:Plan ;
+    sh:nodeKind sh:IRI
+  ] ;
+  sh:property [
+    sh:path prov:hadRole ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:AttributionShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Attribution ;
+  sh:property [
+    sh:path prov:agent ;
+    sh:class prov:Agent ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadRole ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:DelegationShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Delegation ;
+  sh:property [
+    sh:path prov:agent ;
+    sh:class prov:Agent ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadRole ;
+    sh:nodeKind sh:IRI
+  ] .
+
+prov:DerivationShape
+  a sh:NodeShape ;
+  sh:targetClass prov:Derivation ;
+  sh:property [
+    sh:path prov:entity ;
+    sh:class prov:Entity ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadActivity ;
+    sh:class prov:Activity ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadGeneration ;
+    sh:class prov:Generation ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadUsage ;
+    sh:class prov:Usage ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path prov:hadRole ;
+    sh:nodeKind sh:IRI
+  ] .
