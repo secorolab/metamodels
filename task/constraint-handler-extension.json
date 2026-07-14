@@ -14,7 +14,6 @@
                 }
             }
         },
-        "JointTorque": "cstr-hdl-ext:JointTorque",
         "LinearJerk": "cstr-hdl-ext:LinearJerk",
 
         "Saturation": {
@@ -51,10 +50,6 @@
             }
         },
 
-        "control-mode": {
-            "@id": "cstr-hdl-ext:control-mode",
-            "@type": "@id"
-        },
         "order": {
             "@id": "cstr-hdl-ext:order",
             "@type": "xsd:nonNegativeInteger"

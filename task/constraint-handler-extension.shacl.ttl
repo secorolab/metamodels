@@ -11,13 +11,6 @@ cstr-hdl-ext:ConstraintHandlerExtensionShape
     a sh:NodeShape ;
     sh:targetClass cstr_hdl:ConstraintHandler ;
     sh:property [
-        sh:path cstr-hdl-ext:control-mode ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:in ( cstr-hdl-ext:JointTorque )
-    ] ;
-    sh:property [
         sh:path cstr-hdl-ext:order ;
         sh:minCount 0 ;
         sh:maxCount 1 ;
