@@ -1,4 +1,3 @@
-@prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
@@ -13,6 +12,7 @@ traj:Trajectory
     sh:class qudt:Quantity .
 
 traj:Progress a qudt:QuantityKind .
+traj:LinearJerk a qudt:QuantityKind .
 
 traj:PoseQuantityShape
     a sh:NodeShape ;
@@ -56,7 +56,7 @@ traj:LinearAccelerationQuantityShape
 traj:LinearJerkQuantityShape
     a sh:NodeShape ;
     sh:class qudt:Quantity ;
-    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue cstr-hdl-ext:LinearJerk ] .
+    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue traj:LinearJerk ] .
 
 traj:VelocityProfile
     a rdfs:Class, sh:NodeShape ;

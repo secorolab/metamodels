@@ -6,6 +6,7 @@
 
         "Trajectory": "traj:Trajectory",
         "Progress": "traj:Progress",
+        "LinearJerk": "traj:LinearJerk",
         "VelocityProfile": {
             "@id": "traj:VelocityProfile",
             "@context": {
