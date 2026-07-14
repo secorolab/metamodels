@@ -2,18 +2,24 @@
     "@context": {
         "@version": 1.1,
         "snap": "https://secorolab.github.io/metamodels/task/snapshot#",
-        "prov": "http://www.w3.org/ns/prov#",
 
         "Snapshot": {
             "@id": "snap:Snapshot",
             "@context": {
                 "snapshot-of": { "@id": "snap:snapshot-of", "@type": "@id" },
-                "sampled-on": { "@id": "snap:sampled-on", "@type": "@id" }
+                "sampling": {
+                    "@id": "snap:sampling",
+                    "@type": "@vocab",
+                    "@context": {
+                        "initial-sampling": "snap:initial-sampling",
+                        "event-triggered-sampling": "snap:event-triggered-sampling"
+                    }
+                },
+                "trigger": {
+                    "@id": "snap:trigger",
+                    "@type": "@id"
+                }
             }
-        },
-
-        "Clock": { "@id": "snap:Clock" },
-        "task-clock": { "@id": "snap:task-clock" },
-        "entry-clock": { "@id": "snap:entry-clock" }
+        }
     }
 }

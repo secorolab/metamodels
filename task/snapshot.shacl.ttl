@@ -1,24 +1,15 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
-@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix el: <https://secorolab.github.io/metamodels/behaviour/event_loop#> .
 @prefix snap: <https://secorolab.github.io/metamodels/task/snapshot#> .
 
-snap:task-clock a snap:Clock .
-snap:entry-clock a snap:Clock .
-
 snap:snapshot-of
-    a rdf:Property ;
-    rdfs:subPropertyOf prov:wasDerivedFrom .
-
-snap:Clock
-    a rdfs:Class, sh:NodeShape ;
-    sh:targetClass snap:Clock .
+    a rdf:Property .
 
 snap:Snapshot
     a rdfs:Class, sh:NodeShape ;
-    rdfs:subClassOf prov:Entity ;
     sh:targetClass snap:Snapshot ;
     sh:property [
         sh:path snap:snapshot-of ;
@@ -28,9 +19,37 @@ snap:Snapshot
         sh:class qudt:Quantity
     ] ;
     sh:property [
-        sh:path snap:sampled-on ;
-        sh:minCount 0 ;
+        sh:path snap:sampling ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
-        sh:in ( snap:task-clock snap:entry-clock )
-    ] .
+        sh:in ( snap:initial-sampling snap:event-triggered-sampling )
+    ] ;
+    sh:property [
+        sh:path snap:trigger ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class el:Event
+    ] ;
+    sh:xone (
+        [
+            sh:property [
+                sh:path snap:sampling ;
+                sh:hasValue snap:initial-sampling
+            ] ;
+            sh:property [
+                sh:path snap:trigger ;
+                sh:maxCount 0
+            ]
+        ]
+        [
+            sh:property [
+                sh:path snap:sampling ;
+                sh:hasValue snap:event-triggered-sampling
+            ] ;
+            sh:property [
+                sh:path snap:trigger ;
+                sh:minCount 1
+            ]
+        ]
+    ) .
