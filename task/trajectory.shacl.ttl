@@ -1,4 +1,5 @@
 @prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
+@prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -18,7 +19,6 @@ traj:Trajectory
     sh:node traj:ReferenceGenerator .
 
 traj:Progress a qudt:QuantityKind .
-traj:LinearJerk a qudt:QuantityKind .
 
 traj:PoseQuantityShape
     a sh:NodeShape ;
@@ -67,7 +67,7 @@ traj:LinearAccelerationQuantityShape
 traj:LinearJerkQuantityShape
     a sh:NodeShape ;
     sh:class qudt:Quantity ;
-    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue traj:LinearJerk ] .
+    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue cstr-hdl-ext:LinearJerk ] .
 
 traj:VelocityProfile
     a rdfs:Class, sh:NodeShape ;
@@ -85,7 +85,7 @@ traj:Lerp
     sh:targetClass traj:Lerp ;
     sh:property [ sh:path traj:start ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseQuantityShape ] ;
     sh:property [ sh:path traj:goal ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseQuantityShape ] ;
-    sh:property [ sh:path traj:alpha ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:ProgressQuantityShape ] ;
+    sh:property [ sh:path traj:progress ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:ProgressQuantityShape ] ;
     sh:property [ sh:path traj:trajectory ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseTrajectoryShape ] ;
     sh:property [ sh:path traj:profile ; sh:datatype xsd:string ; sh:maxCount 1 ; sh:in ( "Linear" "EaseIn" "EaseOut" "EaseInOut" ) ] .
 
@@ -95,7 +95,7 @@ traj:Circle
     sh:property [ sh:path traj:start ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseQuantityShape ] ;
     sh:property [ sh:path traj:center ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PositionQuantityShape ] ;
     sh:property [ sh:path traj:plane-normal ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:DirectionQuantityShape ] ;
-    sh:property [ sh:path traj:alpha ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:ProgressQuantityShape ] ;
+    sh:property [ sh:path traj:progress ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:ProgressQuantityShape ] ;
     sh:property [ sh:path traj:trajectory ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseTrajectoryShape ] .
 
 traj:Figure8
@@ -104,7 +104,7 @@ traj:Figure8
     sh:property [ sh:path traj:anchor ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseQuantityShape ] ;
     sh:property [ sh:path traj:radius ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:DistanceQuantityShape ] ;
     sh:property [ sh:path traj:plane-normal ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:DirectionQuantityShape ] ;
-    sh:property [ sh:path traj:alpha ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:ProgressQuantityShape ] ;
+    sh:property [ sh:path traj:progress ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:ProgressQuantityShape ] ;
     sh:property [ sh:path traj:trajectory ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseTrajectoryShape ] ;
     sh:property [ sh:path traj:form ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "Gerono" "Bernoulli" ) ] .
 
@@ -115,7 +115,7 @@ traj:Arc
     sh:property [ sh:path traj:end ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseQuantityShape ] ;
     sh:property [ sh:path traj:amplitude ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:DistanceQuantityShape ] ;
     sh:property [ sh:path traj:plane-normal ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:DirectionQuantityShape ] ;
-    sh:property [ sh:path traj:alpha ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:ProgressQuantityShape ] ;
+    sh:property [ sh:path traj:progress ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:ProgressQuantityShape ] ;
     sh:property [ sh:path traj:trajectory ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseTrajectoryShape ] .
 
 traj:Helix
@@ -126,5 +126,5 @@ traj:Helix
     sh:property [ sh:path traj:axis ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:DirectionQuantityShape ] ;
     sh:property [ sh:path traj:pitch ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:DistanceQuantityShape ] ;
     sh:property [ sh:path traj:revolutions ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:DimensionlessQuantityShape ] ;
-    sh:property [ sh:path traj:alpha ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:ProgressQuantityShape ] ;
+    sh:property [ sh:path traj:progress ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:ProgressQuantityShape ] ;
     sh:property [ sh:path traj:trajectory ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseTrajectoryShape ] .
