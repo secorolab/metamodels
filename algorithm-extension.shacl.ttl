@@ -1,0 +1,22 @@
+@prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+algo-ext:Saturation
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass algo-ext:Saturation ;
+    sh:property [ sh:path algo-ext:in ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:xone (
+        [
+            sh:property [ sh:path algo-ext:maximum-absolute-value ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+            sh:property [ sh:path algo-ext:lower-bound ; sh:maxCount 0 ] ;
+            sh:property [ sh:path algo-ext:upper-bound ; sh:maxCount 0 ]
+        ]
+        [
+            sh:property [ sh:path algo-ext:lower-bound ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+            sh:property [ sh:path algo-ext:upper-bound ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+            sh:property [ sh:path algo-ext:maximum-absolute-value ; sh:maxCount 0 ]
+        ]
+    ) .

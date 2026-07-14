@@ -2,6 +2,7 @@
     "@context": {
         "@version": 1.1,
         "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "algo-ext": "https://secorolab.github.io/metamodels/algorithm#",
         "cstr-hdl": "https://comp-rob2b.github.io/metamodels/task/constraint-handler#",
         "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
 
@@ -16,24 +17,14 @@
         },
         "LinearJerk": "cstr-hdl-ext:LinearJerk",
 
-        "Saturation": {
-            "@id": "cstr-hdl-ext:Saturation",
-            "@context": {
-                "input-signal": { "@id": "cstr-hdl-ext:input-signal", "@type": "@id" },
-                "output-signal": { "@id": "cstr-hdl-ext:output-signal", "@type": "@id" },
-                "maximum-absolute-value": { "@id": "cstr-hdl-ext:maximum-absolute-value", "@type": "@id" },
-                "lower-limit": { "@id": "cstr-hdl-ext:lower-limit", "@type": "@id" },
-                "upper-limit": { "@id": "cstr-hdl-ext:upper-limit", "@type": "@id" }
-            }
-        },
         "IntegralSaturation": {
             "@id": "cstr-hdl-ext:IntegralSaturation",
             "@context": {
-                "input-signal": { "@id": "cstr-hdl-ext:input-signal", "@type": "@id" },
-                "output-signal": { "@id": "cstr-hdl-ext:output-signal", "@type": "@id" },
-                "maximum-absolute-value": { "@id": "cstr-hdl-ext:maximum-absolute-value", "@type": "@id" },
-                "lower-limit": { "@id": "cstr-hdl-ext:lower-limit", "@type": "@id" },
-                "upper-limit": { "@id": "cstr-hdl-ext:upper-limit", "@type": "@id" }
+                "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" },
+                "maximum-absolute-value": { "@id": "algo-ext:maximum-absolute-value", "@type": "@id" },
+                "lower-bound": { "@id": "algo-ext:lower-bound", "@type": "@id" },
+                "upper-bound": { "@id": "algo-ext:upper-bound", "@type": "@id" }
             }
         },
 
@@ -59,27 +50,7 @@
             "@type": "@id"
         },
         "limits": {
-            "@id": "cstr-hdl-ext:limits",
-            "@type": "@id"
-        },
-        "input-signal": {
-            "@id": "cstr-hdl-ext:input-signal",
-            "@type": "@id"
-        },
-        "output-signal": {
-            "@id": "cstr-hdl-ext:output-signal",
-            "@type": "@id"
-        },
-        "maximum-absolute-value": {
-            "@id": "cstr-hdl-ext:maximum-absolute-value",
-            "@type": "@id"
-        },
-        "lower-limit": {
-            "@id": "cstr-hdl-ext:lower-limit",
-            "@type": "@id"
-        },
-        "upper-limit": {
-            "@id": "cstr-hdl-ext:upper-limit",
+            "@id": "algo-ext:limits",
             "@type": "@id"
         },
         "monitors-until": {

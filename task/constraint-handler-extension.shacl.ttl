@@ -2,6 +2,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
 @prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
@@ -48,66 +49,19 @@ cstr-hdl-ext:ProfiledController
 
 cstr-hdl-ext:LimiterOwner
     a sh:NodeShape ;
-    sh:targetSubjectsOf cstr-hdl-ext:limits ;
+    sh:targetSubjectsOf algo-ext:limits ;
     sh:property [
-        sh:path cstr-hdl-ext:limits ;
+        sh:path algo-ext:limits ;
         sh:minCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class cstr-hdl-ext:Saturation
+        sh:class algo-ext:Saturation
     ] .
-
-cstr-hdl-ext:Saturation
-    a rdfs:Class, sh:NodeShape ;
-    sh:targetClass cstr-hdl-ext:Saturation ;
-    sh:property [
-        sh:path cstr-hdl-ext:input-signal ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:output-signal ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:xone (
-        [
-            sh:property [
-                sh:path cstr-hdl-ext:maximum-absolute-value ;
-                sh:minCount 1 ;
-                sh:maxCount 1 ;
-                sh:nodeKind sh:BlankNodeOrIRI ;
-                sh:class qudt:Quantity
-            ] ;
-            sh:property [ sh:path cstr-hdl-ext:lower-limit ; sh:maxCount 0 ] ;
-            sh:property [ sh:path cstr-hdl-ext:upper-limit ; sh:maxCount 0 ]
-        ]
-        [
-            sh:property [
-                sh:path cstr-hdl-ext:lower-limit ;
-                sh:minCount 1 ;
-                sh:maxCount 1 ;
-                sh:nodeKind sh:BlankNodeOrIRI ;
-                sh:class qudt:Quantity
-            ] ;
-            sh:property [
-                sh:path cstr-hdl-ext:upper-limit ;
-                sh:minCount 1 ;
-                sh:maxCount 1 ;
-                sh:nodeKind sh:BlankNodeOrIRI ;
-                sh:class qudt:Quantity
-            ] ;
-            sh:property [ sh:path cstr-hdl-ext:maximum-absolute-value ; sh:maxCount 0 ]
-        ]
-    ) .
 
 cstr-hdl-ext:IntegralSaturation
     a rdfs:Class, sh:NodeShape ;
-    rdfs:subClassOf cstr-hdl-ext:Saturation ;
-    sh:targetClass cstr-hdl-ext:IntegralSaturation .
+    rdfs:subClassOf algo-ext:Saturation ;
+    sh:targetClass cstr-hdl-ext:IntegralSaturation ;
+    sh:node algo-ext:Saturation .
 
 cstr-hdl-ext:Admittance
     a rdfs:Class, sh:NodeShape ;
