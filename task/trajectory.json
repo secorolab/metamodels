@@ -5,6 +5,7 @@
         "traj": "https://secorolab.github.io/metamodels/task/trajectory#",
 
         "ReferenceGenerator": "traj:ReferenceGenerator",
+        "reference": { "@id": "traj:reference", "@type": "@id" },
         "Trajectory": "traj:Trajectory",
         "Progress": "traj:Progress",
         "LinearJerk": "traj:LinearJerk",

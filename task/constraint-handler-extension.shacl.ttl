@@ -25,15 +25,18 @@ cstr-hdl-ext:FeedForwardController
         sh:maxCount 0
     ] .
 
-cstr-hdl-ext:ProfiledController
+# Any controller may consume a reference signal (the reference it tracks,
+# produced by a traj:ReferenceGenerator).
+cstr-hdl-ext:ReferenceConsumer
     a sh:NodeShape ;
-    sh:targetSubjectsOf cstr-hdl-ext:velocity-profile ;
+    sh:targetSubjectsOf cstr-hdl-ext:reference-signal ;
     sh:class cstr_hdl:Controller ;
     sh:property [
-        sh:path cstr-hdl-ext:velocity-profile ;
+        sh:path cstr-hdl-ext:reference-signal ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class traj:VelocityProfile
+        sh:class qudt:Quantity
     ] .
 
 cstr-hdl-ext:LimiterOwner
@@ -78,7 +81,7 @@ cstr-hdl-ext:Admittance
         sh:class qudt:Quantity
     ] ;
     sh:property [
-        sh:path cstr-hdl-ext:reference ;
+        sh:path traj:reference ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:node cstr-hdl-ext:VelocityQuantityShape

@@ -3,16 +3,10 @@
         "@version": 1.1,
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
+        "traj": "https://secorolab.github.io/metamodels/task/trajectory#",
 
-        "FeedForwardController": {
-            "@id": "cstr-hdl-ext:FeedForwardController",
-            "@context": {
-                "reference-signal": {
-                    "@id": "cstr-hdl-ext:reference-signal",
-                    "@type": "@id"
-                }
-            }
-        },
+        "reference-signal": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
+        "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
         "Admittance": {
             "@id": "cstr-hdl-ext:Admittance",
             "@context": {
@@ -20,14 +14,10 @@
                 "mass": { "@id": "cstr-hdl-ext:mass", "@type": "@id" },
                 "damping": { "@id": "cstr-hdl-ext:damping", "@type": "@id" },
                 "stiffness": { "@id": "cstr-hdl-ext:stiffness", "@type": "@id" },
-                "reference": { "@id": "cstr-hdl-ext:reference", "@type": "@id" }
+                "reference": { "@id": "traj:reference", "@type": "@id" }
             }
         },
 
-        "velocity-profile": {
-            "@id": "cstr-hdl-ext:velocity-profile",
-            "@type": "@id"
-        },
         "fallback-motion": {
             "@id": "cstr-hdl-ext:fallback-motion",
             "@type": "@id"

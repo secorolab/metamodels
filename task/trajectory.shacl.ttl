@@ -71,7 +71,8 @@ traj:VelocityProfile
     sh:property [ sh:path traj:max-acceleration ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:LinearAccelerationQuantityShape ] ;
     sh:property [ sh:path traj:max-jerk ; sh:maxCount 1 ; sh:node traj:LinearJerkQuantityShape ] ;
     sh:property [ sh:path traj:measured-velocity ; sh:maxCount 1 ; sh:node traj:LinearVelocityQuantityShape ] ;
-    sh:property [ sh:path traj:shape ; sh:datatype xsd:string ; sh:maxCount 1 ; sh:in ( "Trapezoidal" "SCurve" ) ] .
+    sh:property [ sh:path traj:shape ; sh:datatype xsd:string ; sh:maxCount 1 ; sh:in ( "Trapezoidal" "SCurve" ) ] ;
+    sh:property [ sh:path traj:reference ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:LinearVelocityQuantityShape ] .
 
 traj:Lerp
     a rdfs:Class, sh:NodeShape ;
