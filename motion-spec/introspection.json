@@ -1,0 +1,84 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "intro": "https://secorolab.github.io/metamodels/motion-spec/introspection/",
+
+        "Frame": {
+            "@id": "intro:Frame",
+            "@context": {
+                "activeState": { "@id": "intro:activeState", "@type": "@id" },
+                "step": "intro:step"
+            }
+        },
+
+        "StateOccurrence": {
+            "@id": "intro:StateOccurrence",
+            "@context": {
+                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
+                "state": { "@id": "intro:state", "@type": "@id" }
+            }
+        },
+
+        "TransitionOccurrence": {
+            "@id": "intro:TransitionOccurrence",
+            "@context": {
+                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
+                "event": { "@id": "intro:event", "@type": "@id" },
+                "fromState": { "@id": "intro:fromState", "@type": "@id" },
+                "toState": { "@id": "intro:toState", "@type": "@id" },
+                "transition": { "@id": "intro:transition", "@type": "@id" }
+            }
+        },
+
+        "EventOccurrence": {
+            "@id": "intro:EventOccurrence",
+            "@context": {
+                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
+                "event": { "@id": "intro:event", "@type": "@id" },
+                "fsmState": { "@id": "intro:fsmState", "@type": "@id" },
+                "slotIndex": "intro:slotIndex"
+            }
+        },
+
+        "MonitorOccurrence": {
+            "@id": "intro:MonitorOccurrence",
+            "@context": {
+                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
+                "constraint": { "@id": "intro:constraint", "@type": "@id" },
+                "event": { "@id": "intro:event", "@type": "@id" },
+                "fsmState": { "@id": "intro:fsmState", "@type": "@id" },
+                "monitor": { "@id": "intro:monitor", "@type": "@id" },
+                "slotIndex": "intro:slotIndex",
+                "value": "intro:value"
+            }
+        },
+
+        "ConstraintSatisfiedOccurrence": {
+            "@id": "intro:ConstraintSatisfiedOccurrence",
+            "@context": {
+                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
+                "constraint": { "@id": "intro:constraint", "@type": "@id" },
+                "controller": { "@id": "intro:controller", "@type": "@id" },
+                "fsmState": { "@id": "intro:fsmState", "@type": "@id" },
+                "slotIndex": "intro:slotIndex",
+                "value": "intro:value"
+            }
+        },
+
+        "ConstraintUnsatisfiedOccurrence": {
+            "@id": "intro:ConstraintUnsatisfiedOccurrence",
+            "@context": {
+                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
+                "constraint": { "@id": "intro:constraint", "@type": "@id" },
+                "controller": { "@id": "intro:controller", "@type": "@id" },
+                "fsmState": { "@id": "intro:fsmState", "@type": "@id" },
+                "slotIndex": "intro:slotIndex",
+                "value": "intro:value"
+            }
+        },
+
+        "contractVersion": "intro:contractVersion",
+        "frameCount": "intro:frameCount",
+        "runId": "intro:runId"
+    }
+}

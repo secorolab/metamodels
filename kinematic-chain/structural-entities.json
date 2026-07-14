@@ -1,8 +1,0 @@
-{
-    "@context": {
-        "kc": "https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#",
-
-        "Joint": "kc:Joint",
-        "KinematicChain": "kc:KinematicChain"
-    }
-}

@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
 # Author: OpenAI
 
-@prefix msrun: <https://secorolab.github.io/motion-spec/runtime/> .
+@prefix intro: <https://secorolab.github.io/metamodels/motion-spec/introspection/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -10,18 +10,18 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-msrun:Frame
+intro:Frame
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass msrun:Frame ;
+    sh:targetClass intro:Frame ;
     sh:property [
-        sh:path msrun:step ;
+        sh:path intro:step ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:integer ;
         sh:minInclusive 0
     ] ;
     sh:property [
-        sh:path msrun:activeState ;
+        sh:path intro:activeState ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
@@ -31,25 +31,25 @@ msrun:Frame
         sh:datatype xsd:dateTime
     ] .
 
-msrun:RuntimeRunShape
+intro:RuntimeRunShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf msrun:runId ;
+    sh:targetSubjectsOf intro:runId ;
     sh:class rt:Runtime ;
     sh:property [
-        sh:path msrun:runId ;
+        sh:path intro:runId ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path msrun:contractVersion ;
+        sh:path intro:contractVersion ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:integer ;
         sh:minInclusive 1
     ] ;
     sh:property [
-        sh:path msrun:frameCount ;
+        sh:path intro:frameCount ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:integer ;
@@ -62,13 +62,13 @@ msrun:RuntimeRunShape
         sh:nodeKind sh:IRI
     ] .
 
-msrun:OccurrenceShape
+intro:OccurrenceShape
     a sh:NodeShape ;
     sh:property [
-        sh:path msrun:atFrame ;
+        sh:path intro:atFrame ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:class msrun:Frame ;
+        sh:class intro:Frame ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
@@ -77,163 +77,163 @@ msrun:OccurrenceShape
         sh:datatype xsd:dateTime
     ] .
 
-msrun:StateOccurrence
+intro:StateOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass msrun:StateOccurrence ;
-    sh:node msrun:OccurrenceShape ;
+    sh:targetClass intro:StateOccurrence ;
+    sh:node intro:OccurrenceShape ;
     sh:property [
-        sh:path msrun:state ;
+        sh:path intro:state ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] .
 
-msrun:TransitionOccurrence
+intro:TransitionOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass msrun:TransitionOccurrence ;
-    sh:node msrun:OccurrenceShape ;
+    sh:targetClass intro:TransitionOccurrence ;
+    sh:node intro:OccurrenceShape ;
     sh:property [
-        sh:path msrun:transition ;
+        sh:path intro:transition ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path msrun:fromState ;
+        sh:path intro:fromState ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path msrun:toState ;
+        sh:path intro:toState ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path msrun:event ;
+        sh:path intro:event ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] .
 
-msrun:EventOccurrence
+intro:EventOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass msrun:EventOccurrence ;
-    sh:node msrun:OccurrenceShape ;
+    sh:targetClass intro:EventOccurrence ;
+    sh:node intro:OccurrenceShape ;
     sh:property [
-        sh:path msrun:event ;
+        sh:path intro:event ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path msrun:fsmState ;
+        sh:path intro:fsmState ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path msrun:slotIndex ;
+        sh:path intro:slotIndex ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:integer ;
         sh:minInclusive 0
     ] .
 
-msrun:MonitorOccurrence
+intro:MonitorOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass msrun:MonitorOccurrence ;
-    sh:node msrun:OccurrenceShape ;
+    sh:targetClass intro:MonitorOccurrence ;
+    sh:node intro:OccurrenceShape ;
     sh:property [
-        sh:path msrun:monitor ;
+        sh:path intro:monitor ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
-    sh:property msrun:OptionalConstraintShape, msrun:OptionalEventShape,
-        msrun:OptionalStateShape, msrun:SlotIndexShape, msrun:NumericValueShape .
+    sh:property intro:OptionalConstraintShape, intro:OptionalEventShape,
+        intro:OptionalStateShape, intro:SlotIndexShape, intro:NumericValueShape .
 
-msrun:ConstraintSatisfiedOccurrence
+intro:ConstraintSatisfiedOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass msrun:ConstraintSatisfiedOccurrence ;
-    sh:node msrun:ConstraintOccurrenceShape .
+    sh:targetClass intro:ConstraintSatisfiedOccurrence ;
+    sh:node intro:ConstraintOccurrenceShape .
 
-msrun:ConstraintUnsatisfiedOccurrence
+intro:ConstraintUnsatisfiedOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass msrun:ConstraintUnsatisfiedOccurrence ;
-    sh:node msrun:ConstraintOccurrenceShape .
+    sh:targetClass intro:ConstraintUnsatisfiedOccurrence ;
+    sh:node intro:ConstraintOccurrenceShape .
 
-msrun:ConstraintOccurrenceShape
+intro:ConstraintOccurrenceShape
     a sh:NodeShape ;
-    sh:node msrun:OccurrenceShape ;
+    sh:node intro:OccurrenceShape ;
     sh:property [
-        sh:path msrun:constraint ;
+        sh:path intro:constraint ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path msrun:controller ;
+        sh:path intro:controller ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
-    sh:property msrun:OptionalStateShape, msrun:SlotIndexShape, msrun:NumericValueShape .
+    sh:property intro:OptionalStateShape, intro:SlotIndexShape, intro:NumericValueShape .
 
-msrun:OptionalConstraintShape
+intro:OptionalConstraintShape
     a sh:PropertyShape ;
-    sh:path msrun:constraint ;
+    sh:path intro:constraint ;
     sh:maxCount 1 ;
     sh:nodeKind sh:IRI .
 
-msrun:OptionalEventShape
+intro:OptionalEventShape
     a sh:PropertyShape ;
-    sh:path msrun:event ;
+    sh:path intro:event ;
     sh:maxCount 1 ;
     sh:nodeKind sh:IRI .
 
-msrun:OptionalStateShape
+intro:OptionalStateShape
     a sh:PropertyShape ;
-    sh:path msrun:fsmState ;
+    sh:path intro:fsmState ;
     sh:maxCount 1 ;
     sh:nodeKind sh:IRI .
 
-msrun:SlotIndexShape
+intro:SlotIndexShape
     a sh:PropertyShape ;
-    sh:path msrun:slotIndex ;
+    sh:path intro:slotIndex ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
     sh:datatype xsd:integer ;
     sh:minInclusive 0 .
 
-msrun:NumericValueShape
+intro:NumericValueShape
     a sh:PropertyShape ;
-    sh:path msrun:value ;
+    sh:path intro:value ;
     sh:maxCount 1 ;
     sh:or (
         [ sh:datatype xsd:decimal ]
         [ sh:datatype xsd:double ]
     ) .
 
-msrun:ForbiddenLegacySampleShape
+intro:ForbiddenLegacySampleShape
     a sh:NodeShape ;
     sh:targetSubjectsOf rdf:type ;
     sh:not [
         sh:or (
-            [ sh:class msrun:ControllerSample ]
-            [ sh:class msrun:SignalSample ]
-            [ sh:class msrun:MonitorSample ]
+            [ sh:class intro:ControllerSample ]
+            [ sh:class intro:SignalSample ]
+            [ sh:class intro:MonitorSample ]
         )
     ] .
 
-msrun:ForbiddenLegacyPredicateShape
+intro:ForbiddenLegacyPredicateShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf msrun:compute_ns, msrun:error, msrun:measured, msrun:output,
-        msrun:period_ns, msrun:satSince, msrun:setpoint, msrun:t, msrun:wall_ns ;
-    sh:property [ sh:path msrun:compute_ns ; sh:maxCount 0 ] ;
-    sh:property [ sh:path msrun:error ; sh:maxCount 0 ] ;
-    sh:property [ sh:path msrun:measured ; sh:maxCount 0 ] ;
-    sh:property [ sh:path msrun:output ; sh:maxCount 0 ] ;
-    sh:property [ sh:path msrun:period_ns ; sh:maxCount 0 ] ;
-    sh:property [ sh:path msrun:satSince ; sh:maxCount 0 ] ;
-    sh:property [ sh:path msrun:setpoint ; sh:maxCount 0 ] ;
-    sh:property [ sh:path msrun:t ; sh:maxCount 0 ] ;
-    sh:property [ sh:path msrun:wall_ns ; sh:maxCount 0 ] .
+    sh:targetSubjectsOf intro:compute_ns, intro:error, intro:measured, intro:output,
+        intro:period_ns, intro:satSince, intro:setpoint, intro:t, intro:wall_ns ;
+    sh:property [ sh:path intro:compute_ns ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:error ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:measured ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:output ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:period_ns ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:satSince ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:setpoint ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:t ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:wall_ns ; sh:maxCount 0 ] .
