@@ -3,7 +3,7 @@
         "@version": 1.1,
         "map": "https://comp-rob2b.github.io/metamodels/task/map#",
         "map-ext": "https://secorolab.github.io/metamodels/task/map#",
-        "geom-coord-ext": "https://secorolab.github.io/metamodels/geometry/coordinates#",
+        "geom-coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
 
         "PoseOrientationView": {
             "@id": "map-ext:PoseOrientationView",
@@ -66,8 +66,8 @@
                     "@id": "map:subspace",
                     "@type": "@vocab",
                     "@context": {
-                        "linear": "geom-coord-ext:linear",
-                        "angular": "geom-coord-ext:angular"
+                        "linear": "geom-coord:linear",
+                        "angular": "geom-coord:angular"
                     }
                 },
                 "axis": {

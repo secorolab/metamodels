@@ -8,8 +8,8 @@
         "PoseDifferenceCoordinate": {
             "@id": "geom-coord:PoseDifferenceCoordinate",
             "@context": {
-                "linear": { "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#linear", "@type": "@id" },
-                "angular": { "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#angular", "@type": "@id" }
+                "linear": { "@id": "geom-coord:linear", "@type": "@id" },
+                "angular": { "@id": "geom-coord:angular", "@type": "@id" }
             }
         },
 

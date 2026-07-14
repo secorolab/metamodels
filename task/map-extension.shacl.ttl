@@ -4,7 +4,6 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix map: <https://comp-rob2b.github.io/metamodels/task/map#> .
 @prefix geom_coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
-@prefix geom_coord_ext: <https://secorolab.github.io/metamodels/geometry/coordinates#> .
 @prefix rbdyn_coord: <https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/coordinates#> .
 
 map-ext:PoseOrientationView
@@ -84,7 +83,7 @@ map-ext:PoseDifferenceView
     sh:targetClass map-ext:PoseDifferenceView ;
     sh:property [
         sh:path map:superobject ;
-        sh:class geom_coord_ext:PoseDifferenceCoordinate
+        sh:class geom_coord:PoseDifferenceCoordinate
     ] ;
     sh:property [
         sh:path map:subobject ;
@@ -98,7 +97,7 @@ map-ext:PoseDifferenceView
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
-        sh:in ( geom_coord_ext:linear geom_coord_ext:angular )
+        sh:in ( geom_coord:linear geom_coord:angular )
     ] .
 
 map-ext:ComputeRotationFromPose

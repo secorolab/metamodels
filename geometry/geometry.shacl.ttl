@@ -5,7 +5,6 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
 @prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
-@prefix geom-coord-ext: <https://secorolab.github.io/metamodels/geometry/coordinates#> .
 @prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
 
 # **********
@@ -58,17 +57,17 @@ geom-rel:PoseShape
 
 # **********
 # Coordinates constraints
-geom-coord-ext:PoseDifferenceCoordinate
+geom-coord:PoseDifferenceCoordinate
   a sh:NodeShape ;
-  sh:targetClass geom-coord-ext:PoseDifferenceCoordinate ;
+  sh:targetClass geom-coord:PoseDifferenceCoordinate ;
   sh:property [
-    sh:path geom-coord-ext:linear ;
+    sh:path geom-coord:linear ;
     sh:class geom-coord:VectorXYZ ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
-    sh:path geom-coord-ext:angular ;
+    sh:path geom-coord:angular ;
     sh:class geom-coord:VectorXYZ ;
     sh:minCount 1 ;
     sh:maxCount 1 ;

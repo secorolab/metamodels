@@ -1,7 +1,6 @@
 @prefix geom-op:  <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#> .
 @prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
 @prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
-@prefix geom-coord-ext: <https://secorolab.github.io/metamodels/geometry/coordinates#> .
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh:       <http://www.w3.org/ns/shacl#> .
 
@@ -27,5 +26,5 @@ geom-op-ext:PoseDiffEvaluator
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class geom-coord-ext:PoseDifferenceCoordinate
+        sh:class geom-coord:PoseDifferenceCoordinate
     ] .
