@@ -1,0 +1,59 @@
+@prefix exec: <https://secorolab.github.io/metamodels/execution-context#> .
+@prefix obs: <https://secorolab.github.io/metamodels/observation#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rec: <https://secorolab.github.io/metamodels/rec#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rec:RunExecutionShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf rec:run-id ;
+    sh:class prov:Activity ;
+    sh:class exec:ExecutionContext ;
+    sh:property [
+        sh:path rec:run-id ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path rec:role ;
+        sh:hasValue "run_execution" ;
+    ] ;
+    sh:property [
+        sh:path rec:status ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path rec:agents ;
+        sh:class prov:Agent ;
+    ] ;
+    sh:property [
+        sh:path rec:activities ;
+        sh:class prov:Activity ;
+    ] ;
+    sh:property [
+        sh:path rec:resources ;
+        sh:class prov:Entity ;
+    ] ;
+    sh:property [
+        sh:path rec:artefacts ;
+        sh:class prov:Entity ;
+    ] ;
+    sh:property [
+        sh:path rec:metrics ;
+        sh:class rec:Metric ;
+    ] .
+
+rec:MetricShape
+    a sh:NodeShape ;
+    sh:targetClass rec:Metric ;
+    sh:property [
+        sh:path rec:value ;
+        sh:minCount 1 ;
+    ] .
+
+rec:ObservationProviderShape
+    a sh:NodeShape ;
+    sh:targetClass obs:ObservationProvider ;
+    sh:class prov:Agent .
