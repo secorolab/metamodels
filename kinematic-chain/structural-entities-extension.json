@@ -1,0 +1,46 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "kc-ext": "https://secorolab.github.io/metamodels/kinematic-chain/structural-entities-extension#",
+
+        "Scleronomic": "kc-ext:Scleronomic",
+
+        "JointLimit": {
+            "@id": "kc-ext:JointLimit",
+            "@context": {
+                "of-joint": {
+                    "@id": "kc-ext:of-joint",
+                    "@type": "@id"
+                },
+                "lower": {
+                    "@id": "kc-ext:lower"
+                },
+                "upper": {
+                    "@id": "kc-ext:upper"
+                }
+            }
+        },
+
+        "JointCoupling": {
+            "@id": "kc-ext:JointCoupling",
+            "@context": {
+                "independent-joint": {
+                    "@id": "kc-ext:independent-joint",
+                    "@type": "@id"
+                },
+                "dependent-joint": {
+                    "@id": "kc-ext:dependent-joint",
+                    "@type": "@id"
+                },
+                "multiplier": {
+                    "@id": "kc-ext:multiplier",
+                    "@type": "xsd:double"
+                },
+                "offset": {
+                    "@id": "kc-ext:offset"
+                }
+            }
+        }
+    }
+}

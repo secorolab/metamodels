@@ -74,3 +74,95 @@ sh_sec:ThesisShape
     ] ;
 .
 
+sh_sec:ThesisTopicShape
+    a sh:NodeShape ;
+    sh:targetClass thesis:ThesisTopic ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     thesis:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 3 ;
+        sh:severity sh:Violation ;
+        sh:message  "Thesis topic must have a title." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:description ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Thesis topic must have a description." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:educational-level ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:in       ( "BSc" "MSc" ) ;
+        sh:severity sh:Violation ;
+        sh:message  "Thesis topic must specify BSc, MSc, or both as educational-level values." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:date-posted ;
+        sh:datatype xsd:date ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message  "Thesis topic must have a date-posted." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:valid-through ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message  "valid-through should be a valid xsd:date." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:advisor ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:node     sh_sec:ThesisTopicAdvisorShape ;
+        sh:severity sh:Violation ;
+        sh:message  "Thesis topic advisors must be objects with ref and optional name." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:prerequisites ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:url ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+sh_sec:ThesisTopicAdvisorShape
+    a sh:NodeShape ;
+    sh:targetClass thesis:TopicAdvisor ;
+    sh:closed false ;
+
+    sh:property [
+        sh:path     thesis:advisor-ref ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message  "Thesis topic advisor must have a ref." ;
+    ] ;
+
+    sh:property [
+        sh:path     thesis:advisor-name ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minLength 2 ;
+        sh:message  "Thesis topic advisor may have a display name." ;
+    ] ;
+.

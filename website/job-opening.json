@@ -1,0 +1,31 @@
+{
+    "@context": {
+        "@base": "https://secorolab.github.io/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "job-opening": "https://secorolab.github.io/metamodels/website/job-opening#",
+
+        "JobPosting":    { "@id": "job-opening:JobPosting" },
+        "Organization":  { "@id": "job-opening:Organization" },
+
+        "title":               { "@id": "job-opening:title",               "@type": "xsd:string" },
+        "description":         { "@id": "job-opening:description",         "@type": "xsd:string" },
+        "employment-type":     { "@id": "job-opening:employment-type",     "@type": "xsd:string" },
+        "qualifications":      { "@id": "job-opening:qualifications",      "@type": "xsd:string" },
+        "responsibilities":    { "@id": "job-opening:responsibilities",    "@type": "xsd:string" },
+        "skills":              { "@id": "job-opening:skills",              "@type": "xsd:string" },
+        "incentive-compensation": { "@id": "job-opening:incentive-compensation", "@type": "xsd:string" },
+        "date-posted":         { "@id": "job-opening:date-posted",         "@type": "xsd:date" },
+        "valid-through":       { "@id": "job-opening:valid-through",       "@type": "xsd:date" },
+
+        "hiring-organization": { "@id": "job-opening:hiring-organization", "@type": "@id" },
+        "job-location":        { "@id": "job-opening:job-location",        "@type": "@id" },
+
+        "org-name": { "@id": "job-opening:org-name", "@type": "xsd:string" },
+        "org-url":  { "@id": "job-opening:org-url",  "@type": "@id" },
+
+        "applicant-location-requirements": {
+            "@id":        "job-opening:applicant-location-requirements",
+            "@container": "@set"
+        }
+    }
+}

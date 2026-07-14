@@ -1,15 +1,15 @@
-@prefix sh:      <http://www.w3.org/ns/shacl#> .
-@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
-@prefix sh_sec:  <https://secorolab.github.io/metamodels/website/> .
-@prefix opening: <https://secorolab.github.io/metamodels/website/opening#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh_sec:      <https://secorolab.github.io/metamodels/website/> .
+@prefix job-opening: <https://secorolab.github.io/metamodels/website/job-opening#> .
 
-sh_sec:OpeningShape
+sh_sec:JobOpeningShape
     a sh:NodeShape ;
-    sh:targetClass opening:JobPosting ;
+    sh:targetClass job-opening:JobPosting ;
     sh:closed false ;
 
     sh:property [
-        sh:path     opening:title ;
+        sh:path     job-opening:title ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
@@ -19,7 +19,7 @@ sh_sec:OpeningShape
     ] ;
 
     sh:property [
-        sh:path     opening:description ;
+        sh:path     job-opening:description ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
@@ -28,16 +28,16 @@ sh_sec:OpeningShape
     ] ;
 
     sh:property [
-        sh:path     opening:employment-type ;
+        sh:path     job-opening:employment-type ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
-        sh:in       ( "HiWi" "PhD" "PostDoc" "FullTime" "PartTime" "Internship" "Volunteer" "MSc Thesis" "BSc Thesis" ) ;
+        sh:in       ( "HiWi" "PhD" "PostDoc" "FullTime" "PartTime" "Internship" "Volunteer" ) ;
         sh:severity sh:Warning ;
-        sh:message  "employment-type should be a recognised type." ;
+        sh:message  "employment-type should be a recognised job type." ;
     ] ;
 
     sh:property [
-        sh:path     opening:date-posted ;
+        sh:path     job-opening:date-posted ;
         sh:datatype xsd:date ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
@@ -46,7 +46,7 @@ sh_sec:OpeningShape
     ] ;
 
     sh:property [
-        sh:path     opening:valid-through ;
+        sh:path     job-opening:valid-through ;
         sh:datatype xsd:date ;
         sh:maxCount 1 ;
         sh:severity sh:Warning ;
@@ -54,31 +54,31 @@ sh_sec:OpeningShape
     ] ;
 
     sh:property [
-        sh:path     opening:qualifications ;
+        sh:path     job-opening:qualifications ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
     ] ;
 
     sh:property [
-        sh:path     opening:responsibilities ;
+        sh:path     job-opening:responsibilities ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
     ] ;
 
     sh:property [
-        sh:path     opening:skills ;
+        sh:path     job-opening:skills ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
     ] ;
 
     sh:property [
-        sh:path     opening:incentive-compensation ;
+        sh:path     job-opening:incentive-compensation ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
     ] ;
 
     sh:property [
-        sh:path     opening:hiring-organization ;
+        sh:path     job-opening:hiring-organization ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:maxCount 1 ;
         sh:severity sh:Warning ;
@@ -86,24 +86,24 @@ sh_sec:OpeningShape
     ] ;
 
     sh:property [
-        sh:path     opening:job-location ;
+        sh:path     job-opening:job-location ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1 ;
     ] ;
 
     sh:property [
-        sh:path     opening:applicant-location-requirements ;
+        sh:path     job-opening:applicant-location-requirements ;
         sh:datatype xsd:string ;
     ] ;
 .
 
-sh_sec:OrganizationShape
+sh_sec:JobOpeningOrganizationShape
     a sh:NodeShape ;
-    sh:targetClass opening:Organization ;
+    sh:targetClass job-opening:Organization ;
     sh:closed false ;
 
     sh:property [
-        sh:path     opening:org-name ;
+        sh:path     job-opening:org-name ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
@@ -112,7 +112,7 @@ sh_sec:OrganizationShape
     ] ;
 
     sh:property [
-        sh:path     opening:org-url ;
+        sh:path     job-opening:org-url ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1 ;
     ] ;
