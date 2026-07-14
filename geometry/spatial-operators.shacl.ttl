@@ -128,7 +128,7 @@ geom-op:ComposePose-composite-of-equals-in2-of
         SELECT $this
         WHERE {
             $this geom-op:composite / geom-rel:of ?comp_of .
-            $this geom-op:in2 / geom-rel:in ?in2_of .
+            $this geom-op:in2 / geom-rel:of ?in2_of .
             FILTER(?comp_of != ?in2_of)
         }
     """ .
