@@ -6,12 +6,7 @@
 
         "ReferenceGenerator": "traj:ReferenceGenerator",
         "reference": { "@id": "traj:reference", "@type": "@id" },
-        "Trajectory": {
-            "@id": "traj:Trajectory",
-            "@context": {
-                "reference": { "@id": "traj:reference", "@type": "@id" }
-            }
-        },
+        "Trajectory": "traj:Trajectory",
         "Progress": "traj:Progress",
         "LinearJerk": "traj:LinearJerk",
         "VelocityProfile": {
