@@ -71,7 +71,8 @@ geom-coord:PoseDifferenceCoordinate
     sh:class geom-coord:VectorXYZ ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
-  ] .
+  ] ;
+  sh:property geom-coord:AsSeenByShape .
 
 geom-coord:AsSeenByShape
   a sh:PropertyShape ;

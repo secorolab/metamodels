@@ -9,7 +9,8 @@
             "@id": "geom-coord:PoseDifferenceCoordinate",
             "@context": {
                 "linear": { "@id": "geom-coord:linear", "@type": "@id" },
-                "angular": { "@id": "geom-coord:angular", "@type": "@id" }
+                "angular": { "@id": "geom-coord:angular", "@type": "@id" },
+                "as-seen-by": { "@id": "geom-coord:as-seen-by", "@type": "@id" }
             }
         },
 
