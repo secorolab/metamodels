@@ -24,6 +24,8 @@ cstr-hdl-ext:ConstraintHandlerExtensionShape
         sh:datatype xsd:nonNegativeInteger
     ] .
 
+cstr-hdl-ext:LinearJerk a qudt:QuantityKind .
+
 cstr-hdl-ext:FeedForwardController
     a rdfs:Class, sh:NodeShape ;
     rdfs:subClassOf cstr_hdl:Controller ;

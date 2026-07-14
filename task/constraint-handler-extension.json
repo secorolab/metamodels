@@ -15,6 +15,7 @@
             }
         },
         "JointTorque": "cstr-hdl-ext:JointTorque",
+        "LinearJerk": "cstr-hdl-ext:LinearJerk",
 
         "Saturation": {
             "@id": "cstr-hdl-ext:Saturation",
