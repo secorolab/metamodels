@@ -97,7 +97,7 @@ map-ext:PoseDifferenceView
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
-        sh:in ( geom_coord:linear geom_coord:angular )
+        sh:in ( map-ext:linear map-ext:angular )
     ] .
 
 map-ext:ComputeRotationFromPose

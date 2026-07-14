@@ -3,34 +3,81 @@
         "@version": 1.1,
         "map": "https://comp-rob2b.github.io/metamodels/task/map#",
         "map-ext": "https://secorolab.github.io/metamodels/task/map#",
-        "geom-coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
 
-        "superobject": { "@id": "map:superobject", "@type": "@id" },
-        "subobject": { "@id": "map:subobject", "@type": "@id" },
-        "subspace": {
-            "@id": "map:subspace",
-            "@type": "@vocab",
+        "PoseOrientationView": {
+            "@id": "map-ext:PoseOrientationView",
             "@context": {
-                "orientation": "map-ext:orientation",
-                "position": "map:position",
-                "force": "map:force",
-                "torque": "map:torque",
-                "linear": "geom-coord:linear",
-                "angular": "geom-coord:angular"
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "orientation": "map-ext:orientation"
+                    }
+                },
+                "axis": {
+                    "@id": "map:axis",
+                    "@type": "@vocab",
+                    "@context": {
+                        "x": "map:x",
+                        "y": "map:y",
+                        "z": "map:z"
+                    }
+                }
             }
         },
-        "axis": {
-            "@id": "map:axis",
-            "@type": "@vocab",
-            "@context": { "x": "map:x", "y": "map:y", "z": "map:z" }
+        "PosePositionView": {
+            "@id": "map-ext:PosePositionView",
+            "@context": {
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "position": "map:position"
+                    }
+                }
+            }
         },
-        "pose": { "@id": "map-ext:pose", "@type": "@id" },
-        "rotation": { "@id": "map-ext:rotation", "@type": "@id" },
-
-        "PoseOrientationView": "map-ext:PoseOrientationView",
-        "PosePositionView": "map-ext:PosePositionView",
-        "WrenchVectorView": "map-ext:WrenchVectorView",
-        "PoseDifferenceView": "map-ext:PoseDifferenceView",
-        "ComputeRotationFromPose": "map-ext:ComputeRotationFromPose"
+        "WrenchVectorView": {
+            "@id": "map-ext:WrenchVectorView",
+            "@context": {
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "force": "map:force",
+                        "torque": "map:torque"
+                    }
+                }
+            }
+        },
+        "PoseDifferenceView": {
+            "@id": "map-ext:PoseDifferenceView",
+            "@context": {
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "linear": "map-ext:linear",
+                        "angular": "map-ext:angular"
+                    }
+                },
+                "axis": {
+                    "@id": "map:axis",
+                    "@type": "@vocab",
+                    "@context": {
+                        "x": "map:x",
+                        "y": "map:y",
+                        "z": "map:z"
+                    }
+                }
+            }
+        },
+        "ComputeRotationFromPose": {
+            "@id": "map-ext:ComputeRotationFromPose",
+            "@context": {
+                "pose": { "@id": "map-ext:pose", "@type": "@id" },
+                "rotation": { "@id": "map-ext:rotation", "@type": "@id" }
+            }
+        }
     }
 }
