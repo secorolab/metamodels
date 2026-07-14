@@ -36,7 +36,7 @@ slv-ext:ForwardedCommand
         sh:class qudt:Quantity
     ] .
 
-slv:SolverWithInputAndOutput
+slv-ext:SolverWithInputAndOutputExtensionShape
     a sh:NodeShape ;
     sh:targetClass slv:SolverWithInputAndOutput ;
     sh:property [
@@ -74,7 +74,7 @@ slv:SolverWithInputAndOutput
         sh:class slv-ext:TorqueSaturation
     ] .
 
-slv:AccelerationConstraint
+slv-ext:AccelerationConstraintExtensionShape
     a sh:NodeShape ;
     sh:targetClass slv:AccelerationConstraint ;
     sh:property [
