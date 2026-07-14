@@ -14,7 +14,7 @@ traj:Trajectory
     a rdfs:Class, sh:NodeShape ;
     rdfs:subClassOf traj:ReferenceGenerator ;
     sh:targetClass traj:Trajectory ;
-    sh:class qudt:Quantity .
+    sh:property [ sh:path traj:reference ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:PoseQuantityShape ] .
 
 traj:Progress a qudt:QuantityKind .
 traj:LinearJerk a qudt:QuantityKind .

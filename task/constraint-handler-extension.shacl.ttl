@@ -81,7 +81,7 @@ cstr-hdl-ext:Admittance
         sh:class qudt:Quantity
     ] ;
     sh:property [
-        sh:path traj:reference ;
+        sh:path cstr-hdl-ext:reference ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:node cstr-hdl-ext:VelocityQuantityShape
