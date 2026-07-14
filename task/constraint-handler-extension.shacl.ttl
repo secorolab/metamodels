@@ -2,6 +2,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
 @prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
@@ -47,13 +48,13 @@ cstr-hdl-ext:LimiterOwner
 
 cstr-hdl-ext:Admittance
     a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf traj:ReferenceGenerator ;
     sh:targetClass cstr-hdl-ext:Admittance ;
     sh:property [
         sh:path cstr-hdl-ext:force ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
+        sh:node cstr-hdl-ext:ForceQuantityShape
     ] ;
     sh:property [
         sh:path cstr-hdl-ext:mass ;
@@ -71,31 +72,41 @@ cstr-hdl-ext:Admittance
     ] ;
     sh:property [
         sh:path cstr-hdl-ext:stiffness ;
-        sh:minCount 1 ;
+        sh:minCount 0 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:max-velocity ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:controller ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class cstr_hdl:Controller
     ] ;
     sh:property [
         sh:path cstr-hdl-ext:reference ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
+        sh:node cstr-hdl-ext:VelocityQuantityShape
+    ] ;
+    sh:property [
+        sh:path algo-ext:limits ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
+        sh:class algo-ext:Saturation
+    ] .
+
+cstr-hdl-ext:ForceQuantityShape
+    a sh:NodeShape ;
+    sh:class qudt:Quantity ;
+    sh:property [
+        sh:path qudt:hasQuantityKind ;
+        sh:hasValue qkind:Force ;
+        sh:minCount 1
+    ] .
+
+cstr-hdl-ext:VelocityQuantityShape
+    a sh:NodeShape ;
+    sh:class qudt:Quantity ;
+    sh:property [
+        sh:path qudt:hasQuantityKind ;
+        sh:hasValue qkind:LinearVelocity ;
+        sh:minCount 1
     ] .
 
 cstr-hdl-ext:FallbackMonitor

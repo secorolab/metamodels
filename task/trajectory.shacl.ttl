@@ -6,8 +6,13 @@
 @prefix traj: <https://secorolab.github.io/metamodels/task/trajectory#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+traj:ReferenceGenerator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass traj:ReferenceGenerator .
+
 traj:Trajectory
     a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf traj:ReferenceGenerator ;
     sh:targetClass traj:Trajectory ;
     sh:class qudt:Quantity .
 
@@ -60,6 +65,7 @@ traj:LinearJerkQuantityShape
 
 traj:VelocityProfile
     a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf traj:ReferenceGenerator ;
     sh:targetClass traj:VelocityProfile ;
     sh:property [ sh:path traj:max-velocity ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:LinearVelocityQuantityShape ] ;
     sh:property [ sh:path traj:max-acceleration ; sh:minCount 1 ; sh:maxCount 1 ; sh:node traj:LinearAccelerationQuantityShape ] ;

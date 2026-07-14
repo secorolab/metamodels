@@ -20,8 +20,6 @@
                 "mass": { "@id": "cstr-hdl-ext:mass", "@type": "@id" },
                 "damping": { "@id": "cstr-hdl-ext:damping", "@type": "@id" },
                 "stiffness": { "@id": "cstr-hdl-ext:stiffness", "@type": "@id" },
-                "max-velocity": { "@id": "cstr-hdl-ext:max-velocity", "@type": "@id" },
-                "controller": { "@id": "cstr-hdl-ext:controller", "@type": "@id" },
                 "reference": { "@id": "cstr-hdl-ext:reference", "@type": "@id" }
             }
         },

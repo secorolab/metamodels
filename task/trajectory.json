@@ -4,6 +4,7 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "traj": "https://secorolab.github.io/metamodels/task/trajectory#",
 
+        "ReferenceGenerator": "traj:ReferenceGenerator",
         "Trajectory": "traj:Trajectory",
         "Progress": "traj:Progress",
         "LinearJerk": "traj:LinearJerk",
