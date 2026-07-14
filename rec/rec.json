@@ -20,10 +20,6 @@
             "@id": "rec:repositories",
             "@container": "@set"
         },
-        "sources": {
-            "@id": "rec:sources",
-            "@container": "@set"
-        },
         "dependencies": {
             "@id": "rec:dependencies",
             "@container": "@set"

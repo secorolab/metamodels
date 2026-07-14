@@ -38,12 +38,6 @@ rec:RunExecutionShape
         sh:path rec:repositories ;
         sh:class rec:Repository ;
     ] ;
-    # sources: the source-code identity the run executed; its provenance is the
-    # linked repositories and dependencies.
-    sh:property [
-        sh:path rec:sources ;
-        sh:class prov:Entity ;
-    ] ;
     sh:property [
         sh:path rec:dependencies ;
         sh:class rec:Dependency ;
@@ -61,8 +55,9 @@ rec:RunExecutionShape
         sh:path rec:activities ;
         sh:class prov:Activity ;
     ] ;
-    # resources: input entities the run consumed; each consumption is recorded as
-    # a qualified usage (which entity, at what time) below.
+    # resources: every input entity the run consumed (model sources, configs,
+    # data); each consumption is recorded as a qualified usage below. Software
+    # provenance of that input lives in rec:repositories / rec:dependencies.
     sh:property [
         sh:path rec:resources ;
         sh:class prov:Entity ;
