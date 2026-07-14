@@ -2,7 +2,6 @@
     "@context": {
         "@version": 1.1,
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "algo-ext": "https://secorolab.github.io/metamodels/algorithm#",
         "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
 
         "FeedForwardController": {
@@ -14,17 +13,6 @@
                 }
             }
         },
-        "IntegralSaturation": {
-            "@id": "cstr-hdl-ext:IntegralSaturation",
-            "@context": {
-                "in": { "@id": "algo-ext:in", "@type": "@id" },
-                "out": { "@id": "algo-ext:out", "@type": "@id" },
-                "maximum-absolute-value": { "@id": "algo-ext:maximum-absolute-value", "@type": "@id" },
-                "lower-bound": { "@id": "algo-ext:lower-bound", "@type": "@id" },
-                "upper-bound": { "@id": "algo-ext:upper-bound", "@type": "@id" }
-            }
-        },
-
         "Admittance": {
             "@id": "cstr-hdl-ext:Admittance",
             "@context": {
@@ -38,20 +26,8 @@
             }
         },
 
-        "order": {
-            "@id": "cstr-hdl-ext:order",
-            "@type": "xsd:nonNegativeInteger"
-        },
         "velocity-profile": {
             "@id": "cstr-hdl-ext:velocity-profile",
-            "@type": "@id"
-        },
-        "monitors-until": {
-            "@id": "cstr-hdl-ext:monitors-until",
-            "@type": "@id"
-        },
-        "monitors-when": {
-            "@id": "cstr-hdl-ext:monitors-when",
             "@type": "@id"
         },
         "fallback-motion": {
