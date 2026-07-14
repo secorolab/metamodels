@@ -4,17 +4,16 @@
         "map": "https://comp-rob2b.github.io/metamodels/task/map#",
         "map-ext": "https://secorolab.github.io/metamodels/task/map#",
 
+        "View": {
+            "@id": "map:View",
+            "@context": {
+                "superobject": { "@id": "map:superobject", "@type": "@id" },
+                "subobject": { "@id": "map:subobject", "@type": "@id" }
+            }
+        },
         "PoseCoordinateView": {
             "@id": "map-ext:PoseCoordinateView",
             "@context": {
-                "superobject": {
-                    "@id": "map:superobject",
-                    "@type": "@id"
-                },
-                "subobject": {
-                    "@id": "map:subobject",
-                    "@type": "@id"
-                },
                 "subspace": {
                     "@id": "map:subspace",
                     "@type": "@vocab",
@@ -34,8 +33,44 @@
                 }
             }
         },
-        "WrenchVectorView": {
-            "@id": "map-ext:WrenchVectorView",
+        "VelocityTwistCoordinateView": {
+            "@id": "map-ext:VelocityTwistCoordinateView",
+            "@context": {
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "angular-velocity": "map:angular-velocity",
+                        "linear-velocity": "map:linear-velocity"
+                    }
+                },
+                "axis": {
+                    "@id": "map:axis",
+                    "@type": "@vocab",
+                    "@context": { "x": "map:x", "y": "map:y", "z": "map:z" }
+                }
+            }
+        },
+        "AccelerationTwistCoordinateView": {
+            "@id": "map-ext:AccelerationTwistCoordinateView",
+            "@context": {
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "angular-acceleration": "map:angular-acceleration",
+                        "linear-acceleration": "map:linear-acceleration"
+                    }
+                },
+                "axis": {
+                    "@id": "map:axis",
+                    "@type": "@vocab",
+                    "@context": { "x": "map:x", "y": "map:y", "z": "map:z" }
+                }
+            }
+        },
+        "WrenchCoordinateView": {
+            "@id": "map-ext:WrenchCoordinateView",
             "@context": {
                 "subspace": {
                     "@id": "map:subspace",
@@ -44,6 +79,11 @@
                         "force": "map:force",
                         "torque": "map:torque"
                     }
+                },
+                "axis": {
+                    "@id": "map:axis",
+                    "@type": "@vocab",
+                    "@context": { "x": "map:x", "y": "map:y", "z": "map:z" }
                 }
             }
         },

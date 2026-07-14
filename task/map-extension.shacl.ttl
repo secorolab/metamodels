@@ -8,15 +8,13 @@
 @prefix geom_rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
 @prefix rbdyn_coord: <https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/coordinates#> .
 
-map-ext:PoseCoordinateView
-    a rdfs:Class, sh:NodeShape ;
-    sh:targetClass map-ext:PoseCoordinateView ;
+map-ext:CoordinateViewShape
+    a sh:NodeShape ;
     sh:property [
         sh:path map:superobject ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class geom_coord:PoseCoordinate
+        sh:nodeKind sh:BlankNodeOrIRI
     ] ;
     sh:property [
         sh:path map:subobject ;
@@ -29,58 +27,73 @@ map-ext:PoseCoordinateView
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
-        sh:in ( map:position map-ext:orientation )
     ] ;
     sh:property [
         sh:path map:axis ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:in ( map:x map:y map:z )
+    ] .
+
+map-ext:PoseCoordinateView
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:PoseCoordinateView ;
+    sh:node map-ext:CoordinateViewShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord:PoseCoordinate
     ] ;
     sh:xone (
-        [
-            sh:property [
-                sh:path map:subobject ;
-                sh:class qudt_quant:Position
-            ] ;
-            sh:property [
-                sh:path map:subspace ;
-                sh:hasValue map:position
-            ]
-        ]
-        [
-            sh:property [
-                sh:path map:subobject ;
-                sh:class geom_rel:Orientation
-            ] ;
-            sh:property [
-                sh:path map:subspace ;
-                sh:hasValue map-ext:orientation
-            ]
-        ]
+        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:Position ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:position ] ]
+        [ sh:property [ sh:path map:subobject ; sh:class geom_rel:Orientation ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map-ext:orientation ] ]
     ) .
 
-map-ext:WrenchVectorView
+map-ext:VelocityTwistCoordinateView
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass map-ext:WrenchVectorView ;
+    sh:targetClass map-ext:VelocityTwistCoordinateView ;
+    sh:node map-ext:CoordinateViewShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord:VelocityTwistCoordinate
+    ] ;
+    sh:xone (
+        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:AngularVelocity ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:angular-velocity ] ]
+        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:LinearVelocity ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:linear-velocity ] ]
+    ) .
+
+map-ext:AccelerationTwistCoordinateView
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:AccelerationTwistCoordinateView ;
+    sh:node map-ext:CoordinateViewShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord:AccelerationTwistCoordinate
+    ] ;
+    sh:xone (
+        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:AngularAcceleration ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:angular-acceleration ] ]
+        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:LinearAcceleration ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:linear-acceleration ] ]
+    ) .
+
+map-ext:WrenchCoordinateView
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:WrenchCoordinateView ;
+    sh:node map-ext:CoordinateViewShape ;
     sh:property [
         sh:path map:superobject ;
         sh:class rbdyn_coord:WrenchCoordinate
     ] ;
-    sh:property [
-        sh:path map:subobject ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path map:subspace ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:in ( map:force map:torque )
-    ] .
+    sh:xone (
+        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:Force ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:force ] ]
+        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:Torque ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:torque ] ]
+    ) .
 
 map-ext:PoseDifferenceView
     a rdfs:Class, sh:NodeShape ;
