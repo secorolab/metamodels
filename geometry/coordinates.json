@@ -6,7 +6,7 @@
         "VectorXY": "geom-coord:VectorXY",
 
         "PoseDifferenceCoordinate": {
-            "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#PoseDifferenceCoordinate",
+            "@id": "geom-coord:PoseDifferenceCoordinate",
             "@context": {
                 "linear": { "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#linear", "@type": "@id" },
                 "angular": { "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#angular", "@type": "@id" }
