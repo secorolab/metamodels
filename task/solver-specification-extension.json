@@ -4,7 +4,6 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "slv": "https://comp-rob2b.github.io/metamodels/task/solver-specification#",
         "slv-ext": "https://secorolab.github.io/metamodels/task/solver-specification#",
-        "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
 
         "regularization":   { "@id": "slv-ext:regularization",   "@type": "xsd:double" },
         "torque-limit":     { "@id": "slv-ext:torque-limit",     "@type": "@id" },
@@ -25,7 +24,5 @@
                 "command-signal": { "@id": "slv-ext:command-signal", "@type": "@id" }
             }
         },
-
-        "limits": { "@id": "algo-ext:limits", "@type": "@id" }
     }
 }

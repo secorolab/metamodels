@@ -46,10 +46,6 @@
             "@id": "cstr-hdl-ext:velocity-profile",
             "@type": "@id"
         },
-        "limits": {
-            "@id": "algo-ext:limits",
-            "@type": "@id"
-        },
         "monitors-until": {
             "@id": "cstr-hdl-ext:monitors-until",
             "@type": "@id"
