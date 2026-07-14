@@ -2,59 +2,63 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
 @prefix map: <https://comp-rob2b.github.io/metamodels/task/map#> .
 @prefix geom_coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix geom_rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
 @prefix rbdyn_coord: <https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/coordinates#> .
 
-map-ext:PoseOrientationView
+map-ext:PoseCoordinateView
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass map-ext:PoseOrientationView ;
+    sh:targetClass map-ext:PoseCoordinateView ;
     sh:property [
         sh:path map:superobject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class geom_coord:PoseCoordinate
     ] ;
     sh:property [
         sh:path map:subobject ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
+        sh:nodeKind sh:BlankNodeOrIRI
     ] ;
     sh:property [
         sh:path map:subspace ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
-        sh:in ( map-ext:orientation )
+        sh:in ( map:position map-ext:orientation )
     ] ;
     sh:property [
         sh:path map:axis ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:in ( map:x map:y map:z )
-    ] .
-
-map-ext:PosePositionView
-    a rdfs:Class, sh:NodeShape ;
-    sh:targetClass map-ext:PosePositionView ;
-    sh:property [
-        sh:path map:superobject ;
-        sh:class geom_coord:PoseCoordinate
     ] ;
-    sh:property [
-        sh:path map:subobject ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path map:subspace ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:in ( map:position )
-    ] .
+    sh:xone (
+        [
+            sh:property [
+                sh:path map:subobject ;
+                sh:class qudt_quant:Position
+            ] ;
+            sh:property [
+                sh:path map:subspace ;
+                sh:hasValue map:position
+            ]
+        ]
+        [
+            sh:property [
+                sh:path map:subobject ;
+                sh:class geom_rel:Orientation
+            ] ;
+            sh:property [
+                sh:path map:subspace ;
+                sh:hasValue map-ext:orientation
+            ]
+        ]
+    ) .
 
 map-ext:WrenchVectorView
     a rdfs:Class, sh:NodeShape ;
@@ -98,22 +102,4 @@ map-ext:PoseDifferenceView
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:in ( map-ext:linear map-ext:angular )
-    ] .
-
-map-ext:ComputeRotationFromPose
-    a rdfs:Class, sh:NodeShape ;
-    sh:targetClass map-ext:ComputeRotationFromPose ;
-    sh:property [
-        sh:path map-ext:pose ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class geom_coord:PoseCoordinate
-    ] ;
-    sh:property [
-        sh:path map-ext:rotation ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class geom_coord:OrientationCoordinate
     ] .
