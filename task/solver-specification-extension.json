@@ -23,6 +23,6 @@
                 "attached-to":    { "@id": "slv:attached-to",       "@type": "@id" },
                 "command-signal": { "@id": "slv-ext:command-signal", "@type": "@id" }
             }
-        },
+        }
     }
 }

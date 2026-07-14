@@ -45,6 +45,16 @@ cstr-hdl-ext:ProfiledController
         sh:class traj:VelocityProfile
     ] .
 
+cstr-hdl-ext:LimiterOwner
+    a sh:NodeShape ;
+    sh:targetSubjectsOf algo-ext:limits ;
+    sh:property [
+        sh:path algo-ext:limits ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class algo-ext:Saturation
+    ] .
+
 cstr-hdl-ext:IntegralSaturation
     a rdfs:Class, sh:NodeShape ;
     rdfs:subClassOf algo-ext:Saturation ;

@@ -1,5 +1,6 @@
 @prefix slv:      <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
 @prefix slv-ext:  <https://secorolab.github.io/metamodels/task/solver-specification#> .
+@prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
 @prefix kc_ent:   <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
 @prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
 @prefix qudt:     <http://qudt.org/schema/qudt/> .
@@ -65,6 +66,23 @@ slv-ext:SolverWithInputAndOutputExtensionShape
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path algo-ext:limits ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class algo-ext:Saturation
+    ] .
+
+slv-ext:AccelerationConstraintExtensionShape
+    a sh:NodeShape ;
+    sh:targetClass slv:AccelerationConstraint ;
+    sh:property [
+        sh:path algo-ext:limits ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class algo-ext:Saturation
     ] .
 
 slv-ext:DirectionAligned
