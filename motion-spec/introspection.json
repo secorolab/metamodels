@@ -2,6 +2,7 @@
     "@context": {
         "@version": 1.1,
         "ms-intro": "https://secorolab.github.io/metamodels/motion-spec/introspection/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
 
         "Frame": {
             "@id": "ms-intro:Frame",
@@ -77,8 +78,8 @@
             }
         },
 
-        "contractVersion": "ms-intro:contractVersion",
-        "frameCount": "ms-intro:frameCount",
-        "runId": "ms-intro:runId"
+        "contractVersion": { "@id": "ms-intro:contractVersion", "@type": "xsd:integer" },
+        "frameCount": { "@id": "ms-intro:frameCount", "@type": "xsd:integer" },
+        "runId": { "@id": "ms-intro:runId", "@type": "xsd:string" }
     }
 }
