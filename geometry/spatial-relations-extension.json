@@ -1,0 +1,8 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "geom-rel-ext": "https://secorolab.github.io/metamodels/geometry/spatial-relations#",
+
+        "PoseDifference": "geom-rel-ext:PoseDifference"
+    }
+}

@@ -1,0 +1,11 @@
+@prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
+@prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
+@prefix geom-rel-ext: <https://secorolab.github.io/metamodels/geometry/spatial-relations#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+geom-rel-ext:PoseDifference
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-rel-ext:PoseDifference ;
+    sh:property [ sh:path geom-rel:of ; sh:class geom:Frame ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path geom-rel:with-respect-to ; sh:class geom:Frame ; sh:minCount 1 ; sh:maxCount 1 ] .

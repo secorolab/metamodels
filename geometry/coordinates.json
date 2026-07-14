@@ -2,8 +2,17 @@
     "@context": {
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "geom-coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
+        "geom-coord-ext": "https://secorolab.github.io/metamodels/geometry/coordinates#",
 
         "VectorXY": "geom-coord:VectorXY",
+
+        "PoseDifferenceCoordinate": {
+            "@id": "geom-coord-ext:PoseDifferenceCoordinate",
+            "@context": {
+                "linear": { "@id": "geom-coord-ext:linear", "@type": "@id" },
+                "angular": { "@id": "geom-coord-ext:angular", "@type": "@id" }
+            }
+        },
 
         "Quaternion": { "@id": "geom-coord:Quaternion" },
         "w": { "@id": "geom-coord:w", "@type": "xsd:double" },
