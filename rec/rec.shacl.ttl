@@ -64,7 +64,7 @@ rec:RunExecutionShape
     ] ;
     sh:property [
         sh:path prov:qualifiedUsage ;
-        sh:node rec:UsageShape ;
+        sh:class prov:Usage ;
     ] ;
     # artefacts: output entities the run produced, each linked to its generating
     # activity via a qualified generation (see ArtefactShape).
@@ -75,22 +75,6 @@ rec:RunExecutionShape
     sh:property [
         sh:path rec:metrics ;
         sh:class rec:Metric ;
-    ] .
-
-rec:UsageShape
-    a sh:NodeShape ;
-    sh:class prov:Usage ;
-    sh:property [
-        sh:path prov:entity ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:class prov:Entity ;
-    ] ;
-    sh:property [
-        sh:path prov:atTime ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:dateTime ;
     ] .
 
 rec:ArtefactShape
@@ -106,17 +90,7 @@ rec:ArtefactShape
         sh:path prov:qualifiedGeneration ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:node rec:GenerationShape ;
-    ] .
-
-rec:GenerationShape
-    a sh:NodeShape ;
-    sh:class prov:Generation ;
-    sh:property [
-        sh:path prov:atTime ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:dateTime ;
+        sh:class prov:Generation ;
     ] .
 
 rec:MetricShape
