@@ -7,6 +7,7 @@
             "@id": "snap:Snapshot",
             "@context": {
                 "snapshot-of": { "@id": "snap:snapshot-of", "@type": "@id" },
+                "output": { "@id": "snap:output", "@type": "@id" },
                 "sampling": {
                     "@id": "snap:sampling",
                     "@type": "@vocab",

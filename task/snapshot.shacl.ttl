@@ -19,6 +19,13 @@ snap:Snapshot
         sh:class qudt:Quantity
     ] ;
     sh:property [
+        sh:path snap:output ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
         sh:path snap:sampling ;
         sh:minCount 1 ;
         sh:maxCount 1 ;

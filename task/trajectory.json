@@ -6,9 +6,8 @@
 
         "ReferenceGenerator": "traj:ReferenceGenerator",
         "Trajectory": "traj:Trajectory",
-        "Progress": "traj:Progress",
         "VelocityProfile": "traj:VelocityProfile",
-        "Lerp": "traj:Lerp",
+        "CartesianPoseInterpolation": "traj:CartesianPoseInterpolation",
         "Circle": "traj:Circle",
         "Arc": "traj:Arc",
         "Figure8": "traj:Figure8",
@@ -31,7 +30,7 @@
         "axis": { "@id": "traj:axis", "@type": "@id" },
         "pitch": { "@id": "traj:pitch", "@type": "@id" },
         "revolutions": { "@id": "traj:revolutions", "@type": "@id" },
-        "progress": { "@id": "traj:progress", "@type": "@id" },
+        "path-parameter": { "@id": "traj:path-parameter", "@type": "@id" },
         "trajectory": { "@id": "traj:trajectory", "@type": "@id" },
         "profile": { "@id": "traj:profile", "@type": "xsd:string" },
         "form": { "@id": "traj:form", "@type": "xsd:string" }

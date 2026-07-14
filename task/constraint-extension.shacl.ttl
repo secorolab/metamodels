@@ -3,10 +3,8 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 
-cstr-ext:ConstraintConjunction
+cstr-ext:ConstraintExpression
     a rdfs:Class, sh:NodeShape ;
-    rdfs:subClassOf cstr:Constraint ;
-    sh:targetClass cstr-ext:ConstraintConjunction ;
     sh:property [
         sh:path cstr-ext:has-constraint ;
         sh:minCount 1 ;
@@ -18,17 +16,14 @@ cstr-ext:ConstraintConjunction
         )
     ] .
 
+cstr-ext:ConstraintConjunction
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr-ext:ConstraintExpression ;
+    sh:targetClass cstr-ext:ConstraintConjunction ;
+    sh:node cstr-ext:ConstraintExpression .
+
 cstr-ext:ConstraintDisjunction
     a rdfs:Class, sh:NodeShape ;
-    rdfs:subClassOf cstr:Constraint ;
+    rdfs:subClassOf cstr-ext:ConstraintExpression ;
     sh:targetClass cstr-ext:ConstraintDisjunction ;
-    sh:property [
-        sh:path cstr-ext:has-constraint ;
-        sh:minCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:or (
-            [ sh:class cstr:Constraint ]
-            [ sh:class cstr-ext:ConstraintConjunction ]
-            [ sh:class cstr-ext:ConstraintDisjunction ]
-        )
-    ] .
+    sh:node cstr-ext:ConstraintExpression .

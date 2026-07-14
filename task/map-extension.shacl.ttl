@@ -44,7 +44,7 @@ map-ext:PoseCoordinateView
         sh:class geom_coord:PoseCoordinate
     ] ;
     sh:xone (
-        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:Position ] ;
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Position ] ] ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map-ext:position ] ]
         [ sh:property [ sh:path map:subobject ; sh:class geom_rel:Orientation ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map-ext:orientation ] ]
@@ -59,9 +59,9 @@ map-ext:VelocityTwistCoordinateView
         sh:class geom_coord:VelocityTwistCoordinate
     ] ;
     sh:xone (
-        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:AngularVelocity ] ;
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:AngularVelocity ] ] ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map:angular-velocity ] ]
-        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:LinearVelocity ] ;
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:LinearVelocity ] ] ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map:linear-velocity ] ]
     ) .
 
@@ -74,9 +74,9 @@ map-ext:AccelerationTwistCoordinateView
         sh:class geom_coord:AccelerationTwistCoordinate
     ] ;
     sh:xone (
-        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:AngularAcceleration ] ;
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:AngularAcceleration ] ] ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map:angular-acceleration ] ]
-        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:LinearAcceleration ] ;
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:LinearAcceleration ] ] ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map:linear-acceleration ] ]
     ) .
 
@@ -89,9 +89,9 @@ map-ext:WrenchCoordinateView
         sh:class rbdyn_coord:WrenchCoordinate
     ] ;
     sh:xone (
-        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:Force ] ;
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Force ] ] ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map:force ] ]
-        [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:Torque ] ;
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Torque ] ] ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map:torque ] ]
     ) .
 
