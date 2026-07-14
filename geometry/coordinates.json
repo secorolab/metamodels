@@ -1,44 +1,45 @@
 {
     "@context": {
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "geom-coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
+        "comp-geom-coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
+        "geom-coord": "https://secorolab.github.io/metamodels/geometry/coordinates#",
 
-        "VectorXY": "geom-coord:VectorXY",
+        "VectorXY": "comp-geom-coord:VectorXY",
 
         "PoseDifferenceCoordinate": {
-            "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#PoseDifferenceCoordinate",
+            "@id": "geom-coord:PoseDifferenceCoordinate",
             "@context": {
-                "linear": { "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#linear", "@type": "@id" },
-                "angular": { "@id": "https://secorolab.github.io/metamodels/geometry/coordinates#angular", "@type": "@id" }
+                "linear": { "@id": "geom-coord:linear", "@type": "@id" },
+                "angular": { "@id": "geom-coord:angular", "@type": "@id" }
             }
         },
 
-        "Quaternion": { "@id": "geom-coord:Quaternion" },
-        "w": { "@id": "geom-coord:w", "@type": "xsd:double" },
+        "Quaternion": { "@id": "comp-geom-coord:Quaternion" },
+        "w": { "@id": "comp-geom-coord:w", "@type": "xsd:double" },
 
-        "EulerAngles": { "@id": "geom-coord:EulerAngles" },
-        "Intrinsic": { "@id": "geom-coord:Intrinsic" },
-        "Extrinsic": { "@id": "geom-coord:Extrinsic" },
+        "EulerAngles": { "@id": "comp-geom-coord:EulerAngles" },
+        "Intrinsic": { "@id": "comp-geom-coord:Intrinsic" },
+        "Extrinsic": { "@id": "comp-geom-coord:Extrinsic" },
         "axes-sequence": {
-            "@id": "geom-coord:axes-sequence",
+            "@id": "comp-geom-coord:axes-sequence",
             "@type": "xsd:string"
         },
 
-        "AnglesABG": { "@id": "geom-coord:AnglesAlphaBetaGamma" },
+        "AnglesABG": { "@id": "comp-geom-coord:AnglesAlphaBetaGamma" },
         "alpha": {
-            "@id": "geom-coord:alpha",
+            "@id": "comp-geom-coord:alpha",
             "@type": "xsd:double"
         },
         "beta": {
-            "@id": "geom-coord:beta",
+            "@id": "comp-geom-coord:beta",
             "@type": "xsd:double"
         },
         "gamma": {
-            "@id": "geom-coord:gamma",
+            "@id": "comp-geom-coord:gamma",
             "@type": "xsd:double"
         },
         "coordinates": {
-            "@id": "geom-coord:coordinates",
+            "@id": "comp-geom-coord:coordinates",
             "@container": "@list"
         }
     }
