@@ -3,14 +3,12 @@
         "@version": 1.1,
         "map": "https://comp-rob2b.github.io/metamodels/task/map#",
         "map-ext": "https://secorolab.github.io/metamodels/task/map#",
-
-        "View": {
-            "@id": "map:View",
-            "@context": {
-                "superobject": { "@id": "map:superobject", "@type": "@id" },
-                "subobject": { "@id": "map:subobject", "@type": "@id" }
-            }
+        "axis": {
+            "@id": "map:axis",
+            "@type": "@vocab",
+            "@context": { "x": "map:x", "y": "map:y", "z": "map:z" }
         },
+
         "PoseCoordinateView": {
             "@id": "map-ext:PoseCoordinateView",
             "@context": {
@@ -20,15 +18,6 @@
                     "@context": {
                         "position": "map:position",
                         "orientation": "map-ext:orientation"
-                    }
-                },
-                "axis": {
-                    "@id": "map:axis",
-                    "@type": "@vocab",
-                    "@context": {
-                        "x": "map:x",
-                        "y": "map:y",
-                        "z": "map:z"
                     }
                 }
             }
@@ -43,11 +32,6 @@
                         "angular-velocity": "map:angular-velocity",
                         "linear-velocity": "map:linear-velocity"
                     }
-                },
-                "axis": {
-                    "@id": "map:axis",
-                    "@type": "@vocab",
-                    "@context": { "x": "map:x", "y": "map:y", "z": "map:z" }
                 }
             }
         },
@@ -61,11 +45,6 @@
                         "angular-acceleration": "map:angular-acceleration",
                         "linear-acceleration": "map:linear-acceleration"
                     }
-                },
-                "axis": {
-                    "@id": "map:axis",
-                    "@type": "@vocab",
-                    "@context": { "x": "map:x", "y": "map:y", "z": "map:z" }
                 }
             }
         },
@@ -79,11 +58,6 @@
                         "force": "map:force",
                         "torque": "map:torque"
                     }
-                },
-                "axis": {
-                    "@id": "map:axis",
-                    "@type": "@vocab",
-                    "@context": { "x": "map:x", "y": "map:y", "z": "map:z" }
                 }
             }
         },
@@ -96,15 +70,6 @@
                     "@context": {
                         "linear": "map-ext:linear",
                         "angular": "map-ext:angular"
-                    }
-                },
-                "axis": {
-                    "@id": "map:axis",
-                    "@type": "@vocab",
-                    "@context": {
-                        "x": "map:x",
-                        "y": "map:y",
-                        "z": "map:z"
                     }
                 }
             }
