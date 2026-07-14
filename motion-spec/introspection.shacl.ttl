@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
 # Author: Vamsi Kalagaturu
 
-@prefix ms-ms-intro: <https://secorolab.github.io/metamodels/motion-spec/introspection/> .
+@prefix ms-intro: <https://secorolab.github.io/metamodels/motion-spec/introspection/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
