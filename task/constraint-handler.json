@@ -1,0 +1,121 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "cstr-hdl": "https://comp-rob2b.github.io/metamodels/task/constraint-handler#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+        "ConstraintHandler": {
+            "@id": "cstr-hdl:ConstraintHandler",
+            "@context": {
+                "motion": { "@id": "cstr-hdl:motion", "@type": "@id" },
+                "evaluators": {
+                    "@id": "cstr-hdl:evaluators",
+                    "@type": "@id",
+                    "@container": "@set"
+                },
+                "monitors": {
+                    "@id": "cstr-hdl:monitors",
+                    "@type": "@id",
+                    "@container": "@set"
+                },
+                "controllers": {
+                    "@id": "cstr-hdl:controllers",
+                    "@type": "@id",
+                    "@container": "@set"
+                }
+            }
+        },
+
+        "ConstraintEvaluator": {
+            "@id": "cstr-hdl:ConstraintEvaluator",
+            "@context": {
+                "constraint": { "@id": "cstr-hdl:constraint", "@type": "@id" }
+            }
+        },
+        "AssignmentEvaluator": {
+            "@id": "cstr-hdl:AssignmentEvaluator",
+            "@context": {
+                "constraint": { "@id": "cstr-hdl:constraint", "@type": "@id" }
+            }
+        },
+        "ErrorEvaluator": {
+            "@id": "cstr-hdl:ErrorEvaluator",
+            "@context": {
+                "error": { "@id": "cstr-hdl:error", "@type": "@id" }
+            }
+        },
+
+        "Monitor": {
+            "@id": "cstr-hdl:Monitor",
+            "@context": {
+                "error": { "@id": "cstr-hdl:error", "@type": "@id" }
+            }
+        },
+        "EdgeTriggeredMonitor": {
+            "@id": "cstr-hdl:EdgeTriggeredMonitor",
+            "@context": {
+                "event": { "@id": "cstr-hdl:event", "@type": "@id" },
+                "event-queue": { "@id": "cstr-hdl:event-queue", "@type": "@id" }
+            }
+        },
+        "LevelTriggeredMonitor": {
+            "@id": "cstr-hdl:LevelTriggeredMonitor",
+            "@context": {
+                "flag": { "@id": "cstr-hdl:flag", "@type": "@id" }
+            }
+        },
+
+        "Controller": {
+            "@id": "cstr-hdl:Controller",
+            "@context": {
+                "control-signal": { "@id": "cstr-hdl:control-signal", "@type": "@id" }
+            }
+        },
+        "ProportionalIntegralDerivative": {
+            "@id": "cstr-hdl:ProportionalIntegralDerivative",
+            "@context": {
+                "error-signal": { "@id": "cstr-hdl:error-signal", "@type": "@id" },
+                "proportional-gain": {
+                    "@id": "cstr-hdl:proportional-gain",
+                    "@type": "xsd:double"
+                },
+                "integral-gain": {
+                    "@id": "cstr-hdl:integral-gain",
+                    "@type": "xsd:double"
+                },
+                "derivative-gain": {
+                    "@id": "cstr-hdl:derivative-gain",
+                    "@type": "xsd:double"
+                }
+            }
+        },
+        "DecayingIntegralTerm": {
+            "@id": "cstr-hdl:DecayingIntegralTerm",
+            "@context": {
+                "decay-rate": { "@id": "cstr-hdl:decay-rate", "@type": "xsd:double" }
+            }
+        },
+        "DampingController": {
+            "@id": "cstr-hdl:DampingController",
+            "@context": {
+                "maximum-velocity": { "@id": "cstr-hdl:maximum-velocity", "@type": "@id" },
+                "maximum-force": { "@id": "cstr-hdl:maximum-force", "@type": "@id" },
+                "measured-velocity": { "@id": "cstr-hdl:measured-velocity", "@type": "@id" },
+                "commanded-force": { "@id": "cstr-hdl:commanded-force", "@type": "@id" }
+            }
+        },
+        "ImpedanceController": {
+            "@id": "cstr-hdl:ImpedanceController",
+            "@context": {
+                "error-signal": { "@id": "cstr-hdl:error-signal", "@type": "@id" },
+                "integral-gain": {
+                    "@id": "cstr-hdl:integral-gain",
+                    "@type": "xsd:double"
+                },
+                "stiffness": { "@id": "cstr-hdl:stiffness", "@type": "@id" },
+                "damping": { "@id": "cstr-hdl:damping", "@type": "@id" },
+                "inertia": { "@id": "cstr-hdl:inertia", "@type": "@id" }
+            }
+        }
+    }
+}

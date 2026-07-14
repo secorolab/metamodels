@@ -1,0 +1,239 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+# Author: Vamsi Kalagaturu
+
+@prefix intro: <https://secorolab.github.io/metamodels/motion-spec/introspection/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rt: <https://secorolab.github.io/metamodels/runtime#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+intro:Frame
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass intro:Frame ;
+    sh:property [
+        sh:path intro:step ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0
+    ] ;
+    sh:property [
+        sh:path intro:activeState ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path prov:generatedAtTime ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
+
+intro:RuntimeRunShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf intro:runId ;
+    sh:class rt:Runtime ;
+    sh:property [
+        sh:path intro:runId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path intro:contractVersion ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1
+    ] ;
+    sh:property [
+        sh:path intro:frameCount ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0
+    ] ;
+    sh:property [
+        sh:path prov:wasGeneratedBy ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] .
+
+intro:OccurrenceShape
+    a sh:NodeShape ;
+    sh:property [
+        sh:path intro:atFrame ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class intro:Frame ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path prov:generatedAtTime ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
+
+intro:StateOccurrence
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass intro:StateOccurrence ;
+    sh:node intro:OccurrenceShape ;
+    sh:property [
+        sh:path intro:state ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] .
+
+intro:TransitionOccurrence
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass intro:TransitionOccurrence ;
+    sh:node intro:OccurrenceShape ;
+    sh:property [
+        sh:path intro:transition ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path intro:fromState ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path intro:toState ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path intro:event ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] .
+
+intro:EventOccurrence
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass intro:EventOccurrence ;
+    sh:node intro:OccurrenceShape ;
+    sh:property [
+        sh:path intro:event ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path intro:fsmState ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path intro:slotIndex ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0
+    ] .
+
+intro:MonitorOccurrence
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass intro:MonitorOccurrence ;
+    sh:node intro:OccurrenceShape ;
+    sh:property [
+        sh:path intro:monitor ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property intro:OptionalConstraintShape, intro:OptionalEventShape,
+        intro:OptionalStateShape, intro:SlotIndexShape, intro:NumericValueShape .
+
+intro:ConstraintSatisfiedOccurrence
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass intro:ConstraintSatisfiedOccurrence ;
+    sh:node intro:ConstraintOccurrenceShape .
+
+intro:ConstraintUnsatisfiedOccurrence
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass intro:ConstraintUnsatisfiedOccurrence ;
+    sh:node intro:ConstraintOccurrenceShape .
+
+intro:ConstraintOccurrenceShape
+    a sh:NodeShape ;
+    sh:node intro:OccurrenceShape ;
+    sh:property [
+        sh:path intro:constraint ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path intro:controller ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property intro:OptionalStateShape, intro:SlotIndexShape, intro:NumericValueShape .
+
+intro:OptionalConstraintShape
+    a sh:PropertyShape ;
+    sh:path intro:constraint ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI .
+
+intro:OptionalEventShape
+    a sh:PropertyShape ;
+    sh:path intro:event ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI .
+
+intro:OptionalStateShape
+    a sh:PropertyShape ;
+    sh:path intro:fsmState ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI .
+
+intro:SlotIndexShape
+    a sh:PropertyShape ;
+    sh:path intro:slotIndex ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 0 .
+
+intro:NumericValueShape
+    a sh:PropertyShape ;
+    sh:path intro:value ;
+    sh:maxCount 1 ;
+    sh:or (
+        [ sh:datatype xsd:decimal ]
+        [ sh:datatype xsd:double ]
+    ) .
+
+intro:ForbiddenLegacySampleShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf rdf:type ;
+    sh:not [
+        sh:or (
+            [ sh:class intro:ControllerSample ]
+            [ sh:class intro:SignalSample ]
+            [ sh:class intro:MonitorSample ]
+        )
+    ] .
+
+intro:ForbiddenLegacyPredicateShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf intro:compute_ns, intro:error, intro:measured, intro:output,
+        intro:period_ns, intro:satSince, intro:setpoint, intro:t, intro:wall_ns ;
+    sh:property [ sh:path intro:compute_ns ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:error ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:measured ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:output ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:period_ns ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:satSince ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:setpoint ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:t ; sh:maxCount 0 ] ;
+    sh:property [ sh:path intro:wall_ns ; sh:maxCount 0 ] .

@@ -1,0 +1,28 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "geom-op": "https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#",
+        "geom-op-ext": "https://secorolab.github.io/metamodels/geometry/spatial-operators#",
+        "geom-rel-ext": "https://secorolab.github.io/metamodels/geometry/spatial-relations#",
+        "geom-coord-ext": "https://secorolab.github.io/metamodels/geometry/coordinates#",
+
+        "PoseDifference": { "@id": "geom-rel-ext:PoseDifference" },
+
+        "PoseDifferenceCoordinate": {
+            "@id": "geom-coord-ext:PoseDifferenceCoordinate",
+            "@context": {
+                "linear": { "@id": "geom-coord-ext:linear", "@type": "@id" },
+                "angular": { "@id": "geom-coord-ext:angular", "@type": "@id" }
+            }
+        },
+
+        "PoseDiffEvaluator": {
+            "@id": "geom-op-ext:PoseDiffEvaluator",
+            "@context": {
+                "in1": { "@id": "geom-op:in1", "@type": "@id" },
+                "in2": { "@id": "geom-op:in2", "@type": "@id" },
+                "out": { "@id": "geom-op-ext:out", "@type": "@id" }
+            }
+        }
+    }
+}

@@ -1,0 +1,176 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
+
+cstr:Constraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+cstr:BilateralConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:upper-threshold ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path cstr:lower-threshold ;
+        sh:minCount 1 ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+cstr:OutsideConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:upper-threshold ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path cstr:lower-threshold ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+cstr:UnilateralConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:threshold ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+cstr:EqualityConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:reference-value ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+# Must be a blank node, starting with an underscore
+_:ConstraintPaths
+    sh:alternativePath (
+        cstr:upper-threshold
+        cstr:lower-threshold
+        cstr:threshold
+        cstr:reference-value
+    ) .
+
+cstr:LinearDistanceConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:class geom-coord:LinearDistanceCoordinate
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Distance ] ]
+    ] .
+
+cstr:PositionConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Position ] ]
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Position ] ]
+    ] .
+
+cstr:AngularVelocityConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:AngularVelocity ] ]
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:AngularVelocity ] ]
+    ] .
+
+cstr:LinearVelocityConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:LinearVelocity ] ]
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:LinearVelocity ] ]
+    ] .
+
+cstr:AngularAccelerationConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:AngularAcceleration ] ]
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:AngularAcceleration ] ]
+    ] .
+
+cstr:LinearAccelerationConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:LinearAcceleration ] ]
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:LinearAcceleration ] ]
+    ] .
+
+cstr:TorqueConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Torque ] ]
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Torque ] ]
+    ] .
+
+cstr:ForceConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Force ] ]
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Force ] ]
+    ] .

@@ -1,0 +1,68 @@
+@prefix geom-op:  <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#> .
+@prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
+@prefix geom-rel:      <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
+@prefix geom-rel-ext:  <https://secorolab.github.io/metamodels/geometry/spatial-relations#> .
+@prefix geom:          <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
+@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix geom-coord-ext: <https://secorolab.github.io/metamodels/geometry/coordinates#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:       <http://www.w3.org/ns/shacl#> .
+
+geom-rel-ext:PoseDifference
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-rel-ext:PoseDifference ;
+    sh:property [
+        sh:path geom-rel:of ;
+        sh:class geom:Frame ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path geom-rel:with-respect-to ;
+        sh:class geom:Frame ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+geom-coord-ext:PoseDifferenceCoordinate
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-coord-ext:PoseDifferenceCoordinate ;
+    sh:property [
+        sh:path geom-coord-ext:linear ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:VectorXYZ ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path geom-coord-ext:angular ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:VectorXYZ ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+geom-op-ext:PoseDiffEvaluator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PoseDiffEvaluator ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:out ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord-ext:PoseDifferenceCoordinate
+    ] .

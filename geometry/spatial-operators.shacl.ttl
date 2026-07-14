@@ -1,0 +1,147 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
+@prefix geom-ent: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
+@prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
+@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix geom-op: <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#> .
+
+geom-op:PoseToAngleAroundAxis
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path geom-op:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:angle ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:PlaneAngle ] ]
+    ] ;
+    sh:property [
+        sh:path geom-op:axis ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( geom-op:x geom-op:y geom-op:z )
+    ] .
+
+geom-op:PoseToLinearDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path geom-op:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:distance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:LinearDistanceCoordinate
+    ] .
+
+geom-op:PoseToDirection
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path geom-op:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:direction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:sparql geom-op:PoseToDirection-pose-asb-equals-direction-asb .
+
+geom-op:PoseToDirection-pose-asb-equals-direction-asb
+    a sh:SPARQLConstraint ;
+    sh:select """
+        PREFIX geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#>
+        PREFIX geom-op: <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#>
+        SELECT $this
+        WHERE {
+            $this geom-op:pose / geom-coord:as-seen-by ?pose_asb .
+            $this geom-op:direction / geom-coord:as-seen-by ?dir_asb .
+            FILTER(?pose_asb != ?dir_asb)
+        }
+    """ .
+
+
+geom-op:ComposePose
+    a rdfs:Class, sh:NodeShape ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:composite ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:sparql geom-op:ComposePose-in1-of-equals-in2-wrt ;
+    sh:sparql geom-op:ComposePose-composite-of-equals-in2-of ;
+    sh:sparql geom-op:ComposePose-composite-wrt-equals-in1-wrt .
+
+geom-op:ComposePose-in1-of-equals-in2-wrt
+    a sh:SPARQLConstraint ;
+    sh:select """
+        PREFIX geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#>
+        PREFIX geom-op: <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#>
+        SELECT $this
+        WHERE {
+            $this geom-op:in1 / geom-rel:of ?in1_of .
+            $this geom-op:in2 / geom-rel:with-respect-to ?in2_wrt .
+            FILTER(?in1_of != ?in2_wrt)
+        }
+    """ .
+
+geom-op:ComposePose-composite-of-equals-in2-of
+    a sh:SPARQLConstraint ;
+    sh:select """
+        PREFIX geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#>
+        PREFIX geom-op: <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#>
+        SELECT $this
+        WHERE {
+            $this geom-op:composite / geom-rel:of ?comp_of .
+            $this geom-op:in2 / geom-rel:in ?in2_of .
+            FILTER(?comp_of != ?in2_of)
+        }
+    """ .
+
+geom-op:ComposePose-composite-wrt-equals-in1-wrt
+    a sh:SPARQLConstraint ;
+    sh:select """
+        PREFIX geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#>
+        PREFIX geom-op: <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#>
+        SELECT $this
+        WHERE {
+            $this geom-op:composite / geom-rel:with-respect-to ?comp_wrt .
+            $this geom-op:in1 / geom-rel:with-respect-to ?in1_wrt .
+            FILTER(?comp_wrt != ?in1_wrt)
+        }
+    """ .

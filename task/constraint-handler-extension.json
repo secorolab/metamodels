@@ -1,0 +1,106 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "cstr-hdl": "https://comp-rob2b.github.io/metamodels/task/constraint-handler#",
+        "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
+
+        "FeedForwardController": {
+            "@id": "cstr-hdl-ext:FeedForwardController",
+            "@context": {
+                "reference-signal": {
+                    "@id": "cstr-hdl-ext:reference-signal",
+                    "@type": "@id"
+                }
+            }
+        },
+        "JointTorque": "cstr-hdl-ext:JointTorque",
+
+        "Saturation": {
+            "@id": "cstr-hdl-ext:Saturation",
+            "@context": {
+                "input-signal": { "@id": "cstr-hdl-ext:input-signal", "@type": "@id" },
+                "output-signal": { "@id": "cstr-hdl-ext:output-signal", "@type": "@id" },
+                "maximum-absolute-value": { "@id": "cstr-hdl-ext:maximum-absolute-value", "@type": "@id" },
+                "lower-limit": { "@id": "cstr-hdl-ext:lower-limit", "@type": "@id" },
+                "upper-limit": { "@id": "cstr-hdl-ext:upper-limit", "@type": "@id" }
+            }
+        },
+        "IntegralSaturation": {
+            "@id": "cstr-hdl-ext:IntegralSaturation",
+            "@context": {
+                "input-signal": { "@id": "cstr-hdl-ext:input-signal", "@type": "@id" },
+                "output-signal": { "@id": "cstr-hdl-ext:output-signal", "@type": "@id" },
+                "maximum-absolute-value": { "@id": "cstr-hdl-ext:maximum-absolute-value", "@type": "@id" },
+                "lower-limit": { "@id": "cstr-hdl-ext:lower-limit", "@type": "@id" },
+                "upper-limit": { "@id": "cstr-hdl-ext:upper-limit", "@type": "@id" }
+            }
+        },
+
+        "Admittance": {
+            "@id": "cstr-hdl-ext:Admittance",
+            "@context": {
+                "force": { "@id": "cstr-hdl-ext:force", "@type": "@id" },
+                "mass": { "@id": "cstr-hdl-ext:mass", "@type": "@id" },
+                "damping": { "@id": "cstr-hdl-ext:damping", "@type": "@id" },
+                "stiffness": { "@id": "cstr-hdl-ext:stiffness", "@type": "@id" },
+                "max-velocity": { "@id": "cstr-hdl-ext:max-velocity", "@type": "@id" },
+                "controller": { "@id": "cstr-hdl-ext:controller", "@type": "@id" },
+                "reference": { "@id": "cstr-hdl-ext:reference", "@type": "@id" }
+            }
+        },
+
+        "control-mode": {
+            "@id": "cstr-hdl-ext:control-mode",
+            "@type": "@id"
+        },
+        "order": {
+            "@id": "cstr-hdl-ext:order",
+            "@type": "xsd:nonNegativeInteger"
+        },
+        "velocity-profile": {
+            "@id": "cstr-hdl-ext:velocity-profile",
+            "@type": "@id"
+        },
+        "limits": {
+            "@id": "cstr-hdl-ext:limits",
+            "@type": "@id"
+        },
+        "input-signal": {
+            "@id": "cstr-hdl-ext:input-signal",
+            "@type": "@id"
+        },
+        "output-signal": {
+            "@id": "cstr-hdl-ext:output-signal",
+            "@type": "@id"
+        },
+        "maximum-absolute-value": {
+            "@id": "cstr-hdl-ext:maximum-absolute-value",
+            "@type": "@id"
+        },
+        "lower-limit": {
+            "@id": "cstr-hdl-ext:lower-limit",
+            "@type": "@id"
+        },
+        "upper-limit": {
+            "@id": "cstr-hdl-ext:upper-limit",
+            "@type": "@id"
+        },
+        "monitors-until": {
+            "@id": "cstr-hdl-ext:monitors-until",
+            "@type": "@id"
+        },
+        "monitors-when": {
+            "@id": "cstr-hdl-ext:monitors-when",
+            "@type": "@id"
+        },
+        "fallback-motion": {
+            "@id": "cstr-hdl-ext:fallback-motion",
+            "@type": "@id"
+        },
+        "debounce-duration": {
+            "@id": "cstr-hdl-ext:debounce-duration",
+            "@type": "@id"
+        }
+    }
+}

@@ -1,0 +1,217 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
+@prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
+@prefix traj: <https://secorolab.github.io/metamodels/task/trajectory#> .
+
+cstr-hdl-ext:ConstraintHandlerExtensionShape
+    a sh:NodeShape ;
+    sh:targetClass cstr_hdl:ConstraintHandler ;
+    sh:property [
+        sh:path cstr-hdl-ext:control-mode ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( cstr-hdl-ext:JointTorque )
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:order ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:nonNegativeInteger
+    ] .
+
+cstr-hdl-ext:FeedForwardController
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr_hdl:Controller ;
+    sh:targetClass cstr-hdl-ext:FeedForwardController ;
+    sh:property [
+        sh:path cstr-hdl-ext:reference-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:error-signal ;
+        sh:maxCount 0
+    ] .
+
+cstr-hdl-ext:ProfiledController
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:velocity-profile ;
+    sh:class cstr_hdl:Controller ;
+    sh:property [
+        sh:path cstr-hdl-ext:velocity-profile ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class traj:VelocityProfile
+    ] .
+
+cstr-hdl-ext:LimiterOwner
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:limits ;
+    sh:property [
+        sh:path cstr-hdl-ext:limits ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class cstr-hdl-ext:Saturation
+    ] .
+
+cstr-hdl-ext:Saturation
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr-hdl-ext:Saturation ;
+    sh:property [
+        sh:path cstr-hdl-ext:input-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:output-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:xone (
+        [
+            sh:property [
+                sh:path cstr-hdl-ext:maximum-absolute-value ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:nodeKind sh:BlankNodeOrIRI ;
+                sh:class qudt:Quantity
+            ] ;
+            sh:property [ sh:path cstr-hdl-ext:lower-limit ; sh:maxCount 0 ] ;
+            sh:property [ sh:path cstr-hdl-ext:upper-limit ; sh:maxCount 0 ]
+        ]
+        [
+            sh:property [
+                sh:path cstr-hdl-ext:lower-limit ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:nodeKind sh:BlankNodeOrIRI ;
+                sh:class qudt:Quantity
+            ] ;
+            sh:property [
+                sh:path cstr-hdl-ext:upper-limit ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:nodeKind sh:BlankNodeOrIRI ;
+                sh:class qudt:Quantity
+            ] ;
+            sh:property [ sh:path cstr-hdl-ext:maximum-absolute-value ; sh:maxCount 0 ]
+        ]
+    ) .
+
+cstr-hdl-ext:IntegralSaturation
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr-hdl-ext:Saturation ;
+    sh:targetClass cstr-hdl-ext:IntegralSaturation .
+
+cstr-hdl-ext:Admittance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr-hdl-ext:Admittance ;
+    sh:property [
+        sh:path cstr-hdl-ext:force ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:mass ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:damping ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:stiffness ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:max-velocity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:controller ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class cstr_hdl:Controller
+    ] ;
+    sh:property [
+        sh:path cstr-hdl-ext:reference ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
+
+cstr-hdl-ext:UntilAggregateMonitor
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:monitors-until ;
+    sh:class cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr-hdl-ext:monitors-until ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class mot:GuardedMotion
+    ] .
+
+cstr-hdl-ext:WhenAggregateMonitor
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:monitors-when ;
+    sh:class cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr-hdl-ext:monitors-when ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class mot:GuardedMotion
+    ] .
+
+cstr-hdl-ext:FallbackMonitor
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:fallback-motion ;
+    sh:class cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr-hdl-ext:fallback-motion ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class mot:GuardedMotion
+    ] .
+
+# Optional per-monitor debounce; absent fires on the rising edge.
+cstr-hdl-ext:DebounceMonitor
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:debounce-duration ;
+    sh:class cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr-hdl-ext:debounce-duration ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .

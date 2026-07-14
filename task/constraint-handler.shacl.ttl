@@ -1,0 +1,271 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
+@prefix cstr-ext: <https://secorolab.github.io/metamodels/task/constraint#> .
+@prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
+@prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
+@prefix el: <https://secorolab.github.io/metamodels/behaviour/event_loop#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
+
+cstr_hdl:
+    a owl:Ontology ;
+    owl:imports sh: ;
+    sh:declare [
+        sh:prefix "cstr_hdl" ;
+        sh:namespace "https://comp-rob2b.github.io/metamodels/task/constraint-handler#"^^xsd:anyURI ;
+    ] ;
+    sh:declare [
+        sh:prefix "mot" ;
+        sh:namespace "https://comp-rob2b.github.io/metamodels/task/motion-specification#"^^xsd:anyURI ;
+    ] ;
+    sh:declare [
+        sh:prefix "cstr-ext" ;
+        sh:namespace "https://secorolab.github.io/metamodels/task/constraint#"^^xsd:anyURI ;
+    ] .
+
+cstr_hdl:ConstraintHandler
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:ConstraintHandler ;
+    sh:property [
+        sh:path cstr_hdl:motion ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class mot:GuardedMotion
+    ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:prefixes cstr_hdl: , mot: ;
+        sh:message "All constraints must be evaluated" ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this cstr_hdl:motion / (mot:when | mot:while | mot:until) / (cstr-ext:has-constraint)* ?value .
+                FILTER NOT EXISTS { ?value cstr-ext:has-constraint ?member } .
+                FILTER NOT EXISTS { $this cstr_hdl:evaluators / cstr_hdl:constraint ?value } .
+            }
+        """
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:evaluators ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class cstr_hdl:ConstraintEvaluator
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:monitors ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class cstr_hdl:Monitor
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:controllers ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class cstr_hdl:Controller
+    ] .
+
+
+cstr_hdl:ConstraintEvaluator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:ConstraintEvaluator ;
+    sh:property [
+        sh:path cstr_hdl:constraint ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class cstr:Constraint
+    ] .
+
+cstr_hdl:AssignmentEvaluator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:AssignmentEvaluator ;
+    sh:property [
+        sh:path cstr_hdl:constraint ;
+        sh:class cstr:EqualityConstraint
+    ] .
+
+cstr_hdl:ErrorEvaluator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:ErrorEvaluator ;
+    sh:property [
+        sh:path cstr_hdl:error ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
+
+
+cstr_hdl:Monitor
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr_hdl:error ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
+
+cstr_hdl:EdgeTriggeredMonitor
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:EdgeTriggeredMonitor ;
+    sh:property [
+        sh:path cstr_hdl:event ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class el:Event
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:event-queue ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class el:EventLoop
+    ] .
+
+cstr_hdl:LevelTriggeredMonitor
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:LevelTriggeredMonitor ;
+    sh:property [
+        sh:path cstr_hdl:flag ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class el:Flag
+    ] .
+
+
+cstr_hdl:Controller
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:Controller ;
+    sh:property [
+        sh:path cstr_hdl:control-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
+
+cstr_hdl:ProportionalIntegralDerivative
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:ProportionalIntegralDerivative ;
+    sh:property [
+        sh:path cstr_hdl:proportional-gain ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:integral-gain ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:derivative-gain ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double
+    ] .
+
+cstr_hdl:DecayingIntegralTerm
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:DecayingIntegralTerm ;
+    sh:property [
+        sh:path cstr_hdl:decay-rate ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double
+    ] .
+
+cstr_hdl:DampingController
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:DampingController ;
+    sh:property [
+        sh:path cstr_hdl:maximum-velocity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:xone (
+            [ sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:AngularVelocity ] ] ]
+            [ sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:LinearVelocity ] ] ]
+        )
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:maximum-force ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:xone (
+            [ sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Torque ] ] ]
+            [ sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Force ] ] ]
+        )
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:measured-velocity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:xone (
+            [ sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:AngularVelocity ] ] ]
+            [ sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:LinearVelocity ] ] ]
+        )
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:commanded-force ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:xone (
+            [ sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Force ] ] ]
+            [ sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Torque ] ] ]
+        )
+    ] .
+
+cstr_hdl:ImpedanceController
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr_hdl:ImpedanceController ;
+    sh:property [
+        sh:path cstr_hdl:stiffness ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:damping ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:inertia ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+# Feedback algorithms require an error signal (feed-forward does not).
+cstr_hdl:ProportionalIntegralDerivative
+    sh:property [
+        sh:path cstr_hdl:error-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
+
+cstr_hdl:ImpedanceController
+    sh:property [
+        sh:path cstr_hdl:error-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
