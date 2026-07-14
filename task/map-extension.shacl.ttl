@@ -115,5 +115,5 @@ map-ext:ComputeRotationFromPose
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
+        sh:class geom_coord:OrientationCoordinate
     ] .
