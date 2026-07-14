@@ -1,0 +1,108 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+# Author: Vamsi Kalagaturu
+
+@prefix ms-exec-trace: <https://secorolab.github.io/metamodels/motion-spec/execution-trace/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ms-exec-trace:Frame
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass ms-exec-trace:Frame ;
+    sh:property [
+        sh:path ms-exec-trace:step ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0
+    ] ;
+    sh:property [
+        sh:path ms-exec-trace:activeState ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path prov:generatedAtTime ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
+
+ms-exec-trace:OccurrenceShape
+    a sh:NodeShape ;
+    sh:property [
+        sh:path ms-exec-trace:atFrame ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class ms-exec-trace:Frame ;
+        sh:nodeKind sh:IRI
+    ] ;
+    # Run-global monotonic order; totally orders occurrences that share a frame
+    # (multiple constraints/monitors/events can occur in the same tick).
+    sh:property [
+        sh:path ms-exec-trace:seq ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0
+    ] ;
+    sh:property [
+        sh:path prov:generatedAtTime ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime
+    ] .
+
+ms-exec-trace:StateOccurrence
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass ms-exec-trace:StateOccurrence ;
+    sh:node ms-exec-trace:OccurrenceShape ;
+    sh:property [
+        sh:path ms-exec-trace:state ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] .
+
+ms-exec-trace:TransitionOccurrence
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass ms-exec-trace:TransitionOccurrence ;
+    sh:node ms-exec-trace:OccurrenceShape ;
+    sh:property [
+        sh:path ms-exec-trace:transition ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] .
+
+ms-exec-trace:EventOccurrence
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass ms-exec-trace:EventOccurrence ;
+    sh:node ms-exec-trace:OccurrenceShape ;
+    sh:property [
+        sh:path ms-exec-trace:event ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] .
+
+ms-exec-trace:MonitorOccurrence
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass ms-exec-trace:MonitorOccurrence ;
+    sh:node ms-exec-trace:OccurrenceShape ;
+    sh:property [
+        sh:path ms-exec-trace:monitor ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property ms-exec-trace:NumericValueShape .
+
+ms-exec-trace:NumericValueShape
+    a sh:PropertyShape ;
+    sh:path ms-exec-trace:value ;
+    sh:maxCount 1 ;
+    sh:or (
+        [ sh:datatype xsd:decimal ]
+        [ sh:datatype xsd:double ]
+    ) .
