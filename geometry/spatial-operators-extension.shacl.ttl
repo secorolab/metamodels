@@ -22,7 +22,7 @@ geom-op-ext:PoseDiffEvaluator
         sh:class geom-coord:PoseCoordinate
     ] ;
     sh:property [
-        sh:path geom-op-ext:out ;
+        sh:path geom-op:out ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
