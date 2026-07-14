@@ -1,103 +1,20 @@
 @prefix slv:      <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
 @prefix slv-ext:  <https://secorolab.github.io/metamodels/task/solver-specification#> .
-@prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
-@prefix kc_ent:   <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
-@prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
-@prefix qudt:     <http://qudt.org/schema/qudt/> .
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh:       <http://www.w3.org/ns/shacl#> .
-@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
 
-slv-ext:CommandForwardingDriver
+slv-ext:CommandForwardingSolver
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass slv-ext:CommandForwardingDriver ;
+    sh:targetClass slv-ext:CommandForwardingSolver ;
     sh:property [
-        sh:path slv-ext:forwards-command ;
-        sh:minCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class slv-ext:ForwardedCommand
-    ] .
-
-slv-ext:ForwardedCommand
-    a rdfs:Class, sh:NodeShape ;
-    sh:targetClass slv-ext:ForwardedCommand ;
-    sh:property [
-        sh:path slv:attached-to ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:class kc_ent:Joint
-    ] ;
-    sh:property [
-        sh:path slv-ext:command-signal ;
+        sh:path slv:motion-drivers ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] .
-
-slv-ext:SolverWithInputAndOutputExtensionShape
-    a sh:NodeShape ;
-    sh:targetClass slv:SolverWithInputAndOutput ;
-    sh:property [
-        sh:path slv-ext:regularization ;
-        sh:minCount 0 ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:double ;
-        sh:minExclusive 0
+        sh:class slv:MotionDrivers
     ] ;
     sh:property [
-        sh:path slv-ext:torque-limit ;
+        sh:path slv:output ;
         sh:minCount 0 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path slv-ext:max-linear-accel ;
-        sh:minCount 0 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path slv-ext:max-angular-accel ;
-        sh:minCount 0 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path algo-ext:limits ;
-        sh:minCount 0 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class algo-ext:Saturation
-    ] .
-
-slv-ext:AccelerationConstraintExtensionShape
-    a sh:NodeShape ;
-    sh:targetClass slv:AccelerationConstraint ;
-    sh:property [
-        sh:path algo-ext:limits ;
-        sh:minCount 0 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class algo-ext:Saturation
-    ] .
-
-slv-ext:DirectionAligned
-    a rdfs:Class, sh:NodeShape ;
-    sh:property [
-        sh:path slv:subspace ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:in ( slv:angular-acceleration slv:linear-acceleration )
-    ] ;
-    sh:property [
-        sh:path slv-ext:direction ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class geom-rel:Direction
+        sh:nodeKind sh:BlankNodeOrIRI
     ] .
