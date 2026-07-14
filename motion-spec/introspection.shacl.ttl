@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
 # Author: Vamsi Kalagaturu
 
-@prefix intro: <https://secorolab.github.io/metamodels/motion-spec/introspection/> .
+@prefix ms-ms-intro: <https://secorolab.github.io/metamodels/motion-spec/introspection/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -10,18 +10,18 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-intro:Frame
+ms-intro:Frame
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass intro:Frame ;
+    sh:targetClass ms-intro:Frame ;
     sh:property [
-        sh:path intro:step ;
+        sh:path ms-intro:step ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:integer ;
         sh:minInclusive 0
     ] ;
     sh:property [
-        sh:path intro:activeState ;
+        sh:path ms-intro:activeState ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
@@ -31,25 +31,25 @@ intro:Frame
         sh:datatype xsd:dateTime
     ] .
 
-intro:RuntimeRunShape
+ms-intro:RuntimeRunShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf intro:runId ;
+    sh:targetSubjectsOf ms-intro:runId ;
     sh:class rt:Runtime ;
     sh:property [
-        sh:path intro:runId ;
+        sh:path ms-intro:runId ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path intro:contractVersion ;
+        sh:path ms-intro:contractVersion ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:integer ;
         sh:minInclusive 1
     ] ;
     sh:property [
-        sh:path intro:frameCount ;
+        sh:path ms-intro:frameCount ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:integer ;
@@ -62,13 +62,13 @@ intro:RuntimeRunShape
         sh:nodeKind sh:IRI
     ] .
 
-intro:OccurrenceShape
+ms-intro:OccurrenceShape
     a sh:NodeShape ;
     sh:property [
-        sh:path intro:atFrame ;
+        sh:path ms-intro:atFrame ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:class intro:Frame ;
+        sh:class ms-intro:Frame ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
@@ -77,163 +77,163 @@ intro:OccurrenceShape
         sh:datatype xsd:dateTime
     ] .
 
-intro:StateOccurrence
+ms-intro:StateOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass intro:StateOccurrence ;
-    sh:node intro:OccurrenceShape ;
+    sh:targetClass ms-intro:StateOccurrence ;
+    sh:node ms-intro:OccurrenceShape ;
     sh:property [
-        sh:path intro:state ;
+        sh:path ms-intro:state ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] .
 
-intro:TransitionOccurrence
+ms-intro:TransitionOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass intro:TransitionOccurrence ;
-    sh:node intro:OccurrenceShape ;
+    sh:targetClass ms-intro:TransitionOccurrence ;
+    sh:node ms-intro:OccurrenceShape ;
     sh:property [
-        sh:path intro:transition ;
+        sh:path ms-intro:transition ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path intro:fromState ;
+        sh:path ms-intro:fromState ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path intro:toState ;
+        sh:path ms-intro:toState ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path intro:event ;
+        sh:path ms-intro:event ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] .
 
-intro:EventOccurrence
+ms-intro:EventOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass intro:EventOccurrence ;
-    sh:node intro:OccurrenceShape ;
+    sh:targetClass ms-intro:EventOccurrence ;
+    sh:node ms-intro:OccurrenceShape ;
     sh:property [
-        sh:path intro:event ;
+        sh:path ms-intro:event ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path intro:fsmState ;
+        sh:path ms-intro:fsmState ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path intro:slotIndex ;
+        sh:path ms-intro:slotIndex ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:integer ;
         sh:minInclusive 0
     ] .
 
-intro:MonitorOccurrence
+ms-intro:MonitorOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass intro:MonitorOccurrence ;
-    sh:node intro:OccurrenceShape ;
+    sh:targetClass ms-intro:MonitorOccurrence ;
+    sh:node ms-intro:OccurrenceShape ;
     sh:property [
-        sh:path intro:monitor ;
+        sh:path ms-intro:monitor ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
-    sh:property intro:OptionalConstraintShape, intro:OptionalEventShape,
-        intro:OptionalStateShape, intro:SlotIndexShape, intro:NumericValueShape .
+    sh:property ms-intro:OptionalConstraintShape, ms-intro:OptionalEventShape,
+        ms-intro:OptionalStateShape, ms-intro:SlotIndexShape, ms-intro:NumericValueShape .
 
-intro:ConstraintSatisfiedOccurrence
+ms-intro:ConstraintSatisfiedOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass intro:ConstraintSatisfiedOccurrence ;
-    sh:node intro:ConstraintOccurrenceShape .
+    sh:targetClass ms-intro:ConstraintSatisfiedOccurrence ;
+    sh:node ms-intro:ConstraintOccurrenceShape .
 
-intro:ConstraintUnsatisfiedOccurrence
+ms-intro:ConstraintUnsatisfiedOccurrence
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass intro:ConstraintUnsatisfiedOccurrence ;
-    sh:node intro:ConstraintOccurrenceShape .
+    sh:targetClass ms-intro:ConstraintUnsatisfiedOccurrence ;
+    sh:node ms-intro:ConstraintOccurrenceShape .
 
-intro:ConstraintOccurrenceShape
+ms-intro:ConstraintOccurrenceShape
     a sh:NodeShape ;
-    sh:node intro:OccurrenceShape ;
+    sh:node ms-intro:OccurrenceShape ;
     sh:property [
-        sh:path intro:constraint ;
+        sh:path ms-intro:constraint ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path intro:controller ;
+        sh:path ms-intro:controller ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
-    sh:property intro:OptionalStateShape, intro:SlotIndexShape, intro:NumericValueShape .
+    sh:property ms-intro:OptionalStateShape, ms-intro:SlotIndexShape, ms-intro:NumericValueShape .
 
-intro:OptionalConstraintShape
+ms-intro:OptionalConstraintShape
     a sh:PropertyShape ;
-    sh:path intro:constraint ;
+    sh:path ms-intro:constraint ;
     sh:maxCount 1 ;
     sh:nodeKind sh:IRI .
 
-intro:OptionalEventShape
+ms-intro:OptionalEventShape
     a sh:PropertyShape ;
-    sh:path intro:event ;
+    sh:path ms-intro:event ;
     sh:maxCount 1 ;
     sh:nodeKind sh:IRI .
 
-intro:OptionalStateShape
+ms-intro:OptionalStateShape
     a sh:PropertyShape ;
-    sh:path intro:fsmState ;
+    sh:path ms-intro:fsmState ;
     sh:maxCount 1 ;
     sh:nodeKind sh:IRI .
 
-intro:SlotIndexShape
+ms-intro:SlotIndexShape
     a sh:PropertyShape ;
-    sh:path intro:slotIndex ;
+    sh:path ms-intro:slotIndex ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
     sh:datatype xsd:integer ;
     sh:minInclusive 0 .
 
-intro:NumericValueShape
+ms-intro:NumericValueShape
     a sh:PropertyShape ;
-    sh:path intro:value ;
+    sh:path ms-intro:value ;
     sh:maxCount 1 ;
     sh:or (
         [ sh:datatype xsd:decimal ]
         [ sh:datatype xsd:double ]
     ) .
 
-intro:ForbiddenLegacySampleShape
+ms-intro:ForbiddenLegacySampleShape
     a sh:NodeShape ;
     sh:targetSubjectsOf rdf:type ;
     sh:not [
         sh:or (
-            [ sh:class intro:ControllerSample ]
-            [ sh:class intro:SignalSample ]
-            [ sh:class intro:MonitorSample ]
+            [ sh:class ms-intro:ControllerSample ]
+            [ sh:class ms-intro:SignalSample ]
+            [ sh:class ms-intro:MonitorSample ]
         )
     ] .
 
-intro:ForbiddenLegacyPredicateShape
+ms-intro:ForbiddenLegacyPredicateShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf intro:compute_ns, intro:error, intro:measured, intro:output,
-        intro:period_ns, intro:satSince, intro:setpoint, intro:t, intro:wall_ns ;
-    sh:property [ sh:path intro:compute_ns ; sh:maxCount 0 ] ;
-    sh:property [ sh:path intro:error ; sh:maxCount 0 ] ;
-    sh:property [ sh:path intro:measured ; sh:maxCount 0 ] ;
-    sh:property [ sh:path intro:output ; sh:maxCount 0 ] ;
-    sh:property [ sh:path intro:period_ns ; sh:maxCount 0 ] ;
-    sh:property [ sh:path intro:satSince ; sh:maxCount 0 ] ;
-    sh:property [ sh:path intro:setpoint ; sh:maxCount 0 ] ;
-    sh:property [ sh:path intro:t ; sh:maxCount 0 ] ;
-    sh:property [ sh:path intro:wall_ns ; sh:maxCount 0 ] .
+    sh:targetSubjectsOf ms-intro:compute_ns, ms-intro:error, ms-intro:measured, ms-intro:output,
+        ms-intro:period_ns, ms-intro:satSince, ms-intro:setpoint, ms-intro:t, ms-intro:wall_ns ;
+    sh:property [ sh:path ms-intro:compute_ns ; sh:maxCount 0 ] ;
+    sh:property [ sh:path ms-intro:error ; sh:maxCount 0 ] ;
+    sh:property [ sh:path ms-intro:measured ; sh:maxCount 0 ] ;
+    sh:property [ sh:path ms-intro:output ; sh:maxCount 0 ] ;
+    sh:property [ sh:path ms-intro:period_ns ; sh:maxCount 0 ] ;
+    sh:property [ sh:path ms-intro:satSince ; sh:maxCount 0 ] ;
+    sh:property [ sh:path ms-intro:setpoint ; sh:maxCount 0 ] ;
+    sh:property [ sh:path ms-intro:t ; sh:maxCount 0 ] ;
+    sh:property [ sh:path ms-intro:wall_ns ; sh:maxCount 0 ] .

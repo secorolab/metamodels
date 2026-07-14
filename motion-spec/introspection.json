@@ -1,84 +1,84 @@
 {
     "@context": {
         "@version": 1.1,
-        "intro": "https://secorolab.github.io/metamodels/motion-spec/introspection/",
+        "ms-intro": "https://secorolab.github.io/metamodels/motion-spec/introspection/",
 
         "Frame": {
-            "@id": "intro:Frame",
+            "@id": "ms-intro:Frame",
             "@context": {
-                "activeState": { "@id": "intro:activeState", "@type": "@id" },
-                "step": "intro:step"
+                "activeState": { "@id": "ms-intro:activeState", "@type": "@id" },
+                "step": "ms-intro:step"
             }
         },
 
         "StateOccurrence": {
-            "@id": "intro:StateOccurrence",
+            "@id": "ms-intro:StateOccurrence",
             "@context": {
-                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
-                "state": { "@id": "intro:state", "@type": "@id" }
+                "atFrame": { "@id": "ms-intro:atFrame", "@type": "@id" },
+                "state": { "@id": "ms-intro:state", "@type": "@id" }
             }
         },
 
         "TransitionOccurrence": {
-            "@id": "intro:TransitionOccurrence",
+            "@id": "ms-intro:TransitionOccurrence",
             "@context": {
-                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
-                "event": { "@id": "intro:event", "@type": "@id" },
-                "fromState": { "@id": "intro:fromState", "@type": "@id" },
-                "toState": { "@id": "intro:toState", "@type": "@id" },
-                "transition": { "@id": "intro:transition", "@type": "@id" }
+                "atFrame": { "@id": "ms-intro:atFrame", "@type": "@id" },
+                "event": { "@id": "ms-intro:event", "@type": "@id" },
+                "fromState": { "@id": "ms-intro:fromState", "@type": "@id" },
+                "toState": { "@id": "ms-intro:toState", "@type": "@id" },
+                "transition": { "@id": "ms-intro:transition", "@type": "@id" }
             }
         },
 
         "EventOccurrence": {
-            "@id": "intro:EventOccurrence",
+            "@id": "ms-intro:EventOccurrence",
             "@context": {
-                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
-                "event": { "@id": "intro:event", "@type": "@id" },
-                "fsmState": { "@id": "intro:fsmState", "@type": "@id" },
-                "slotIndex": "intro:slotIndex"
+                "atFrame": { "@id": "ms-intro:atFrame", "@type": "@id" },
+                "event": { "@id": "ms-intro:event", "@type": "@id" },
+                "fsmState": { "@id": "ms-intro:fsmState", "@type": "@id" },
+                "slotIndex": "ms-intro:slotIndex"
             }
         },
 
         "MonitorOccurrence": {
-            "@id": "intro:MonitorOccurrence",
+            "@id": "ms-intro:MonitorOccurrence",
             "@context": {
-                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
-                "constraint": { "@id": "intro:constraint", "@type": "@id" },
-                "event": { "@id": "intro:event", "@type": "@id" },
-                "fsmState": { "@id": "intro:fsmState", "@type": "@id" },
-                "monitor": { "@id": "intro:monitor", "@type": "@id" },
-                "slotIndex": "intro:slotIndex",
-                "value": "intro:value"
+                "atFrame": { "@id": "ms-intro:atFrame", "@type": "@id" },
+                "constraint": { "@id": "ms-intro:constraint", "@type": "@id" },
+                "event": { "@id": "ms-intro:event", "@type": "@id" },
+                "fsmState": { "@id": "ms-intro:fsmState", "@type": "@id" },
+                "monitor": { "@id": "ms-intro:monitor", "@type": "@id" },
+                "slotIndex": "ms-intro:slotIndex",
+                "value": "ms-intro:value"
             }
         },
 
         "ConstraintSatisfiedOccurrence": {
-            "@id": "intro:ConstraintSatisfiedOccurrence",
+            "@id": "ms-intro:ConstraintSatisfiedOccurrence",
             "@context": {
-                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
-                "constraint": { "@id": "intro:constraint", "@type": "@id" },
-                "controller": { "@id": "intro:controller", "@type": "@id" },
-                "fsmState": { "@id": "intro:fsmState", "@type": "@id" },
-                "slotIndex": "intro:slotIndex",
-                "value": "intro:value"
+                "atFrame": { "@id": "ms-intro:atFrame", "@type": "@id" },
+                "constraint": { "@id": "ms-intro:constraint", "@type": "@id" },
+                "controller": { "@id": "ms-intro:controller", "@type": "@id" },
+                "fsmState": { "@id": "ms-intro:fsmState", "@type": "@id" },
+                "slotIndex": "ms-intro:slotIndex",
+                "value": "ms-intro:value"
             }
         },
 
         "ConstraintUnsatisfiedOccurrence": {
-            "@id": "intro:ConstraintUnsatisfiedOccurrence",
+            "@id": "ms-intro:ConstraintUnsatisfiedOccurrence",
             "@context": {
-                "atFrame": { "@id": "intro:atFrame", "@type": "@id" },
-                "constraint": { "@id": "intro:constraint", "@type": "@id" },
-                "controller": { "@id": "intro:controller", "@type": "@id" },
-                "fsmState": { "@id": "intro:fsmState", "@type": "@id" },
-                "slotIndex": "intro:slotIndex",
-                "value": "intro:value"
+                "atFrame": { "@id": "ms-intro:atFrame", "@type": "@id" },
+                "constraint": { "@id": "ms-intro:constraint", "@type": "@id" },
+                "controller": { "@id": "ms-intro:controller", "@type": "@id" },
+                "fsmState": { "@id": "ms-intro:fsmState", "@type": "@id" },
+                "slotIndex": "ms-intro:slotIndex",
+                "value": "ms-intro:value"
             }
         },
 
-        "contractVersion": "intro:contractVersion",
-        "frameCount": "intro:frameCount",
-        "runId": "intro:runId"
+        "contractVersion": "ms-intro:contractVersion",
+        "frameCount": "ms-intro:frameCount",
+        "runId": "ms-intro:runId"
     }
 }
