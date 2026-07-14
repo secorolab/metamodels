@@ -45,7 +45,7 @@ map-ext:PoseCoordinateView
     ] ;
     sh:xone (
         [ sh:property [ sh:path map:subobject ; sh:class qudt_quant:Position ] ;
-          sh:property [ sh:path map:subspace ; sh:hasValue map:position ] ]
+          sh:property [ sh:path map:subspace ; sh:hasValue map-ext:position ] ]
         [ sh:property [ sh:path map:subobject ; sh:class geom_rel:Orientation ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map-ext:orientation ] ]
     ) .

@@ -16,7 +16,7 @@
                     "@id": "map:subspace",
                     "@type": "@vocab",
                     "@context": {
-                        "position": "map:position",
+                        "position": "map-ext:position",
                         "orientation": "map-ext:orientation"
                     }
                 }
