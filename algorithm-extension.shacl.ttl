@@ -6,6 +6,7 @@
 algo-ext:Saturation
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass algo-ext:Saturation ;
+    sh:message "A saturation needs one quantity input, one quantity output, and exactly one valid limit form." ;
     sh:property [ sh:path algo-ext:in ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
     sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
     sh:xone (

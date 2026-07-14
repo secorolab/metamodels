@@ -10,6 +10,7 @@
 
 map-ext:CoordinateViewShape
     a sh:NodeShape ;
+    sh:message "A coordinate view needs one superobject, one subobject, one subspace, and at most one Cartesian axis." ;
     sh:property [
         sh:path map:superobject ;
         sh:minCount 1 ;
@@ -38,6 +39,7 @@ map-ext:CoordinateViewShape
 map-ext:PoseCoordinateView
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass map-ext:PoseCoordinateView ;
+    sh:message "A pose-coordinate view must select either position or orientation from one pose coordinate." ;
     sh:node map-ext:CoordinateViewShape ;
     sh:property [
         sh:path map:superobject ;
@@ -53,6 +55,7 @@ map-ext:PoseCoordinateView
 map-ext:VelocityTwistCoordinateView
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass map-ext:VelocityTwistCoordinateView ;
+    sh:message "A velocity-twist view must select either linear or angular velocity from one velocity twist." ;
     sh:node map-ext:CoordinateViewShape ;
     sh:property [
         sh:path map:superobject ;
@@ -68,6 +71,7 @@ map-ext:VelocityTwistCoordinateView
 map-ext:AccelerationTwistCoordinateView
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass map-ext:AccelerationTwistCoordinateView ;
+    sh:message "An acceleration-twist view must select either linear or angular acceleration from one acceleration twist." ;
     sh:node map-ext:CoordinateViewShape ;
     sh:property [
         sh:path map:superobject ;
@@ -83,6 +87,7 @@ map-ext:AccelerationTwistCoordinateView
 map-ext:WrenchCoordinateView
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass map-ext:WrenchCoordinateView ;
+    sh:message "A wrench view must select either force or torque from one wrench coordinate." ;
     sh:node map-ext:CoordinateViewShape ;
     sh:property [
         sh:path map:superobject ;
@@ -98,6 +103,7 @@ map-ext:WrenchCoordinateView
 map-ext:PoseDifferenceView
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass map-ext:PoseDifferenceView ;
+    sh:message "A pose-difference view must select exactly one linear or angular quantity from one pose-difference coordinate." ;
     sh:property [
         sh:path map:superobject ;
         sh:class geom_coord:PoseDifferenceCoordinate

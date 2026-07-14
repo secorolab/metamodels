@@ -13,6 +13,7 @@ cstr-hdl-ext:FeedForwardController
     a rdfs:Class, sh:NodeShape ;
     rdfs:subClassOf cstr_hdl:Controller ;
     sh:targetClass cstr-hdl-ext:FeedForwardController ;
+    sh:message "A feed-forward controller needs exactly one quantity reference signal and no error signal." ;
     sh:property [
         sh:path cstr-hdl-ext:reference-signal ;
         sh:minCount 1 ;
@@ -30,6 +31,7 @@ cstr-hdl-ext:FeedForwardController
 cstr-hdl-ext:ReferenceConsumer
     a sh:NodeShape ;
     sh:targetSubjectsOf cstr-hdl-ext:reference-signal ;
+    sh:message "A reference consumer must be a controller with exactly one quantity reference signal." ;
     sh:class cstr_hdl:Controller ;
     sh:property [
         sh:path cstr-hdl-ext:reference-signal ;
@@ -42,6 +44,7 @@ cstr-hdl-ext:ReferenceConsumer
 cstr-hdl-ext:LimiterOwner
     a sh:NodeShape ;
     sh:targetSubjectsOf algo-ext:limits ;
+    sh:message "A limiter owner must provide one or more saturation operations as limits." ;
     sh:property [
         sh:path algo-ext:limits ;
         sh:minCount 1 ;
@@ -53,6 +56,7 @@ cstr-hdl-ext:Admittance
     a rdfs:Class, sh:NodeShape ;
     rdfs:subClassOf traj:ReferenceGenerator ;
     sh:targetClass cstr-hdl-ext:Admittance ;
+    sh:message "An admittance needs force, mass, damping, and velocity-reference quantities; stiffness and saturation are optional." ;
     sh:property [
         sh:path cstr-hdl-ext:force ;
         sh:minCount 1 ;
@@ -96,6 +100,7 @@ cstr-hdl-ext:Admittance
 
 cstr-hdl-ext:ForceQuantityShape
     a sh:NodeShape ;
+    sh:message "This value must be a quantity whose quantity kind is force." ;
     sh:class qudt:Quantity ;
     sh:property [
         sh:path qudt:hasQuantityKind ;
@@ -105,6 +110,7 @@ cstr-hdl-ext:ForceQuantityShape
 
 cstr-hdl-ext:VelocityQuantityShape
     a sh:NodeShape ;
+    sh:message "This value must be a quantity whose quantity kind is linear velocity." ;
     sh:class qudt:Quantity ;
     sh:property [
         sh:path qudt:hasQuantityKind ;
@@ -115,6 +121,7 @@ cstr-hdl-ext:VelocityQuantityShape
 cstr-hdl-ext:FallbackMonitor
     a sh:NodeShape ;
     sh:targetSubjectsOf cstr-hdl-ext:fallback-motion ;
+    sh:message "A fallback monitor must be a monitor with exactly one guarded fallback motion." ;
     sh:class cstr_hdl:Monitor ;
     sh:property [
         sh:path cstr-hdl-ext:fallback-motion ;
@@ -128,6 +135,7 @@ cstr-hdl-ext:FallbackMonitor
 cstr-hdl-ext:DebounceMonitor
     a sh:NodeShape ;
     sh:targetSubjectsOf cstr-hdl-ext:debounce-duration ;
+    sh:message "A debounce monitor must be a monitor with exactly one quantity debounce duration." ;
     sh:class cstr_hdl:Monitor ;
     sh:property [
         sh:path cstr-hdl-ext:debounce-duration ;

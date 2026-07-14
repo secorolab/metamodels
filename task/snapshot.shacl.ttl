@@ -11,6 +11,7 @@ snap:snapshot-of
 snap:Snapshot
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass snap:Snapshot ;
+    sh:message "A snapshot needs one source quantity, one held output quantity, and a valid initial or event-triggered sampling policy." ;
     sh:property [
         sh:path snap:snapshot-of ;
         sh:minCount 1 ;

@@ -11,6 +11,7 @@
 ms-exec-trace:Frame
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass ms-exec-trace:Frame ;
+    sh:message "A trace frame needs a non-negative step and may name one active state and generation time." ;
     sh:property [
         sh:path ms-exec-trace:step ;
         sh:minCount 1 ;
@@ -31,6 +32,7 @@ ms-exec-trace:Frame
 
 ms-exec-trace:OccurrenceShape
     a sh:NodeShape ;
+    sh:message "Every occurrence must identify one trace frame and one non-negative run-global sequence number." ;
     sh:property [
         sh:path ms-exec-trace:atFrame ;
         sh:minCount 1 ;
@@ -56,6 +58,7 @@ ms-exec-trace:OccurrenceShape
 ms-exec-trace:StateOccurrence
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass ms-exec-trace:StateOccurrence ;
+    sh:message "A state occurrence must identify one state and one ordered trace frame." ;
     sh:node ms-exec-trace:OccurrenceShape ;
     sh:property [
         sh:path ms-exec-trace:state ;
@@ -67,6 +70,7 @@ ms-exec-trace:StateOccurrence
 ms-exec-trace:TransitionOccurrence
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass ms-exec-trace:TransitionOccurrence ;
+    sh:message "A transition occurrence must identify one transition and one ordered trace frame." ;
     sh:node ms-exec-trace:OccurrenceShape ;
     sh:property [
         sh:path ms-exec-trace:transition ;
@@ -78,6 +82,7 @@ ms-exec-trace:TransitionOccurrence
 ms-exec-trace:EventOccurrence
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass ms-exec-trace:EventOccurrence ;
+    sh:message "An event occurrence must identify one event and one ordered trace frame." ;
     sh:node ms-exec-trace:OccurrenceShape ;
     sh:property [
         sh:path ms-exec-trace:event ;
@@ -89,6 +94,7 @@ ms-exec-trace:EventOccurrence
 ms-exec-trace:MonitorOccurrence
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass ms-exec-trace:MonitorOccurrence ;
+    sh:message "A monitor occurrence must identify one monitor and one ordered trace frame; its value must be numeric when present." ;
     sh:node ms-exec-trace:OccurrenceShape ;
     sh:property [
         sh:path ms-exec-trace:monitor ;

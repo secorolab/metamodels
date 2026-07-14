@@ -6,6 +6,7 @@
 slv-ext:CommandForwardingSolver
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass slv-ext:CommandForwardingSolver ;
+    sh:message "A command-forwarding solver needs exactly one motion-driver set and may expose output quantities." ;
     sh:property [
         sh:path slv:motion-drivers ;
         sh:minCount 1 ;
