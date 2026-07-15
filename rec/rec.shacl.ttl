@@ -1,3 +1,4 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix exec: <https://secorolab.github.io/metamodels/execution-context#> .
 @prefix obs: <https://secorolab.github.io/metamodels/observation#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
@@ -93,6 +94,34 @@ rec:ArtefactShape
         sh:class prov:Generation ;
     ] .
 
+# Dependency version is a literal pin (dcat:version), not baked into the label.
+rec:DependencyShape
+    a sh:NodeShape ;
+    sh:targetClass rec:Dependency ;
+    sh:property [
+        sh:path rec:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path dcat:version ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] .
+
+# prov:atLocation must be an IRI, so the path rides as a literal on the node.
+rec:PathLocationShape
+    a sh:NodeShape ;
+    sh:targetClass rec:PathLocation ;
+    sh:class prov:Location ;
+    sh:property [
+        sh:path rec:path ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] .
+
 rec:MetricShape
     a sh:NodeShape ;
     sh:targetClass rec:Metric ;
@@ -124,6 +153,13 @@ rec:MetricShape
         sh:maxCount 1 ;
         sh:datatype xsd:integer ;
     ] .
+
+# A source-code input, marked out from the other consumed inputs in
+# rec:resources (config, data), which stay plain prov:Entity.
+rec:SourceFileShape
+    a sh:NodeShape ;
+    sh:targetClass rec:SourceFile ;
+    sh:class prov:Entity .
 
 rec:ObservationProviderShape
     a sh:NodeShape ;

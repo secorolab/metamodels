@@ -3,10 +3,13 @@
         "@version": 1.1,
         "rec": "https://secorolab.github.io/metamodels/rec#",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "dcat": "http://www.w3.org/ns/dcat#",
         "Repository": "rec:Repository",
         "Dependency": "rec:Dependency",
         "Host": "rec:Host",
         "Metric": "rec:Metric",
+        "SourceFile": "rec:SourceFile",
+        "PathLocation": "rec:PathLocation",
         "path": "rec:path",
         "sha256": "rec:sha256",
         "size_bytes": {
@@ -16,6 +19,7 @@
         "status": "rec:status",
         "run_id": "rec:run-id",
         "label": "rec:label",
+        "version": "dcat:version",
         "repositories": {
             "@id": "rec:repositories",
             "@container": "@set"
