@@ -1,6 +1,4 @@
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
-@prefix exec: <https://secorolab.github.io/metamodels/execution-context#> .
-@prefix obs: <https://secorolab.github.io/metamodels/observation#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rec: <https://secorolab.github.io/metamodels/rec#> .
@@ -11,17 +9,24 @@ rec:RunExecutionShape
     a sh:NodeShape ;
     sh:targetSubjectsOf rec:run-id ;
     sh:class prov:Activity ;
-    sh:class exec:ExecutionContext ;
     sh:property [
         sh:path rec:run-id ;
         sh:minCount 1 ;
         sh:datatype xsd:string ;
     ] ;
     sh:property [
-        sh:path rec:status ;
-        sh:minCount 1 ;
+        sh:path rec:file-id ;
+        sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] ;
+    sh:xone (
+        [ sh:class rec:QueuedRun ]
+        [ sh:class rec:RunningRun ]
+        [ sh:class rec:CompletedRun ]
+        [ sh:class rec:FailedRun ]
+        [ sh:class rec:InterruptedRun ]
+        [ sh:class rec:CancelledRun ]
+    ) ;
     # The run is a prov:Activity, so use native activity timing.
     # Elapsed is derived (endedAtTime - startedAtTime), not stored.
     sh:property [
@@ -160,8 +165,3 @@ rec:SourceFileShape
     a sh:NodeShape ;
     sh:targetClass rec:SourceFile ;
     sh:class prov:Entity .
-
-rec:ObservationProviderShape
-    a sh:NodeShape ;
-    sh:targetClass obs:ObservationProvider ;
-    sh:class prov:Agent .

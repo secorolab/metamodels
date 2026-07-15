@@ -16,8 +16,14 @@
             "@id": "rec:size-bytes",
             "@type": "xsd:integer"
         },
-        "status": "rec:status",
+        "QueuedRun": "rec:QueuedRun",
+        "RunningRun": "rec:RunningRun",
+        "CompletedRun": "rec:CompletedRun",
+        "FailedRun": "rec:FailedRun",
+        "InterruptedRun": "rec:InterruptedRun",
+        "CancelledRun": "rec:CancelledRun",
         "run_id": "rec:run-id",
+        "file_id": "rec:file-id",
         "label": "rec:label",
         "version": "dcat:version",
         "repositories": {
