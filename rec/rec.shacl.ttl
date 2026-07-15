@@ -27,8 +27,6 @@ rec:RunExecutionShape
         [ sh:class rec:InterruptedRun ]
         [ sh:class rec:CancelledRun ]
     ) ;
-    # The run is a prov:Activity, so use native activity timing.
-    # Elapsed is derived (endedAtTime - startedAtTime), not stored.
     sh:property [
         sh:path prov:startedAtTime ;
         sh:minCount 1 ;
