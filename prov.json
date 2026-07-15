@@ -14,6 +14,17 @@
         "Activity": "prov:Activity",
         "Collection": "prov:Collection",
         "Bundle": "prov:Bundle",
+        "Plan": "prov:Plan",
+        "Role": "prov:Role",
+
+        "Usage": "prov:Usage",
+        "Generation": "prov:Generation",
+        "Invalidation": "prov:Invalidation",
+        "Communication": "prov:Communication",
+        "Association": "prov:Association",
+        "Attribution": "prov:Attribution",
+        "Delegation": "prov:Delegation",
+        "Derivation": "prov:Derivation",
 
         "wasGeneratedBy": {
             "@id": "prov:wasGeneratedBy",
@@ -91,6 +102,25 @@
         "hasVersion": {
             "@id": "dcterms:hasVersion",
             "@type": "xsd:string"
-        }
+        },
+
+        "qualifiedGeneration": { "@id": "prov:qualifiedGeneration", "@type": "@id" },
+        "qualifiedUsage": { "@id": "prov:qualifiedUsage", "@type": "@id" },
+        "qualifiedInvalidation": { "@id": "prov:qualifiedInvalidation", "@type": "@id" },
+        "qualifiedCommunication": { "@id": "prov:qualifiedCommunication", "@type": "@id" },
+        "qualifiedAssociation": { "@id": "prov:qualifiedAssociation", "@type": "@id" },
+        "qualifiedAttribution": { "@id": "prov:qualifiedAttribution", "@type": "@id" },
+        "qualifiedDelegation": { "@id": "prov:qualifiedDelegation", "@type": "@id" },
+        "qualifiedDerivation": { "@id": "prov:qualifiedDerivation", "@type": "@id" },
+
+        "entity": { "@id": "prov:entity", "@type": "@id" },
+        "activity": { "@id": "prov:activity", "@type": "@id" },
+        "agent": { "@id": "prov:agent", "@type": "@id" },
+        "hadRole": { "@id": "prov:hadRole", "@type": "@id" },
+        "hadPlan": { "@id": "prov:hadPlan", "@type": "@id" },
+        "hadActivity": { "@id": "prov:hadActivity", "@type": "@id" },
+        "hadGeneration": { "@id": "prov:hadGeneration", "@type": "@id" },
+        "hadUsage": { "@id": "prov:hadUsage", "@type": "@id" },
+        "atTime": { "@id": "prov:atTime", "@type": "xsd:dateTime" }
     }
 }
