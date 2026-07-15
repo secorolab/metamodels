@@ -12,6 +12,8 @@ ms-exec-trace:Frame
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass ms-exec-trace:Frame ;
     sh:message "A trace frame needs a non-negative step and may name one active state and generation time." ;
+    # Tick index: one frame per control cycle. Many occurrences may share a
+    # frame; step orders frames, seq (below) orders occurrences within one.
     sh:property [
         sh:path ms-exec-trace:step ;
         sh:minCount 1 ;
@@ -40,8 +42,8 @@ ms-exec-trace:OccurrenceShape
         sh:class ms-exec-trace:Frame ;
         sh:nodeKind sh:IRI
     ] ;
-    # Run-global monotonic order; totally orders occurrences that share a frame
-    # (multiple constraints/monitors/events can occur in the same tick).
+    # Run-global monotonic counter; totally orders occurrences, including those
+    # sharing a frame (step) when several fire in the same tick.
     sh:property [
         sh:path ms-exec-trace:seq ;
         sh:minCount 1 ;
