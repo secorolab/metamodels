@@ -1,0 +1,53 @@
+{
+    "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "dct": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+
+        "DataService": "dcat:DataService",
+        "Catalog": "dcat:Catalog",
+        "Dataset": "dcat:Dataset",
+        "Distribution": "dcat:Distribution",
+
+        "title": "dct:title",
+        "description": "dct:description",
+        "license": "dct:license",
+        "issued": {
+            "@id": "dct:issued",
+            "@type": "xsd:dateTime"
+        },
+        "modified": {
+            "@id": "dct:modified",
+            "@type": "xsd:dateTime"
+        },
+        "publisher": {
+            "@id": "dct:publisher",
+            "@type": "@id"
+        },
+        "servesDataset": {
+            "@id": "dct:servesDataset",
+            "@type": "@id"
+        },
+        "dataset": {
+            "@id": "dcat:dataset",
+            "@type": "@id"
+        },
+        "distribution": {
+            "@id": "dcat:distribution",
+            "@type": "@id"
+        },
+        "conformsTo": {
+            "@id": "dct:conformsTo",
+            "@type": "@id"
+        },
+        "isPartOf": {
+            "@id": "dct:isPartOf",
+            "@type": "@id"
+        },
+        "endPointURL": "dcat:endPointURL",
+        "mediaType": "dcat:mediaType",
+        "accessURL": "dcat:accessURL",
+        "downloadURL": "dcat:downloadURL",
+        "themeTaxonomy": "dcat:themeTaxonomy"
+    }
+}
