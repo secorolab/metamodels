@@ -1,0 +1,32 @@
+@prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
+@prefix cstr-ext: <https://secorolab.github.io/metamodels/task/constraint#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+cstr-ext:ConstraintExpression
+    a rdfs:Class, sh:NodeShape ;
+    sh:message "A constraint expression must contain one or more atomic constraints or nested constraint expressions." ;
+    sh:property [
+        sh:path cstr-ext:has-constraint ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:or (
+            [ sh:class cstr:Constraint ]
+            [ sh:class cstr-ext:ConstraintConjunction ]
+            [ sh:class cstr-ext:ConstraintDisjunction ]
+        )
+    ] .
+
+cstr-ext:ConstraintConjunction
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr-ext:ConstraintExpression ;
+    sh:targetClass cstr-ext:ConstraintConjunction ;
+    sh:message "A constraint conjunction must contain one or more atomic constraints or nested constraint expressions." ;
+    sh:node cstr-ext:ConstraintExpression .
+
+cstr-ext:ConstraintDisjunction
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr-ext:ConstraintExpression ;
+    sh:targetClass cstr-ext:ConstraintDisjunction ;
+    sh:message "A constraint disjunction must contain one or more atomic constraints or nested constraint expressions." ;
+    sh:node cstr-ext:ConstraintExpression .

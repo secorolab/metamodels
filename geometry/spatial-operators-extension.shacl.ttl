@@ -1,0 +1,31 @@
+@prefix geom-op:  <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#> .
+@prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
+@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:       <http://www.w3.org/ns/shacl#> .
+
+geom-op-ext:PoseDiffEvaluator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PoseDiffEvaluator ;
+    sh:message "A pose-difference evaluator needs two pose-coordinate inputs and one pose-difference-coordinate output." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:out ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseDifferenceCoordinate
+    ] .

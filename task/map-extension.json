@@ -1,0 +1,78 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "map": "https://comp-rob2b.github.io/metamodels/task/map#",
+        "map-ext": "https://secorolab.github.io/metamodels/task/map#",
+        "axis": {
+            "@id": "map:axis",
+            "@type": "@vocab",
+            "@context": { "x": "map:x", "y": "map:y", "z": "map:z" }
+        },
+
+        "PoseCoordinateView": {
+            "@id": "map-ext:PoseCoordinateView",
+            "@context": {
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "position": "map-ext:position",
+                        "orientation": "map-ext:orientation"
+                    }
+                }
+            }
+        },
+        "VelocityTwistCoordinateView": {
+            "@id": "map-ext:VelocityTwistCoordinateView",
+            "@context": {
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "angular-velocity": "map:angular-velocity",
+                        "linear-velocity": "map:linear-velocity"
+                    }
+                }
+            }
+        },
+        "AccelerationTwistCoordinateView": {
+            "@id": "map-ext:AccelerationTwistCoordinateView",
+            "@context": {
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "angular-acceleration": "map:angular-acceleration",
+                        "linear-acceleration": "map:linear-acceleration"
+                    }
+                }
+            }
+        },
+        "WrenchCoordinateView": {
+            "@id": "map-ext:WrenchCoordinateView",
+            "@context": {
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "force": "map:force",
+                        "torque": "map:torque"
+                    }
+                }
+            }
+        },
+        "PoseDifferenceView": {
+            "@id": "map-ext:PoseDifferenceView",
+            "@context": {
+                "subspace": {
+                    "@id": "map:subspace",
+                    "@type": "@vocab",
+                    "@context": {
+                        "linear": "map-ext:linear",
+                        "angular": "map-ext:angular"
+                    }
+                }
+            }
+        }
+    }
+}

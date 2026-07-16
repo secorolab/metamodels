@@ -1,0 +1,16 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "geom-op": "https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#",
+        "geom-op-ext": "https://secorolab.github.io/metamodels/geometry/spatial-operators#",
+
+        "PoseDiffEvaluator": {
+            "@id": "geom-op-ext:PoseDiffEvaluator",
+            "@context": {
+                "in1": { "@id": "geom-op:in1", "@type": "@id" },
+                "in2": { "@id": "geom-op:in2", "@type": "@id" },
+                "out": { "@id": "geom-op:out", "@type": "@id" }
+            }
+        }
+    }
+}

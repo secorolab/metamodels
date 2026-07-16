@@ -1,0 +1,15 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "cstr-ext": "https://secorolab.github.io/metamodels/task/constraint#",
+
+        "ConstraintExpression": "cstr-ext:ConstraintExpression",
+        "ConstraintConjunction": "cstr-ext:ConstraintConjunction",
+        "ConstraintDisjunction": "cstr-ext:ConstraintDisjunction",
+        "has-constraint": {
+            "@id": "cstr-ext:has-constraint",
+            "@type": "@id",
+            "@container": "@set"
+        }
+    }
+}

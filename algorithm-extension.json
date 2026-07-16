@@ -1,0 +1,19 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "algo-ext": "https://secorolab.github.io/metamodels/algorithm#",
+
+        "limits": { "@id": "algo-ext:limits", "@type": "@id" },
+
+        "Saturation": {
+            "@id": "algo-ext:Saturation",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" },
+                "maximum-absolute-value": { "@id": "algo-ext:maximum-absolute-value", "@type": "@id" },
+                "lower-bound": { "@id": "algo-ext:lower-bound", "@type": "@id" },
+                "upper-bound": { "@id": "algo-ext:upper-bound", "@type": "@id" }
+            }
+        }
+    }
+}

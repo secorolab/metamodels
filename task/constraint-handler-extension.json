@@ -1,0 +1,30 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
+        "traj": "https://secorolab.github.io/metamodels/task/trajectory#",
+
+        "reference-signal": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
+        "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
+        "Admittance": {
+            "@id": "cstr-hdl-ext:Admittance",
+            "@context": {
+                "force": { "@id": "cstr-hdl-ext:force", "@type": "@id" },
+                "mass": { "@id": "cstr-hdl-ext:mass", "@type": "@id" },
+                "damping": { "@id": "cstr-hdl-ext:damping", "@type": "@id" },
+                "stiffness": { "@id": "cstr-hdl-ext:stiffness", "@type": "@id" },
+                "reference": { "@id": "traj:reference", "@type": "@id" }
+            }
+        },
+
+        "fallback-motion": {
+            "@id": "cstr-hdl-ext:fallback-motion",
+            "@type": "@id"
+        },
+        "debounce-duration": {
+            "@id": "cstr-hdl-ext:debounce-duration",
+            "@type": "@id"
+        }
+    }
+}
