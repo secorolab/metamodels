@@ -48,6 +48,22 @@
         "ControlDifference": "ctrl-sys:ControlDifference",
         "ControllerOutputVariable": "ctrl-sys:ControllerOutputVariable",
         "ManipulatedVariable": "ctrl-sys:ManipulatedVariable",
-        "DisturbanceVariable": "ctrl-sys:DisturbanceVariable"
+        "DisturbanceVariable": "ctrl-sys:DisturbanceVariable",
+
+        "controlled-system": { "@id": "ctrl-sys:controlled-system", "@type": "@id" },
+        "controlling-system": { "@id": "ctrl-sys:controlling-system", "@type": "@id" },
+        "control-loop": { "@id": "ctrl-sys:control-loop", "@type": "@id", "@container": "@set" },
+        "controller": { "@id": "ctrl-sys:controller", "@type": "@id" },
+        "plant": { "@id": "ctrl-sys:plant", "@type": "@id" },
+        "measuring-element": { "@id": "ctrl-sys:measuring-element", "@type": "@id" },
+        "final-controlling-element": { "@id": "ctrl-sys:final-controlling-element", "@type": "@id" },
+        "reference-variable": { "@id": "ctrl-sys:reference-variable", "@type": "@id" },
+        "controlled-variable": { "@id": "ctrl-sys:controlled-variable", "@type": "@id" },
+        "feedback-variable": { "@id": "ctrl-sys:feedback-variable", "@type": "@id" },
+        "control-difference": { "@id": "ctrl-sys:control-difference", "@type": "@id" },
+        "controller-output-variable": { "@id": "ctrl-sys:controller-output-variable", "@type": "@id" },
+        "manipulated-variable": { "@id": "ctrl-sys:manipulated-variable", "@type": "@id" },
+        "disturbance-variable": { "@id": "ctrl-sys:disturbance-variable", "@type": "@id", "@container": "@set" },
+        "represents-quantity": { "@id": "ctrl-sys:represents-quantity", "@type": "@id" }
     }
 }

@@ -55,7 +55,20 @@
                 "desired-events": { "@id": "ctrl-comp:desired-events", "@type": "@id", "@container": "@set" }
             }
         },
+        "activity": { "@id": "ctrl-comp:activity", "@type": "@id", "@container": "@set" },
+        "realizes-controller": { "@id": "ctrl-comp:realizes-controller", "@type": "@id" },
+        "algorithm": { "@id": "ctrl-comp:algorithm", "@type": "@id" },
+        "schedule": { "@id": "ctrl-comp:schedule", "@type": "@id", "@container": "@set" },
+        "data-name": { "@id": "ctrl-comp:data-name", "@type": "xsd:string" },
+        "data-type": { "@id": "ctrl-comp:data-type", "@type": "xsd:string" },
+        "initial-value": { "@id": "ctrl-comp:initial-value", "@type": "xsd:string" },
+        "algorithm-details": { "@id": "ctrl-comp:algorithm-details", "@type": "@id" },
+        "uses-data": { "@id": "ctrl-comp:uses-data", "@type": "@id", "@container": "@set" },
+        "produces-data": { "@id": "ctrl-comp:produces-data", "@type": "@id", "@container": "@set" },
+        "invokes-operation": { "@id": "ctrl-comp:invokes-operation", "@type": "@id" },
         "schedule-callback": { "@id": "ctrl-comp:schedule-callback", "@type": "@id", "@container": "@set" },
+        "schedule-to-call": { "@id": "ctrl-comp:schedule-to-call", "@type": "@id" },
+        "desired-events": { "@id": "ctrl-comp:desired-events", "@type": "@id", "@container": "@set" },
         "trigger-chain": { "@id": "algo:trigger-chain", "@type": "@id", "@container": "@list" },
 
         "Algorithm": "ctrl-comp:ControlAlgorithm",

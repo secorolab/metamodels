@@ -4,6 +4,7 @@
         "ctrl-sup": "https://secorolab.github.io/metamodels/control/supervision#",
         "cstr": "https://comp-rob2b.github.io/metamodels/task/constraint#",
         "el": "https://secorolab.github.io/metamodels/behaviour/event_loop#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
 
         "Constraint": "cstr:Constraint",
         "GreaterThanConstraint": "cstr:GreaterThanConstraint",
@@ -57,6 +58,19 @@
         },
         "Flag": "el:Flag",
         "Event": "el:Event",
+
+        "quantity": { "@id": "cstr:quantity", "@type": "@id" },
+        "reference-value": { "@id": "cstr:reference-value", "@type": "@id" },
+        "threshold": { "@id": "cstr:threshold", "@type": "@id" },
+        "lower-threshold": { "@id": "cstr:lower-threshold", "@type": "@id" },
+        "upper-threshold": { "@id": "cstr:upper-threshold", "@type": "@id" },
+        "lower-bound": { "@id": "cstr:lower-threshold", "@type": "@id" },
+        "upper-bound": { "@id": "cstr:upper-threshold", "@type": "@id" },
+        "monitored-constraint": { "@id": "ctrl-sup:monitored-constraint", "@type": "@id" },
+        "sets-flag": { "@id": "ctrl-sup:sets-flag", "@type": "@id" },
+        "emits-event": { "@id": "ctrl-sup:emits-event", "@type": "@id" },
+        "controls-under-condition": { "@id": "ctrl-sup:controls-under-condition", "@type": "@id", "@container": "@set" },
+        "selects-controller": { "@id": "ctrl-sup:selects-controller", "@type": "@id" },
 
         "Plan": {
             "@id": "ctrl-sup:ControlPlan",
