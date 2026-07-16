@@ -1,0 +1,48 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+@prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
+@prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix ctrl-sup: <https://secorolab.github.io/metamodels/control/supervision#> .
+@prefix el: <https://secorolab.github.io/metamodels/behaviour/event_loop#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+ctrl-sup:WithinIntervalEvaluation
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf cstr:BilateralConstraint ;
+  sh:targetClass ctrl-sup:WithinIntervalEvaluation ;
+  sh:property [ sh:path cstr:lower-threshold ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cstr:upper-threshold ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-sup:OutsideIntervalEvaluation
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf cstr:BilateralConstraint ;
+  sh:targetClass ctrl-sup:OutsideIntervalEvaluation ;
+  sh:property [ sh:path cstr:lower-threshold ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path cstr:upper-threshold ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-sup:ConstraintMonitor
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:label "constraint monitor" ;
+  sh:targetClass ctrl-sup:ConstraintMonitor ;
+  sh:property [ sh:path ctrl-sup:monitored-constraint ; sh:class cstr:Constraint ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-sup:FlagMonitor
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl-sup:ConstraintMonitor ;
+  sh:targetClass ctrl-sup:FlagMonitor ;
+  sh:property [ sh:path ctrl-sup:sets-flag ; sh:class el:Flag ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-sup:EventMonitor
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl-sup:ConstraintMonitor ;
+  sh:targetClass ctrl-sup:EventMonitor ;
+  sh:property [ sh:path ctrl-sup:emits-event ; sh:class el:Event ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-sup:ControllerSelector
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:label "controller selector" ;
+  rdfs:comment "A supervisory component that selects a controller under one or more constraints." ;
+  sh:targetClass ctrl-sup:ControllerSelector ;
+  sh:property [ sh:path ctrl-sup:controls-under-condition ; sh:class cstr:Constraint ; sh:minCount 1 ] ;
+  sh:property [ sh:path ctrl-sup:selects-controller ; sh:class cstr-hdl:Controller ; sh:minCount 1 ; sh:maxCount 1 ] .

@@ -6,3 +6,5 @@ _site/
 .bundle/
 vendor/
 Gemfile.lock
+__pycache__/
+*.py[cod]

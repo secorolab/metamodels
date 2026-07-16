@@ -1,0 +1,61 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "ctrl-comp": "https://secorolab.github.io/metamodels/control/computation#",
+        "algo": "https://comp-rob2b.github.io/metamodels/algorithm#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+        "ControlAlgorithm": {
+            "@id": "ctrl-comp:ControlAlgorithm",
+            "@context": {
+                "activity": { "@id": "ctrl-comp:activity", "@type": "@id", "@container": "@set" },
+                "realizes-controller": { "@id": "ctrl-comp:realizes-controller", "@type": "@id" }
+            }
+        },
+        "ControllerRealization": {
+            "@id": "ctrl-comp:ControllerRealization",
+            "@context": {
+                "realizes-controller": { "@id": "ctrl-comp:realizes-controller", "@type": "@id" },
+                "algorithm": { "@id": "ctrl-comp:algorithm", "@type": "@id" },
+                "schedule": { "@id": "ctrl-comp:schedule", "@type": "@id", "@container": "@set" }
+            }
+        },
+        "ControlData": {
+            "@id": "ctrl-comp:ControlData",
+            "@context": {
+                "data-name": { "@id": "ctrl-comp:data-name", "@type": "xsd:string" },
+                "data-type": { "@id": "ctrl-comp:data-type", "@type": "xsd:string" },
+                "initial-value": { "@id": "ctrl-comp:initial-value", "@type": "xsd:string" }
+            }
+        },
+        "ControlActivity": {
+            "@id": "ctrl-comp:ControlActivity",
+            "@context": {
+                "algorithm-details": { "@id": "ctrl-comp:algorithm-details", "@type": "@id" },
+                "uses-data": { "@id": "ctrl-comp:uses-data", "@type": "@id", "@container": "@set" },
+                "produces-data": { "@id": "ctrl-comp:produces-data", "@type": "@id", "@container": "@set" }
+            }
+        },
+        "FunctionInvocation": {
+            "@id": "ctrl-comp:FunctionInvocation",
+            "@context": {
+                "invokes-operation": { "@id": "ctrl-comp:invokes-operation", "@type": "@id" }
+            }
+        },
+        "Schedule": "algo:Schedule",
+        "ScheduleCallback": {
+            "@id": "ctrl-comp:ScheduleCallback",
+            "@context": {
+                "schedule-to-call": { "@id": "ctrl-comp:schedule-to-call", "@type": "@id" }
+            }
+        },
+        "EventBasedScheduleCallback": {
+            "@id": "ctrl-comp:EventBasedScheduleCallback",
+            "@context": {
+                "desired-events": { "@id": "ctrl-comp:desired-events", "@type": "@id", "@container": "@set" }
+            }
+        },
+        "schedule-callback": { "@id": "ctrl-comp:schedule-callback", "@type": "@id", "@container": "@set" },
+        "trigger-chain": { "@id": "algo:trigger-chain", "@type": "@id", "@container": "@list" }
+    }
+}

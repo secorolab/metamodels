@@ -1,0 +1,46 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+@prefix algo: <https://comp-rob2b.github.io/metamodels/algorithm#> .
+@prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix ctrl-comp: <https://secorolab.github.io/metamodels/control/computation#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ctrl-comp:ControlData
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:label "control data" ;
+  rdfs:comment "A runtime data item used by a controller realization." ;
+  sh:targetClass ctrl-comp:ControlData ;
+  sh:property [ sh:path ctrl-comp:data-name ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl-comp:data-type ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-comp:ControlActivity
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:label "control activity" ;
+  sh:targetClass ctrl-comp:ControlActivity ;
+  sh:property [ sh:path ctrl-comp:algorithm-details ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-comp:ControllerRealization
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:label "controller realization" ;
+  rdfs:comment "The computational algorithm and schedule that realize a controller." ;
+  sh:targetClass ctrl-comp:ControllerRealization ;
+  sh:property [ sh:path ctrl-comp:realizes-controller ; sh:class cstr-hdl:Controller ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl-comp:algorithm ; sh:class ctrl-comp:ControlAlgorithm ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-comp:ControlAlgorithm
+  a rdfs:Class, sh:NodeShape ;
+  sh:targetClass ctrl-comp:ControlAlgorithm ;
+  sh:property [ sh:path ctrl-comp:activity ; sh:class ctrl-comp:ControlActivity ; sh:minCount 1 ] .
+
+ctrl-comp:ScheduleCallback
+  a rdfs:Class, sh:NodeShape ;
+  sh:targetClass ctrl-comp:ScheduleCallback ;
+  sh:property [ sh:path ctrl-comp:schedule-to-call ; sh:class algo:Schedule ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-comp:EventBasedScheduleCallback
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl-comp:ScheduleCallback ;
+  sh:targetClass ctrl-comp:EventBasedScheduleCallback ;
+  sh:property [ sh:path ctrl-comp:desired-events ; sh:minCount 1 ] .

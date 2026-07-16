@@ -1,0 +1,125 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+@prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
+@prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix ctrl: <https://secorolab.github.io/metamodels/control/controller#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+ctrl:DetailedController
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf cstr-hdl:Controller ;
+  rdfs:label "detailed controller" ;
+  rdfs:comment "A controller described by a control law, operations, signals, parameters, state, and realization links." ;
+  sh:targetClass ctrl:DetailedController ;
+  sh:property [ sh:path ctrl:control-law ; sh:class ctrl:ControlLaw ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [
+    sh:path ctrl:operation ;
+    sh:minCount 1 ;
+    sh:or ( [ sh:class ctrl:ControllerOperation ] [ sh:class algo-ext:Saturation ] )
+  ] ;
+  sh:property [ sh:path cstr-hdl:control-signal ; sh:class ctrl:ControlSignal ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:ControlLaw
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:label "control law" ;
+  rdfs:comment "The mathematical relation that defines a controller's output from its inputs, parameters, and state." ;
+  sh:targetClass ctrl:ControlLaw ;
+  sh:property [ sh:path ctrl:output-composition ; sh:class ctrl:OutputComposition ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:ProportionalControlLaw
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl:ControlLaw ;
+  sh:targetClass ctrl:ProportionalControlLaw ;
+  sh:property [ sh:path ctrl:proportional-action ; sh:class ctrl:ProportionalAction ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:PIDControlLaw
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl:ControlLaw ;
+  sh:targetClass ctrl:PIDControlLaw ;
+  sh:property [ sh:path ctrl:proportional-action ; sh:class ctrl:ProportionalAction ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl:integral-action ; sh:class ctrl:IntegralAction ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl:derivative-action ; sh:class ctrl:DerivativeAction ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:ImpedanceControlLaw
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl:ControlLaw ;
+  sh:targetClass ctrl:ImpedanceControlLaw ;
+  sh:property [ sh:path ctrl:stiffness-parameter ; sh:class ctrl:ControllerParameter ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl:damping-parameter ; sh:class ctrl:ControllerParameter ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:ABAGControlLaw
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl:ControlLaw ;
+  sh:targetClass ctrl:ABAGControlLaw ;
+  sh:property [ sh:path ctrl:adaptive-bias ; sh:class ctrl:AdaptiveBias ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl:adaptive-gain ; sh:class ctrl:AdaptiveGain ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:AdaptiveBiasAdaptiveGainController
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl:DetailedController ;
+  rdfs:label "adaptive bias adaptive gain controller" ;
+  rdfs:comment "A controller whose bias and gain are adapted from error-derived signals." ;
+  sh:targetClass ctrl:AdaptiveBiasAdaptiveGainController ;
+  sh:property [ sh:path ctrl:control-law ; sh:class ctrl:ABAGControlLaw ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:ControllerOperation
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:label "controller operation" ;
+  sh:targetClass ctrl:ControllerOperation ;
+  sh:property [ sh:path ctrl:input ; sh:class ctrl:ControlSignal ; sh:minCount 1 ] ;
+  sh:property [ sh:path ctrl:output ; sh:class ctrl:ControlSignal ; sh:minCount 1 ] .
+
+ctrl:ProportionalAction
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl:ControllerOperation ;
+  sh:targetClass ctrl:ProportionalAction ;
+  sh:property [ sh:path ctrl:gain ; sh:class ctrl:ControllerParameter ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:ErrorComputation a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ctrl:ControllerOperation ; sh:targetClass ctrl:ErrorComputation .
+ctrl:IntegralAction a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ctrl:ControllerOperation ; sh:targetClass ctrl:IntegralAction .
+ctrl:DerivativeAction a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ctrl:ControllerOperation ; sh:targetClass ctrl:DerivativeAction .
+ctrl:LowPassFilter a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ctrl:ControllerOperation ; sh:targetClass ctrl:LowPassFilter .
+ctrl:Signum a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ctrl:ControllerOperation ; sh:targetClass ctrl:Signum .
+ctrl:AbsoluteValue a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ctrl:ControllerOperation ; sh:targetClass ctrl:AbsoluteValue .
+ctrl:HeavisideStep a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ctrl:ControllerOperation ; sh:targetClass ctrl:HeavisideStep .
+ctrl:Scaling a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ctrl:ControllerOperation ; sh:targetClass ctrl:Scaling .
+ctrl:OutputMapping a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ctrl:ControllerOperation ; sh:targetClass ctrl:OutputMapping .
+ctrl:Gain a rdfs:Class, sh:NodeShape ; rdfs:subClassOf ctrl:ControllerOperation ; sh:targetClass ctrl:Gain .
+
+ctrl:SummationJunction
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl:ControllerOperation ;
+  sh:targetClass ctrl:SummationJunction ;
+  sh:property [ sh:path ctrl:input ; sh:class ctrl:ControlSignal ; sh:minCount 2 ] .
+
+ctrl:OutputComposition
+  a rdfs:Class, sh:NodeShape ;
+  sh:targetClass ctrl:OutputComposition ;
+  sh:property [ sh:path ctrl:output ; sh:class ctrl:ControlSignal ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:AdaptiveBias
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl:ControllerOperation ;
+  sh:targetClass ctrl:AdaptiveBias ;
+  sh:property [ sh:path ctrl:adaptation-threshold ; sh:class ctrl:ControllerParameter ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl:adaptation-step ; sh:class ctrl:ControllerParameter ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl:adaptive-value ; sh:class ctrl:ControllerState ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:AdaptiveGain
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl:ControllerOperation ;
+  sh:targetClass ctrl:AdaptiveGain ;
+  sh:property [ sh:path ctrl:adaptation-threshold ; sh:class ctrl:ControllerParameter ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl:adaptation-step ; sh:class ctrl:ControllerParameter ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl:adaptive-value ; sh:class ctrl:ControllerState ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl:ControllerParameter a rdfs:Class, sh:NodeShape ; sh:targetClass ctrl:ControllerParameter .
+ctrl:ControllerState a rdfs:Class, sh:NodeShape ; sh:targetClass ctrl:ControllerState .
+ctrl:ControlSignal a rdfs:Class, sh:NodeShape ; sh:targetClass ctrl:ControlSignal .
+ctrl:ReferenceSignal rdfs:subClassOf ctrl:ControlSignal .
+ctrl:FeedbackSignal rdfs:subClassOf ctrl:ControlSignal .
+ctrl:ErrorSignal rdfs:subClassOf ctrl:ControlSignal .
+ctrl:ControlCommand rdfs:subClassOf ctrl:ControlSignal .
+
+ctrl:DetailedController sh:property [ sh:path algo-ext:limits ; sh:class algo-ext:Saturation ] .

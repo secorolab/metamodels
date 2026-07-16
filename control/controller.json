@@ -1,0 +1,117 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "ctrl": "https://secorolab.github.io/metamodels/control/controller#",
+        "algo-ext": "https://secorolab.github.io/metamodels/algorithm#",
+        "cstr-hdl": "https://comp-rob2b.github.io/metamodels/task/constraint-handler#",
+        "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
+
+        "Controller": "cstr-hdl:Controller",
+        "ProportionalIntegralDerivative": "cstr-hdl:ProportionalIntegralDerivative",
+        "ImpedanceController": "cstr-hdl:ImpedanceController",
+        "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
+        "Admittance": "cstr-hdl-ext:Admittance",
+        "Saturation": "algo-ext:Saturation",
+
+        "DetailedController": {
+            "@id": "ctrl:DetailedController",
+            "@context": {
+                "control-law": { "@id": "ctrl:control-law", "@type": "@id" },
+                "operation": { "@id": "ctrl:operation", "@type": "@id", "@container": "@set" },
+                "parameter": { "@id": "ctrl:parameter", "@type": "@id", "@container": "@set" },
+                "state": { "@id": "ctrl:state", "@type": "@id", "@container": "@set" },
+                "input-signal": { "@id": "ctrl:input-signal", "@type": "@id", "@container": "@set" },
+                "output-signal": { "@id": "ctrl:output-signal", "@type": "@id", "@container": "@set" },
+                "reference-signal": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
+                "feedback-signal": { "@id": "ctrl:feedback-signal", "@type": "@id" },
+                "error-signal": { "@id": "cstr-hdl:error-signal", "@type": "@id" },
+                "control-signal": { "@id": "cstr-hdl:control-signal", "@type": "@id" },
+                "limit": { "@id": "algo-ext:limits", "@type": "@id", "@container": "@set" },
+                "realization": { "@id": "ctrl:realization", "@type": "@id" }
+            }
+        },
+
+        "ControlLaw": "ctrl:ControlLaw",
+        "ProportionalControlLaw": {
+            "@id": "ctrl:ProportionalControlLaw",
+            "@context": {
+                "proportional-action": { "@id": "ctrl:proportional-action", "@type": "@id" },
+                "output-composition": { "@id": "ctrl:output-composition", "@type": "@id" }
+            }
+        },
+        "PIDControlLaw": {
+            "@id": "ctrl:PIDControlLaw",
+            "@context": {
+                "proportional-action": { "@id": "ctrl:proportional-action", "@type": "@id" },
+                "integral-action": { "@id": "ctrl:integral-action", "@type": "@id" },
+                "derivative-action": { "@id": "ctrl:derivative-action", "@type": "@id" },
+                "output-composition": { "@id": "ctrl:output-composition", "@type": "@id" }
+            }
+        },
+        "ImpedanceControlLaw": {
+            "@id": "ctrl:ImpedanceControlLaw",
+            "@context": {
+                "stiffness-parameter": { "@id": "ctrl:stiffness-parameter", "@type": "@id" },
+                "damping-parameter": { "@id": "ctrl:damping-parameter", "@type": "@id" },
+                "inertia-parameter": { "@id": "ctrl:inertia-parameter", "@type": "@id" },
+                "output-composition": { "@id": "ctrl:output-composition", "@type": "@id" }
+            }
+        },
+        "ABAGControlLaw": {
+            "@id": "ctrl:ABAGControlLaw",
+            "@context": {
+                "adaptive-bias": { "@id": "ctrl:adaptive-bias", "@type": "@id" },
+                "adaptive-gain": { "@id": "ctrl:adaptive-gain", "@type": "@id" },
+                "output-composition": { "@id": "ctrl:output-composition", "@type": "@id" }
+            }
+        },
+        "AdaptiveBiasAdaptiveGainController": "ctrl:AdaptiveBiasAdaptiveGainController",
+
+        "ControlSignal": "ctrl:ControlSignal",
+        "ReferenceSignal": "ctrl:ReferenceSignal",
+        "FeedbackSignal": "ctrl:FeedbackSignal",
+        "ErrorSignal": "ctrl:ErrorSignal",
+        "ControlCommand": "ctrl:ControlCommand",
+        "ControllerParameter": "ctrl:ControllerParameter",
+        "ControllerState": "ctrl:ControllerState",
+
+        "ControllerOperation": {
+            "@id": "ctrl:ControllerOperation",
+            "@context": {
+                "input": { "@id": "ctrl:input", "@type": "@id", "@container": "@set" },
+                "output": { "@id": "ctrl:output", "@type": "@id", "@container": "@set" },
+                "operation-parameter": { "@id": "ctrl:operation-parameter", "@type": "@id", "@container": "@set" },
+                "operation-state": { "@id": "ctrl:operation-state", "@type": "@id", "@container": "@set" }
+            }
+        },
+        "ErrorComputation": "ctrl:ErrorComputation",
+        "ProportionalAction": { "@id": "ctrl:ProportionalAction", "@context": { "gain": { "@id": "ctrl:gain", "@type": "@id" } } },
+        "IntegralAction": "ctrl:IntegralAction",
+        "DerivativeAction": "ctrl:DerivativeAction",
+        "SummationJunction": "ctrl:SummationJunction",
+        "Gain": { "@id": "ctrl:Gain", "@context": { "gain": { "@id": "ctrl:gain", "@type": "@id" } } },
+        "LowPassFilter": "ctrl:LowPassFilter",
+        "Signum": "ctrl:Signum",
+        "AbsoluteValue": "ctrl:AbsoluteValue",
+        "HeavisideStep": "ctrl:HeavisideStep",
+        "Scaling": "ctrl:Scaling",
+        "OutputMapping": "ctrl:OutputMapping",
+        "AdaptiveBias": {
+            "@id": "ctrl:AdaptiveBias",
+            "@context": {
+                "adaptation-threshold": { "@id": "ctrl:adaptation-threshold", "@type": "@id" },
+                "adaptation-step": { "@id": "ctrl:adaptation-step", "@type": "@id" },
+                "adaptive-value": { "@id": "ctrl:adaptive-value", "@type": "@id" }
+            }
+        },
+        "AdaptiveGain": {
+            "@id": "ctrl:AdaptiveGain",
+            "@context": {
+                "adaptation-threshold": { "@id": "ctrl:adaptation-threshold", "@type": "@id" },
+                "adaptation-step": { "@id": "ctrl:adaptation-step", "@type": "@id" },
+                "adaptive-value": { "@id": "ctrl:adaptive-value", "@type": "@id" }
+            }
+        },
+        "OutputComposition": "ctrl:OutputComposition"
+    }
+}

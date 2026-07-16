@@ -1,0 +1,55 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "ctrl-sup": "https://secorolab.github.io/metamodels/control/supervision#",
+        "cstr": "https://comp-rob2b.github.io/metamodels/task/constraint#",
+        "el": "https://secorolab.github.io/metamodels/behaviour/event_loop#",
+
+        "Constraint": "cstr:Constraint",
+        "GreaterThanConstraint": "cstr:GreaterThanConstraint",
+        "LessThanConstraint": "cstr:LessThanConstraint",
+        "EqualConstraint": "cstr:EqualityConstraint",
+        "WithinIntervalEvaluation": {
+            "@id": "ctrl-sup:WithinIntervalEvaluation",
+            "@context": {
+                "lower-bound": { "@id": "cstr:lower-threshold", "@type": "@id" },
+                "upper-bound": { "@id": "cstr:upper-threshold", "@type": "@id" }
+            }
+        },
+        "OutsideIntervalEvaluation": {
+            "@id": "ctrl-sup:OutsideIntervalEvaluation",
+            "@context": {
+                "lower-bound": { "@id": "cstr:lower-threshold", "@type": "@id" },
+                "upper-bound": { "@id": "cstr:upper-threshold", "@type": "@id" }
+            }
+        },
+
+        "ConstraintMonitor": {
+            "@id": "ctrl-sup:ConstraintMonitor",
+            "@context": {
+                "monitored-constraint": { "@id": "ctrl-sup:monitored-constraint", "@type": "@id" }
+            }
+        },
+        "FlagMonitor": {
+            "@id": "ctrl-sup:FlagMonitor",
+            "@context": {
+                "sets-flag": { "@id": "ctrl-sup:sets-flag", "@type": "@id" }
+            }
+        },
+        "EventMonitor": {
+            "@id": "ctrl-sup:EventMonitor",
+            "@context": {
+                "emits-event": { "@id": "ctrl-sup:emits-event", "@type": "@id" }
+            }
+        },
+        "ControllerSelector": {
+            "@id": "ctrl-sup:ControllerSelector",
+            "@context": {
+                "controls-under-condition": { "@id": "ctrl-sup:controls-under-condition", "@type": "@id", "@container": "@set" },
+                "selects-controller": { "@id": "ctrl-sup:selects-controller", "@type": "@id" }
+            }
+        },
+        "Flag": "el:Flag",
+        "Event": "el:Event"
+    }
+}
