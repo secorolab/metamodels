@@ -1,6 +1,6 @@
 {
     "comp-rob2b": {
-        "repository": "https://github.com/RoboticsCosmos/metamodels.git",
+        "repository": "https://github.com/comp-rob2b/metamodels.git",
         "commit": "ba7e601cf8b9b9f6156670962ed857c05ac4b2b7"
     }
 }
