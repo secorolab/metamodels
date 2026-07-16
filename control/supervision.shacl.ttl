@@ -21,6 +21,13 @@ ctrl-sup:OutsideIntervalEvaluation
   sh:property [ sh:path cstr:lower-threshold ; sh:minCount 1 ; sh:maxCount 1 ] ;
   sh:property [ sh:path cstr:upper-threshold ; sh:minCount 1 ; sh:maxCount 1 ] .
 
+ctrl-sup:LessThanOrEqualToEvaluation rdfs:subClassOf cstr:LessThanConstraint .
+ctrl-sup:GreaterThanOrEqualToEvaluation rdfs:subClassOf cstr:GreaterThanConstraint .
+ctrl-sup:GreaterThanUpperLimitEvaluation rdfs:subClassOf cstr:GreaterThanConstraint .
+ctrl-sup:GreaterThanLowerLimitEvaluation rdfs:subClassOf cstr:GreaterThanConstraint .
+ctrl-sup:LowerThanLowerLimitEvaluation rdfs:subClassOf cstr:LessThanConstraint .
+ctrl-sup:LowerThanUpperLimitEvaluation rdfs:subClassOf cstr:LessThanConstraint .
+
 ctrl-sup:ConstraintMonitor
   a rdfs:Class, sh:NodeShape ;
   rdfs:label "constraint monitor" ;

@@ -23,6 +23,12 @@
                 "upper-bound": { "@id": "cstr:upper-threshold", "@type": "@id" }
             }
         },
+        "LessThanOrEqualToEvaluation": "ctrl-sup:LessThanOrEqualToEvaluation",
+        "GreaterThanOrEqualToEvaluation": "ctrl-sup:GreaterThanOrEqualToEvaluation",
+        "GreaterThanUpperLimitEvaluation": "ctrl-sup:GreaterThanUpperLimitEvaluation",
+        "GreaterThanLowerLimitEvaluation": "ctrl-sup:GreaterThanLowerLimitEvaluation",
+        "LowerThanLowerLimitEvaluation": "ctrl-sup:LowerThanLowerLimitEvaluation",
+        "LowerThanUpperLimitEvaluation": "ctrl-sup:LowerThanUpperLimitEvaluation",
 
         "ConstraintMonitor": {
             "@id": "ctrl-sup:ConstraintMonitor",
@@ -50,6 +56,44 @@
             }
         },
         "Flag": "el:Flag",
-        "Event": "el:Event"
+        "Event": "el:Event",
+
+        "Plan": {
+            "@id": "ctrl-sup:ControlPlan",
+            "@context": {
+                "set_of_states": { "@id": "ctrl-sup:control-state", "@type": "@id", "@container": "@set" }
+            }
+        },
+        "MotionSpecification": {
+            "@id": "https://comp-rob2b.github.io/metamodels/task/motion-specification#GuardedMotion",
+            "@context": {
+                "pre_condition": { "@id": "https://comp-rob2b.github.io/metamodels/task/motion-specification#when", "@type": "@id", "@container": "@set" },
+                "per_condition": { "@id": "https://comp-rob2b.github.io/metamodels/task/motion-specification#while", "@type": "@id", "@container": "@set" },
+                "post_condition": { "@id": "https://comp-rob2b.github.io/metamodels/task/motion-specification#until", "@type": "@id", "@container": "@set" }
+            }
+        },
+        "ConstraintToFlag": "ctrl-sup:FlagMonitor",
+        "ConstraintToEvent": "ctrl-sup:EventMonitor",
+        "ConstraintController": "ctrl-sup:ControllerSelector",
+        "InIntervalConstraint": "ctrl-sup:WithinIntervalEvaluation",
+        "OutOfIntervalConstraint": "ctrl-sup:OutsideIntervalEvaluation",
+        "GreaterThanEqualToConstraint": "ctrl-sup:GreaterThanOrEqualToEvaluation",
+        "LessThanEqualToConstraint": "ctrl-sup:LessThanOrEqualToEvaluation",
+        "GreaterThanUpperLimitConstraint": "ctrl-sup:GreaterThanUpperLimitEvaluation",
+        "GreaterThanLowerLimitConstraint": "ctrl-sup:GreaterThanLowerLimitEvaluation",
+        "LowerThanLowerLimitConstraint": "ctrl-sup:LowerThanLowerLimitEvaluation",
+        "LowerThanUpperLimitConstraint": "ctrl-sup:LowerThanUpperLimitEvaluation",
+        "constraints_controlled": { "@id": "ctrl-sup:controls-under-condition", "@type": "@id", "@container": "@set" },
+        "constraint_controller": { "@id": "ctrl-sup:selects-controller", "@type": "@id" },
+        "constraint_to_monitor": { "@id": "ctrl-sup:monitored-constraint", "@type": "@id" },
+        "quantity_to_compare": { "@id": "cstr:quantity", "@type": "@id" },
+        "quantity_to_compare_with": { "@id": "cstr:reference-value", "@type": "@id" },
+        "in_interval_lower_bound": { "@id": "cstr:lower-threshold", "@type": "@id" },
+        "in_interval_upper_bound": { "@id": "cstr:upper-threshold", "@type": "@id" },
+        "tolerance": { "@id": "ctrl-sup:tolerance", "@type": "@id" },
+        "flag_or_event_to_check": { "@id": "ctrl-sup:observed-output", "@type": "@id" },
+        "flag_set": { "@id": "ctrl-sup:sets-flag", "@type": "@id" },
+        "event_emitted": { "@id": "ctrl-sup:emits-event", "@type": "@id" },
+        "operator": { "@id": "ctrl-sup:comparison-operator", "@type": "xsd:string" }
     }
 }

@@ -56,6 +56,22 @@
             }
         },
         "schedule-callback": { "@id": "ctrl-comp:schedule-callback", "@type": "@id", "@container": "@set" },
-        "trigger-chain": { "@id": "algo:trigger-chain", "@type": "@id", "@container": "@list" }
+        "trigger-chain": { "@id": "algo:trigger-chain", "@type": "@id", "@container": "@list" },
+
+        "Algorithm": "ctrl-comp:ControlAlgorithm",
+        "Data": "ctrl-comp:ControlData",
+        "UncertainQuantity": "ctrl-comp:UncertainControlData",
+        "FunctionCall": "ctrl-comp:FunctionInvocation",
+        "Activity": "ctrl-comp:ControlActivity",
+        "algorithm_details": { "@id": "ctrl-comp:algorithm-details", "@type": "@id" },
+        "schedules_of_algorithm": { "@id": "ctrl-comp:activity", "@type": "@id", "@container": "@set" },
+        "sch_evnt_assn": { "@id": "ctrl-comp:schedule-callback", "@type": "@id", "@container": "@set" },
+        "data_type": { "@id": "ctrl-comp:data-type", "@type": "xsd:string" },
+        "data_name": { "@id": "ctrl-comp:data-name", "@type": "xsd:string" },
+        "uncertainty_data": { "@id": "ctrl-comp:uncertainty-data", "@type": "@id" },
+        "init_value": { "@id": "ctrl-comp:initial-value", "@type": "xsd:string" },
+        "schedule_to_call": { "@id": "ctrl-comp:schedule-to-call", "@type": "@id" },
+        "desired_events": { "@id": "ctrl-comp:desired-events", "@type": "@id", "@container": "@set" },
+        "trigger_chain": { "@id": "algo:trigger-chain", "@type": "@id", "@container": "@list" }
     }
 }
