@@ -21,3 +21,11 @@ algo-ext:Saturation
             sh:property [ sh:path algo-ext:maximum-absolute-value ; sh:maxCount 0 ]
         ]
     ) .
+
+algo-ext:Addition
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass algo-ext:Addition ;
+    sh:message "An addition needs two quantity inputs and one quantity output." ;
+    sh:property [ sh:path algo-ext:in1 ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:in2 ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] .

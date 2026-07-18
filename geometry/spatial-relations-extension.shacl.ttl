@@ -10,3 +10,14 @@ geom-rel-ext:PoseDifference
     sh:message "A pose difference must relate exactly one frame to exactly one reference frame." ;
     sh:property [ sh:path geom-rel:of ; sh:class geom:Frame ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path geom-rel:with-respect-to ; sh:class geom:Frame ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+geom-rel-ext:LinearDistanceShape
+    a sh:NodeShape ;
+    sh:targetClass geom-rel:LinearDistance ;
+    sh:message "A linear distance must relate exactly two entities." ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:minCount 2 ;
+        sh:maxCount 2 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .

@@ -14,6 +14,15 @@
                 "lower-bound": { "@id": "algo-ext:lower-bound", "@type": "@id" },
                 "upper-bound": { "@id": "algo-ext:upper-bound", "@type": "@id" }
             }
+        },
+
+        "Addition": {
+            "@id": "algo-ext:Addition",
+            "@context": {
+                "in1": { "@id": "algo-ext:in1", "@type": "@id" },
+                "in2": { "@id": "algo-ext:in2", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" }
+            }
         }
     }
 }
