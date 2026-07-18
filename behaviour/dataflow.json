@@ -1,0 +1,21 @@
+{
+    "@context": {
+        "df": "https://secorolab.github.io/metamodels/behaviour/dataflow#",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+
+        "Parameter": { "@id": "df:Parameter" },
+        "has-parameter": { "@id": "df:has-parameter", "@type": "@id" },
+        "name": { "@id": "df:name" },
+        "direction": { "@id": "df:direction", "@type": "@id" },
+        "Input": { "@id": "df:Input" },
+        "Output": { "@id": "df:Output" },
+        "InputOutput": { "@id": "df:InputOutput" },
+        "value-type": { "@id": "df:value-type" },
+
+        "Argument": { "@id": "df:Argument" },
+        "has-argument": { "@id": "df:has-argument", "@type": "@id" },
+        "DataReference": { "@id": "df:DataReference" },
+        "references": { "@id": "df:references", "@type": "@id" },
+        "value": { "@id": "rdf:value" }
+    }
+}
