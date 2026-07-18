@@ -11,6 +11,14 @@
                 "in2": { "@id": "geom-op:in2", "@type": "@id" },
                 "out": { "@id": "geom-op:out", "@type": "@id" }
             }
+        },
+
+        "PoseToAngularDistance": {
+            "@id": "geom-op-ext:PoseToAngularDistance",
+            "@context": {
+                "pose": { "@id": "geom-op:pose", "@type": "@id" },
+                "angular-distance": { "@id": "geom-op-ext:angular-distance", "@type": "@id" }
+            }
         }
     }
 }

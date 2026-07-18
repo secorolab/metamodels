@@ -5,6 +5,8 @@
 
         "VectorXY": "geom-coord:VectorXY",
 
+        "AngularDistanceCoordinate": "geom-coord:AngularDistanceCoordinate",
+
         "PoseDifferenceCoordinate": {
             "@id": "geom-coord:PoseDifferenceCoordinate",
             "@context": {

@@ -2,6 +2,8 @@
 @prefix cstr-ext: <https://secorolab.github.io/metamodels/task/constraint#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
+@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 
 cstr-ext:ConstraintExpression
     a rdfs:Class, sh:NodeShape ;
@@ -30,3 +32,61 @@ cstr-ext:ConstraintDisjunction
     sh:targetClass cstr-ext:ConstraintDisjunction ;
     sh:message "A constraint disjunction must contain one or more atomic constraints or nested constraint expressions." ;
     sh:node cstr-ext:ConstraintExpression .
+
+_:ConstraintPaths
+    sh:alternativePath (
+        cstr:upper-threshold
+        cstr:lower-threshold
+        cstr:threshold
+        cstr:reference-value
+    ) .
+
+cstr-ext:OutsideConstraint
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr:Constraint ;
+    sh:targetClass cstr-ext:OutsideConstraint ;
+    sh:message "Keeps its quantity outside the [lower, upper] band -- the complement of a bilateral constraint." ;
+    sh:property [
+        sh:path cstr:lower-threshold ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path cstr:upper-threshold ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+cstr-ext:AngleConstraint
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr:Constraint ;
+    sh:targetClass cstr-ext:AngleConstraint ;
+    sh:message "Constrains a plane-angle quantity against a plane-angle threshold." ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:class qudt_quant:PlaneAngle
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:class qudt_quant:PlaneAngle
+    ] .
+
+cstr-ext:AngularDistanceConstraint
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr:Constraint ;
+    sh:targetClass cstr-ext:AngularDistanceConstraint ;
+    sh:message "Constrains an angular distance (rotation angle) against a plane-angle threshold." ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:class geom-coord:AngularDistanceCoordinate
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:class qudt_quant:PlaneAngle
+    ] .

@@ -29,3 +29,22 @@ geom-op-ext:PoseDiffEvaluator
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class geom-coord:PoseDifferenceCoordinate
     ] .
+
+geom-op-ext:PoseToAngularDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PoseToAngularDistance ;
+    sh:message "A pose-to-angular-distance operator needs one pose-coordinate input and one angular-distance-coordinate output." ;
+    sh:property [
+        sh:path geom-op:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:angular-distance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:AngularDistanceCoordinate
+    ] .
