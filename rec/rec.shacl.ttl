@@ -1,0 +1,167 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix exec: <https://secorolab.github.io/metamodels/execution-context#> .
+@prefix obs: <https://secorolab.github.io/metamodels/observation#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rec: <https://secorolab.github.io/metamodels/rec#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rec:RunExecutionShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf rec:run-id ;
+    sh:class prov:Activity ;
+    sh:class exec:ExecutionContext ;
+    sh:property [
+        sh:path rec:run-id ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path rec:status ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    # The run is a prov:Activity, so use native activity timing.
+    # Elapsed is derived (endedAtTime - startedAtTime), not stored.
+    sh:property [
+        sh:path prov:startedAtTime ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:property [
+        sh:path prov:endedAtTime ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:property [
+        sh:path rec:repositories ;
+        sh:class rec:Repository ;
+    ] ;
+    sh:property [
+        sh:path rec:dependencies ;
+        sh:class rec:Dependency ;
+    ] ;
+    sh:property [
+        sh:path rec:host-info ;
+        sh:class rec:Host ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rec:agents ;
+        sh:class prov:Agent ;
+    ] ;
+    sh:property [
+        sh:path rec:activities ;
+        sh:class prov:Activity ;
+    ] ;
+    # resources: every input entity the run consumed (model sources, configs,
+    # data); each consumption is recorded as a qualified usage below. Software
+    # provenance of that input lives in rec:repositories / rec:dependencies.
+    sh:property [
+        sh:path rec:resources ;
+        sh:class prov:Entity ;
+    ] ;
+    sh:property [
+        sh:path prov:qualifiedUsage ;
+        sh:class prov:Usage ;
+    ] ;
+    # artefacts: output entities the run produced, each linked to its generating
+    # activity via a qualified generation (see ArtefactShape).
+    sh:property [
+        sh:path rec:artefacts ;
+        sh:node rec:ArtefactShape ;
+    ] ;
+    sh:property [
+        sh:path rec:metrics ;
+        sh:class rec:Metric ;
+    ] .
+
+rec:ArtefactShape
+    a sh:NodeShape ;
+    sh:class prov:Entity ;
+    sh:property [
+        sh:path prov:wasGeneratedBy ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class prov:Activity ;
+    ] ;
+    sh:property [
+        sh:path prov:qualifiedGeneration ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class prov:Generation ;
+    ] .
+
+# Dependency version is a literal pin (dcat:version), not baked into the label.
+rec:DependencyShape
+    a sh:NodeShape ;
+    sh:targetClass rec:Dependency ;
+    sh:property [
+        sh:path rec:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path dcat:version ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] .
+
+# prov:atLocation must be an IRI, so the path rides as a literal on the node.
+rec:PathLocationShape
+    a sh:NodeShape ;
+    sh:targetClass rec:PathLocation ;
+    sh:class prov:Location ;
+    sh:property [
+        sh:path rec:path ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] .
+
+rec:MetricShape
+    a sh:NodeShape ;
+    sh:targetClass rec:Metric ;
+    sh:class qudt:Quantity ;
+    sh:property [
+        sh:path qudt:hasQuantityKind ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path qudt:value ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:or (
+            [ sh:datatype xsd:integer ]
+            [ sh:datatype xsd:decimal ]
+            [ sh:datatype xsd:double ]
+        ) ;
+    ] ;
+    sh:property [
+        sh:path qudt:unit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path rec:step ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+    ] .
+
+# A source-code input, marked out from the other consumed inputs in
+# rec:resources (config, data), which stay plain prov:Entity.
+rec:SourceFileShape
+    a sh:NodeShape ;
+    sh:targetClass rec:SourceFile ;
+    sh:class prov:Entity .
+
+rec:ObservationProviderShape
+    a sh:NodeShape ;
+    sh:targetClass obs:ObservationProvider ;
+    sh:class prov:Agent .
