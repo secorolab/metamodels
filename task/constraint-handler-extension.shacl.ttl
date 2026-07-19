@@ -6,8 +6,22 @@
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
 @prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
+@prefix kc-stat: <https://comp-rob2b.github.io/metamodels/kinematic-chain/state#> .
 @prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
 @prefix traj: <https://secorolab.github.io/metamodels/task/trajectory#> .
+
+# Every constraint handler commands in exactly one quantity space. Joint-force is
+# the only mode realized today; widen sh:in as more are supported.
+cstr-hdl-ext:ControlledHandler
+    a sh:NodeShape ;
+    sh:targetClass cstr_hdl:ConstraintHandler ;
+    sh:message "A constraint handler must declare exactly one control mode." ;
+    sh:property [
+        sh:path cstr-hdl-ext:control-mode ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( kc-stat:JointForce )
+    ] .
 
 cstr-hdl-ext:FeedForwardController
     a rdfs:Class, sh:NodeShape ;

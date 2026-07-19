@@ -3,6 +3,12 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "geom-coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
 
+        "has-coordinate": {
+            "@id": "geom-coord:has-coordinate",
+            "@type": "@id",
+            "@container": "@set"
+        },
+
         "VectorXY": "geom-coord:VectorXY",
 
         "AngularDistanceCoordinate": "geom-coord:AngularDistanceCoordinate",
