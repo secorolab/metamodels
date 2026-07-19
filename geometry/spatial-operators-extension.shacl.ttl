@@ -4,6 +4,25 @@
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh:       <http://www.w3.org/ns/shacl#> .
 
+geom-op:InvertPose
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op:InvertPose ;
+    sh:message "A pose inversion needs one pose-coordinate input and one pose-coordinate output." ;
+    sh:property [
+        sh:path geom-op:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:out ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] .
+
 geom-op-ext:PoseDiffEvaluator
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass geom-op-ext:PoseDiffEvaluator ;

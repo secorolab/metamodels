@@ -4,6 +4,14 @@
         "geom-op": "https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#",
         "geom-op-ext": "https://secorolab.github.io/metamodels/geometry/spatial-operators#",
 
+        "InvertPose": {
+            "@id": "geom-op:InvertPose",
+            "@context": {
+                "pose": { "@id": "geom-op:pose", "@type": "@id" },
+                "out": { "@id": "geom-op:out", "@type": "@id" }
+            }
+        },
+
         "PoseDiffEvaluator": {
             "@id": "geom-op-ext:PoseDiffEvaluator",
             "@context": {
