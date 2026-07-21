@@ -8,8 +8,8 @@
 # Geometry only: no path parameter, no timing. Traversal is geom-op-ext:PathEvaluator.
 
 geom-path:Path
-    a rdfs:Class, sh:NodeShape ;
-    sh:message "A path is a curve in state space; its extents and parameters are coordinates." .
+    a rdfs:Class ;
+    rdfs:comment "A curve the state is constrained to follow, with no timing imposed along it (Bruyninckx, Composable and Explainable Systems of Systems, sec. 8.6). An instance carries this class alongside its kind, so that operators can require a path without enumerating the kinds." .
 
 geom-path:LinearPath
     a rdfs:Class, sh:NodeShape ;

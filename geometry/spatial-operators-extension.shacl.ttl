@@ -75,7 +75,7 @@ geom-op-ext:PoseToAngularDistance
 geom-op-ext:PathEvaluator
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass geom-op-ext:PathEvaluator ;
-    sh:message "A path evaluator needs one path, one unit-interval path parameter, and one pose-coordinate output." ;
+    sh:message "A path evaluator needs one path typed geom-path:Path, one unit-interval path parameter, and one pose-coordinate output." ;
     sh:property [
         sh:path geom-op-ext:path ;
         sh:minCount 1 ;
@@ -108,4 +108,4 @@ geom-op-ext:PathParameterShape
     sh:message "A path parameter must be a dimensionless quantity with exactly one numeric value in the interval [0, 1]." ;
     sh:class qudt:Quantity ;
     sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Dimensionless ] ;
-    sh:property [ sh:path qudt:numericValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] .
+    sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] .
