@@ -1,0 +1,15 @@
+@prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix ctrl-sys: <https://secorolab.github.io/metamodels/control/system#> .
+@prefix ex: <https://example.test/control/> .
+
+ex:loop
+  a ctrl-sys:ControlLoop ;
+  ctrl-sys:controller ex:controller ;
+  ctrl-sys:plant ex:plant ;
+  ctrl-sys:reference-variable ex:reference ;
+  ctrl-sys:controlled-variable ex:controlled .
+
+ex:controller a cstr-hdl:Controller .
+ex:plant a ctrl-sys:Plant .
+ex:reference a ctrl-sys:ReferenceVariable .
+ex:controlled a ctrl-sys:ControlledVariable .

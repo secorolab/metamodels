@@ -1,0 +1,38 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "traj": "https://secorolab.github.io/metamodels/task/trajectory#",
+
+        "ReferenceGenerator": "traj:ReferenceGenerator",
+        "Trajectory": "traj:Trajectory",
+        "VelocityProfile": "traj:VelocityProfile",
+        "CartesianPoseInterpolation": "traj:CartesianPoseInterpolation",
+        "Circle": "traj:Circle",
+        "Arc": "traj:Arc",
+        "Figure8": "traj:Figure8",
+        "Helix": "traj:Helix",
+
+        "reference": { "@id": "traj:reference", "@type": "@id" },
+        "max-velocity": { "@id": "traj:max-velocity", "@type": "@id" },
+        "max-acceleration": { "@id": "traj:max-acceleration", "@type": "@id" },
+        "max-jerk": { "@id": "traj:max-jerk", "@type": "@id" },
+        "measured-velocity": { "@id": "traj:measured-velocity", "@type": "@id" },
+        "shape": { "@id": "traj:shape", "@type": "xsd:string" },
+        "start": { "@id": "traj:start", "@type": "@id" },
+        "goal": { "@id": "traj:goal", "@type": "@id" },
+        "center": { "@id": "traj:center", "@type": "@id" },
+        "end": { "@id": "traj:end", "@type": "@id" },
+        "anchor": { "@id": "traj:anchor", "@type": "@id" },
+        "radius": { "@id": "traj:radius", "@type": "@id" },
+        "amplitude": { "@id": "traj:amplitude", "@type": "@id" },
+        "plane-normal": { "@id": "traj:plane-normal", "@type": "@id" },
+        "axis": { "@id": "traj:axis", "@type": "@id" },
+        "pitch": { "@id": "traj:pitch", "@type": "@id" },
+        "revolutions": { "@id": "traj:revolutions", "@type": "@id" },
+        "path-parameter": { "@id": "traj:path-parameter", "@type": "@id" },
+        "trajectory": { "@id": "traj:trajectory", "@type": "@id" },
+        "profile": { "@id": "traj:profile", "@type": "xsd:string" },
+        "form": { "@id": "traj:form", "@type": "xsd:string" }
+    }
+}

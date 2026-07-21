@@ -1,0 +1,220 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "ctrl": "https://secorolab.github.io/metamodels/control/controller#",
+        "algo-ext": "https://secorolab.github.io/metamodels/algorithm#",
+        "cstr-hdl": "https://comp-rob2b.github.io/metamodels/task/constraint-handler#",
+        "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+        "Controller": "cstr-hdl:Controller",
+        "ProportionalIntegralDerivative": "cstr-hdl:ProportionalIntegralDerivative",
+        "ImpedanceController": "cstr-hdl:ImpedanceController",
+        "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
+        "Admittance": "cstr-hdl-ext:Admittance",
+        "Saturation": "algo-ext:Saturation",
+
+        "DetailedController": {
+            "@id": "ctrl:DetailedController",
+            "@context": {
+                "control-law": { "@id": "ctrl:control-law", "@type": "@id" },
+                "operation": { "@id": "ctrl:operation", "@type": "@id", "@container": "@set" },
+                "parameter": { "@id": "ctrl:parameter", "@type": "@id", "@container": "@set" },
+                "state": { "@id": "ctrl:state", "@type": "@id", "@container": "@set" },
+                "input-signal": { "@id": "ctrl:input-signal", "@type": "@id", "@container": "@set" },
+                "output-signal": { "@id": "ctrl:output-signal", "@type": "@id", "@container": "@set" },
+                "reference-signal": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
+                "feedback-signal": { "@id": "ctrl:feedback-signal", "@type": "@id" },
+                "error-signal": { "@id": "cstr-hdl:error-signal", "@type": "@id" },
+                "control-signal": { "@id": "cstr-hdl:control-signal", "@type": "@id" },
+                "limit": { "@id": "algo-ext:limits", "@type": "@id", "@container": "@set" },
+                "realization": { "@id": "ctrl:realization", "@type": "@id" }
+            }
+        },
+
+        "ControlLaw": "ctrl:ControlLaw",
+        "ProportionalControlLaw": {
+            "@id": "ctrl:ProportionalControlLaw",
+            "@context": {
+                "proportional-action": { "@id": "ctrl:proportional-action", "@type": "@id" },
+                "output-composition": { "@id": "ctrl:output-composition", "@type": "@id" }
+            }
+        },
+        "PIDControlLaw": {
+            "@id": "ctrl:PIDControlLaw",
+            "@context": {
+                "proportional-action": { "@id": "ctrl:proportional-action", "@type": "@id" },
+                "integral-action": { "@id": "ctrl:integral-action", "@type": "@id" },
+                "derivative-action": { "@id": "ctrl:derivative-action", "@type": "@id" },
+                "output-composition": { "@id": "ctrl:output-composition", "@type": "@id" }
+            }
+        },
+        "ImpedanceControlLaw": {
+            "@id": "ctrl:ImpedanceControlLaw",
+            "@context": {
+                "stiffness-parameter": { "@id": "ctrl:stiffness-parameter", "@type": "@id" },
+                "damping-parameter": { "@id": "ctrl:damping-parameter", "@type": "@id" },
+                "inertia-parameter": { "@id": "ctrl:inertia-parameter", "@type": "@id" },
+                "output-composition": { "@id": "ctrl:output-composition", "@type": "@id" }
+            }
+        },
+        "ABAGControlLaw": {
+            "@id": "ctrl:ABAGControlLaw",
+            "@context": {
+                "adaptive-bias": { "@id": "ctrl:adaptive-bias", "@type": "@id" },
+                "adaptive-gain": { "@id": "ctrl:adaptive-gain", "@type": "@id" },
+                "output-composition": { "@id": "ctrl:output-composition", "@type": "@id" }
+            }
+        },
+        "AdaptiveBiasAdaptiveGainController": "ctrl:AdaptiveBiasAdaptiveGainController",
+
+        "ControlSignal": "ctrl:ControlSignal",
+        "ReferenceSignal": "ctrl:ReferenceSignal",
+        "FeedbackSignal": "ctrl:FeedbackSignal",
+        "ErrorSignal": "ctrl:ErrorSignal",
+        "ControlCommand": "ctrl:ControlCommand",
+        "ControllerParameter": "ctrl:ControllerParameter",
+        "ControllerState": "ctrl:ControllerState",
+
+        "ControllerOperation": {
+            "@id": "ctrl:ControllerOperation",
+            "@context": {
+                "input": { "@id": "ctrl:input", "@type": "@id", "@container": "@set" },
+                "output": { "@id": "ctrl:output", "@type": "@id", "@container": "@set" },
+                "operation-parameter": { "@id": "ctrl:operation-parameter", "@type": "@id", "@container": "@set" },
+                "operation-state": { "@id": "ctrl:operation-state", "@type": "@id", "@container": "@set" }
+            }
+        },
+        "ErrorComputation": "ctrl:ErrorComputation",
+        "ProportionalAction": { "@id": "ctrl:ProportionalAction", "@context": { "gain": { "@id": "ctrl:gain", "@type": "@id" } } },
+        "IntegralAction": "ctrl:IntegralAction",
+        "DerivativeAction": "ctrl:DerivativeAction",
+        "SummationJunction": "ctrl:SummationJunction",
+        "Gain": { "@id": "ctrl:Gain", "@context": { "gain": { "@id": "ctrl:gain", "@type": "@id" } } },
+        "LowPassFilter": "ctrl:LowPassFilter",
+        "Signum": "ctrl:Signum",
+        "AbsoluteValue": "ctrl:AbsoluteValue",
+        "HeavisideStep": "ctrl:HeavisideStep",
+        "Scaling": "ctrl:Scaling",
+        "OutputMapping": "ctrl:OutputMapping",
+        "AdaptiveBias": {
+            "@id": "ctrl:AdaptiveBias",
+            "@context": {
+                "adaptation-threshold": { "@id": "ctrl:adaptation-threshold", "@type": "@id" },
+                "adaptation-step": { "@id": "ctrl:adaptation-step", "@type": "@id" },
+                "adaptive-value": { "@id": "ctrl:adaptive-value", "@type": "@id" }
+            }
+        },
+        "AdaptiveGain": {
+            "@id": "ctrl:AdaptiveGain",
+            "@context": {
+                "adaptation-threshold": { "@id": "ctrl:adaptation-threshold", "@type": "@id" },
+                "adaptation-step": { "@id": "ctrl:adaptation-step", "@type": "@id" },
+                "adaptive-value": { "@id": "ctrl:adaptive-value", "@type": "@id" }
+            }
+        },
+        "OutputComposition": "ctrl:OutputComposition",
+
+        "Plant": "https://secorolab.github.io/metamodels/control/system#Plant",
+        "Signal": "ctrl:ControlSignal",
+        "Setpoint": "ctrl:ReferenceSignal",
+        "Feedback": "ctrl:FeedbackSignal",
+        "TimePeriod": "ctrl:ControllerParameter",
+        "operation": { "@id": "ctrl:operation", "@type": "@id", "@container": "@set" },
+        "parameter": { "@id": "ctrl:parameter", "@type": "@id", "@container": "@set" },
+        "state": { "@id": "ctrl:state", "@type": "@id", "@container": "@set" },
+        "input-signal": { "@id": "ctrl:input-signal", "@type": "@id", "@container": "@set" },
+        "output-signal": { "@id": "ctrl:output-signal", "@type": "@id", "@container": "@set" },
+        "reference-signal": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
+        "feedback-signal": { "@id": "ctrl:feedback-signal", "@type": "@id" },
+        "error-signal": { "@id": "cstr-hdl:error-signal", "@type": "@id" },
+        "control-signal": { "@id": "cstr-hdl:control-signal", "@type": "@id" },
+        "limit": { "@id": "algo-ext:limits", "@type": "@id", "@container": "@set" },
+        "realization": { "@id": "ctrl:realization", "@type": "@id" },
+        "input": { "@id": "ctrl:input", "@type": "@id", "@container": "@set" },
+        "output": { "@id": "ctrl:output", "@type": "@id", "@container": "@set" },
+        "operation-parameter": { "@id": "ctrl:operation-parameter", "@type": "@id", "@container": "@set" },
+        "operation-state": { "@id": "ctrl:operation-state", "@type": "@id", "@container": "@set" },
+        "gain": { "@id": "ctrl:gain", "@type": "@id" },
+        "adaptation-threshold": { "@id": "ctrl:adaptation-threshold", "@type": "@id" },
+        "adaptation-step": { "@id": "ctrl:adaptation-step", "@type": "@id" },
+        "adaptive-value": { "@id": "ctrl:adaptive-value", "@type": "@id" },
+        "inertia-parameter": { "@id": "ctrl:inertia-parameter", "@type": "@id" },
+        "ctr_functions": { "@id": "ctrl:operation", "@type": "@id", "@container": "@set" },
+        "ctr_signals": { "@id": "ctrl:input-signal", "@type": "@id", "@container": "@set" },
+        "controller_name": { "@id": "ctrl:controller-name", "@type": "xsd:string" },
+        "controller_output": { "@id": "cstr-hdl:control-signal", "@type": "@id" },
+        "control-law": { "@id": "ctrl:control-law", "@type": "@id" },
+        "output-composition": { "@id": "ctrl:output-composition", "@type": "@id" },
+        "proportional-action": { "@id": "ctrl:proportional-action", "@type": "@id" },
+        "integral-action": { "@id": "ctrl:integral-action", "@type": "@id" },
+        "derivative-action": { "@id": "ctrl:derivative-action", "@type": "@id" },
+        "adaptive-bias": { "@id": "ctrl:adaptive-bias", "@type": "@id" },
+        "adaptive-gain": { "@id": "ctrl:adaptive-gain", "@type": "@id" },
+        "stiffness-parameter": { "@id": "ctrl:stiffness-parameter", "@type": "@id" },
+        "damping-parameter": { "@id": "ctrl:damping-parameter", "@type": "@id" },
+        "desired_time_period_val": { "@id": "ctrl:desired-sample-period", "@type": "@id" },
+        "measured_time_period_val": { "@id": "ctrl:measured-sample-period", "@type": "@id" },
+        "measured_pos": { "@id": "ctrl:measured-position", "@type": "@id" },
+        "measured_vel": { "@id": "ctrl:measured-velocity", "@type": "@id" },
+        "control_mode": { "@id": "ctrl:control-mode", "@type": "@id" },
+        "servoing_mode": { "@id": "ctrl:servoing-mode", "@type": "@id" },
+        "actuation_signal": { "@id": "ctrl:actuation-signal", "@type": "@id" },
+
+        "Functions": "ctrl:ControllerOperation",
+        "LowPassFilteredErrorSignal": "ctrl:LowPassFilter",
+        "GetSign": "ctrl:Signum",
+        "GetAbs": "ctrl:AbsoluteValue",
+        "Absolute": "ctrl:AbsoluteValue",
+        "HeavisideStepFunction": "ctrl:HeavisideStep",
+        "CopyVariableValue": "ctrl:SignalCopy",
+        "MapOutputToActuationSignal": "ctrl:OutputMapping",
+        "Sum": "ctrl:SummationJunction",
+        "Subtract": "ctrl:Subtraction",
+        "Multiply": "ctrl:Multiplication",
+        "Scale": "ctrl:Scaling",
+        "Divide": "ctrl:Division",
+        "GetCurrentTime": "ctrl:CurrentTime",
+        "variable_to_copy_to": { "@id": "ctrl:output", "@type": "@id" },
+        "variable_to_copy_from": { "@id": "ctrl:input", "@type": "@id" },
+        "filtered_data": { "@id": "ctrl:output", "@type": "@id" },
+        "sign_data": { "@id": "ctrl:output", "@type": "@id" },
+        "saturated_data": { "@id": "algo-ext:out", "@type": "@id" },
+        "stepped_data": { "@id": "ctrl:output", "@type": "@id" },
+        "absolute_data": { "@id": "ctrl:output", "@type": "@id" },
+        "summed_data": { "@id": "ctrl:output", "@type": "@id" },
+        "difference_data": { "@id": "ctrl:output", "@type": "@id" },
+        "product_data": { "@id": "ctrl:output", "@type": "@id" },
+        "divided_data": { "@id": "ctrl:output", "@type": "@id" },
+        "mapped_data": { "@id": "ctrl:output", "@type": "@id" },
+        "input_signal": { "@id": "ctrl:input", "@type": "@id" },
+        "signal_to_map": { "@id": "ctrl:input", "@type": "@id" },
+        "signal_to_process": { "@id": "ctrl:input", "@type": "@id" },
+        "signal_to_saturate": { "@id": "algo-ext:in", "@type": "@id" },
+        "arguments_list": { "@id": "ctrl:input", "@type": "@id", "@container": "@list" },
+        "low_pass_filter_factor_alpha": { "@id": "ctrl:filter-factor", "@type": "@id" },
+        "low_pass_filter_factor_alpha_limits": { "@id": "ctrl:filter-factor-limit", "@type": "@id", "@container": "@list" },
+        "low_pass_filter_factor_alpha_limits_inclusive": { "@id": "ctrl:filter-factor-limit-inclusive", "@type": "xsd:boolean" },
+        "saturation_limits": { "@id": "ctrl:saturation-limit", "@type": "@id", "@container": "@list" },
+        "actuation_scaling_limits": { "@id": "ctrl:actuation-scaling-limit", "@type": "@id", "@container": "@list" },
+        "current_time_data": { "@id": "ctrl:output", "@type": "@id" },
+
+        "ErrorFunction": "ctrl:ErrorComputation",
+        "InstantaneousError": "ctrl:InstantaneousError",
+        "DerivativeFromError": "ctrl:DerivativeAction",
+        "DerivativeFromProcessVariable": "ctrl:DerivativeAction",
+        "IntegralFromStartError": "ctrl:IntegralAction",
+        "IntegralFromRecentTimeWindowError": "ctrl:IntegralAction",
+        "ErrorBasedOnConstraint": "ctrl:ErrorComputation",
+        "measured_quantity": { "@id": "ctrl:measured-signal", "@type": "@id" },
+        "reference_quantity": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
+        "integral_time_window_length": { "@id": "ctrl:integration-window", "@type": "@id" },
+        "time_period": { "@id": "ctrl:sample-period", "@type": "@id" },
+        "quantity_to_integrate": { "@id": "ctrl:input", "@type": "@id" },
+        "differentiated_data": { "@id": "ctrl:output", "@type": "@id" },
+        "integrated_data": { "@id": "ctrl:output", "@type": "@id" },
+        "error_data": { "@id": "ctrl:output", "@type": "@id" },
+        "current_value": { "@id": "ctrl:current-sample", "@type": "@id" },
+        "previous_value": { "@id": "ctrl:previous-sample", "@type": "@id" }
+    }
+}

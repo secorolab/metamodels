@@ -1,0 +1,113 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "ctrl-sup": "https://secorolab.github.io/metamodels/control/supervision#",
+        "cstr": "https://comp-rob2b.github.io/metamodels/task/constraint#",
+        "el": "https://secorolab.github.io/metamodels/behaviour/event_loop#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+        "Constraint": "cstr:Constraint",
+        "GreaterThanConstraint": "cstr:GreaterThanConstraint",
+        "LessThanConstraint": "cstr:LessThanConstraint",
+        "EqualConstraint": "cstr:EqualityConstraint",
+        "WithinIntervalEvaluation": {
+            "@id": "ctrl-sup:WithinIntervalEvaluation",
+            "@context": {
+                "lower-bound": { "@id": "cstr:lower-threshold", "@type": "@id" },
+                "upper-bound": { "@id": "cstr:upper-threshold", "@type": "@id" }
+            }
+        },
+        "OutsideIntervalEvaluation": {
+            "@id": "ctrl-sup:OutsideIntervalEvaluation",
+            "@context": {
+                "lower-bound": { "@id": "cstr:lower-threshold", "@type": "@id" },
+                "upper-bound": { "@id": "cstr:upper-threshold", "@type": "@id" }
+            }
+        },
+        "LessThanOrEqualToEvaluation": "ctrl-sup:LessThanOrEqualToEvaluation",
+        "GreaterThanOrEqualToEvaluation": "ctrl-sup:GreaterThanOrEqualToEvaluation",
+        "GreaterThanUpperLimitEvaluation": "ctrl-sup:GreaterThanUpperLimitEvaluation",
+        "GreaterThanLowerLimitEvaluation": "ctrl-sup:GreaterThanLowerLimitEvaluation",
+        "LowerThanLowerLimitEvaluation": "ctrl-sup:LowerThanLowerLimitEvaluation",
+        "LowerThanUpperLimitEvaluation": "ctrl-sup:LowerThanUpperLimitEvaluation",
+
+        "ConstraintMonitor": {
+            "@id": "ctrl-sup:ConstraintMonitor",
+            "@context": {
+                "monitored-constraint": { "@id": "ctrl-sup:monitored-constraint", "@type": "@id" }
+            }
+        },
+        "FlagMonitor": {
+            "@id": "ctrl-sup:FlagMonitor",
+            "@context": {
+                "sets-flag": { "@id": "ctrl-sup:sets-flag", "@type": "@id" }
+            }
+        },
+        "EventMonitor": {
+            "@id": "ctrl-sup:EventMonitor",
+            "@context": {
+                "emits-event": { "@id": "ctrl-sup:emits-event", "@type": "@id" }
+            }
+        },
+        "ControllerSelector": {
+            "@id": "ctrl-sup:ControllerSelector",
+            "@context": {
+                "controls-under-condition": { "@id": "ctrl-sup:controls-under-condition", "@type": "@id", "@container": "@set" },
+                "selects-controller": { "@id": "ctrl-sup:selects-controller", "@type": "@id" }
+            }
+        },
+        "Flag": "el:Flag",
+        "Event": "el:Event",
+
+        "quantity": { "@id": "cstr:quantity", "@type": "@id" },
+        "reference-value": { "@id": "cstr:reference-value", "@type": "@id" },
+        "threshold": { "@id": "cstr:threshold", "@type": "@id" },
+        "lower-threshold": { "@id": "cstr:lower-threshold", "@type": "@id" },
+        "upper-threshold": { "@id": "cstr:upper-threshold", "@type": "@id" },
+        "lower-bound": { "@id": "cstr:lower-threshold", "@type": "@id" },
+        "upper-bound": { "@id": "cstr:upper-threshold", "@type": "@id" },
+        "monitored-constraint": { "@id": "ctrl-sup:monitored-constraint", "@type": "@id" },
+        "sets-flag": { "@id": "ctrl-sup:sets-flag", "@type": "@id" },
+        "emits-event": { "@id": "ctrl-sup:emits-event", "@type": "@id" },
+        "controls-under-condition": { "@id": "ctrl-sup:controls-under-condition", "@type": "@id", "@container": "@set" },
+        "selects-controller": { "@id": "ctrl-sup:selects-controller", "@type": "@id" },
+
+        "Plan": {
+            "@id": "ctrl-sup:ControlPlan",
+            "@context": {
+                "set_of_states": { "@id": "ctrl-sup:control-state", "@type": "@id", "@container": "@set" }
+            }
+        },
+        "MotionSpecification": {
+            "@id": "https://comp-rob2b.github.io/metamodels/task/motion-specification#GuardedMotion",
+            "@context": {
+                "pre_condition": { "@id": "https://comp-rob2b.github.io/metamodels/task/motion-specification#when", "@type": "@id", "@container": "@set" },
+                "per_condition": { "@id": "https://comp-rob2b.github.io/metamodels/task/motion-specification#while", "@type": "@id", "@container": "@set" },
+                "post_condition": { "@id": "https://comp-rob2b.github.io/metamodels/task/motion-specification#until", "@type": "@id", "@container": "@set" }
+            }
+        },
+        "ConstraintToFlag": "ctrl-sup:FlagMonitor",
+        "ConstraintToEvent": "ctrl-sup:EventMonitor",
+        "ConstraintController": "ctrl-sup:ControllerSelector",
+        "InIntervalConstraint": "ctrl-sup:WithinIntervalEvaluation",
+        "OutOfIntervalConstraint": "ctrl-sup:OutsideIntervalEvaluation",
+        "GreaterThanEqualToConstraint": "ctrl-sup:GreaterThanOrEqualToEvaluation",
+        "LessThanEqualToConstraint": "ctrl-sup:LessThanOrEqualToEvaluation",
+        "GreaterThanUpperLimitConstraint": "ctrl-sup:GreaterThanUpperLimitEvaluation",
+        "GreaterThanLowerLimitConstraint": "ctrl-sup:GreaterThanLowerLimitEvaluation",
+        "LowerThanLowerLimitConstraint": "ctrl-sup:LowerThanLowerLimitEvaluation",
+        "LowerThanUpperLimitConstraint": "ctrl-sup:LowerThanUpperLimitEvaluation",
+        "constraints_controlled": { "@id": "ctrl-sup:controls-under-condition", "@type": "@id", "@container": "@set" },
+        "constraint_controller": { "@id": "ctrl-sup:selects-controller", "@type": "@id" },
+        "constraint_to_monitor": { "@id": "ctrl-sup:monitored-constraint", "@type": "@id" },
+        "quantity_to_compare": { "@id": "cstr:quantity", "@type": "@id" },
+        "quantity_to_compare_with": { "@id": "cstr:reference-value", "@type": "@id" },
+        "in_interval_lower_bound": { "@id": "cstr:lower-threshold", "@type": "@id" },
+        "in_interval_upper_bound": { "@id": "cstr:upper-threshold", "@type": "@id" },
+        "tolerance": { "@id": "ctrl-sup:tolerance", "@type": "@id" },
+        "flag_or_event_to_check": { "@id": "ctrl-sup:observed-output", "@type": "@id" },
+        "flag_set": { "@id": "ctrl-sup:sets-flag", "@type": "@id" },
+        "event_emitted": { "@id": "ctrl-sup:emits-event", "@type": "@id" },
+        "operator": { "@id": "ctrl-sup:comparison-operator", "@type": "xsd:string" }
+    }
+}

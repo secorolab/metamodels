@@ -1,0 +1,21 @@
+@prefix slv:      <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
+@prefix slv-ext:  <https://secorolab.github.io/metamodels/task/solver-specification#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:       <http://www.w3.org/ns/shacl#> .
+
+slv-ext:CommandForwardingSolver
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass slv-ext:CommandForwardingSolver ;
+    sh:message "A command-forwarding solver needs exactly one motion-driver set and may expose output quantities." ;
+    sh:property [
+        sh:path slv:motion-drivers ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class slv:MotionDrivers
+    ] ;
+    sh:property [
+        sh:path slv:output ;
+        sh:minCount 0 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .

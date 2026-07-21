@@ -1,0 +1,38 @@
+@prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix ctrl: <https://secorolab.github.io/metamodels/control/controller#> .
+@prefix ex: <https://example.test/control/> .
+
+ex:pid
+  a cstr-hdl:Controller, ctrl:DetailedController ;
+  ctrl:control-law ex:law ;
+  ctrl:operation ex:p, ex:i, ex:sum ;
+  cstr-hdl:control-signal ex:command .
+
+ex:law
+  a ctrl:ControlLaw, ctrl:PIDControlLaw ;
+  ctrl:proportional-action ex:p ;
+  ctrl:integral-action ex:i ;
+  ctrl:output-composition ex:composition .
+
+ex:p
+  a ctrl:ControllerOperation, ctrl:ProportionalAction ;
+  ctrl:input ex:error ;
+  ctrl:output ex:p-output ;
+  ctrl:gain ex:kp .
+
+ex:i
+  a ctrl:ControllerOperation, ctrl:IntegralAction ;
+  ctrl:input ex:error ;
+  ctrl:output ex:i-output .
+
+ex:sum
+  a ctrl:ControllerOperation, ctrl:SummationJunction ;
+  ctrl:input ex:p-output, ex:i-output ;
+  ctrl:output ex:command .
+
+ex:composition a ctrl:OutputComposition ; ctrl:output ex:command .
+ex:error a ctrl:ControlSignal .
+ex:p-output a ctrl:ControlSignal .
+ex:i-output a ctrl:ControlSignal .
+ex:command a ctrl:ControlSignal .
+ex:kp a ctrl:ControllerParameter .

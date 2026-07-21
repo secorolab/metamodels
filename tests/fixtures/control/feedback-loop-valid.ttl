@@ -1,0 +1,37 @@
+@prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix ctrl-sys: <https://secorolab.github.io/metamodels/control/system#> .
+@prefix ex: <https://example.test/control/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+
+ex:system
+  a ctrl-sys:ControlSystem ;
+  ctrl-sys:controlled-system ex:controlled-system ;
+  ctrl-sys:controlling-system ex:controlling-system ;
+  ctrl-sys:control-loop ex:loop .
+
+ex:controlled-system a ctrl-sys:ControlledSystem .
+ex:controlling-system a ctrl-sys:ControllingSystem .
+ex:plant a ctrl-sys:Plant .
+ex:controller a cstr-hdl:Controller .
+
+ex:loop
+  a ctrl-sys:ControlLoop, ctrl-sys:FeedbackControlLoop ;
+  ctrl-sys:controller ex:controller ;
+  ctrl-sys:plant ex:plant ;
+  ctrl-sys:reference-variable ex:reference ;
+  ctrl-sys:controlled-variable ex:controlled ;
+  ctrl-sys:manipulated-variable ex:manipulated ;
+  ctrl-sys:feedback-variable ex:feedback ;
+  ctrl-sys:control-difference ex:difference .
+
+ex:reference a ctrl-sys:ControlVariable, ctrl-sys:ReferenceVariable ; ctrl-sys:represents-quantity ex:reference-quantity .
+ex:controlled a ctrl-sys:ControlVariable, ctrl-sys:ControlledVariable ; ctrl-sys:represents-quantity ex:controlled-quantity .
+ex:manipulated a ctrl-sys:ControlVariable, ctrl-sys:ManipulatedVariable ; ctrl-sys:represents-quantity ex:manipulated-quantity .
+ex:feedback a ctrl-sys:ControlVariable, ctrl-sys:FeedbackVariable ; ctrl-sys:represents-quantity ex:feedback-quantity .
+ex:difference a ctrl-sys:ControlVariable, ctrl-sys:ControlDifference ; ctrl-sys:represents-quantity ex:difference-quantity .
+
+ex:reference-quantity a qudt:Quantity .
+ex:controlled-quantity a qudt:Quantity .
+ex:manipulated-quantity a qudt:Quantity .
+ex:feedback-quantity a qudt:Quantity .
+ex:difference-quantity a qudt:Quantity .

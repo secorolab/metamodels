@@ -1,0 +1,124 @@
+@prefix map-ext: <https://secorolab.github.io/metamodels/task/map#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
+@prefix map: <https://comp-rob2b.github.io/metamodels/task/map#> .
+@prefix geom_coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix geom_rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
+@prefix rbdyn_coord: <https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/coordinates#> .
+
+map-ext:CoordinateViewShape
+    a sh:NodeShape ;
+    sh:message "A coordinate view needs one superobject, one subobject, one subspace, and at most one Cartesian axis." ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path map:subobject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path map:subspace ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path map:axis ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( map:x map:y map:z )
+    ] .
+
+map-ext:PoseCoordinateView
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:PoseCoordinateView ;
+    sh:message "A pose-coordinate view must select either position or orientation from one pose coordinate." ;
+    sh:node map-ext:CoordinateViewShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord:PoseCoordinate
+    ] ;
+    sh:xone (
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Position ] ] ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map-ext:position ] ]
+        [ sh:property [ sh:path map:subobject ; sh:class geom_rel:Orientation ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map-ext:orientation ] ]
+    ) .
+
+map-ext:VelocityTwistCoordinateView
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:VelocityTwistCoordinateView ;
+    sh:message "A velocity-twist view must select either linear or angular velocity from one velocity twist." ;
+    sh:node map-ext:CoordinateViewShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord:VelocityTwistCoordinate
+    ] ;
+    sh:xone (
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:AngularVelocity ] ] ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:angular-velocity ] ]
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:LinearVelocity ] ] ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:linear-velocity ] ]
+    ) .
+
+map-ext:AccelerationTwistCoordinateView
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:AccelerationTwistCoordinateView ;
+    sh:message "An acceleration-twist view must select either linear or angular acceleration from one acceleration twist." ;
+    sh:node map-ext:CoordinateViewShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord:AccelerationTwistCoordinate
+    ] ;
+    sh:xone (
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:AngularAcceleration ] ] ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:angular-acceleration ] ]
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:LinearAcceleration ] ] ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:linear-acceleration ] ]
+    ) .
+
+map-ext:WrenchCoordinateView
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:WrenchCoordinateView ;
+    sh:message "A wrench view must select either force or torque from one wrench coordinate." ;
+    sh:node map-ext:CoordinateViewShape ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class rbdyn_coord:WrenchCoordinate
+    ] ;
+    sh:xone (
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Force ] ] ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:force ] ]
+        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Torque ] ] ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map:torque ] ]
+    ) .
+
+map-ext:PoseDifferenceView
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass map-ext:PoseDifferenceView ;
+    sh:message "A pose-difference view must select exactly one linear or angular quantity from one pose-difference coordinate." ;
+    sh:property [
+        sh:path map:superobject ;
+        sh:class geom_coord:PoseDifferenceCoordinate
+    ] ;
+    sh:property [
+        sh:path map:subobject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path map:subspace ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( map-ext:linear map-ext:angular )
+    ] .

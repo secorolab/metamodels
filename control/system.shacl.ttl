@@ -1,0 +1,61 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+@prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
+@prefix ctrl-sys: <https://secorolab.github.io/metamodels/control/system#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+ctrl-sys:ControlSystem
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:label "control system" ;
+  rdfs:comment "A system that controls a controlled system through one or more control loops." ;
+  sh:targetClass ctrl-sys:ControlSystem ;
+  sh:property [ sh:path ctrl-sys:controlled-system ; sh:class ctrl-sys:ControlledSystem ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl-sys:controlling-system ; sh:class ctrl-sys:ControllingSystem ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl-sys:control-loop ; sh:class ctrl-sys:ControlLoop ; sh:minCount 1 ] .
+
+ctrl-sys:Plant
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl-sys:ControlledSystem ;
+  sh:targetClass ctrl-sys:Plant .
+
+ctrl-sys:ControlLoop
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:label "control loop" ;
+  rdfs:comment "The interconnection of a controller, plant, and the variables they exchange." ;
+  sh:targetClass ctrl-sys:ControlLoop ;
+  sh:property [ sh:path ctrl-sys:controller ; sh:class cstr-hdl:Controller ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl-sys:plant ; sh:class ctrl-sys:Plant ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl-sys:reference-variable ; sh:class ctrl-sys:ReferenceVariable ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl-sys:controlled-variable ; sh:class ctrl-sys:ControlledVariable ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl-sys:manipulated-variable ; sh:class ctrl-sys:ManipulatedVariable ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-sys:FeedbackControlLoop
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl-sys:ControlLoop ;
+  sh:targetClass ctrl-sys:FeedbackControlLoop ;
+  sh:property [ sh:path ctrl-sys:feedback-variable ; sh:class ctrl-sys:FeedbackVariable ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path ctrl-sys:control-difference ; sh:class ctrl-sys:ControlDifference ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-sys:FeedforwardControlLoop
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ctrl-sys:ControlLoop ;
+  sh:targetClass ctrl-sys:FeedforwardControlLoop ;
+  sh:property [ sh:path ctrl-sys:controller ; sh:class cstr-hdl-ext:FeedForwardController ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-sys:ControlVariable
+  a rdfs:Class, sh:NodeShape ;
+  rdfs:label "control variable" ;
+  rdfs:comment "A role played by a quantity in a control loop." ;
+  sh:targetClass ctrl-sys:ControlVariable ;
+  sh:property [ sh:path ctrl-sys:represents-quantity ; sh:class qudt:Quantity ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+ctrl-sys:ReferenceVariable rdfs:subClassOf ctrl-sys:ControlVariable .
+ctrl-sys:ControlledVariable rdfs:subClassOf ctrl-sys:ControlVariable .
+ctrl-sys:FeedbackVariable rdfs:subClassOf ctrl-sys:ControlVariable .
+ctrl-sys:ControlDifference rdfs:subClassOf ctrl-sys:ControlVariable .
+ctrl-sys:ControllerOutputVariable rdfs:subClassOf ctrl-sys:ControlVariable .
+ctrl-sys:ManipulatedVariable rdfs:subClassOf ctrl-sys:ControlVariable .
+ctrl-sys:DisturbanceVariable rdfs:subClassOf ctrl-sys:ControlVariable .
