@@ -8,6 +8,7 @@
 
         "reference-signal": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
         "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
+        "SetpointGenerator": "cstr-hdl-ext:SetpointGenerator",
         "fallback-motion": {
             "@id": "cstr-hdl-ext:fallback-motion",
             "@type": "@id"
