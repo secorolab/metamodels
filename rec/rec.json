@@ -16,7 +16,12 @@
             "@id": "rec:size-bytes",
             "@type": "xsd:integer"
         },
-        "status": "rec:status",
+        "QueuedRun": "rec:QueuedRun",
+        "RunningRun": "rec:RunningRun",
+        "CompletedRun": "rec:CompletedRun",
+        "FailedRun": "rec:FailedRun",
+        "InterruptedRun": "rec:InterruptedRun",
+        "CancelledRun": "rec:CancelledRun",
         "run_id": "rec:run-id",
         "label": "rec:label",
         "version": "dcat:version",
@@ -29,6 +34,10 @@
             "@container": "@set"
         },
         "host_info": "rec:host-info",
+        "hostname": "rec:hostname",
+        "os": "rec:os",
+        "runtime": "rec:runtime",
+        "cpu": "rec:cpu",
         "agents": {
             "@id": "rec:agents",
             "@container": "@set"
@@ -57,6 +66,11 @@
             "@id": "rec:heartbeat-time",
             "@type": "xsd:dateTime"
         },
+        "queued_time": {
+            "@id": "rec:queued-time",
+            "@type": "xsd:dateTime"
+        },
+        "fail_trace": "rec:fail-trace",
         "result": "rec:result"
     }
 }

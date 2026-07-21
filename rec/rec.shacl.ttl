@@ -1,6 +1,4 @@
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
-@prefix exec: <https://secorolab.github.io/metamodels/execution-context#> .
-@prefix obs: <https://secorolab.github.io/metamodels/observation#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rec: <https://secorolab.github.io/metamodels/rec#> .
@@ -11,29 +9,51 @@ rec:RunExecutionShape
     a sh:NodeShape ;
     sh:targetSubjectsOf rec:run-id ;
     sh:class prov:Activity ;
-    sh:class exec:ExecutionContext ;
     sh:property [
         sh:path rec:run-id ;
         sh:minCount 1 ;
         sh:datatype xsd:string ;
     ] ;
+    sh:xone (
+        [ sh:class rec:QueuedRun ]
+        [ sh:class rec:RunningRun ]
+        [ sh:class rec:CompletedRun ]
+        [ sh:class rec:FailedRun ]
+        [ sh:class rec:InterruptedRun ]
+        [ sh:class rec:CancelledRun ]
+    ) ;
     sh:property [
-        sh:path rec:status ;
-        sh:minCount 1 ;
-        sh:datatype xsd:string ;
+        sh:path prov:atLocation ;
+        sh:maxCount 1 ;
+        sh:class rec:PathLocation ;
     ] ;
-    # The run is a prov:Activity, so use native activity timing.
-    # Elapsed is derived (endedAtTime - startedAtTime), not stored.
+    # A queued run has not started, and a cancelled one was stopped before it
+    # could, so neither carries a start time.
     sh:property [
         sh:path prov:startedAtTime ;
-        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:dateTime ;
     ] ;
+    sh:or (
+        [ sh:class rec:QueuedRun ]
+        [ sh:class rec:CancelledRun ]
+        [ sh:property [ sh:path prov:startedAtTime ; sh:minCount 1 ] ]
+    ) ;
     sh:property [
         sh:path prov:endedAtTime ;
         sh:maxCount 1 ;
         sh:datatype xsd:dateTime ;
+    ] ;
+    sh:property [
+        sh:path rec:queued-time ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    # Stacktrace of the exception that ended a failed or interrupted run.
+    sh:property [
+        sh:path rec:fail-trace ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
     ] ;
     sh:property [
         sh:path rec:repositories ;
@@ -152,6 +172,42 @@ rec:MetricShape
         sh:path rec:step ;
         sh:maxCount 1 ;
         sh:datatype xsd:integer ;
+    ] ;
+    # Metric name, since the IRI mangles characters that are illegal in a path.
+    sh:property [
+        sh:path rec:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path prov:generatedAtTime ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+    ] .
+
+rec:HostShape
+    a sh:NodeShape ;
+    sh:targetClass rec:Host ;
+    sh:property [
+        sh:path rec:hostname ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path rec:os ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path rec:runtime ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path rec:cpu ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
     ] .
 
 # A source-code input, marked out from the other consumed inputs in
@@ -160,8 +216,3 @@ rec:SourceFileShape
     a sh:NodeShape ;
     sh:targetClass rec:SourceFile ;
     sh:class prov:Entity .
-
-rec:ObservationProviderShape
-    a sh:NodeShape ;
-    sh:targetClass obs:ObservationProvider ;
-    sh:class prov:Agent .
