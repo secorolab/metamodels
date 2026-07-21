@@ -1,0 +1,75 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "algo-ext": "https://secorolab.github.io/metamodels/algorithm#",
+
+        "limits": { "@id": "algo-ext:limits", "@type": "@id" },
+
+        "Saturation": {
+            "@id": "algo-ext:Saturation",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" },
+                "maximum-absolute-value": { "@id": "algo-ext:maximum-absolute-value", "@type": "@id" },
+                "lower-bound": { "@id": "algo-ext:lower-bound", "@type": "@id" },
+                "upper-bound": { "@id": "algo-ext:upper-bound", "@type": "@id" }
+            }
+        },
+
+        "Addition": {
+            "@id": "algo-ext:Addition",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id", "@container": "@set" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" }
+            }
+        },
+
+        "VelocityProfile": {
+            "@id": "algo-ext:VelocityProfile",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "target": { "@id": "algo-ext:target", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" },
+                "maximum-velocity": { "@id": "algo-ext:maximum-velocity", "@type": "@id" },
+                "maximum-acceleration": { "@id": "algo-ext:maximum-acceleration", "@type": "@id" },
+                "maximum-jerk": { "@id": "algo-ext:maximum-jerk", "@type": "@id" },
+                "shape": {
+                    "@id": "algo-ext:shape",
+                    "@type": "@vocab",
+                    "@context": {
+                        "trapezoidal": "algo-ext:trapezoidal",
+                        "s-curve": "algo-ext:s-curve"
+                    }
+                }
+            }
+        },
+
+        "Admittance": {
+            "@id": "algo-ext:Admittance",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" },
+                "mass": { "@id": "algo-ext:mass", "@type": "@id" },
+                "damping": { "@id": "algo-ext:damping", "@type": "@id" },
+                "stiffness": { "@id": "algo-ext:stiffness", "@type": "@id" }
+            }
+        },
+
+        "Snapshot": {
+            "@id": "algo-ext:Snapshot",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" },
+                "sampling": {
+                    "@id": "algo-ext:sampling",
+                    "@type": "@vocab",
+                    "@context": {
+                        "initial-sampling": "algo-ext:initial-sampling",
+                        "event-triggered-sampling": "algo-ext:event-triggered-sampling"
+                    }
+                },
+                "trigger": { "@id": "algo-ext:trigger", "@type": "@id" }
+            }
+        }
+    }
+}

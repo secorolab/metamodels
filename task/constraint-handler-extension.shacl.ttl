@@ -1,0 +1,107 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
+@prefix geom-op: <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#> .
+@prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
+@prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
+@prefix slv: <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
+@prefix slv-ext: <https://secorolab.github.io/metamodels/task/solver-specification#> .
+
+cstr-hdl-ext:FeedForwardController
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr_hdl:Controller ;
+    sh:targetClass cstr-hdl-ext:FeedForwardController ;
+    sh:message "A feed-forward controller needs exactly one quantity reference signal and no error signal." ;
+    sh:property [
+        sh:path cstr-hdl-ext:reference-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path cstr_hdl:error-signal ;
+        sh:maxCount 0
+    ] .
+
+# Any controller may consume a reference signal, produced by a setpoint generator.
+cstr-hdl-ext:ReferenceConsumer
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:reference-signal ;
+    sh:message "A reference consumer must be a controller with exactly one quantity reference signal." ;
+    sh:class cstr_hdl:Controller ;
+    sh:property [
+        sh:path cstr-hdl-ext:reference-signal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
+
+cstr-hdl-ext:SolverBoundController
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:solver ;
+    sh:message "A solver-bound controller must reference exactly one solver." ;
+    sh:class cstr_hdl:Controller ;
+    sh:property [
+        sh:path cstr-hdl-ext:solver ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:or (
+            [ sh:class slv:SolverWithInputAndOutput ]
+            [ sh:class slv-ext:CommandForwardingSolver ]
+        )
+    ] .
+
+cstr-hdl-ext:LimiterOwner
+    a sh:NodeShape ;
+    sh:targetSubjectsOf algo-ext:limits ;
+    sh:message "A limiter owner must provide one or more saturation operations as limits." ;
+    sh:property [
+        sh:path algo-ext:limits ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class algo-ext:Saturation
+    ] .
+
+# The role marking which operator output a controller tracks: one instantaneous
+# desired value, the control horizon being one tick deep.
+cstr-hdl-ext:SetpointGenerator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr-hdl-ext:SetpointGenerator ;
+    sh:message "A setpoint generator must produce exactly one output, on algo-ext:out or geom-op:out." ;
+    sh:xone (
+        [ sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ]
+        [ sh:property [ sh:path geom-op:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ]
+    ) .
+
+cstr-hdl-ext:FallbackMonitor
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:fallback-motion ;
+    sh:message "A fallback monitor must be a monitor with exactly one guarded fallback motion." ;
+    sh:class cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr-hdl-ext:fallback-motion ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class mot:GuardedMotion
+    ] .
+
+# Optional per-monitor debounce; absent fires on the rising edge.
+cstr-hdl-ext:DebounceMonitor
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-hdl-ext:debounce-duration ;
+    sh:message "A debounce monitor must be a monitor with exactly one quantity debounce duration." ;
+    sh:class cstr_hdl:Monitor ;
+    sh:property [
+        sh:path cstr-hdl-ext:debounce-duration ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .

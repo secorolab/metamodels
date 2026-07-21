@@ -1,0 +1,28 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "cstr": "https://comp-rob2b.github.io/metamodels/task/constraint#",
+        "cstr-ext": "https://secorolab.github.io/metamodels/task/constraint#",
+
+        "ConstraintExpression": "cstr-ext:ConstraintExpression",
+        "ConstraintConjunction": "cstr-ext:ConstraintConjunction",
+        "ConstraintDisjunction": "cstr-ext:ConstraintDisjunction",
+        "has-constraint": {
+            "@id": "cstr-ext:has-constraint",
+            "@type": "@id",
+            "@container": "@set"
+        },
+
+        "OutsideConstraint": {
+            "@id": "cstr-ext:OutsideConstraint",
+            "@context": {
+                "lower-threshold": { "@id": "cstr:lower-threshold", "@type": "@id" },
+                "upper-threshold": { "@id": "cstr:upper-threshold", "@type": "@id" }
+            }
+        },
+        "AngleConstraint": "cstr-ext:AngleConstraint",
+        "AngularDistanceConstraint": "cstr-ext:AngularDistanceConstraint",
+        "TimeConstraint": "cstr-ext:TimeConstraint",
+        "tolerance": { "@id": "cstr-ext:tolerance", "@type": "@id" }
+    }
+}
