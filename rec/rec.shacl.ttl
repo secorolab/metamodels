@@ -14,11 +14,6 @@ rec:RunExecutionShape
         sh:minCount 1 ;
         sh:datatype xsd:string ;
     ] ;
-    sh:property [
-        sh:path rec:file-id ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:string ;
-    ] ;
     sh:xone (
         [ sh:class rec:QueuedRun ]
         [ sh:class rec:RunningRun ]
@@ -28,11 +23,20 @@ rec:RunExecutionShape
         [ sh:class rec:CancelledRun ]
     ) ;
     sh:property [
+        sh:path prov:atLocation ;
+        sh:maxCount 1 ;
+        sh:class rec:PathLocation ;
+    ] ;
+    # A queued run has not started, so it carries no start time yet.
+    sh:property [
         sh:path prov:startedAtTime ;
-        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:dateTime ;
     ] ;
+    sh:or (
+        [ sh:class rec:QueuedRun ]
+        [ sh:property [ sh:path prov:startedAtTime ; sh:minCount 1 ] ]
+    ) ;
     sh:property [
         sh:path prov:endedAtTime ;
         sh:maxCount 1 ;
