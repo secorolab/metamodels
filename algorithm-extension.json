@@ -28,6 +28,7 @@
             "@id": "algo-ext:VelocityProfile",
             "@context": {
                 "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "target": { "@id": "algo-ext:target", "@type": "@id" },
                 "out": { "@id": "algo-ext:out", "@type": "@id" },
                 "maximum-velocity": { "@id": "algo-ext:maximum-velocity", "@type": "@id" },
                 "maximum-acceleration": { "@id": "algo-ext:maximum-acceleration", "@type": "@id" },
