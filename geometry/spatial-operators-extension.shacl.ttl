@@ -1,0 +1,111 @@
+@prefix geom-op:  <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#> .
+@prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
+@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix geom-path: <https://secorolab.github.io/metamodels/geometry/path#> .
+@prefix qkind:    <http://qudt.org/vocab/quantitykind/> .
+@prefix qudt:     <http://qudt.org/schema/qudt/> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:       <http://www.w3.org/ns/shacl#> .
+
+geom-op:InvertPose
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op:InvertPose ;
+    sh:message "A pose inversion needs one pose-coordinate input and one pose-coordinate output." ;
+    sh:property [
+        sh:path geom-op:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:out ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] .
+
+geom-op-ext:PoseDiffEvaluator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PoseDiffEvaluator ;
+    sh:message "A pose-difference evaluator needs two pose-coordinate inputs and one pose-difference-coordinate output." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:out ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseDifferenceCoordinate
+    ] .
+
+geom-op-ext:PoseToAngularDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PoseToAngularDistance ;
+    sh:message "A pose-to-angular-distance operator needs one pose-coordinate input and one angular-distance-coordinate output." ;
+    sh:property [
+        sh:path geom-op:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:angular-distance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:AngularDistanceCoordinate
+    ] .
+
+# Traversing a path: the only place a path parameter appears.
+geom-op-ext:PathEvaluator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PathEvaluator ;
+    sh:message "A path evaluator needs one path typed geom-path:Path, one unit-interval path parameter, and one pose-coordinate output." ;
+    sh:property [
+        sh:path geom-op-ext:path ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-path:Path
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:path-parameter ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node geom-op-ext:PathParameterShape
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:easing ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( geom-op-ext:linear geom-op-ext:ease-in geom-op-ext:ease-out geom-op-ext:ease-in-out )
+    ] ;
+    sh:property [
+        sh:path geom-op:out ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] .
+
+geom-op-ext:PathParameterShape
+    a sh:NodeShape ;
+    sh:message "A path parameter must be a dimensionless quantity with exactly one numeric value in the interval [0, 1]." ;
+    sh:class qudt:Quantity ;
+    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Dimensionless ] ;
+    sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] .

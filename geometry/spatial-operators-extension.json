@@ -1,0 +1,51 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "geom-op": "https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#",
+        "geom-op-ext": "https://secorolab.github.io/metamodels/geometry/spatial-operators#",
+
+        "InvertPose": {
+            "@id": "geom-op:InvertPose",
+            "@context": {
+                "pose": { "@id": "geom-op:pose", "@type": "@id" },
+                "out": { "@id": "geom-op:out", "@type": "@id" }
+            }
+        },
+
+        "PoseDiffEvaluator": {
+            "@id": "geom-op-ext:PoseDiffEvaluator",
+            "@context": {
+                "in1": { "@id": "geom-op:in1", "@type": "@id" },
+                "in2": { "@id": "geom-op:in2", "@type": "@id" },
+                "out": { "@id": "geom-op:out", "@type": "@id" }
+            }
+        },
+
+        "PoseToAngularDistance": {
+            "@id": "geom-op-ext:PoseToAngularDistance",
+            "@context": {
+                "pose": { "@id": "geom-op:pose", "@type": "@id" },
+                "angular-distance": { "@id": "geom-op-ext:angular-distance", "@type": "@id" }
+            }
+        },
+
+        "PathEvaluator": {
+            "@id": "geom-op-ext:PathEvaluator",
+            "@context": {
+                "path": { "@id": "geom-op-ext:path", "@type": "@id" },
+                "path-parameter": { "@id": "geom-op-ext:path-parameter", "@type": "@id" },
+                "easing": {
+                    "@id": "geom-op-ext:easing",
+                    "@type": "@vocab",
+                    "@context": {
+                        "linear": "geom-op-ext:linear",
+                        "ease-in": "geom-op-ext:ease-in",
+                        "ease-out": "geom-op-ext:ease-out",
+                        "ease-in-out": "geom-op-ext:ease-in-out"
+                    }
+                },
+                "out": { "@id": "geom-op:out", "@type": "@id" }
+            }
+        }
+    }
+}

@@ -1,0 +1,85 @@
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Shapes over W3C OWL-Time. No local classes: the temporal entity, relation and
+# coordinate layers are all reused from time:.
+
+time:Instant
+    a sh:NodeShape ;
+    sh:targetClass time:Instant ;
+    sh:message "An instant reads at most one time position." ;
+    sh:property [
+        sh:path time:inTimePosition ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class time:TimePosition
+    ] .
+
+time:TimePosition
+    a sh:NodeShape ;
+    sh:targetClass time:TimePosition ;
+    sh:message "A time position is a number read against exactly one clock (TRS)." ;
+    sh:property [
+        sh:path time:hasTRS ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class time:TRS
+    ] ;
+    sh:property [
+        sh:path time:numericPosition ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:double
+    ] .
+
+time:ProperInterval
+    a sh:NodeShape ;
+    sh:targetClass time:ProperInterval ;
+    sh:message "An interval spans exactly one beginning and one ending instant, and carries at most one duration." ;
+    sh:property [
+        sh:path time:hasBeginning ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class time:Instant
+    ] ;
+    sh:property [
+        sh:path time:hasEnd ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class time:Instant
+    ] ;
+    sh:property [
+        sh:path time:hasDuration ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class time:Duration
+    ] .
+
+# The duration is the interval's coordinate: a magnitude in a unit, with no clock
+# (an origin cancels in a difference). Its value is carried by QUDT, not by
+# time:numericDuration, so every existing quantity reader parses it unchanged.
+time:Duration
+    a sh:NodeShape ;
+    sh:targetClass time:Duration ;
+    sh:message "A duration is a Time-kind QUDT quantity with a unit, and is not read against a clock." ;
+    sh:property [
+        sh:path qudt:hasQuantityKind ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:hasValue qudt_quant:Time
+    ] ;
+    sh:property [
+        sh:path qudt:unit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path time:hasTRS ;
+        sh:maxCount 0
+    ] .

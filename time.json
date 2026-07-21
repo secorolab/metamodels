@@ -1,0 +1,52 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "time": "http://www.w3.org/2006/time#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+        "TRS": "time:TRS",
+
+        "Instant": {
+            "@id": "time:Instant",
+            "@context": {
+                "in-time-position": {
+                    "@id": "time:inTimePosition",
+                    "@type": "@id"
+                }
+            }
+        },
+        "TimePosition": {
+            "@id": "time:TimePosition",
+            "@context": {
+                "as-seen-by": {
+                    "@id": "time:hasTRS",
+                    "@type": "@id"
+                },
+                "numeric-position": {
+                    "@id": "time:numericPosition",
+                    "@type": "xsd:double"
+                }
+            }
+        },
+
+        "ProperInterval": {
+            "@id": "time:ProperInterval",
+            "@context": {
+                "has-beginning": {
+                    "@id": "time:hasBeginning",
+                    "@type": "@id"
+                },
+                "has-end": {
+                    "@id": "time:hasEnd",
+                    "@type": "@id"
+                },
+                "has-duration": {
+                    "@id": "time:hasDuration",
+                    "@type": "@id"
+                }
+            }
+        },
+
+        "Duration": "time:Duration"
+    }
+}

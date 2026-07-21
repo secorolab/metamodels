@@ -1,0 +1,21 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
+
+        "solver": { "@id": "cstr-hdl-ext:solver", "@type": "@id" },
+
+        "reference-signal": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
+        "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
+        "SetpointGenerator": "cstr-hdl-ext:SetpointGenerator",
+        "fallback-motion": {
+            "@id": "cstr-hdl-ext:fallback-motion",
+            "@type": "@id"
+        },
+        "debounce-duration": {
+            "@id": "cstr-hdl-ext:debounce-duration",
+            "@type": "@id"
+        }
+    }
+}

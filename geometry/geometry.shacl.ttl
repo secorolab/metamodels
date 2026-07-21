@@ -12,6 +12,7 @@
 geom-rel:PositionShape
   a sh:NodeShape ;
   sh:targetClass geom-rel:Position ;
+  sh:message "A position must relate exactly one point to exactly one reference point." ;
   sh:property [
     sh:path geom-rel:of ;
     sh:class geom:Point ;
@@ -27,6 +28,7 @@ geom-rel:PositionShape
 geom-rel:OrientationShape
   a sh:NodeShape ;
   sh:targetClass geom-rel:Orientation ;
+  sh:message "An orientation must relate exactly one frame to exactly one reference frame." ;
   sh:property [
     sh:path geom-rel:of ;
     sh:class geom:Frame ;
@@ -42,6 +44,7 @@ geom-rel:OrientationShape
 geom-rel:PoseShape
   a sh:NodeShape ;
   sh:targetClass geom-rel:Pose ;
+  sh:message "A pose must relate exactly one frame to exactly one reference frame." ;
   sh:property [
     sh:path geom-rel:of ;
     sh:class geom:Frame ;
@@ -57,6 +60,24 @@ geom-rel:PoseShape
 
 # **********
 # Coordinates constraints
+geom-coord:PoseDifferenceCoordinate
+  a sh:NodeShape ;
+  sh:targetClass geom-coord:PoseDifferenceCoordinate ;
+  sh:message "A pose-difference coordinate needs one linear vector, one angular vector, and the frame in which it is expressed." ;
+  sh:property [
+    sh:path geom-coord:linear ;
+    sh:class geom-coord:VectorXYZ ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path geom-coord:angular ;
+    sh:class geom-coord:VectorXYZ ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property geom-coord:AsSeenByShape .
+
 geom-coord:AsSeenByShape
   a sh:PropertyShape ;
   sh:path geom-coord:as-seen-by ;
@@ -67,6 +88,7 @@ geom-coord:AsSeenByShape
 geom-coord:PositionReferenceShape
   a sh:NodeShape ;
   sh:targetClass geom-coord:PositionReference ;
+  sh:message "A position reference must identify exactly one position relation." ;
   sh:property [
     sh:path geom-coord:of-position ;
     sh:class geom-rel:Position ;
@@ -77,11 +99,13 @@ geom-coord:PositionReferenceShape
 geom-coord:PositionCoordinateShape
   a sh:NodeShape ;
   sh:targetClass geom-coord:PositionCoordinate ;
+  sh:message "A position coordinate must state the frame in which it is expressed." ;
   sh:property geom-coord:AsSeenByShape .
 
 geom-coord:PoseReferenceShape
   a sh:NodeShape ;
   sh:targetClass geom-coord:PoseReference ;
+  sh:message "A pose reference must identify exactly one pose relation." ;
   sh:property [
     sh:path geom-coord:of-pose ;
     sh:class geom-rel:Pose ;
@@ -92,11 +116,13 @@ geom-coord:PoseReferenceShape
 geom-coord:PoseCoordinateShape
   a sh:NodeShape ;
   sh:targetClass geom-coord:PoseCoordinate ;
+  sh:message "A pose coordinate must state the frame in which it is expressed." ;
   sh:property geom-coord:AsSeenByShape .
 
 geom-coord:EulerAnglesShape
   a sh:NodeShape ;
   sh:targetClass geom-coord:EulerAngles ;
+  sh:message "Euler angles require exactly one supported axes sequence." ;
   sh:property [
     sh:path geom-coord:axes-sequence ;
     sh:datatype xsd:string ;
@@ -108,6 +134,7 @@ geom-coord:EulerAnglesShape
 geom-coord:AnglesAlphaBetaGammaShape
   a sh:NodeShape ;
   sh:targetClass geom-coord:AnglesAlphaBetaGamma ;
+  sh:message "Alpha-beta-gamma angles require a unit and exactly one double-valued alpha, beta, and gamma." ;
   sh:property [
     sh:path qudt:unit ;
     sh:minCount 1 ;

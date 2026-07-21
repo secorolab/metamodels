@@ -1,0 +1,24 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "ms-exec-trace": "https://secorolab.github.io/metamodels/motion-spec/execution-trace/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+        "atFrame": { "@id": "ms-exec-trace:atFrame", "@type": "@id" },
+        "seq": { "@id": "ms-exec-trace:seq", "@type": "xsd:integer" },
+
+        "activeState": { "@id": "ms-exec-trace:activeState", "@type": "@id" },
+        "step": { "@id": "ms-exec-trace:step", "@type": "xsd:integer" },
+        "state": { "@id": "ms-exec-trace:state", "@type": "@id" },
+        "transition": { "@id": "ms-exec-trace:transition", "@type": "@id" },
+        "event": { "@id": "ms-exec-trace:event", "@type": "@id" },
+        "monitor": { "@id": "ms-exec-trace:monitor", "@type": "@id" },
+        "value": { "@id": "ms-exec-trace:value", "@type": "xsd:double" },
+
+        "Frame": "ms-exec-trace:Frame",
+        "StateOccurrence": "ms-exec-trace:StateOccurrence",
+        "TransitionOccurrence": "ms-exec-trace:TransitionOccurrence",
+        "EventOccurrence": "ms-exec-trace:EventOccurrence",
+        "MonitorOccurrence": "ms-exec-trace:MonitorOccurrence"
+    }
+}

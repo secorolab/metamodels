@@ -1,0 +1,33 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "geom-path": "https://secorolab.github.io/metamodels/geometry/path#",
+
+        "Path": "geom-path:Path",
+        "LinearPath": "geom-path:LinearPath",
+        "Circle": "geom-path:Circle",
+        "Arc": "geom-path:Arc",
+        "Helix": "geom-path:Helix",
+        "Figure8": "geom-path:Figure8",
+
+        "start": { "@id": "geom-path:start", "@type": "@id" },
+        "goal": { "@id": "geom-path:goal", "@type": "@id" },
+        "end": { "@id": "geom-path:end", "@type": "@id" },
+        "anchor": { "@id": "geom-path:anchor", "@type": "@id" },
+        "center": { "@id": "geom-path:center", "@type": "@id" },
+        "plane-normal": { "@id": "geom-path:plane-normal", "@type": "@id" },
+        "axis": { "@id": "geom-path:axis", "@type": "@id" },
+        "radius": { "@id": "geom-path:radius", "@type": "@id" },
+        "amplitude": { "@id": "geom-path:amplitude", "@type": "@id" },
+        "pitch": { "@id": "geom-path:pitch", "@type": "@id" },
+        "revolutions": { "@id": "geom-path:revolutions", "@type": "@id" },
+        "form": {
+            "@id": "geom-path:form",
+            "@type": "@vocab",
+            "@context": {
+                "gerono": "geom-path:gerono",
+                "bernoulli": "geom-path:bernoulli"
+            }
+        }
+    }
+}

@@ -3,7 +3,24 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "geom-coord": "https://comp-rob2b.github.io/metamodels/geometry/coordinates#",
 
+        "has-coordinate": {
+            "@id": "geom-coord:has-coordinate",
+            "@type": "@id",
+            "@container": "@set"
+        },
+
         "VectorXY": "geom-coord:VectorXY",
+
+        "AngularDistanceCoordinate": "geom-coord:AngularDistanceCoordinate",
+
+        "PoseDifferenceCoordinate": {
+            "@id": "geom-coord:PoseDifferenceCoordinate",
+            "@context": {
+                "linear": { "@id": "geom-coord:linear", "@type": "@id" },
+                "angular": { "@id": "geom-coord:angular", "@type": "@id" },
+                "as-seen-by": { "@id": "geom-coord:as-seen-by", "@type": "@id" }
+            }
+        },
 
         "Quaternion": { "@id": "geom-coord:Quaternion" },
         "w": { "@id": "geom-coord:w", "@type": "xsd:double" },
