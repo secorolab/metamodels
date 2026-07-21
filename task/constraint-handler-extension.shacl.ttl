@@ -2,7 +2,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
-@prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
 @prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
@@ -27,7 +26,7 @@ cstr-hdl-ext:FeedForwardController
         sh:maxCount 0
     ] .
 
-# Any controller may consume a reference signal, produced by a setpoint generator.
+# Any controller may consume a reference signal, produced by an algorithm operator's out port.
 cstr-hdl-ext:ReferenceConsumer
     a sh:NodeShape ;
     sh:targetSubjectsOf cstr-hdl-ext:reference-signal ;
@@ -66,85 +65,6 @@ cstr-hdl-ext:LimiterOwner
         sh:minCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class algo-ext:Saturation
-    ] .
-
-# One instantaneous desired value: the control horizon is one tick deep.
-cstr-hdl-ext:SetpointGenerator
-    a rdfs:Class, sh:NodeShape ;
-    sh:targetClass cstr-hdl-ext:SetpointGenerator ;
-    sh:message "A setpoint generator must produce exactly one quantity setpoint." ;
-    sh:property [
-        sh:path cstr-hdl-ext:setpoint ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] .
-
-cstr-hdl-ext:Admittance
-    a rdfs:Class, sh:NodeShape ;
-    rdfs:subClassOf cstr-hdl-ext:SetpointGenerator ;
-    sh:targetClass cstr-hdl-ext:Admittance ;
-    sh:message "An admittance needs force, mass, damping, and velocity-reference quantities; stiffness and saturation are optional." ;
-    sh:property [
-        sh:path cstr-hdl-ext:force ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:node cstr-hdl-ext:ForceQuantityShape
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:mass ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:damping ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:stiffness ;
-        sh:minCount 0 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] ;
-    sh:property [
-        sh:path cstr-hdl-ext:setpoint ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:node cstr-hdl-ext:VelocityQuantityShape
-    ] ;
-    sh:property [
-        sh:path algo-ext:limits ;
-        sh:minCount 0 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class algo-ext:Saturation
-    ] .
-
-cstr-hdl-ext:ForceQuantityShape
-    a sh:NodeShape ;
-    sh:message "This value must be a quantity whose quantity kind is force." ;
-    sh:class qudt:Quantity ;
-    sh:property [
-        sh:path qudt:hasQuantityKind ;
-        sh:hasValue qkind:Force ;
-        sh:minCount 1
-    ] .
-
-cstr-hdl-ext:VelocityQuantityShape
-    a sh:NodeShape ;
-    sh:message "This value must be a quantity whose quantity kind is linear velocity." ;
-    sh:class qudt:Quantity ;
-    sh:property [
-        sh:path qudt:hasQuantityKind ;
-        sh:hasValue qkind:LinearVelocity ;
-        sh:minCount 1
     ] .
 
 cstr-hdl-ext:FallbackMonitor

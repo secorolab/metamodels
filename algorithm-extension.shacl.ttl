@@ -75,3 +75,21 @@ algo-ext:Snapshot
             sh:property [ sh:path algo-ext:trigger ; sh:minCount 1 ]
         ]
     ) .
+
+# Force in, velocity out through a virtual mass-spring-damper.
+algo-ext:Admittance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass algo-ext:Admittance ;
+    sh:message "An admittance needs a force input, mass and damping, and produces one linear-velocity output; stiffness and saturation are optional." ;
+    sh:property [ sh:path algo-ext:in ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:ForceShape ] ;
+    sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:LinearVelocityShape ] ;
+    sh:property [ sh:path algo-ext:mass ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:damping ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:stiffness ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:limits ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class algo-ext:Saturation ] .
+
+algo-ext:ForceShape
+    a sh:NodeShape ;
+    sh:message "This value must be a quantity whose quantity kind is force." ;
+    sh:class qudt:Quantity ;
+    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Force ] .

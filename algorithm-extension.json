@@ -43,6 +43,17 @@
             }
         },
 
+        "Admittance": {
+            "@id": "algo-ext:Admittance",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" },
+                "mass": { "@id": "algo-ext:mass", "@type": "@id" },
+                "damping": { "@id": "algo-ext:damping", "@type": "@id" },
+                "stiffness": { "@id": "algo-ext:stiffness", "@type": "@id" }
+            }
+        },
+
         "Snapshot": {
             "@id": "algo-ext:Snapshot",
             "@context": {

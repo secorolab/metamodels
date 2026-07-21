@@ -7,20 +7,7 @@
         "solver": { "@id": "cstr-hdl-ext:solver", "@type": "@id" },
 
         "reference-signal": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
-        "SetpointGenerator": "cstr-hdl-ext:SetpointGenerator",
-        "setpoint": { "@id": "cstr-hdl-ext:setpoint", "@type": "@id" },
         "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
-        "Admittance": {
-            "@id": "cstr-hdl-ext:Admittance",
-            "@context": {
-                "force": { "@id": "cstr-hdl-ext:force", "@type": "@id" },
-                "mass": { "@id": "cstr-hdl-ext:mass", "@type": "@id" },
-                "damping": { "@id": "cstr-hdl-ext:damping", "@type": "@id" },
-                "stiffness": { "@id": "cstr-hdl-ext:stiffness", "@type": "@id" },
-                "setpoint": { "@id": "cstr-hdl-ext:setpoint", "@type": "@id" }
-            }
-        },
-
         "fallback-motion": {
             "@id": "cstr-hdl-ext:fallback-motion",
             "@type": "@id"
