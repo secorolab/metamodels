@@ -111,6 +111,17 @@ cstr-ext:TimeConstraint
         sh:class time:Duration
     ] .
 
+# A sampled clock never lands exactly on the reference, so an equality over a duration
+# is only decidable with a band around it.
+cstr-ext:TimeEqualityToleranceShape
+    a sh:NodeShape ;
+    sh:targetClass cstr-ext:TimeConstraint ;
+    sh:message "An equality over a duration needs a tolerance." ;
+    sh:or (
+        [ sh:not [ sh:class cstr:EqualityConstraint ] ]
+        [ sh:property [ sh:path cstr-ext:tolerance ; sh:minCount 1 ] ]
+    ) .
+
 # |quantity - reference-value| <= tolerance: a specification band, not measurement uncertainty.
 cstr-ext:EqualityToleranceShape
     a sh:NodeShape ;
