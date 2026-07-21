@@ -3,6 +3,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
+@prefix geom-op: <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#> .
 @prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
@@ -72,14 +73,11 @@ cstr-hdl-ext:LimiterOwner
 cstr-hdl-ext:SetpointGenerator
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass cstr-hdl-ext:SetpointGenerator ;
-    sh:message "A setpoint generator must produce exactly one quantity output." ;
-    sh:property [
-        sh:path algo-ext:out ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class qudt:Quantity
-    ] .
+    sh:message "A setpoint generator must produce exactly one output, on algo-ext:out or geom-op:out." ;
+    sh:xone (
+        [ sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ]
+        [ sh:property [ sh:path geom-op:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ]
+    ) .
 
 cstr-hdl-ext:FallbackMonitor
     a sh:NodeShape ;
