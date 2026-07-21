@@ -34,6 +34,10 @@
             "@container": "@set"
         },
         "host_info": "rec:host-info",
+        "hostname": "rec:hostname",
+        "os": "rec:os",
+        "runtime": "rec:runtime",
+        "cpu": "rec:cpu",
         "agents": {
             "@id": "rec:agents",
             "@container": "@set"
@@ -62,6 +66,11 @@
             "@id": "rec:heartbeat-time",
             "@type": "xsd:dateTime"
         },
+        "queued_time": {
+            "@id": "rec:queued-time",
+            "@type": "xsd:dateTime"
+        },
+        "fail_trace": "rec:fail-trace",
         "result": "rec:result"
     }
 }
