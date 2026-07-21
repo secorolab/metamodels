@@ -2,7 +2,9 @@
 @prefix cstr-ext: <https://secorolab.github.io/metamodels/task/constraint#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 
 cstr-ext:ConstraintExpression
@@ -33,12 +35,14 @@ cstr-ext:ConstraintDisjunction
     sh:message "A constraint disjunction must contain one or more atomic constraints or nested constraint expressions." ;
     sh:node cstr-ext:ConstraintExpression .
 
+# Operands compared against cstr:quantity; the classes below kind-check a tolerance with them.
 _:ConstraintPaths
     sh:alternativePath (
         cstr:upper-threshold
         cstr:lower-threshold
         cstr:threshold
         cstr:reference-value
+        cstr-ext:tolerance
     ) .
 
 cstr-ext:OutsideConstraint
@@ -89,4 +93,55 @@ cstr-ext:AngularDistanceConstraint
         sh:path _:ConstraintPaths ;
         sh:minCount 1 ;
         sh:class qudt_quant:PlaneAngle
+    ] .
+
+cstr-ext:TimeConstraint
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr:Constraint ;
+    sh:targetClass cstr-ext:TimeConstraint ;
+    sh:message "Constrains a duration -- the interval between two instants -- against a duration threshold." ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:class time:Duration
+    ] ;
+    sh:property [
+        sh:path _:ConstraintPaths ;
+        sh:minCount 1 ;
+        sh:class time:Duration
+    ] .
+
+# |quantity - reference-value| <= tolerance: a specification band, not measurement uncertainty.
+cstr-ext:EqualityToleranceShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cstr-ext:tolerance ;
+    sh:message "Only an equality constraint takes a tolerance, and at most one." ;
+    sh:class cstr:EqualityConstraint ;
+    sh:property [
+        sh:path cstr-ext:tolerance ;
+        sh:maxCount 1
+    ] .
+
+cstr-ext:ToleranceShape
+    a sh:NodeShape ;
+    sh:targetObjectsOf cstr-ext:tolerance ;
+    sh:message "A tolerance is a non-negative quantity carrying the kind and unit of the value it tolerances." ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:or (
+        [ sh:class qudt:Quantity ]
+        [ sh:class time:Duration ]
+    ) ;
+    sh:property [
+        sh:path qudt:hasQuantityKind ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path qudt:unit ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path qudt:value ;
+        sh:minInclusive 0
     ] .

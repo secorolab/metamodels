@@ -21,6 +21,8 @@
             }
         },
         "AngleConstraint": "cstr-ext:AngleConstraint",
-        "AngularDistanceConstraint": "cstr-ext:AngularDistanceConstraint"
+        "AngularDistanceConstraint": "cstr-ext:AngularDistanceConstraint",
+        "TimeConstraint": "cstr-ext:TimeConstraint",
+        "tolerance": { "@id": "cstr-ext:tolerance", "@type": "@id" }
     }
 }
