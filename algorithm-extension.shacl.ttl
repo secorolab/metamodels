@@ -1,4 +1,6 @@
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
+@prefix el: <https://secorolab.github.io/metamodels/behaviour/event_loop#> .
+@prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
@@ -22,10 +24,54 @@ algo-ext:Saturation
         ]
     ) .
 
+# Addition is commutative and associative, so the addends are an unordered set.
 algo-ext:Addition
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass algo-ext:Addition ;
-    sh:message "An addition needs two quantity inputs and one quantity output." ;
-    sh:property [ sh:path algo-ext:in1 ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
-    sh:property [ sh:path algo-ext:in2 ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:message "An addition needs two or more quantity inputs and one quantity output." ;
+    sh:property [ sh:path algo-ext:in ; sh:minCount 2 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
     sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] .
+
+# The timing law that turns a path into a trajectory.
+algo-ext:VelocityProfile
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass algo-ext:VelocityProfile ;
+    sh:message "A velocity profile needs maximum velocity and acceleration, and produces one linear-velocity output; a measured-velocity input and a jerk limit are optional." ;
+    sh:property [ sh:path algo-ext:in ; sh:maxCount 1 ; sh:node algo-ext:LinearVelocityShape ] ;
+    sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:LinearVelocityShape ] ;
+    sh:property [ sh:path algo-ext:maximum-velocity ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:LinearVelocityShape ] ;
+    sh:property [ sh:path algo-ext:maximum-acceleration ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:LinearAccelerationShape ] ;
+    sh:property [ sh:path algo-ext:maximum-jerk ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:shape ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:in ( algo-ext:trapezoidal algo-ext:s-curve ) ] .
+
+algo-ext:LinearVelocityShape
+    a sh:NodeShape ;
+    sh:message "This value must be a quantity whose quantity kind is linear velocity." ;
+    sh:class qudt:Quantity ;
+    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:LinearVelocity ] .
+
+algo-ext:LinearAccelerationShape
+    a sh:NodeShape ;
+    sh:message "This value must be a quantity whose quantity kind is linear acceleration." ;
+    sh:class qudt:Quantity ;
+    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:LinearAcceleration ] .
+
+# Sample-and-hold: captures its input once, or again on every trigger, and holds it.
+algo-ext:Snapshot
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass algo-ext:Snapshot ;
+    sh:message "A snapshot needs one source quantity, one held output quantity, and a valid initial or event-triggered sampling policy." ;
+    sh:property [ sh:path algo-ext:in ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:sampling ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:in ( algo-ext:initial-sampling algo-ext:event-triggered-sampling ) ] ;
+    sh:property [ sh:path algo-ext:trigger ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:class el:Event ] ;
+    sh:xone (
+        [
+            sh:property [ sh:path algo-ext:sampling ; sh:hasValue algo-ext:initial-sampling ] ;
+            sh:property [ sh:path algo-ext:trigger ; sh:maxCount 0 ]
+        ]
+        [
+            sh:property [ sh:path algo-ext:sampling ; sh:hasValue algo-ext:event-triggered-sampling ] ;
+            sh:property [ sh:path algo-ext:trigger ; sh:minCount 1 ]
+        ]
+    ) .

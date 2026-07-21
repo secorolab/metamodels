@@ -19,9 +19,44 @@
         "Addition": {
             "@id": "algo-ext:Addition",
             "@context": {
-                "in1": { "@id": "algo-ext:in1", "@type": "@id" },
-                "in2": { "@id": "algo-ext:in2", "@type": "@id" },
+                "in": { "@id": "algo-ext:in", "@type": "@id", "@container": "@set" },
                 "out": { "@id": "algo-ext:out", "@type": "@id" }
+            }
+        },
+
+        "VelocityProfile": {
+            "@id": "algo-ext:VelocityProfile",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" },
+                "maximum-velocity": { "@id": "algo-ext:maximum-velocity", "@type": "@id" },
+                "maximum-acceleration": { "@id": "algo-ext:maximum-acceleration", "@type": "@id" },
+                "maximum-jerk": { "@id": "algo-ext:maximum-jerk", "@type": "@id" },
+                "shape": {
+                    "@id": "algo-ext:shape",
+                    "@type": "@vocab",
+                    "@context": {
+                        "trapezoidal": "algo-ext:trapezoidal",
+                        "s-curve": "algo-ext:s-curve"
+                    }
+                }
+            }
+        },
+
+        "Snapshot": {
+            "@id": "algo-ext:Snapshot",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" },
+                "sampling": {
+                    "@id": "algo-ext:sampling",
+                    "@type": "@vocab",
+                    "@context": {
+                        "initial-sampling": "algo-ext:initial-sampling",
+                        "event-triggered-sampling": "algo-ext:event-triggered-sampling"
+                    }
+                },
+                "trigger": { "@id": "algo-ext:trigger", "@type": "@id" }
             }
         }
     }

@@ -9,7 +9,6 @@
 @prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
 @prefix slv: <https://comp-rob2b.github.io/metamodels/task/solver-specification#> .
 @prefix slv-ext: <https://secorolab.github.io/metamodels/task/solver-specification#> .
-@prefix traj: <https://secorolab.github.io/metamodels/task/trajectory#> .
 
 cstr-hdl-ext:FeedForwardController
     a rdfs:Class, sh:NodeShape ;
@@ -28,8 +27,7 @@ cstr-hdl-ext:FeedForwardController
         sh:maxCount 0
     ] .
 
-# Any controller may consume a reference signal (the reference it tracks,
-# produced by a traj:ReferenceGenerator).
+# Any controller may consume a reference signal, produced by a setpoint generator.
 cstr-hdl-ext:ReferenceConsumer
     a sh:NodeShape ;
     sh:targetSubjectsOf cstr-hdl-ext:reference-signal ;
@@ -70,9 +68,22 @@ cstr-hdl-ext:LimiterOwner
         sh:class algo-ext:Saturation
     ] .
 
+# One instantaneous desired value: the control horizon is one tick deep.
+cstr-hdl-ext:SetpointGenerator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass cstr-hdl-ext:SetpointGenerator ;
+    sh:message "A setpoint generator must produce exactly one quantity setpoint." ;
+    sh:property [
+        sh:path cstr-hdl-ext:setpoint ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] .
+
 cstr-hdl-ext:Admittance
     a rdfs:Class, sh:NodeShape ;
-    rdfs:subClassOf traj:ReferenceGenerator ;
+    rdfs:subClassOf cstr-hdl-ext:SetpointGenerator ;
     sh:targetClass cstr-hdl-ext:Admittance ;
     sh:message "An admittance needs force, mass, damping, and velocity-reference quantities; stiffness and saturation are optional." ;
     sh:property [
@@ -103,7 +114,7 @@ cstr-hdl-ext:Admittance
         sh:class qudt:Quantity
     ] ;
     sh:property [
-        sh:path traj:reference ;
+        sh:path cstr-hdl-ext:setpoint ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:node cstr-hdl-ext:VelocityQuantityShape

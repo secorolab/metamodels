@@ -27,6 +27,25 @@
                 "pose": { "@id": "geom-op:pose", "@type": "@id" },
                 "angular-distance": { "@id": "geom-op-ext:angular-distance", "@type": "@id" }
             }
+        },
+
+        "PathEvaluator": {
+            "@id": "geom-op-ext:PathEvaluator",
+            "@context": {
+                "path": { "@id": "geom-op-ext:path", "@type": "@id" },
+                "path-parameter": { "@id": "geom-op-ext:path-parameter", "@type": "@id" },
+                "easing": {
+                    "@id": "geom-op-ext:easing",
+                    "@type": "@vocab",
+                    "@context": {
+                        "linear": "geom-op-ext:linear",
+                        "ease-in": "geom-op-ext:ease-in",
+                        "ease-out": "geom-op-ext:ease-out",
+                        "ease-in-out": "geom-op-ext:ease-in-out"
+                    }
+                },
+                "out": { "@id": "geom-op:out", "@type": "@id" }
+            }
         }
     }
 }

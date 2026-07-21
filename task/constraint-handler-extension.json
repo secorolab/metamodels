@@ -3,11 +3,12 @@
         "@version": 1.1,
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
-        "traj": "https://secorolab.github.io/metamodels/task/trajectory#",
 
         "solver": { "@id": "cstr-hdl-ext:solver", "@type": "@id" },
 
         "reference-signal": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
+        "SetpointGenerator": "cstr-hdl-ext:SetpointGenerator",
+        "setpoint": { "@id": "cstr-hdl-ext:setpoint", "@type": "@id" },
         "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
         "Admittance": {
             "@id": "cstr-hdl-ext:Admittance",
@@ -16,7 +17,7 @@
                 "mass": { "@id": "cstr-hdl-ext:mass", "@type": "@id" },
                 "damping": { "@id": "cstr-hdl-ext:damping", "@type": "@id" },
                 "stiffness": { "@id": "cstr-hdl-ext:stiffness", "@type": "@id" },
-                "reference": { "@id": "traj:reference", "@type": "@id" }
+                "setpoint": { "@id": "cstr-hdl-ext:setpoint", "@type": "@id" }
             }
         },
 
