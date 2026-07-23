@@ -1,13 +1,14 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Author: Minh Nguyen (minh@mail.minhnh.com)
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix el: <https://secorolab.github.io/metamodels/behaviour/event_loop#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix el: <https://secorolab.github.io/metamodels/behaviour/event-loop#> .
 
 el:RefEventShape
   a sh:PropertyShape ;
-  sh:description ":ref-event must link to exactly 1 :Event" ;
+  sh:description ":ref-event must link to exactly 1 time:Instant" ;
   sh:path el:ref-event ;
-  sh:class el:Event ;
+  sh:class time:Instant ;
   sh:minCount 1 ;
   sh:maxCount 1 .
 
@@ -24,8 +25,8 @@ el:EventLoopShape
   sh:targetClass el:EventLoop ;
   sh:property [
     sh:path el:has-event ;
-    sh:class el:Event ;
-    sh:minCount 0 ;
+    sh:class time:Instant ;
+    sh:minCount 1 ;
   ] ;
   sh:property [
     sh:path el:has-flag ;
