@@ -33,6 +33,11 @@
                 "do-transition": {
                     "@id": "fsm:do-transition",
                     "@type": "@id"
+                },
+                "fires-events": {
+                    "@id": "fsm:fires-events",
+                    "@container": "@set",
+                    "@type": "@id"
                 }
             }
         },

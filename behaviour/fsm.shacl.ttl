@@ -1,6 +1,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @prefix fsm: <https://secorolab.github.io/metamodels/behaviour/fsm#> .
 @prefix el: <https://secorolab.github.io/metamodels/behaviour/event-loop#> .
 
@@ -103,4 +104,9 @@ fsm:ReactionShape
     sh:class fsm:Transition ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path fsm:fires-events ;
+    sh:class time:Instant ;
   ] .
