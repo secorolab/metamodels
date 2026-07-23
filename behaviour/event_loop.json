@@ -1,9 +1,9 @@
 {
     "@context": {
-        "el": "https://secorolab.github.io/metamodels/behaviour/event_loop#",
+        "el": "https://secorolab.github.io/metamodels/behaviour/event-loop#",
         "EventLoop": { "@id": "el:EventLoop" },
+        "event-loop": { "@id": "el:event-loop", "@type": "@id" },
 
-        "Event": { "@id": "el:Event" },
         "has-event": { "@id": "el:has-event", "@type": "@id" },
         "ref-event": { "@id": "el:ref-event", "@type": "@id" },
 
