@@ -1,11 +1,12 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix fsm: <https://secorolab.github.io/metamodels/behaviour/fsm#> .
-@prefix el: <https://secorolab.github.io/metamodels/behaviour/event_loop#> .
+@prefix el: <https://secorolab.github.io/metamodels/behaviour/event-loop#> .
 
 fsm:FSMShape
   a sh:NodeShape ;
-  sh:targetClass fsm:FSM ;
+  sh:targetClass fsm:FiniteStateMachine ;
 
   sh:property [
     sh:path fsm:name ;
@@ -48,9 +49,10 @@ fsm:FSMShape
   ] ;
 
   sh:property [
-    sh:path fsm:events ;
-    sh:class el:Event ;
+    sh:path el:event-loop ;
+    sh:class el:EventLoop ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
   ] ;
 
   sh:property [
@@ -92,10 +94,8 @@ fsm:ReactionShape
   sh:targetClass fsm:Reaction ;
 
   sh:property [
-    sh:path fsm:when-event ;
-    sh:class el:Event ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
+    sh:path rdf:type ;
+    sh:hasValue el:EventReaction ;
   ] ;
 
   sh:property [
@@ -103,9 +103,4 @@ fsm:ReactionShape
     sh:class fsm:Transition ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
-  ] ;
-
-  sh:property [
-    sh:path fsm:fires-events ;
-    sh:class el:Event ;
   ] .
