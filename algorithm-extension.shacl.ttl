@@ -1,6 +1,5 @@
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
 @prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
-@prefix el: <https://secorolab.github.io/metamodels/behaviour/event_loop#> .
 @prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
 @prefix geom-path: <https://secorolab.github.io/metamodels/geometry/path#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
@@ -8,6 +7,7 @@
 @prefix unit: <http://qudt.org/vocab/unit/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 
 algo-ext:Saturation
     a rdfs:Class, sh:NodeShape ;
@@ -66,7 +66,16 @@ algo-ext:LinearAccelerationShape
 algo-ext:ProgressObjective
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass algo-ext:ProgressObjective ;
-    sh:message "A progress objective binds one normalized parameter to one or more geometric paths, an advancement rate, and their governing tracking constraints." ;
+    sh:message "A progress objective binds one normalized parameter to one or more geometric paths and asks a compatible solver to maximize it; it has no advancement rate and no governing constraint." ;
+    sh:property [ sh:path algo-ext:parameter ; sh:minCount 1 ; sh:maxCount 1 ; sh:node geom-op-ext:PathParameterShape ] ;
+    sh:property [ sh:path algo-ext:path ; sh:minCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class geom-path:Path ] ;
+    sh:property [ sh:path algo-ext:advancement ; sh:maxCount 0 ] ;
+    sh:property [ sh:path cstr-hdl:constraint ; sh:maxCount 0 ] .
+
+algo-ext:ProgressConstraint
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass algo-ext:ProgressConstraint ;
+    sh:message "A progress constraint binds one normalized parameter to one or more geometric paths, an advancement rate, and their governing tracking constraints." ;
     sh:property [ sh:path algo-ext:parameter ; sh:minCount 1 ; sh:maxCount 1 ; sh:node geom-op-ext:PathParameterShape ] ;
     sh:property [ sh:path algo-ext:path ; sh:minCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class geom-path:Path ] ;
     sh:property [ sh:path algo-ext:advancement ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:ProgressAdvancementShape ] ;
@@ -87,7 +96,7 @@ algo-ext:Snapshot
     sh:property [ sh:path algo-ext:in ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
     sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
     sh:property [ sh:path algo-ext:sampling ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:in ( algo-ext:initial-sampling algo-ext:event-triggered-sampling ) ] ;
-    sh:property [ sh:path algo-ext:trigger ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:class el:Event ] ;
+    sh:property [ sh:path algo-ext:trigger ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:class time:Instant ] ;
     sh:xone (
         [
             sh:property [ sh:path algo-ext:sampling ; sh:hasValue algo-ext:initial-sampling ] ;
