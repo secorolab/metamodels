@@ -101,13 +101,11 @@ cstr-ext:TimeConstraint
     sh:targetClass cstr-ext:TimeConstraint ;
     sh:message "Constrains a duration -- the interval between two instants -- against a duration threshold." ;
     sh:property [
-        # The measured duration is runtime state (see time:Duration): no authored value yet.
         sh:path cstr:quantity ;
         sh:minCount 1 ;
         sh:class time:Duration
     ] ;
     sh:property [
-        # Thresholds/reference-values/tolerances are authored: they must carry a value.
         sh:path _:ConstraintPaths ;
         sh:minCount 1 ;
         sh:class time:Duration ;
