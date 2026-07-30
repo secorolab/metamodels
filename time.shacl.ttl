@@ -58,10 +58,6 @@ time:ProperInterval
         sh:class time:Duration
     ] .
 
-# The duration is the interval's coordinate: a magnitude in a unit, with no clock
-# (an origin cancels in a difference). Its value is native OWL-Time: exactly one
-# numericDuration and one unitType together, or neither -- a measured duration is
-# runtime state, filled in only once the interval has actually elapsed.
 time:Duration
     a sh:NodeShape ;
     sh:targetClass time:Duration ;
@@ -91,9 +87,6 @@ time:Duration
         ]
     ) .
 
-# Referenced (not targeted) by shapes that need to require an authored value on a
-# Duration reached through a specific property path (e.g. a threshold or tolerance),
-# without weakening the general time:Duration shape that also accepts measured state.
 time:AuthoredDurationShape
     a sh:NodeShape ;
     sh:message "An authored duration needs a numeric magnitude and a temporal unit." ;
