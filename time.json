@@ -47,6 +47,19 @@
             }
         },
 
-        "Duration": "time:Duration"
+        "Duration": {
+            "@id": "time:Duration",
+            "@context": {
+                "numeric-duration": {
+                    "@id": "time:numericDuration",
+                    "@type": "xsd:decimal"
+                },
+                "unit-type": {
+                    "@id": "time:unitType",
+                    "@type": "@id"
+                }
+            }
+        },
+        "unit-second": "time:unitSecond"
     }
 }

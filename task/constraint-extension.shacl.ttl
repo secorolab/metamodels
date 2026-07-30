@@ -101,14 +101,17 @@ cstr-ext:TimeConstraint
     sh:targetClass cstr-ext:TimeConstraint ;
     sh:message "Constrains a duration -- the interval between two instants -- against a duration threshold." ;
     sh:property [
+        # The measured duration is runtime state (see time:Duration): no authored value yet.
         sh:path cstr:quantity ;
         sh:minCount 1 ;
         sh:class time:Duration
     ] ;
     sh:property [
+        # Thresholds/reference-values/tolerances are authored: they must carry a value.
         sh:path _:ConstraintPaths ;
         sh:minCount 1 ;
-        sh:class time:Duration
+        sh:class time:Duration ;
+        sh:node time:AuthoredDurationShape
     ] .
 
 # A sampled clock never lands exactly on the reference, so an equality over a duration
@@ -139,20 +142,15 @@ cstr-ext:ToleranceShape
     sh:message "A tolerance is a non-negative quantity carrying the kind and unit of the value it tolerances." ;
     sh:nodeKind sh:BlankNodeOrIRI ;
     sh:or (
-        [ sh:class qudt:Quantity ]
-        [ sh:class time:Duration ]
-    ) ;
-    sh:property [
-        sh:path qudt:hasQuantityKind ;
-        sh:minCount 1 ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path qudt:unit ;
-        sh:minCount 1 ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path qudt:value ;
-        sh:minInclusive 0
-    ] .
+        [
+            sh:class qudt:Quantity ;
+            sh:property [ sh:path qudt:hasQuantityKind ; sh:minCount 1 ; sh:maxCount 1 ] ;
+            sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ] ;
+            sh:property [ sh:path qudt:value ; sh:minInclusive 0 ]
+        ]
+        [
+            sh:class time:Duration ;
+            sh:node time:AuthoredDurationShape ;
+            sh:property [ sh:path time:numericDuration ; sh:minInclusive 0 ]
+        ]
+    ) .

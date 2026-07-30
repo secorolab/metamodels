@@ -1,5 +1,3 @@
-@prefix qudt: <http://qudt.org/schema/qudt/> .
-@prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -61,25 +59,53 @@ time:ProperInterval
     ] .
 
 # The duration is the interval's coordinate: a magnitude in a unit, with no clock
-# (an origin cancels in a difference). Its value is carried by QUDT, not by
-# time:numericDuration, so every existing quantity reader parses it unchanged.
+# (an origin cancels in a difference). Its value is native OWL-Time: exactly one
+# numericDuration and one unitType together, or neither -- a measured duration is
+# runtime state, filled in only once the interval has actually elapsed.
 time:Duration
     a sh:NodeShape ;
     sh:targetClass time:Duration ;
-    sh:message "A duration is a Time-kind QUDT quantity with a unit, and is not read against a clock." ;
+    sh:message "A duration reads one numeric magnitude against one temporal unit, or neither (unmeasured runtime state), and is never read against a clock." ;
     sh:property [
-        sh:path qudt:hasQuantityKind ;
-        sh:minCount 1 ;
+        sh:path time:numericDuration ;
         sh:maxCount 1 ;
-        sh:hasValue qudt_quant:Time
+        sh:datatype xsd:decimal
     ] ;
     sh:property [
-        sh:path qudt:unit ;
-        sh:minCount 1 ;
+        sh:path time:unitType ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
         sh:path time:hasTRS ;
         sh:maxCount 0
+    ] ;
+    sh:or (
+        [
+            sh:property [ sh:path time:numericDuration ; sh:maxCount 0 ] ;
+            sh:property [ sh:path time:unitType ; sh:maxCount 0 ]
+        ]
+        [
+            sh:property [ sh:path time:numericDuration ; sh:minCount 1 ] ;
+            sh:property [ sh:path time:unitType ; sh:minCount 1 ]
+        ]
+    ) .
+
+# Referenced (not targeted) by shapes that need to require an authored value on a
+# Duration reached through a specific property path (e.g. a threshold or tolerance),
+# without weakening the general time:Duration shape that also accepts measured state.
+time:AuthoredDurationShape
+    a sh:NodeShape ;
+    sh:message "An authored duration needs a numeric magnitude and a temporal unit." ;
+    sh:property [
+        sh:path time:numericDuration ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal
+    ] ;
+    sh:property [
+        sh:path time:unitType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
     ] .
