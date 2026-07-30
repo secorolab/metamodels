@@ -1,5 +1,6 @@
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
 @prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
+@prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
 @prefix geom-path: <https://secorolab.github.io/metamodels/geometry/path#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
@@ -17,7 +18,11 @@ algo-ext:Saturation
     sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
     sh:xone (
         [
-            sh:property [ sh:path algo-ext:maximum-absolute-value ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+            sh:property [
+                sh:path algo-ext:maximum-absolute-value ;
+                sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ;
+                sh:node [ sh:property [ sh:path qudt:value ; sh:minExclusive 0 ] ]
+            ] ;
             sh:property [ sh:path algo-ext:lower-bound ; sh:maxCount 0 ] ;
             sh:property [ sh:path algo-ext:upper-bound ; sh:maxCount 0 ]
         ]
@@ -46,10 +51,20 @@ algo-ext:VelocityProfile
     sh:property [ sh:path algo-ext:in ; sh:maxCount 1 ; sh:node algo-ext:LinearVelocityShape ] ;
     sh:property [ sh:path algo-ext:target ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
     sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
-    sh:property [ sh:path algo-ext:maximum-velocity ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:LinearVelocityShape ] ;
-    sh:property [ sh:path algo-ext:maximum-acceleration ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:LinearAccelerationShape ] ;
-    sh:property [ sh:path algo-ext:maximum-jerk ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
-    sh:property [ sh:path algo-ext:shape ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:in ( algo-ext:trapezoidal algo-ext:s-curve ) ] .
+    sh:property [ sh:path algo-ext:maximum-velocity ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:PositiveLinearVelocityShape ] ;
+    sh:property [ sh:path algo-ext:maximum-acceleration ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:PositiveLinearAccelerationShape ] ;
+    sh:property [ sh:path algo-ext:maximum-jerk ; sh:maxCount 1 ; sh:node algo-ext:PositiveLinearJerkShape ] ;
+    sh:property [ sh:path algo-ext:shape ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:in ( algo-ext:trapezoidal algo-ext:s-curve ) ] ;
+    sh:xone (
+        [
+            sh:property [ sh:path algo-ext:shape ; sh:hasValue algo-ext:trapezoidal ] ;
+            sh:property [ sh:path algo-ext:maximum-jerk ; sh:maxCount 0 ]
+        ]
+        [
+            sh:property [ sh:path algo-ext:shape ; sh:hasValue algo-ext:s-curve ] ;
+            sh:property [ sh:path algo-ext:maximum-jerk ; sh:minCount 1 ; sh:maxCount 1 ]
+        ]
+    ) .
 
 algo-ext:LinearVelocityShape
     a sh:NodeShape ;
@@ -62,6 +77,22 @@ algo-ext:LinearAccelerationShape
     sh:message "This value must be a quantity whose quantity kind is linear acceleration." ;
     sh:class qudt:Quantity ;
     sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:LinearAcceleration ] .
+
+algo-ext:PositiveLinearVelocityShape
+    a sh:NodeShape ;
+    sh:node algo-ext:LinearVelocityShape ;
+    sh:property [ sh:path qudt:value ; sh:minExclusive 0 ] .
+
+algo-ext:PositiveLinearAccelerationShape
+    a sh:NodeShape ;
+    sh:node algo-ext:LinearAccelerationShape ;
+    sh:property [ sh:path qudt:value ; sh:minExclusive 0 ] .
+
+algo-ext:PositiveLinearJerkShape
+    a sh:NodeShape ;
+    sh:class qudt:Quantity ;
+    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue cstr-hdl-ext:LinearJerk ] ;
+    sh:property [ sh:path qudt:value ; sh:minExclusive 0 ] .
 
 algo-ext:ProgressObjective
     a rdfs:Class, sh:NodeShape ;
@@ -85,6 +116,7 @@ algo-ext:ProgressAdvancementShape
     a sh:NodeShape ;
     sh:message "Progress advancement must be a frequency quantity expressed in hertz." ;
     sh:class qudt:Quantity ;
+    sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:minExclusive 0 ] ;
     sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Frequency ] ;
     sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue unit:HZ ] .
 
@@ -115,9 +147,9 @@ algo-ext:Admittance
     sh:message "An admittance needs a force input, mass and damping, and produces one linear-velocity output; stiffness and saturation are optional." ;
     sh:property [ sh:path algo-ext:in ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:ForceShape ] ;
     sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:LinearVelocityShape ] ;
-    sh:property [ sh:path algo-ext:mass ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
-    sh:property [ sh:path algo-ext:damping ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
-    sh:property [ sh:path algo-ext:stiffness ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:mass ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ; sh:node algo-ext:PositiveValueShape ] ;
+    sh:property [ sh:path algo-ext:damping ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ; sh:node algo-ext:NonNegativeValueShape ] ;
+    sh:property [ sh:path algo-ext:stiffness ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ; sh:node algo-ext:NonNegativeValueShape ] ;
     sh:property [ sh:path algo-ext:limits ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class algo-ext:Saturation ] .
 
 algo-ext:ForceShape
@@ -125,3 +157,11 @@ algo-ext:ForceShape
     sh:message "This value must be a quantity whose quantity kind is force." ;
     sh:class qudt:Quantity ;
     sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Force ] .
+
+algo-ext:PositiveValueShape
+    a sh:NodeShape ;
+    sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:minExclusive 0 ] .
+
+algo-ext:NonNegativeValueShape
+    a sh:NodeShape ;
+    sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ] .
