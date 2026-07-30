@@ -44,6 +44,15 @@
             }
         },
 
+        "ProgressObjective": {
+            "@id": "algo-ext:ProgressObjective",
+            "@context": {
+                "parameter": { "@id": "algo-ext:parameter", "@type": "@id" },
+                "path": { "@id": "algo-ext:path", "@type": "@id", "@container": "@set" },
+                "advancement": { "@id": "algo-ext:advancement", "@type": "@id" }
+            }
+        },
+
         "Admittance": {
             "@id": "algo-ext:Admittance",
             "@context": {
