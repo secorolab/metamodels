@@ -2,6 +2,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix time: <http://www.w3.org/2006/time#> .
+@prefix schema: <https://schema.org/> .
 @prefix fsm: <https://secorolab.github.io/metamodels/behaviour/fsm#> .
 @prefix el: <https://secorolab.github.io/metamodels/behaviour/event-loop#> .
 
@@ -10,14 +11,14 @@ fsm:FSMShape
   sh:targetClass fsm:FiniteStateMachine ;
 
   sh:property [
-    sh:path fsm:name ;
+    sh:path schema:name ;
     sh:datatype xsd:string ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
 
   sh:property [
-    sh:path fsm:description ;
+    sh:path schema:description ;
     sh:datatype xsd:string ;
     sh:maxCount 1 ;
   ] ;
