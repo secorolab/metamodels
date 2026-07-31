@@ -2,6 +2,8 @@
 @prefix slv-ext:  <https://secorolab.github.io/metamodels/task/solver-specification#> .
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh:       <http://www.w3.org/ns/shacl#> .
+@prefix geom_coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix dyn_coord:  <https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/coordinates#> .
 
 slv-ext:CommandForwardingSolver
     a rdfs:Class, sh:NodeShape ;
@@ -18,4 +20,28 @@ slv-ext:CommandForwardingSolver
         sh:path slv:output ;
         sh:minCount 0 ;
         sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+slv-ext:VelocityDistributionSolver
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass slv-ext:VelocityDistributionSolver ;
+    sh:message "A velocity-distribution solver needs exactly one velocity coordinate." ;
+    sh:property [
+        sh:path slv:velocity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom_coord:VelocityTwistCoordinate
+    ] .
+
+slv-ext:ForceCompositionSolver
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass slv-ext:ForceCompositionSolver ;
+    sh:message "A force-composition solver needs exactly one force coordinate." ;
+    sh:property [
+        sh:path slv:force ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class dyn_coord:WrenchCoordinate
     ] .

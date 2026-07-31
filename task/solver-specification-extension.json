@@ -3,6 +3,8 @@
         "@version": 1.1,
         "slv-ext": "https://secorolab.github.io/metamodels/task/solver-specification#",
 
-        "CommandForwardingSolver": "slv-ext:CommandForwardingSolver"
+        "CommandForwardingSolver": "slv-ext:CommandForwardingSolver",
+        "VelocityDistributionSolver": "slv-ext:VelocityDistributionSolver",
+        "ForceCompositionSolver": "slv-ext:ForceCompositionSolver"
     }
 }
