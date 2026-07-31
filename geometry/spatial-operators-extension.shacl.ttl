@@ -2,6 +2,7 @@
 @prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
 @prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 @prefix geom-path: <https://secorolab.github.io/metamodels/geometry/path#> .
+@prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix qkind:    <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt:     <http://qudt.org/schema/qudt/> .
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
@@ -71,11 +72,13 @@ geom-op-ext:PoseToAngularDistance
         sh:class geom-coord:AngularDistanceCoordinate
     ] .
 
-# Traversing a path: the only place a path parameter appears.
-geom-op-ext:PathEvaluator
+# Following a path: the parameter is measured, not commanded, so it is the projection's
+# output. Separating travel along the path from leaving it needs a local frame, which is why
+# the tangent and its two normals are outputs too.
+geom-op-ext:PathProjection
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass geom-op-ext:PathEvaluator ;
-    sh:message "A path evaluator needs one path typed geom-path:Path, one unit-interval path parameter, and one pose-coordinate output." ;
+    sh:targetClass geom-op-ext:PathProjection ;
+    sh:message "A path projection needs one path typed geom-path:Path, the pose it projects, the twist measuring that pose, and it produces a path parameter, a tangent with two normals, a speed along the path, and the pose-coordinate output at the projection." ;
     sh:property [
         sh:path geom-op-ext:path ;
         sh:minCount 1 ;
@@ -84,16 +87,52 @@ geom-op-ext:PathEvaluator
         sh:class geom-path:Path
     ] ;
     sh:property [
+        sh:path geom-op:in ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path cstr-hdl:measured-velocity ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:VelocityTwistCoordinate
+    ] ;
+    sh:property [
         sh:path geom-op-ext:path-parameter ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:node geom-op-ext:PathParameterShape
     ] ;
     sh:property [
-        sh:path geom-op-ext:easing ;
+        sh:path geom-op-ext:tangent ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:in ( geom-op-ext:linear geom-op-ext:ease-in geom-op-ext:ease-out geom-op-ext:ease-in-out )
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:normal-a ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:normal-b ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:along-speed ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class qudt:Quantity ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:LinearVelocity ] ]
     ] ;
     sh:property [
         sh:path geom-op:out ;
@@ -105,7 +144,7 @@ geom-op-ext:PathEvaluator
 
 geom-op-ext:PathParameterShape
     a sh:NodeShape ;
-    sh:message "A path parameter must be a dimensionless quantity with exactly one numeric value in the interval [0, 1]." ;
+    sh:message "A path parameter must be a dimensionless quantity whose value, when it has one, lies in the interval [0, 1]." ;
     sh:class qudt:Quantity ;
     sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Dimensionless ] ;
-    sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] .
+    sh:property [ sh:path qudt:value ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] .

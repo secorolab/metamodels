@@ -1,6 +1,7 @@
 # SPDX-License-Identifier:  MPL-2.0
 # Author: Minh Nguyen (minh@mail.minhnh.com)
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
@@ -127,6 +128,40 @@ geom-coord:EulerAnglesShape
     sh:path geom-coord:axes-sequence ;
     sh:datatype xsd:string ;
     sh:pattern "^(xyz|xzy|yxz|yzx|zxy|zyx|xyx|xzx|yxy|yzy|zxz|zyz)$";
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:xone (
+    [ sh:property [ sh:path rdf:type ; sh:hasValue geom-coord:Intrinsic ] ]
+    [ sh:property [ sh:path rdf:type ; sh:hasValue geom-coord:Extrinsic ] ]
+  ) .
+
+geom-coord:QuaternionShape
+  a sh:NodeShape ;
+  sh:targetClass geom-coord:Quaternion ;
+  sh:message "A quaternion requires exactly four dimensionless coordinates." ;
+  sh:property [
+    sh:path geom-coord:has-coordinate ;
+    sh:minCount 4 ;
+    sh:maxCount 4 ;
+  ] .
+
+geom-coord:DirectionCosineXYZShape
+  a sh:NodeShape ;
+  sh:targetClass geom-coord:DirectionCosineXYZ ;
+  sh:message "A direction-cosine coordinate requires exactly one x, y and z axis." ;
+  sh:property [
+    sh:path geom-coord:direction-cosine-x ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path geom-coord:direction-cosine-y ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path geom-coord:direction-cosine-z ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] .

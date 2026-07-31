@@ -1,4 +1,5 @@
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
+@prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
 @prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
@@ -103,22 +104,16 @@ algo-ext:ProgressObjective
     sh:property [ sh:path algo-ext:advancement ; sh:maxCount 0 ] ;
     sh:property [ sh:path cstr-hdl:constraint ; sh:maxCount 0 ] .
 
+# A progress constraint guards continuation, so it is one-sided on the measured speed along
+# one path: while it holds, the current control action may go on. It never advances anything
+# itself, which is why it carries no rate.
 algo-ext:ProgressConstraint
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass algo-ext:ProgressConstraint ;
-    sh:message "A progress constraint binds one normalized parameter to one or more geometric paths, an advancement rate, and their governing tracking constraints." ;
-    sh:property [ sh:path algo-ext:parameter ; sh:minCount 1 ; sh:maxCount 1 ; sh:node geom-op-ext:PathParameterShape ] ;
-    sh:property [ sh:path algo-ext:path ; sh:minCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class geom-path:Path ] ;
-    sh:property [ sh:path algo-ext:advancement ; sh:minCount 1 ; sh:maxCount 1 ; sh:node algo-ext:ProgressAdvancementShape ] ;
-    sh:property [ sh:path cstr-hdl:constraint ; sh:minCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] .
-
-algo-ext:ProgressAdvancementShape
-    a sh:NodeShape ;
-    sh:message "Progress advancement must be a frequency quantity expressed in hertz." ;
-    sh:class qudt:Quantity ;
-    sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:minExclusive 0 ] ;
-    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Frequency ] ;
-    sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue unit:HZ ] .
+    sh:message "A progress constraint is a lower bound on the speed measured along exactly one geometric path." ;
+    sh:property [ sh:path geom-op-ext:path ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class geom-path:Path ] ;
+    sh:property [ sh:path cstr:threshold ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:class cstr:GreaterThanConstraint .
 
 # Sample-and-hold: captures its input once, or again on every trigger, and holds it.
 algo-ext:Snapshot

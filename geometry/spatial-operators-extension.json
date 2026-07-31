@@ -3,6 +3,7 @@
         "@version": 1.1,
         "geom-op": "https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#",
         "geom-op-ext": "https://secorolab.github.io/metamodels/geometry/spatial-operators#",
+        "cstr-hdl": "https://comp-rob2b.github.io/metamodels/task/constraint-handler#",
 
         "InvertPose": {
             "@id": "geom-op:InvertPose",
@@ -29,21 +30,17 @@
             }
         },
 
-        "PathEvaluator": {
-            "@id": "geom-op-ext:PathEvaluator",
+        "PathProjection": {
+            "@id": "geom-op-ext:PathProjection",
             "@context": {
                 "path": { "@id": "geom-op-ext:path", "@type": "@id" },
+                "in": { "@id": "geom-op:in", "@type": "@id" },
+                "measured-velocity": { "@id": "cstr-hdl:measured-velocity", "@type": "@id" },
                 "path-parameter": { "@id": "geom-op-ext:path-parameter", "@type": "@id" },
-                "easing": {
-                    "@id": "geom-op-ext:easing",
-                    "@type": "@vocab",
-                    "@context": {
-                        "linear": "geom-op-ext:linear",
-                        "ease-in": "geom-op-ext:ease-in",
-                        "ease-out": "geom-op-ext:ease-out",
-                        "ease-in-out": "geom-op-ext:ease-in-out"
-                    }
-                },
+                "tangent": { "@id": "geom-op-ext:tangent", "@type": "@id" },
+                "normal-a": { "@id": "geom-op-ext:normal-a", "@type": "@id" },
+                "normal-b": { "@id": "geom-op-ext:normal-b", "@type": "@id" },
+                "along-speed": { "@id": "geom-op-ext:along-speed", "@type": "@id" },
                 "out": { "@id": "geom-op:out", "@type": "@id" }
             }
         }
