@@ -100,7 +100,7 @@ algo-ext:ProgressObjective
     sh:targetClass algo-ext:ProgressObjective ;
     sh:message "A progress objective binds one normalized parameter to one or more geometric paths and asks a compatible solver to maximize it; it has no advancement rate and no governing constraint." ;
     sh:property [ sh:path algo-ext:parameter ; sh:minCount 1 ; sh:maxCount 1 ; sh:node geom-op-ext:PathParameterShape ] ;
-    sh:property [ sh:path algo-ext:path ; sh:minCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class geom-path:Path ] ;
+    sh:property [ sh:path geom-op-ext:path ; sh:minCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class geom-path:Path ] ;
     sh:property [ sh:path algo-ext:advancement ; sh:maxCount 0 ] ;
     sh:property [ sh:path cstr-hdl:constraint ; sh:maxCount 0 ] .
 

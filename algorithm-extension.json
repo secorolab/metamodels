@@ -49,7 +49,7 @@
             "@id": "algo-ext:ProgressObjective",
             "@context": {
                 "parameter": { "@id": "algo-ext:parameter", "@type": "@id" },
-                "path": { "@id": "algo-ext:path", "@type": "@id", "@container": "@set" }
+                "path": { "@id": "geom-op-ext:path", "@type": "@id", "@container": "@set" }
             }
         },
 
