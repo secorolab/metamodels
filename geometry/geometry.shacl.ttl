@@ -139,12 +139,11 @@ geom-coord:EulerAnglesShape
 geom-coord:QuaternionShape
   a sh:NodeShape ;
   sh:targetClass geom-coord:Quaternion ;
-  sh:message "A quaternion requires exactly four dimensionless coordinates." ;
-  sh:property [
-    sh:path geom-coord:has-coordinate ;
-    sh:minCount 4 ;
-    sh:maxCount 4 ;
-  ] .
+  sh:message "A quaternion requires exactly one double-valued x, y, z and w component." ;
+  sh:property [ sh:path geom-coord:x ; sh:datatype xsd:double ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path geom-coord:y ; sh:datatype xsd:double ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path geom-coord:z ; sh:datatype xsd:double ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path geom-coord:w ; sh:datatype xsd:double ; sh:minCount 1 ; sh:maxCount 1 ] .
 
 geom-coord:DirectionCosineXYZShape
   a sh:NodeShape ;
@@ -152,16 +151,19 @@ geom-coord:DirectionCosineXYZShape
   sh:message "A direction-cosine coordinate requires exactly one x, y and z axis." ;
   sh:property [
     sh:path geom-coord:direction-cosine-x ;
+    sh:nodeKind sh:BlankNode ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
     sh:path geom-coord:direction-cosine-y ;
+    sh:nodeKind sh:BlankNode ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
     sh:path geom-coord:direction-cosine-z ;
+    sh:nodeKind sh:BlankNode ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] .
