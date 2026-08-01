@@ -61,31 +61,24 @@ time:ProperInterval
 time:Duration
     a sh:NodeShape ;
     sh:targetClass time:Duration ;
-    sh:message "A duration reads one numeric magnitude against one temporal unit, or neither (unmeasured runtime state), and is never read against a clock." ;
+    sh:message "A duration reads exactly one numeric magnitude in seconds and is never read against a clock." ;
     sh:property [
         sh:path time:numericDuration ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:decimal
     ] ;
     sh:property [
         sh:path time:unitType ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:nodeKind sh:IRI
+        sh:nodeKind sh:IRI ;
+        sh:hasValue time:unitSecond
     ] ;
     sh:property [
         sh:path time:hasTRS ;
         sh:maxCount 0
-    ] ;
-    sh:or (
-        [
-            sh:property [ sh:path time:numericDuration ; sh:maxCount 0 ] ;
-            sh:property [ sh:path time:unitType ; sh:maxCount 0 ]
-        ]
-        [
-            sh:property [ sh:path time:numericDuration ; sh:minCount 1 ] ;
-            sh:property [ sh:path time:unitType ; sh:minCount 1 ]
-        ]
-    ) .
+    ] .
 
 time:AuthoredDurationShape
     a sh:NodeShape ;
@@ -100,5 +93,6 @@ time:AuthoredDurationShape
         sh:path time:unitType ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:nodeKind sh:IRI
+        sh:nodeKind sh:IRI ;
+        sh:hasValue time:unitSecond
     ] .

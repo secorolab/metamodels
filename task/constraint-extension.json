@@ -23,6 +23,7 @@
         "AngleConstraint": "cstr-ext:AngleConstraint",
         "AngularDistanceConstraint": "cstr-ext:AngularDistanceConstraint",
         "TimeConstraint": "cstr-ext:TimeConstraint",
+        "ElapsedDurationCoordinate": "cstr-ext:ElapsedDurationCoordinate",
         "tolerance": { "@id": "cstr-ext:tolerance", "@type": "@id" }
     }
 }

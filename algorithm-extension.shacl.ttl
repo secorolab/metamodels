@@ -1,12 +1,11 @@
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
 @prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
 @prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
-@prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
 @prefix geom-path: <https://secorolab.github.io/metamodels/geometry/path#> .
+@prefix qkind-ext: <https://secorolab.github.io/metamodels/qudt/quantity-kind#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
-@prefix unit: <http://qudt.org/vocab/unit/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
@@ -22,7 +21,7 @@ algo-ext:Saturation
             sh:property [
                 sh:path algo-ext:maximum-absolute-value ;
                 sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ;
-                sh:node [ sh:property [ sh:path qudt:value ; sh:minExclusive 0 ] ]
+                sh:node algo-ext:PositiveValueShape
             ] ;
             sh:property [ sh:path algo-ext:lower-bound ; sh:maxCount 0 ] ;
             sh:property [ sh:path algo-ext:upper-bound ; sh:maxCount 0 ]
@@ -82,18 +81,18 @@ algo-ext:LinearAccelerationShape
 algo-ext:PositiveLinearVelocityShape
     a sh:NodeShape ;
     sh:node algo-ext:LinearVelocityShape ;
-    sh:property [ sh:path qudt:value ; sh:minExclusive 0 ] .
+    sh:node algo-ext:PositiveValueShape .
 
 algo-ext:PositiveLinearAccelerationShape
     a sh:NodeShape ;
     sh:node algo-ext:LinearAccelerationShape ;
-    sh:property [ sh:path qudt:value ; sh:minExclusive 0 ] .
+    sh:node algo-ext:PositiveValueShape .
 
 algo-ext:PositiveLinearJerkShape
     a sh:NodeShape ;
     sh:class qudt:Quantity ;
-    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue cstr-hdl-ext:LinearJerk ] ;
-    sh:property [ sh:path qudt:value ; sh:minExclusive 0 ] .
+    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind-ext:LinearJerk ] ;
+    sh:node algo-ext:PositiveValueShape .
 
 algo-ext:ProgressObjective
     a rdfs:Class, sh:NodeShape ;
@@ -109,10 +108,12 @@ algo-ext:ProgressObjective
 # itself, which is why it carries no rate.
 algo-ext:ProgressConstraint
     a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr:Constraint, cstr:GreaterThanConstraint ;
     sh:targetClass algo-ext:ProgressConstraint ;
     sh:message "A progress constraint is a lower bound on the speed measured along exactly one geometric path." ;
     sh:property [ sh:path geom-op-ext:path ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class geom-path:Path ] ;
-    sh:property [ sh:path cstr:threshold ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [ sh:path cstr:quantity ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:node algo-ext:LinearVelocityShape ] ;
+    sh:property [ sh:path cstr:threshold ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:node algo-ext:LinearVelocityShape ] ;
     sh:class cstr:GreaterThanConstraint .
 
 # Sample-and-hold: captures its input once, or again on every trigger, and holds it.
