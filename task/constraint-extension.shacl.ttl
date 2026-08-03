@@ -5,6 +5,7 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
 @prefix time: <http://www.w3.org/2006/time#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
 @prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 
 cstr-ext:ConstraintExpression
@@ -117,7 +118,8 @@ cstr-ext:ElapsedDurationCoordinate
     sh:targetClass cstr-ext:ElapsedDurationCoordinate ;
     sh:message "An elapsed-duration coordinate is runtime state measured in seconds and has no authored value." ;
     sh:property [ sh:path time:numericDuration ; sh:maxCount 0 ] ;
-    sh:property [ sh:path time:unitType ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue time:unitSecond ] .
+    sh:property [ sh:path qudt:value ; sh:maxCount 0 ] ;
+    sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue unit:SEC ] .
 
 # A sampled clock never lands exactly on the reference, so an equality over a duration
 # is only decidable with a band around it.

@@ -1,5 +1,8 @@
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix quantitykind: <http://qudt.org/vocab/quantitykind/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 # Shapes over W3C OWL-Time. No local classes: the temporal entity, relation and
@@ -58,22 +61,19 @@ time:ProperInterval
         sh:class time:Duration
     ] .
 
+# A duration carries its magnitude as a qudt Time-kind scalar rather than through
+# time:numericDuration/time:unitType. Those cannot express a duration below the second:
+# time:unitType ranges over time:TemporalUnit, whose smallest member is time:unitSecond,
+# so a model written in milliseconds could only be recorded by rescaling it.
+
 time:Duration
     a sh:NodeShape ;
     sh:targetClass time:Duration ;
-    sh:message "A duration reads exactly one numeric magnitude in seconds and is never read against a clock." ;
+    sh:message "A duration reads exactly one magnitude, in the temporal unit it was written in, and is never read against a clock." ;
+    sh:node time:AuthoredDurationShape ;
     sh:property [
         sh:path time:numericDuration ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:decimal
-    ] ;
-    sh:property [
-        sh:path time:unitType ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:hasValue time:unitSecond
+        sh:maxCount 0
     ] ;
     sh:property [
         sh:path time:hasTRS ;
@@ -84,15 +84,21 @@ time:AuthoredDurationShape
     a sh:NodeShape ;
     sh:message "An authored duration needs a numeric magnitude and a temporal unit." ;
     sh:property [
-        sh:path time:numericDuration ;
+        sh:path qudt:value ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:datatype xsd:decimal
+        sh:datatype xsd:double
     ] ;
     sh:property [
-        sh:path time:unitType ;
+        sh:path qudt:unit ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
-        sh:hasValue time:unitSecond
+        sh:in ( unit:SEC unit:MilliSEC )
+    ] ;
+    sh:property [
+        sh:path qudt:hasQuantityKind ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:hasValue quantitykind:Time
     ] .
