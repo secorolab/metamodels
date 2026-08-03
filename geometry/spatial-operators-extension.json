@@ -30,6 +30,15 @@
             }
         },
 
+        "ComposeOrientation": {
+            "@id": "geom-op-ext:ComposeOrientation",
+            "@context": {
+                "in1": { "@id": "geom-op:in1", "@type": "@id" },
+                "in2": { "@id": "geom-op:in2", "@type": "@id" },
+                "composite": { "@id": "geom-op:composite", "@type": "@id" }
+            }
+        },
+
         "PathProjection": {
             "@id": "geom-op-ext:PathProjection",
             "@context": {

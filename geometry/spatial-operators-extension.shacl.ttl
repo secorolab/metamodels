@@ -72,6 +72,57 @@ geom-op-ext:PoseToAngularDistance
         sh:class geom-coord:AngularDistanceCoordinate
     ] .
 
+geom-op-ext:ComposeOrientation
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:ComposeOrientation ;
+    sh:message "An orientation composition needs one base and one rotation, in multiplication order, and one orientation-coordinate composite." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path geom-op:composite ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:OrientationCoordinate
+    ] ;
+    sh:xone (
+        [
+            sh:property [ sh:path geom-op:in1 ; sh:node geom-op-ext:OrientationBaseShape ] ;
+            sh:property [ sh:path geom-op:in2 ; sh:node geom-op-ext:RotationShape ]
+        ]
+        [
+            sh:property [ sh:path geom-op:in1 ; sh:node geom-op-ext:RotationShape ] ;
+            sh:property [ sh:path geom-op:in2 ; sh:node geom-op-ext:OrientationBaseShape ]
+        ]
+    ) .
+
+geom-op-ext:OrientationBaseShape
+    a sh:NodeShape ;
+    sh:message "The base of an orientation composition must be a pose or an orientation coordinate." ;
+    sh:or (
+        [ sh:class geom-coord:PoseCoordinate ]
+        [ sh:class geom-coord:OrientationCoordinate ]
+    ) .
+
+geom-op-ext:RotationShape
+    a sh:NodeShape ;
+    sh:message "A rotation must be parameterised as Euler angles, a quaternion, or direction cosines." ;
+    sh:or (
+        [ sh:class geom-coord:EulerAngles ]
+        [ sh:class geom-coord:Quaternion ]
+        [ sh:class geom-coord:DirectionCosineXYZ ]
+    ) .
+
 # Following a path: the parameter is measured, not commanded, so it is the projection's
 # output. Separating travel along the path from leaving it needs a local frame, which is why
 # the tangent and its two normals are outputs too.
