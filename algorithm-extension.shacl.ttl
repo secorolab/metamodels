@@ -1,8 +1,4 @@
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
-@prefix cstr: <https://comp-rob2b.github.io/metamodels/task/constraint#> .
-@prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
-@prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
-@prefix geom-path: <https://secorolab.github.io/metamodels/geometry/path#> .
 @prefix qkind-ext: <https://secorolab.github.io/metamodels/qudt/quantity-kind#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
@@ -93,28 +89,6 @@ algo-ext:PositiveLinearJerkShape
     sh:class qudt:Quantity ;
     sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind-ext:LinearJerk ] ;
     sh:node algo-ext:PositiveValueShape .
-
-algo-ext:ProgressObjective
-    a rdfs:Class, sh:NodeShape ;
-    sh:targetClass algo-ext:ProgressObjective ;
-    sh:message "A progress objective binds one normalized parameter to one or more geometric paths and asks a compatible solver to maximize it; it has no advancement rate and no governing constraint." ;
-    sh:property [ sh:path algo-ext:parameter ; sh:minCount 1 ; sh:maxCount 1 ; sh:node geom-op-ext:PathParameterShape ] ;
-    sh:property [ sh:path geom-op-ext:path ; sh:minCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class geom-path:Path ] ;
-    sh:property [ sh:path algo-ext:advancement ; sh:maxCount 0 ] ;
-    sh:property [ sh:path cstr-hdl:constraint ; sh:maxCount 0 ] .
-
-# A progress constraint guards continuation, so it is one-sided on the measured speed along
-# one path: while it holds, the current control action may go on. It never advances anything
-# itself, which is why it carries no rate.
-algo-ext:ProgressConstraint
-    a rdfs:Class, sh:NodeShape ;
-    rdfs:subClassOf cstr:Constraint, cstr:GreaterThanConstraint ;
-    sh:targetClass algo-ext:ProgressConstraint ;
-    sh:message "A progress constraint is a lower bound on the speed measured along exactly one geometric path." ;
-    sh:property [ sh:path geom-op-ext:path ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class geom-path:Path ] ;
-    sh:property [ sh:path cstr:quantity ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:node algo-ext:LinearVelocityShape ] ;
-    sh:property [ sh:path cstr:threshold ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:node algo-ext:LinearVelocityShape ] ;
-    sh:class cstr:GreaterThanConstraint .
 
 # Sample-and-hold: captures its input once, or again on every trigger, and holds it.
 algo-ext:Snapshot

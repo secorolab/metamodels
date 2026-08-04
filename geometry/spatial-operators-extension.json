@@ -3,7 +3,6 @@
         "@version": 1.1,
         "geom-op": "https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#",
         "geom-op-ext": "https://secorolab.github.io/metamodels/geometry/spatial-operators#",
-        "cstr-hdl": "https://comp-rob2b.github.io/metamodels/task/constraint-handler#",
 
         "InvertPose": {
             "@id": "geom-op:InvertPose",
@@ -43,14 +42,37 @@
             "@id": "geom-op-ext:PathProjection",
             "@context": {
                 "path": { "@id": "geom-op-ext:path", "@type": "@id" },
-                "in": { "@id": "geom-op:in", "@type": "@id" },
-                "measured-velocity": { "@id": "cstr-hdl:measured-velocity", "@type": "@id" },
+                "pose": { "@id": "geom-op:pose", "@type": "@id" },
+                "path-parameter": { "@id": "geom-op-ext:path-parameter", "@type": "@id" }
+            }
+        },
+
+        "PathEvaluator": {
+            "@id": "geom-op-ext:PathEvaluator",
+            "@context": {
+                "path": { "@id": "geom-op-ext:path", "@type": "@id" },
+                "path-parameter": { "@id": "geom-op-ext:path-parameter", "@type": "@id" },
+                "out": { "@id": "geom-op:out", "@type": "@id" }
+            }
+        },
+
+        "PathTangentFrame": {
+            "@id": "geom-op-ext:PathTangentFrame",
+            "@context": {
+                "path": { "@id": "geom-op-ext:path", "@type": "@id" },
                 "path-parameter": { "@id": "geom-op-ext:path-parameter", "@type": "@id" },
                 "tangent": { "@id": "geom-op-ext:tangent", "@type": "@id" },
                 "normal-a": { "@id": "geom-op-ext:normal-a", "@type": "@id" },
-                "normal-b": { "@id": "geom-op-ext:normal-b", "@type": "@id" },
-                "along-speed": { "@id": "geom-op-ext:along-speed", "@type": "@id" },
-                "out": { "@id": "geom-op:out", "@type": "@id" }
+                "normal-b": { "@id": "geom-op-ext:normal-b", "@type": "@id" }
+            }
+        },
+
+        "TwistToLinearVelocityAlong": {
+            "@id": "geom-op-ext:TwistToLinearVelocityAlong",
+            "@context": {
+                "in": { "@id": "geom-op:in", "@type": "@id" },
+                "direction": { "@id": "geom-op:direction", "@type": "@id" },
+                "along-speed": { "@id": "geom-op-ext:along-speed", "@type": "@id" }
             }
         }
     }

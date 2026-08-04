@@ -5,7 +5,6 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix unit: <http://qudt.org/vocab/unit/> .
 @prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 
 cstr-ext:ConstraintExpression
@@ -101,10 +100,18 @@ cstr-ext:TimeConstraint
     rdfs:subClassOf cstr:Constraint ;
     sh:targetClass cstr-ext:TimeConstraint ;
     sh:message "Constrains a duration -- the interval between two instants -- against a duration threshold." ;
+    # The elapsed side is runtime state, so it is a Time-kind quantity carrying the unit its
+    # clock ticks in and no authored magnitude -- the same value-less quantity every other
+    # measured operand in this metamodel is.
     sh:property [
         sh:path cstr:quantity ;
         sh:minCount 1 ;
-        sh:class cstr-ext:ElapsedDurationCoordinate
+        sh:class qudt:Quantity ;
+        sh:node [
+            sh:property [ sh:path qudt:hasQuantityKind ; sh:minCount 1 ; sh:hasValue qudt_quant:Time ] ;
+            sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+            sh:property [ sh:path qudt:value ; sh:maxCount 0 ]
+        ]
     ] ;
     sh:property [
         sh:path _:ConstraintPaths ;
@@ -112,14 +119,6 @@ cstr-ext:TimeConstraint
         sh:class time:Duration ;
         sh:node time:AuthoredDurationShape
     ] .
-
-cstr-ext:ElapsedDurationCoordinate
-    a rdfs:Class, sh:NodeShape ;
-    sh:targetClass cstr-ext:ElapsedDurationCoordinate ;
-    sh:message "An elapsed-duration coordinate is runtime state measured in seconds and has no authored value." ;
-    sh:property [ sh:path time:numericDuration ; sh:maxCount 0 ] ;
-    sh:property [ sh:path qudt:value ; sh:maxCount 0 ] ;
-    sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue unit:SEC ] .
 
 # A sampled clock never lands exactly on the reference, so an equality over a duration
 # is only decidable with a band around it.
@@ -158,6 +157,6 @@ cstr-ext:ToleranceShape
         [
             sh:class time:Duration ;
             sh:node time:AuthoredDurationShape ;
-            sh:property [ sh:path time:numericDuration ; sh:minInclusive 0 ]
+            sh:property [ sh:path qudt:value ; sh:minInclusive 0 ]
         ]
     ) .

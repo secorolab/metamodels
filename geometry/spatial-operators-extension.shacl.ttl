@@ -2,7 +2,6 @@
 @prefix geom-op-ext: <https://secorolab.github.io/metamodels/geometry/spatial-operators#> .
 @prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 @prefix geom-path: <https://secorolab.github.io/metamodels/geometry/path#> .
-@prefix cstr-hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix qkind:    <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt:     <http://qudt.org/schema/qudt/> .
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
@@ -123,13 +122,12 @@ geom-op-ext:RotationShape
         [ sh:class geom-coord:DirectionCosineXYZ ]
     ) .
 
-# Following a path: the parameter is measured, not commanded, so it is the projection's
-# output. Separating travel along the path from leaving it needs a local frame, which is why
-# the tangent and its two normals are outputs too.
+# Where a pose sits on a path. The parameter is measured -- it is read off the robot's own
+# state, never commanded -- so it is this operator's output, not its input.
 geom-op-ext:PathProjection
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass geom-op-ext:PathProjection ;
-    sh:message "A path projection needs one path typed geom-path:Path, the pose it projects, the twist measuring that pose, and it produces a path parameter, a tangent with two normals, a speed along the path, and the pose-coordinate output at the projection." ;
+    sh:message "A path projection needs one path typed geom-path:Path and the pose it projects, and produces that pose's path parameter." ;
     sh:property [
         sh:path geom-op-ext:path ;
         sh:minCount 1 ;
@@ -138,18 +136,60 @@ geom-op-ext:PathProjection
         sh:class geom-path:Path
     ] ;
     sh:property [
-        sh:path geom-op:in ;
+        sh:path geom-op:pose ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class geom-coord:PoseCoordinate
     ] ;
     sh:property [
-        sh:path cstr-hdl:measured-velocity ;
+        sh:path geom-op-ext:path-parameter ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node geom-op-ext:PathParameterShape
+    ] .
+
+# The pose a path carries at a parameter. Paths are pure geometry, so this samples the curve
+# and nothing else; timing comes from whatever drives the parameter.
+geom-op-ext:PathEvaluator
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PathEvaluator ;
+    sh:message "A path evaluator needs one path typed geom-path:Path and one path parameter, and produces one pose coordinate on that path." ;
+    sh:property [
+        sh:path geom-op-ext:path ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class geom-coord:VelocityTwistCoordinate
+        sh:class geom-path:Path
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:path-parameter ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node geom-op-ext:PathParameterShape
+    ] ;
+    sh:property [
+        sh:path geom-op:out ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] .
+
+# Separating travel along a path from leaving it needs a local frame: one axis along the path
+# and two across it. Only the tangent is fixed by the geometry -- any two unit directions
+# spanning its orthogonal complement will do -- so the normals are named a and b rather than
+# claimed as the Frenet normal and binormal, which curvature would fix and flip at inflections.
+geom-op-ext:PathTangentFrame
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PathTangentFrame ;
+    sh:message "A path tangent frame needs one path typed geom-path:Path and one path parameter, and produces the tangent of that path there with two unit normals across it." ;
+    sh:property [
+        sh:path geom-op-ext:path ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-path:Path
     ] ;
     sh:property [
         sh:path geom-op-ext:path-parameter ;
@@ -177,6 +217,27 @@ geom-op-ext:PathProjection
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class geom-coord:DirectionCoordinate
+    ] .
+
+# Speed along a direction, measured at the point the twist describes. A map view cannot say
+# this: map:axis is closed to the canonical x, y and z, and this direction is arbitrary.
+geom-op-ext:TwistToLinearVelocityAlong
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:TwistToLinearVelocityAlong ;
+    sh:message "A twist-to-linear-velocity-along operator needs one velocity twist and one direction, and produces the linear speed of that twist along that direction." ;
+    sh:property [
+        sh:path geom-op:in ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:VelocityTwistCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:direction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
     ] ;
     sh:property [
         sh:path geom-op-ext:along-speed ;
@@ -184,13 +245,6 @@ geom-op-ext:PathProjection
         sh:maxCount 1 ;
         sh:class qudt:Quantity ;
         sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:LinearVelocity ] ]
-    ] ;
-    sh:property [
-        sh:path geom-op:out ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:BlankNodeOrIRI ;
-        sh:class geom-coord:PoseCoordinate
     ] .
 
 geom-op-ext:PathParameterShape

@@ -159,29 +159,6 @@ geom-coord:QuaternionShape
   sh:property [ sh:path geom-coord:w ; sh:datatype xsd:double ; sh:minCount 1 ; sh:maxCount 1 ] ;
   sh:sparql geom-coord:UnitQuaternionConstraint .
 
-geom-coord:DirectionCosineXYZShape
-  a sh:NodeShape ;
-  sh:targetClass geom-coord:DirectionCosineXYZ ;
-  sh:message "A direction-cosine coordinate requires exactly one x, y and z axis." ;
-  sh:property [
-    sh:path geom-coord:direction-cosine-x ;
-    sh:nodeKind sh:BlankNode ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
-  sh:property [
-    sh:path geom-coord:direction-cosine-y ;
-    sh:nodeKind sh:BlankNode ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
-  sh:property [
-    sh:path geom-coord:direction-cosine-z ;
-    sh:nodeKind sh:BlankNode ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] .
-
 geom-coord:AnglesAlphaBetaGammaShape
   a sh:NodeShape ;
   sh:targetClass geom-coord:AnglesAlphaBetaGamma ;

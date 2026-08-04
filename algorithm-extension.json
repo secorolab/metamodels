@@ -2,7 +2,6 @@
     "@context": {
         "@version": 1.1,
         "algo-ext": "https://secorolab.github.io/metamodels/algorithm#",
-        "geom-op-ext": "https://secorolab.github.io/metamodels/geometry/spatial-operators#",
 
         "limits": { "@id": "algo-ext:limits", "@type": "@id" },
 
@@ -42,21 +41,6 @@
                         "s-curve": "algo-ext:s-curve"
                     }
                 }
-            }
-        },
-
-        "ProgressObjective": {
-            "@id": "algo-ext:ProgressObjective",
-            "@context": {
-                "parameter": { "@id": "algo-ext:parameter", "@type": "@id" },
-                "path": { "@id": "geom-op-ext:path", "@type": "@id", "@container": "@set" }
-            }
-        },
-
-        "ProgressConstraint": {
-            "@id": "algo-ext:ProgressConstraint",
-            "@context": {
-                "path": { "@id": "geom-op-ext:path", "@type": "@id" }
             }
         },
 

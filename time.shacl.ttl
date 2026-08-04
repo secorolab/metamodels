@@ -2,7 +2,6 @@
 @prefix quantitykind: <http://qudt.org/vocab/quantitykind/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix unit: <http://qudt.org/vocab/unit/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 # Shapes over W3C OWL-Time. No local classes: the temporal entity, relation and
@@ -93,8 +92,7 @@ time:AuthoredDurationShape
         sh:path qudt:unit ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:in ( unit:SEC unit:MilliSEC )
+        sh:nodeKind sh:IRI
     ] ;
     sh:property [
         sh:path qudt:hasQuantityKind ;
