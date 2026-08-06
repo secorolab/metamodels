@@ -1,0 +1,72 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Shapes over W3C SOSA/SSN. No local classes: what equipment is (System, Platform,
+# Sensor) and what arranging it for a purpose is (Deployment) are both reused from the
+# standard. The shapes restate the spec's own domains and ranges, which RDFS only
+# entails -- a validator without a reasoner has to be told.
+
+ssn:Deployment
+    a sh:NodeShape ;
+    sh:targetClass ssn:Deployment ;
+    sh:message "A deployment deploys systems, on at most one platform." ;
+    sh:property [
+        sh:path ssn:deployedSystem ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path ssn:deployedOnPlatform ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+    ] .
+
+ssn:System
+    a sh:NodeShape ;
+    sh:targetClass ssn:System ;
+    sh:message "A system is named once, and its parts are systems." ;
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ssn:hasSubSystem ;
+        sh:nodeKind sh:IRI ;
+        sh:class ssn:System ;
+    ] .
+
+# sosa:hosts is what mounting means, and its range is deliberately narrow: a platform
+# carries sensors, actuators, samplers and nested platforms, never a bare system. A
+# robot standing on a table is deployed there, not hosted by it.
+sosa:Platform
+    a sh:NodeShape ;
+    sh:targetClass sosa:Platform ;
+    sh:message "A platform hosts sensors, actuators or other platforms." ;
+    sh:property [
+        sh:path sosa:hosts ;
+        sh:nodeKind sh:IRI ;
+        sh:or (
+            [ sh:class sosa:Sensor ]
+            [ sh:class sosa:Actuator ]
+            [ sh:class sosa:Platform ]
+        ) ;
+    ] ;
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] .
+
+sosa:Sensor
+    a sh:NodeShape ;
+    sh:targetClass sosa:Sensor ;
+    sh:message "A sensor observes quantity kinds." ;
+    sh:property [
+        sh:path sosa:observes ;
+        sh:nodeKind sh:IRI ;
+    ] .
