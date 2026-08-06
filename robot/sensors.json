@@ -2,28 +2,7 @@
     "@context": {
         "@version": 1.1,
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "sosa": "http://www.w3.org/ns/sosa/",
         "sens": "https://secorolab.github.io/metamodels/robot/sensors#",
-
-        "Sensor": "sosa:Sensor",
-        "Platform": "sosa:Platform",
-        "hosts": {
-            "@id": "sosa:hosts",
-            "@type": "@id",
-            "@container": "@set"
-        },
-        "observes": {
-            "@id": "sosa:observes",
-            "@type": "@id",
-            "@container": "@set",
-            "@context": {
-                "@base": "http://qudt.org/vocab/quantitykind/"
-            }
-        },
-        "made-by-sensor": {
-            "@id": "sosa:madeBySensor",
-            "@type": "@id"
-        },
 
         "Camera": {
             "@id": "sens:Camera",
