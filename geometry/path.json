@@ -16,7 +16,6 @@
         "anchor": { "@id": "geom-path:anchor", "@type": "@id" },
         "center": { "@id": "geom-path:center", "@type": "@id" },
         "plane-normal": { "@id": "geom-path:plane-normal", "@type": "@id" },
-        "direction": { "@id": "geom-path:direction", "@type": "@id" },
         "axis": { "@id": "geom-path:axis", "@type": "@id" },
         "radius": { "@id": "geom-path:radius", "@type": "@id" },
         "amplitude": { "@id": "geom-path:amplitude", "@type": "@id" },

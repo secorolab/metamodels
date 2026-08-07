@@ -53,11 +53,10 @@ geom-path:Figure8
     a rdfs:Class, sh:NodeShape ;
     rdfs:subClassOf geom-path:Path ;
     sh:targetClass geom-path:Figure8 ;
-    sh:message "A figure eight needs an anchor pose, a radius, the normal of its plane, an authored in-plane direction, and a supported form." ;
+    sh:message "A figure eight needs an anchor pose, a radius, the normal of its plane, and a supported form." ;
     sh:property [ sh:path geom-path:anchor ; sh:minCount 1 ; sh:maxCount 1 ; sh:class geom-coord:PoseCoordinate ] ;
     sh:property [ sh:path geom-path:radius ; sh:minCount 1 ; sh:maxCount 1 ; sh:node geom-path:PositiveDistanceShape ] ;
     sh:property [ sh:path geom-path:plane-normal ; sh:minCount 1 ; sh:maxCount 1 ; sh:class geom-coord:DirectionCoordinate ] ;
-    sh:property [ sh:path geom-path:direction ; sh:minCount 1 ; sh:maxCount 1 ; sh:class geom-coord:DirectionCoordinate ] ;
     sh:property [ sh:path geom-path:form ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:in ( geom-path:gerono geom-path:bernoulli ) ] .
 
 geom-path:DistanceShape
