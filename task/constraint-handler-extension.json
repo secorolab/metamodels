@@ -5,7 +5,7 @@
         "cstr-hdl-ext": "https://secorolab.github.io/metamodels/task/constraint-handler#",
 
         "solver": { "@id": "cstr-hdl-ext:solver", "@type": "@id" },
-        "solvers": { "@id": "cstr-hdl-ext:solvers", "@type": "@id", "@container": "@set" },
+        "runs-solver": { "@id": "cstr-hdl-ext:runs-solver", "@type": "@id", "@container": "@set" },
 
         "reference-signal": { "@id": "cstr-hdl-ext:reference-signal", "@type": "@id" },
         "FeedForwardController": "cstr-hdl-ext:FeedForwardController",
