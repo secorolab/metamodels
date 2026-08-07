@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: MPL-2.0
+# SPDX-FileCopyrightText: 2026 SECORO AG (secoro.uni-bremen.de)
+# Author: Vamsi Kalagaturu
+
+@prefix qkind-ext: <https://secorolab.github.io/metamodels/qudt/quantity-kind#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+qkind-ext:LinearJerk
+    a qudt:QuantityKind ;
+    rdfs:label "linear jerk" .

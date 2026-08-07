@@ -2,7 +2,9 @@
     "@context": {
         "@version": 1.1,
         "qudt-schema": "http://qudt.org/schema/qudt/",
+        "qkind-ext": "https://secorolab.github.io/metamodels/qudt/quantity-kind#",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "LinearJerk": { "@id": "qkind-ext:LinearJerk" },
          "unit": {
             "@id": "qudt-schema:unit",
             "@type": "@id",
