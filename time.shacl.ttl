@@ -1,5 +1,5 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
-@prefix qudt_quant: <http://qudt.org/vocab/quantitykind/> .
+@prefix quantitykind: <http://qudt.org/vocab/quantitykind/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -60,18 +60,33 @@ time:ProperInterval
         sh:class time:Duration
     ] .
 
-# The duration is the interval's coordinate: a magnitude in a unit, with no clock
-# (an origin cancels in a difference). Its value is carried by QUDT, not by
-# time:numericDuration, so every existing quantity reader parses it unchanged.
+# A duration carries its magnitude as a qudt Time-kind scalar rather than through
+# time:numericDuration/time:unitType. Those cannot express a duration below the second:
+# time:unitType ranges over time:TemporalUnit, whose smallest member is time:unitSecond,
+# so a model written in milliseconds could only be recorded by rescaling it.
+
 time:Duration
     a sh:NodeShape ;
     sh:targetClass time:Duration ;
-    sh:message "A duration is a Time-kind QUDT quantity with a unit, and is not read against a clock." ;
+    sh:message "A duration reads exactly one magnitude, in the temporal unit it was written in, and is never read against a clock." ;
+    sh:node time:AuthoredDurationShape ;
     sh:property [
-        sh:path qudt:hasQuantityKind ;
+        sh:path time:numericDuration ;
+        sh:maxCount 0
+    ] ;
+    sh:property [
+        sh:path time:hasTRS ;
+        sh:maxCount 0
+    ] .
+
+time:AuthoredDurationShape
+    a sh:NodeShape ;
+    sh:message "An authored duration needs a numeric magnitude and a temporal unit." ;
+    sh:property [
+        sh:path qudt:value ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:hasValue qudt_quant:Time
+        sh:datatype xsd:double
     ] ;
     sh:property [
         sh:path qudt:unit ;
@@ -80,6 +95,8 @@ time:Duration
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path time:hasTRS ;
-        sh:maxCount 0
+        sh:path qudt:hasQuantityKind ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:hasValue quantitykind:Time
     ] .

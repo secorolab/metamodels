@@ -46,9 +46,17 @@ map-ext:PoseCoordinateView
         sh:class geom_coord:PoseCoordinate
     ] ;
     sh:xone (
-        [ sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Position ] ] ] ;
+        [ sh:property [ sh:path map:axis ; sh:maxCount 0 ] ;
+          sh:property [ sh:path map:subobject ; sh:node [ sh:class geom_rel:Position ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Length ] ] ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map-ext:position ] ]
-        [ sh:property [ sh:path map:subobject ; sh:class geom_rel:Orientation ] ;
+        [ sh:property [ sh:path map:axis ; sh:minCount 1 ; sh:maxCount 1 ] ;
+          sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:Distance ] ] ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map-ext:position ] ]
+        [ sh:property [ sh:path map:axis ; sh:maxCount 0 ] ;
+          sh:property [ sh:path map:subobject ; sh:class geom_rel:Orientation ] ;
+          sh:property [ sh:path map:subspace ; sh:hasValue map-ext:orientation ] ]
+        [ sh:property [ sh:path map:axis ; sh:minCount 1 ; sh:maxCount 1 ] ;
+          sh:property [ sh:path map:subobject ; sh:node [ sh:class qudt:Quantity ; sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qudt_quant:PlaneAngle ] ] ] ;
           sh:property [ sh:path map:subspace ; sh:hasValue map-ext:orientation ] ]
     ) .
 

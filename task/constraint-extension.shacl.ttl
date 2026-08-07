@@ -100,15 +100,24 @@ cstr-ext:TimeConstraint
     rdfs:subClassOf cstr:Constraint ;
     sh:targetClass cstr-ext:TimeConstraint ;
     sh:message "Constrains a duration -- the interval between two instants -- against a duration threshold." ;
+    # The elapsed side is runtime state, so it is a Time-kind quantity carrying the unit its
+    # clock ticks in and no authored magnitude -- the same value-less quantity every other
+    # measured operand in this metamodel is.
     sh:property [
         sh:path cstr:quantity ;
         sh:minCount 1 ;
-        sh:class time:Duration
+        sh:class qudt:Quantity ;
+        sh:node [
+            sh:property [ sh:path qudt:hasQuantityKind ; sh:minCount 1 ; sh:hasValue qudt_quant:Time ] ;
+            sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+            sh:property [ sh:path qudt:value ; sh:maxCount 0 ]
+        ]
     ] ;
     sh:property [
         sh:path _:ConstraintPaths ;
         sh:minCount 1 ;
-        sh:class time:Duration
+        sh:class time:Duration ;
+        sh:node time:AuthoredDurationShape
     ] .
 
 # A sampled clock never lands exactly on the reference, so an equality over a duration
@@ -122,12 +131,15 @@ cstr-ext:TimeEqualityToleranceShape
         [ sh:property [ sh:path cstr-ext:tolerance ; sh:minCount 1 ] ]
     ) .
 
-# |quantity - reference-value| <= tolerance: a specification band, not measurement uncertainty.
-cstr-ext:EqualityToleranceShape
+# |error| <= tolerance: a specification band, not measurement uncertainty. Every constraint
+# kind carries one. An equality's band is the only way its measure-zero target is ever met;
+# a unilateral or bilateral gate's band is how close to the threshold counts as arrived,
+# which a motion that only asymptotes onto its boundary needs just as much.
+cstr-ext:ConstraintToleranceShape
     a sh:NodeShape ;
     sh:targetSubjectsOf cstr-ext:tolerance ;
-    sh:message "Only an equality constraint takes a tolerance, and at most one." ;
-    sh:class cstr:EqualityConstraint ;
+    sh:message "Only a constraint takes a tolerance, and at most one." ;
+    sh:class cstr:Constraint ;
     sh:property [
         sh:path cstr-ext:tolerance ;
         sh:maxCount 1
@@ -139,20 +151,15 @@ cstr-ext:ToleranceShape
     sh:message "A tolerance is a non-negative quantity carrying the kind and unit of the value it tolerances." ;
     sh:nodeKind sh:BlankNodeOrIRI ;
     sh:or (
-        [ sh:class qudt:Quantity ]
-        [ sh:class time:Duration ]
-    ) ;
-    sh:property [
-        sh:path qudt:hasQuantityKind ;
-        sh:minCount 1 ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path qudt:unit ;
-        sh:minCount 1 ;
-        sh:maxCount 1
-    ] ;
-    sh:property [
-        sh:path qudt:value ;
-        sh:minInclusive 0
-    ] .
+        [
+            sh:class qudt:Quantity ;
+            sh:property [ sh:path qudt:hasQuantityKind ; sh:minCount 1 ; sh:maxCount 1 ] ;
+            sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ] ;
+            sh:property [ sh:path qudt:value ; sh:minInclusive 0 ]
+        ]
+        [
+            sh:class time:Duration ;
+            sh:node time:AuthoredDurationShape ;
+            sh:property [ sh:path qudt:value ; sh:minInclusive 0 ]
+        ]
+    ) .

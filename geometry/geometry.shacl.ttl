@@ -1,6 +1,7 @@
 # SPDX-License-Identifier:  MPL-2.0
 # Author: Minh Nguyen (minh@mail.minhnh.com)
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
@@ -129,7 +130,34 @@ geom-coord:EulerAnglesShape
     sh:pattern "^(xyz|xzy|yxz|yzx|zxy|zyx|xyx|xzx|yxy|yzy|zxz|zyz)$";
     sh:minCount 1 ;
     sh:maxCount 1 ;
-  ] .
+  ] ;
+  sh:xone (
+    [ sh:property [ sh:path rdf:type ; sh:hasValue geom-coord:Intrinsic ] ]
+    [ sh:property [ sh:path rdf:type ; sh:hasValue geom-coord:Extrinsic ] ]
+  ) .
+
+geom-coord:UnitQuaternionConstraint
+  a sh:SPARQLConstraint ;
+  sh:message "A quaternion used as an orientation must have unit length." ;
+  sh:select """
+    PREFIX geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#>
+    SELECT $this
+    WHERE {
+      $this geom-coord:x ?x ; geom-coord:y ?y ; geom-coord:z ?z ; geom-coord:w ?w .
+      BIND((?x * ?x + ?y * ?y + ?z * ?z + ?w * ?w) AS ?normSquared)
+      FILTER(ABS(?normSquared - 1.0) > 0.000002)
+    }
+  """ .
+
+geom-coord:QuaternionShape
+  a sh:NodeShape ;
+  sh:targetClass geom-coord:Quaternion ;
+  sh:message "A quaternion requires exactly one double-valued x, y, z and w component." ;
+  sh:property [ sh:path geom-coord:x ; sh:datatype xsd:double ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path geom-coord:y ; sh:datatype xsd:double ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path geom-coord:z ; sh:datatype xsd:double ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path geom-coord:w ; sh:datatype xsd:double ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:sparql geom-coord:UnitQuaternionConstraint .
 
 geom-coord:AnglesAlphaBetaGammaShape
   a sh:NodeShape ;

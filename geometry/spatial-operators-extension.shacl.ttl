@@ -71,11 +71,90 @@ geom-op-ext:PoseToAngularDistance
         sh:class geom-coord:AngularDistanceCoordinate
     ] .
 
-# Traversing a path: the only place a path parameter appears.
+geom-op-ext:ComposeOrientation
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:ComposeOrientation ;
+    sh:message "An orientation composition needs one base and one rotation, in multiplication order, and one orientation-coordinate composite." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path geom-op:composite ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:OrientationCoordinate
+    ] ;
+    sh:xone (
+        [
+            sh:property [ sh:path geom-op:in1 ; sh:node geom-op-ext:OrientationBaseShape ] ;
+            sh:property [ sh:path geom-op:in2 ; sh:node geom-op-ext:RotationShape ]
+        ]
+        [
+            sh:property [ sh:path geom-op:in1 ; sh:node geom-op-ext:RotationShape ] ;
+            sh:property [ sh:path geom-op:in2 ; sh:node geom-op-ext:OrientationBaseShape ]
+        ]
+    ) .
+
+geom-op-ext:OrientationBaseShape
+    a sh:NodeShape ;
+    sh:message "The base of an orientation composition must be a pose or an orientation coordinate." ;
+    sh:or (
+        [ sh:class geom-coord:PoseCoordinate ]
+        [ sh:class geom-coord:OrientationCoordinate ]
+    ) .
+
+geom-op-ext:RotationShape
+    a sh:NodeShape ;
+    sh:message "A rotation must be parameterised as Euler angles, a quaternion, or direction cosines." ;
+    sh:or (
+        [ sh:class geom-coord:EulerAngles ]
+        [ sh:class geom-coord:Quaternion ]
+        [ sh:class geom-coord:DirectionCosineXYZ ]
+    ) .
+
+# Where a pose sits on a path. The parameter is measured -- it is read off the robot's own
+# state, never commanded -- so it is this operator's output, not its input.
+geom-op-ext:PathProjection
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PathProjection ;
+    sh:message "A path projection needs one path typed geom-path:Path and the pose it projects, and produces that pose's path parameter." ;
+    sh:property [
+        sh:path geom-op-ext:path ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-path:Path
+    ] ;
+    sh:property [
+        sh:path geom-op:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:path-parameter ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node geom-op-ext:PathParameterShape
+    ] .
+
+# The pose a path carries at a parameter. Paths are pure geometry, so this samples the curve
+# and nothing else; timing comes from whatever drives the parameter.
 geom-op-ext:PathEvaluator
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass geom-op-ext:PathEvaluator ;
-    sh:message "A path evaluator needs one path typed geom-path:Path, one unit-interval path parameter, and one pose-coordinate output." ;
+    sh:message "A path evaluator needs one path typed geom-path:Path and one path parameter, and produces one pose coordinate on that path." ;
     sh:property [
         sh:path geom-op-ext:path ;
         sh:minCount 1 ;
@@ -90,12 +169,6 @@ geom-op-ext:PathEvaluator
         sh:node geom-op-ext:PathParameterShape
     ] ;
     sh:property [
-        sh:path geom-op-ext:easing ;
-        sh:maxCount 1 ;
-        sh:nodeKind sh:IRI ;
-        sh:in ( geom-op-ext:linear geom-op-ext:ease-in geom-op-ext:ease-out geom-op-ext:ease-in-out )
-    ] ;
-    sh:property [
         sh:path geom-op:out ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
@@ -103,9 +176,80 @@ geom-op-ext:PathEvaluator
         sh:class geom-coord:PoseCoordinate
     ] .
 
+# Separating travel along a path from leaving it needs a local frame: one axis along the path
+# and two across it. Only the tangent is fixed by the geometry -- any two unit directions
+# spanning its orthogonal complement will do -- so the normals are named a and b rather than
+# claimed as the Frenet normal and binormal, which curvature would fix and flip at inflections.
+geom-op-ext:PathTangentFrame
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PathTangentFrame ;
+    sh:message "A path tangent frame needs one path typed geom-path:Path and one path parameter, and produces the tangent of that path there with two unit normals across it." ;
+    sh:property [
+        sh:path geom-op-ext:path ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-path:Path
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:path-parameter ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node geom-op-ext:PathParameterShape
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:tangent ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:normal-a ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:normal-b ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] .
+
+# Speed along a direction, measured at the point the twist describes. A map view cannot say
+# this: map:axis is closed to the canonical x, y and z, and this direction is arbitrary.
+geom-op-ext:TwistToLinearVelocityAlong
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:TwistToLinearVelocityAlong ;
+    sh:message "A twist-to-linear-velocity-along operator needs one velocity twist and one direction, and produces the linear speed of that twist along that direction." ;
+    sh:property [
+        sh:path geom-op:in ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:VelocityTwistCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:direction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:along-speed ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class qudt:Quantity ;
+        sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:LinearVelocity ] ]
+    ] .
+
 geom-op-ext:PathParameterShape
     a sh:NodeShape ;
-    sh:message "A path parameter must be a dimensionless quantity with exactly one numeric value in the interval [0, 1]." ;
+    sh:message "A path parameter must be a dimensionless quantity whose value, when it has one, lies in the interval [0, 1]." ;
     sh:class qudt:Quantity ;
     sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Dimensionless ] ;
-    sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] .
+    sh:property [ sh:path qudt:value ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] .
