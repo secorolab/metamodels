@@ -131,12 +131,15 @@ cstr-ext:TimeEqualityToleranceShape
         [ sh:property [ sh:path cstr-ext:tolerance ; sh:minCount 1 ] ]
     ) .
 
-# |quantity - reference-value| <= tolerance: a specification band, not measurement uncertainty.
-cstr-ext:EqualityToleranceShape
+# |error| <= tolerance: a specification band, not measurement uncertainty. Every constraint
+# kind carries one. An equality's band is the only way its measure-zero target is ever met;
+# a unilateral or bilateral gate's band is how close to the threshold counts as arrived,
+# which a motion that only asymptotes onto its boundary needs just as much.
+cstr-ext:ConstraintToleranceShape
     a sh:NodeShape ;
     sh:targetSubjectsOf cstr-ext:tolerance ;
-    sh:message "Only an equality constraint takes a tolerance, and at most one." ;
-    sh:class cstr:EqualityConstraint ;
+    sh:message "Only a constraint takes a tolerance, and at most one." ;
+    sh:class cstr:Constraint ;
     sh:property [
         sh:path cstr-ext:tolerance ;
         sh:maxCount 1
