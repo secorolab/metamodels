@@ -41,6 +41,11 @@
         "made-by-sensor": {
             "@id": "sosa:madeBySensor",
             "@type": "@id"
+        },
+        "has-feature-of-interest": {
+            "@id": "sosa:hasFeatureOfInterest",
+            "@type": "@id",
+            "@container": "@set"
         }
     }
 }
