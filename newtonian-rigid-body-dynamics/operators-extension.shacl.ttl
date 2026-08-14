@@ -1,0 +1,33 @@
+@prefix dyn-op:      <https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/operators#> .
+@prefix dyn-op-ext:  <https://secorolab.github.io/metamodels/newtonian-rigid-body-dynamics/operators#> .
+@prefix dyn-coord:   <https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/coordinates#> .
+@prefix geom-coord:  <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
+@prefix qudt:        <http://qudt.org/schema/qudt/> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+
+dyn-op-ext:WrenchFromDirectionAndMoment
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass dyn-op-ext:WrenchFromDirectionAndMoment ;
+    sh:message "A moment command needs one magnitude, one direction and one wrench coordinate; it is a couple, so it carries no reference position." ;
+    sh:property [
+        sh:path dyn-op-ext:moment ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class qudt:Quantity
+    ] ;
+    sh:property [
+        sh:path dyn-op:direction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path dyn-op:wrench ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class dyn-coord:WrenchCoordinate
+    ] .
