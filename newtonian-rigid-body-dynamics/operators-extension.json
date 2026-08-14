@@ -1,0 +1,16 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "dyn-op": "https://comp-rob2b.github.io/metamodels/newtonian-rigid-body-dynamics/operators#",
+        "dyn-op-ext": "https://secorolab.github.io/metamodels/newtonian-rigid-body-dynamics/operators#",
+
+        "WrenchFromDirectionAndMoment": {
+            "@id": "dyn-op-ext:WrenchFromDirectionAndMoment",
+            "@context": {
+                "moment": { "@id": "dyn-op-ext:moment", "@type": "@id" },
+                "direction": { "@id": "dyn-op:direction", "@type": "@id" },
+                "wrench": { "@id": "dyn-op:wrench", "@type": "@id" }
+            }
+        }
+    }
+}
