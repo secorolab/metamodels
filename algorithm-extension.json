@@ -24,6 +24,15 @@
             }
         },
 
+        "Subtraction": {
+            "@id": "algo-ext:Subtraction",
+            "@context": {
+                "minuend": { "@id": "algo-ext:minuend", "@type": "@id" },
+                "subtrahend": { "@id": "algo-ext:subtrahend", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" }
+            }
+        },
+
         "VelocityProfile": {
             "@id": "algo-ext:VelocityProfile",
             "@context": {
