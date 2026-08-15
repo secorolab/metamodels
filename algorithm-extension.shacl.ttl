@@ -37,6 +37,16 @@ algo-ext:Addition
     sh:property [ sh:path algo-ext:in ; sh:minCount 2 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
     sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] .
 
+# Subtraction is neither commutative nor associative, so its operands are named rather than
+# collected: the subtrahend is taken from the minuend, and exactly one of each says which.
+algo-ext:Subtraction
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass algo-ext:Subtraction ;
+    sh:message "A subtraction needs one quantity to take from, one to take, and one quantity output." ;
+    sh:property [ sh:path algo-ext:minuend ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:subtrahend ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] .
+
 # Profiled approach to a target: rate-limited by velocity, acceleration and (for an
 # s-curve) jerk, it emits the setpoint the controller tracks and re-emits it every
 # cycle until the target is reached.
