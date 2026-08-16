@@ -47,6 +47,24 @@ algo-ext:Subtraction
     sh:property [ sh:path algo-ext:subtrahend ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
     sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] .
 
+# Multiplication is commutative and associative, so the factors are an unordered set.
+algo-ext:Multiplication
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass algo-ext:Multiplication ;
+    sh:message "A multiplication needs two or more quantity inputs and one quantity output." ;
+    sh:property [ sh:path algo-ext:in ; sh:minCount 2 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] .
+
+# Division is neither commutative nor associative, so its operands are named rather than
+# collected: the dividend is divided by the divisor, and exactly one of each says which.
+algo-ext:Division
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass algo-ext:Division ;
+    sh:message "A division needs one quantity to divide, one to divide by, and one quantity output." ;
+    sh:property [ sh:path algo-ext:dividend ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:divisor ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] .
+
 # Profiled approach to a target: rate-limited by velocity, acceleration and (for an
 # s-curve) jerk, it emits the setpoint the controller tracks and re-emits it every
 # cycle until the target is reached.

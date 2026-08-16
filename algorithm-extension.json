@@ -33,6 +33,23 @@
             }
         },
 
+        "Multiplication": {
+            "@id": "algo-ext:Multiplication",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id", "@container": "@set" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" }
+            }
+        },
+
+        "Division": {
+            "@id": "algo-ext:Division",
+            "@context": {
+                "dividend": { "@id": "algo-ext:dividend", "@type": "@id" },
+                "divisor": { "@id": "algo-ext:divisor", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" }
+            }
+        },
+
         "VelocityProfile": {
             "@id": "algo-ext:VelocityProfile",
             "@context": {
