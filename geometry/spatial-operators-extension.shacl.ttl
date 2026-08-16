@@ -71,6 +71,32 @@ geom-op-ext:PoseToAngularDistance
         sh:class geom-coord:AngularDistanceCoordinate
     ] .
 
+geom-op-ext:RotationVectorFromDirections
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:RotationVectorFromDirections ;
+    sh:message "A rotation-vector-from-directions op needs two direction-coordinate inputs and one vector output." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:out ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:VectorXYZ
+    ] .
+
 geom-op-ext:ComposeOrientation
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass geom-op-ext:ComposeOrientation ;
