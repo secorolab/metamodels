@@ -1,0 +1,85 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bt: <https://secorolab.github.io/metamodels/behaviour/behaviour-tree#> .
+
+bt:MemoryShape
+  a sh:PropertyShape ;
+  sh:description ":memory says whether the composite re-ticks children that already finished" ;
+  sh:path bt:memory ;
+  sh:datatype xsd:boolean ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+bt:NoChildShape
+  a sh:PropertyShape ;
+  sh:description "a leaf has no children in the tree it sits in" ;
+  sh:path bt:children ;
+  sh:maxCount 0 .
+
+bt:BehaviourTreeShape
+  a sh:NodeShape ;
+  sh:targetClass bt:BehaviourTree ;
+
+  sh:property [
+    sh:path bt:root ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+bt:CompositeShape
+  a sh:NodeShape ;
+  sh:description "a control flow node has one ordered, non-empty list of children" ;
+  sh:targetClass bt:Sequence, bt:Selector, bt:Parallel ;
+
+  sh:property [
+    sh:path bt:children ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:description "sibling order is semantics, so the list order is the tick order" ;
+    sh:path ( bt:children [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+    sh:minCount 1 ;
+  ] .
+
+bt:SequenceShape
+  a sh:NodeShape ;
+  sh:targetClass bt:Sequence ;
+  sh:property bt:MemoryShape .
+
+bt:SelectorShape
+  a sh:NodeShape ;
+  sh:targetClass bt:Selector ;
+  sh:property bt:MemoryShape .
+
+bt:ParallelShape
+  a sh:NodeShape ;
+  sh:targetClass bt:Parallel ;
+
+  sh:property [
+    sh:description ":success-threshold is the M of N children that must succeed" ;
+    sh:path bt:success-threshold ;
+    sh:datatype xsd:positiveInteger ;
+    sh:minInclusive 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+bt:ActionShape
+  a sh:NodeShape ;
+  sh:targetClass bt:Action ;
+  sh:property bt:NoChildShape ;
+
+  sh:property [
+    sh:path bt:of-action ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+bt:ConditionShape
+  a sh:NodeShape ;
+  sh:targetClass bt:Condition ;
+  sh:property bt:NoChildShape .
