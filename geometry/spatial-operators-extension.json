@@ -47,6 +47,16 @@
             }
         },
 
+        "IncidentAngle": {
+            "@id": "geom-op-ext:IncidentAngle",
+            "@context": {
+                "in1": { "@id": "geom-op:in1", "@type": "@id" },
+                "in2": { "@id": "geom-op:in2", "@type": "@id" },
+                "angle": { "@id": "geom-op:angle", "@type": "@id" },
+                "gradient": { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
         "ComposeOrientation": {
             "@id": "geom-op-ext:ComposeOrientation",
             "@context": {
