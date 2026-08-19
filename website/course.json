@@ -5,7 +5,6 @@
         "course": "https://secorolab.github.io/metamodels/website/course#",
 
         "Course":          { "@id": "course:Course" },
-        "CourseAssistant": { "@id": "course:CourseAssistant" },
         "CourseMaterial":  { "@id": "course:CourseMaterial" },
 
         "name":           { "@id": "course:name",           "@type": "xsd:string" },
