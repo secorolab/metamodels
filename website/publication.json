@@ -19,8 +19,6 @@
                 "url":   { "@id": "publication:url",            "@type": "@id" }
             }
         },
-        "PersonRef":   { "@id": "publication:PersonRef" },
-
         "name":           { "@id": "publication:name",           "@type": "xsd:string" },
         "bib-id":         { "@id": "publication:bib-id",         "@type": "xsd:string" },
         "date-published": { "@id": "publication:date-published", "@type": "xsd:date" },

@@ -6,7 +6,6 @@
 
         "Thesis":       { "@id": "thesis:Thesis" },
         "ThesisTopic":  { "@id": "thesis:ThesisTopic" },
-        "TopicAdvisor": { "@id": "thesis:TopicAdvisor" },
 
         "name":              { "@id": "thesis:name",              "@type": "xsd:string" },
         "title":             { "@id": "thesis:name",              "@type": "xsd:string" },
