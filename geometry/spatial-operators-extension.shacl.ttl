@@ -97,6 +97,35 @@ geom-op-ext:RotationVectorFromDirections
         sh:class geom-coord:VectorXYZ
     ] .
 
+# The direction along which the angle between two directions grows: normalize(in2 x in1).
+# Driving a controller along it moves in1 away from in2, so a controller reading the angle as
+# its error drives the angle the way it authored it.
+geom-op-ext:AngleGradientFromDirections
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:AngleGradientFromDirections ;
+    sh:message "An angle-gradient-from-directions op needs two direction-coordinate inputs and one direction-coordinate gradient." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:gradient ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] .
+
 geom-op-ext:ComposeOrientation
     a rdfs:Class, sh:NodeShape ;
     sh:targetClass geom-op-ext:ComposeOrientation ;

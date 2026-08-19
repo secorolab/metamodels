@@ -38,6 +38,15 @@
             }
         },
 
+        "AngleGradientFromDirections": {
+            "@id": "geom-op-ext:AngleGradientFromDirections",
+            "@context": {
+                "in1": { "@id": "geom-op:in1", "@type": "@id" },
+                "in2": { "@id": "geom-op:in2", "@type": "@id" },
+                "gradient": { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
         "ComposeOrientation": {
             "@id": "geom-op-ext:ComposeOrientation",
             "@context": {
