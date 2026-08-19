@@ -302,6 +302,210 @@ geom-op-ext:TwistToLinearVelocityAlong
         sh:node [ sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:LinearVelocity ] ]
     ] .
 
+# Table IIa ops 1-3: in1/in2 are pose coordinates (point, primitive origin), direction is the
+# primitive's normal/direction. Ops 4-5: in1/in2 are direction coordinates (line A, line B), and
+# pose is the PoseDiffEvaluator output between the two origins -- same role PoseToLinearDistance
+# uses for "the pose whose translation is the vector of interest". Deliberate asymmetry, not a bug.
+geom-op-ext:PointPlaneDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PointPlaneDistance ;
+    sh:message "A point-plane distance needs two pose-coordinate inputs, a direction, and produces a signed distance and its gradient." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:direction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:distance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:LinearDistanceCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:gradient ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] .
+
+geom-op-ext:PointLineDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PointLineDistance ;
+    sh:message "A point-line distance needs two pose-coordinate inputs, a direction, and produces an unsigned distance and its gradient." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:direction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:distance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:LinearDistanceCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:gradient ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] .
+
+geom-op-ext:PointOnLineProjection
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:PointOnLineProjection ;
+    sh:message "A point-on-line projection needs two pose-coordinate inputs, a direction, and produces a signed distance and its gradient." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:direction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:distance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:LinearDistanceCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:gradient ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] .
+
+geom-op-ext:LineLineDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:LineLineDistance ;
+    sh:message "A line-line distance needs two direction-coordinate inputs (line A, line B), the pose-difference between their origins, and produces a signed distance and its gradient." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseDifferenceCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:distance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:LinearDistanceCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:gradient ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] .
+
+geom-op-ext:LineLineProjection
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-op-ext:LineLineProjection ;
+    sh:message "A line-line projection needs two direction-coordinate inputs (line A, line B), the pose-difference between their origins, and produces a signed distance and its gradient." ;
+    sh:property [
+        sh:path geom-op:in1 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:in2 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:pose ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:PoseDifferenceCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op:distance ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:LinearDistanceCoordinate
+    ] ;
+    sh:property [
+        sh:path geom-op-ext:gradient ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class geom-coord:DirectionCoordinate
+    ] .
+
 geom-op-ext:PathParameterShape
     a sh:NodeShape ;
     sh:message "A path parameter must be a dimensionless quantity whose value, when it has one, lies in the interval [0, 1]." ;

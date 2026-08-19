@@ -92,6 +92,61 @@
                 "direction": { "@id": "geom-op:direction", "@type": "@id" },
                 "along-speed": { "@id": "geom-op-ext:along-speed", "@type": "@id" }
             }
+        },
+
+        "PointPlaneDistance": {
+            "@id": "geom-op-ext:PointPlaneDistance",
+            "@context": {
+                "in1":       { "@id": "geom-op:in1", "@type": "@id" },
+                "in2":       { "@id": "geom-op:in2", "@type": "@id" },
+                "direction": { "@id": "geom-op:direction", "@type": "@id" },
+                "distance":  { "@id": "geom-op:distance", "@type": "@id" },
+                "gradient":  { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
+        "PointLineDistance": {
+            "@id": "geom-op-ext:PointLineDistance",
+            "@context": {
+                "in1":       { "@id": "geom-op:in1", "@type": "@id" },
+                "in2":       { "@id": "geom-op:in2", "@type": "@id" },
+                "direction": { "@id": "geom-op:direction", "@type": "@id" },
+                "distance":  { "@id": "geom-op:distance", "@type": "@id" },
+                "gradient":  { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
+        "PointOnLineProjection": {
+            "@id": "geom-op-ext:PointOnLineProjection",
+            "@context": {
+                "in1":       { "@id": "geom-op:in1", "@type": "@id" },
+                "in2":       { "@id": "geom-op:in2", "@type": "@id" },
+                "direction": { "@id": "geom-op:direction", "@type": "@id" },
+                "distance":  { "@id": "geom-op:distance", "@type": "@id" },
+                "gradient":  { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
+        "LineLineDistance": {
+            "@id": "geom-op-ext:LineLineDistance",
+            "@context": {
+                "in1":      { "@id": "geom-op:in1", "@type": "@id" },
+                "in2":      { "@id": "geom-op:in2", "@type": "@id" },
+                "pose":     { "@id": "geom-op:pose", "@type": "@id" },
+                "distance": { "@id": "geom-op:distance", "@type": "@id" },
+                "gradient": { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
+        "LineLineProjection": {
+            "@id": "geom-op-ext:LineLineProjection",
+            "@context": {
+                "in1":      { "@id": "geom-op:in1", "@type": "@id" },
+                "in2":      { "@id": "geom-op:in2", "@type": "@id" },
+                "pose":     { "@id": "geom-op:pose", "@type": "@id" },
+                "distance": { "@id": "geom-op:distance", "@type": "@id" },
+                "gradient": { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
         }
     }
 }
