@@ -126,9 +126,9 @@ geom-op-ext:AngleGradientFromDirections
         sh:class geom-coord:DirectionCoordinate
     ] .
 
-geom-op-ext:IncidentAngle
+geom-op-ext:DirectionPlaneToAngularDistance
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass geom-op-ext:IncidentAngle ;
+    sh:targetClass geom-op-ext:DirectionPlaneToAngularDistance ;
     sh:message "An incident-angle operator needs a versor direction and a plane-normal direction, and produces their signed angle and its gradient." ;
     sh:property [
         sh:path geom-op:in1 ;
@@ -339,9 +339,9 @@ geom-op-ext:TwistToLinearVelocityAlong
 # primitive's normal/direction. Ops 4-5: in1/in2 are direction coordinates (line A, line B), and
 # pose is the PoseDiffEvaluator output between the two origins -- same role PoseToLinearDistance
 # uses for "the pose whose translation is the vector of interest". Deliberate asymmetry, not a bug.
-geom-op-ext:PointPlaneDistance
+geom-op-ext:PointPlaneToLinearDistance
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass geom-op-ext:PointPlaneDistance ;
+    sh:targetClass geom-op-ext:PointPlaneToLinearDistance ;
     sh:message "A point-plane distance needs two pose-coordinate inputs, a direction, and produces a signed distance and its gradient." ;
     sh:property [
         sh:path geom-op:in1 ;
@@ -379,9 +379,9 @@ geom-op-ext:PointPlaneDistance
         sh:class geom-coord:DirectionCoordinate
     ] .
 
-geom-op-ext:PointLineDistance
+geom-op-ext:PointLineToLinearDistance
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass geom-op-ext:PointLineDistance ;
+    sh:targetClass geom-op-ext:PointLineToLinearDistance ;
     sh:message "A point-line distance needs two pose-coordinate inputs, a direction, and produces an unsigned distance and its gradient." ;
     sh:property [
         sh:path geom-op:in1 ;
@@ -459,9 +459,9 @@ geom-op-ext:PointOnLineProjection
         sh:class geom-coord:DirectionCoordinate
     ] .
 
-geom-op-ext:LineLineDistance
+geom-op-ext:LineLineToLinearDistance
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass geom-op-ext:LineLineDistance ;
+    sh:targetClass geom-op-ext:LineLineToLinearDistance ;
     sh:message "A line-line distance needs two direction-coordinate inputs (line A, line B), the pose-difference between their origins, and produces a signed distance and its gradient." ;
     sh:property [
         sh:path geom-op:in1 ;
@@ -499,9 +499,9 @@ geom-op-ext:LineLineDistance
         sh:class geom-coord:DirectionCoordinate
     ] .
 
-geom-op-ext:LineLineProjection
+geom-op-ext:LineOnLineProjection
     a rdfs:Class, sh:NodeShape ;
-    sh:targetClass geom-op-ext:LineLineProjection ;
+    sh:targetClass geom-op-ext:LineOnLineProjection ;
     sh:message "A line-line projection needs two direction-coordinate inputs (line A, line B), the pose-difference between their origins, and produces a signed distance and its gradient." ;
     sh:property [
         sh:path geom-op:in1 ;
