@@ -1,0 +1,50 @@
+# SPDX-License-Identifier:  MPL-2.0
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix tc: <https://secorolab.github.io/metamodels/time-constraint#> .
+
+tc:BeforeEventShape
+  a sh:PropertyShape ;
+  sh:description ":before-event must link to exactly 1 time:Instant" ;
+  sh:path tc:before-event ;
+  sh:class time:Instant ;
+  sh:nodeKind sh:IRI ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+tc:AfterEventShape
+  a sh:PropertyShape ;
+  sh:description ":after-event must link to exactly 1 time:Instant" ;
+  sh:path tc:after-event ;
+  sh:class time:Instant ;
+  sh:nodeKind sh:IRI ;
+  sh:minCount 1 ;
+  sh:maxCount 1 .
+
+tc:BeforeEventConstraintShape
+  a sh:NodeShape ;
+  sh:targetClass tc:BeforeEventConstraint ;
+  sh:property tc:BeforeEventShape ;
+  sh:and (
+    [ sh:class tc:BeforeEventConstraint ]
+    [ sh:class tc:TimeConstraint ]
+  ) .
+
+tc:AfterEventConstraintShape
+  a sh:NodeShape ;
+  sh:targetClass tc:AfterEventConstraint ;
+  sh:property tc:AfterEventShape ;
+  sh:and (
+    [ sh:class tc:AfterEventConstraint ]
+    [ sh:class tc:TimeConstraint ]
+  ) .
+
+tc:DuringEventsConstraintShape
+  a sh:NodeShape ;
+  sh:targetClass tc:DuringEventsConstraint ;
+  sh:property tc:BeforeEventShape ;
+  sh:property tc:AfterEventShape ;
+  sh:and (
+    [ sh:class tc:DuringEventsConstraint ]
+    [ sh:class tc:TimeConstraint ]
+  ) .
