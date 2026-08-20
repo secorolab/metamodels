@@ -1,0 +1,17 @@
+{
+    "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "tc": "https://secorolab.github.io/metamodels/time-constraint#",
+        "time": "http://www.w3.org/2006/time#",
+
+        "TimeConstraint": { "@id": "tc:TimeConstraint" },
+        "of-constraint": { "@id": "tc:of-constraint", "@type": "@id" },
+
+        "BeforeEventConstraint": { "@id": "tc:BeforeEventConstraint" },
+        "AfterEventConstraint": { "@id": "tc:AfterEventConstraint" },
+        "DuringEventsConstraint": { "@id": "tc:DuringEventsConstraint" },
+        "before-event": { "@id": "tc:before-event", "@type": "@id" },
+        "after-event": { "@id": "tc:after-event", "@type": "@id" },
+        "horizon-seconds": { "@id": "tc:horizon-seconds", "@type": "xsd:float" }
+    }
+}

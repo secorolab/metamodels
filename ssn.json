@@ -3,6 +3,7 @@
         "@version": 1.1,
         "sosa": "http://www.w3.org/ns/sosa/",
         "ssn": "http://www.w3.org/ns/ssn/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
 
         "System": "ssn:System",
         "Deployment": "ssn:Deployment",
@@ -46,6 +47,22 @@
             "@id": "sosa:hasFeatureOfInterest",
             "@type": "@id",
             "@container": "@set"
+        },
+        "has-result": {
+            "@id": "sosa:hasResult",
+            "@type": "@id"
+        },
+        "result-time": {
+            "@id": "sosa:resultTime",
+            "@type": "xsd:dateTime"
+        },
+        "phenomenon-time": {
+            "@id": "sosa:phenomenonTime",
+            "@type": "@id"
+        },
+        "used-procedure": {
+            "@id": "sosa:usedProcedure",
+            "@type": "@id"
         }
     }
 }
