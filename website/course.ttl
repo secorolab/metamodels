@@ -98,7 +98,6 @@ sh_sec:CourseShape
 
 sh_sec:CourseAssistantShape
     a sh:NodeShape ;
-    sh:targetClass course:CourseAssistant ;
     sh:closed false ;
 
     sh:property [

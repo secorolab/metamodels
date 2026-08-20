@@ -41,6 +41,12 @@ sh_sec:PersonShape
     ] ;
 
     sh:property [
+        sh:path     person:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
         sh:path     person:email ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
