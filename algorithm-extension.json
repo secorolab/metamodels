@@ -79,6 +79,23 @@
                 "damping": { "@id": "algo-ext:damping", "@type": "@id" },
                 "stiffness": { "@id": "algo-ext:stiffness", "@type": "@id" }
             }
+        },
+
+        "Snapshot": {
+            "@id": "algo-ext:Snapshot",
+            "@context": {
+                "in": { "@id": "algo-ext:in", "@type": "@id" },
+                "out": { "@id": "algo-ext:out", "@type": "@id" },
+                "sampling": {
+                    "@id": "algo-ext:sampling",
+                    "@type": "@vocab",
+                    "@context": {
+                        "initial-sampling": "algo-ext:initial-sampling",
+                        "event-triggered-sampling": "algo-ext:event-triggered-sampling"
+                    }
+                },
+                "trigger": { "@id": "algo-ext:trigger", "@type": "@id" }
+            }
         }
     }
 }

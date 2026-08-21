@@ -3,15 +3,6 @@
         "@version": 1.1,
         "geom-rel-ext": "https://secorolab.github.io/metamodels/geometry/spatial-relations#",
 
-        "PoseDifference": "geom-rel-ext:PoseDifference",
-
-        "PointPlaneDistance": "geom-rel-ext:PointPlaneDistance",
-        "PointLineDistance": "geom-rel-ext:PointLineDistance",
-        "LineLineDistance": "geom-rel-ext:LineLineDistance",
-
-        "AngularDistance": "geom-rel-ext:AngularDistance",
-        "DirectionDirectionAngularDistance": "geom-rel-ext:DirectionDirectionAngularDistance",
-        "DirectionPlaneAngularDistance": "geom-rel-ext:DirectionPlaneAngularDistance",
-        "PlanePlaneAngularDistance": "geom-rel-ext:PlanePlaneAngularDistance"
+        "PoseDifference": "geom-rel-ext:PoseDifference"
     }
 }

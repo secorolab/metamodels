@@ -118,6 +118,26 @@ algo-ext:PositiveLinearJerkShape
     sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind-ext:LinearJerk ] ;
     sh:node algo-ext:PositiveValueShape .
 
+# Sample-and-hold: captures its input once, or again on every trigger, and holds it.
+algo-ext:Snapshot
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass algo-ext:Snapshot ;
+    sh:message "A snapshot needs one source quantity, one held output quantity, and a valid initial or event-triggered sampling policy." ;
+    sh:property [ sh:path algo-ext:in ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:out ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ; sh:class qudt:Quantity ] ;
+    sh:property [ sh:path algo-ext:sampling ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:in ( algo-ext:initial-sampling algo-ext:event-triggered-sampling ) ] ;
+    sh:property [ sh:path algo-ext:trigger ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:class time:Instant ] ;
+    sh:xone (
+        [
+            sh:property [ sh:path algo-ext:sampling ; sh:hasValue algo-ext:initial-sampling ] ;
+            sh:property [ sh:path algo-ext:trigger ; sh:maxCount 0 ]
+        ]
+        [
+            sh:property [ sh:path algo-ext:sampling ; sh:hasValue algo-ext:event-triggered-sampling ] ;
+            sh:property [ sh:path algo-ext:trigger ; sh:minCount 1 ]
+        ]
+    ) .
+
 # Force in, velocity out through a virtual mass-spring-damper.
 algo-ext:Admittance
     a rdfs:Class, sh:NodeShape ;

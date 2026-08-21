@@ -43,11 +43,6 @@
         "coordinates": {
             "@id": "geom-coord:coordinates",
             "@container": "@list"
-        },
-
-        "has-coordinate-policy": {
-            "@id": "geom-coord:has-coordinate-policy",
-            "@type": "@id"
         }
     }
 }
