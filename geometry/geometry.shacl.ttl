@@ -185,3 +185,13 @@ geom-coord:AnglesAlphaBetaGammaShape
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] .
+
+geom-coord:HasCoordinatePolicyShape
+  a sh:NodeShape ;
+  sh:targetSubjectsOf geom-coord:has-coordinate-policy ;
+  sh:message "A relation names at most one coordinate-selection policy, by IRI." ;
+  sh:property [
+    sh:path geom-coord:has-coordinate-policy ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1 ;
+  ] .
