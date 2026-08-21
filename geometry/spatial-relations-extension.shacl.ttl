@@ -1,4 +1,5 @@
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
+@prefix geom-ext: <https://secorolab.github.io/metamodels/geometry/structural-entities#> .
 @prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
 @prefix geom-rel-ext: <https://secorolab.github.io/metamodels/geometry/spatial-relations#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -20,4 +21,99 @@ geom-rel-ext:LinearDistanceShape
         sh:minCount 2 ;
         sh:maxCount 2 ;
         sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+geom-rel-ext:PointPlaneDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-rel-ext:PointPlaneDistance ;
+    sh:message "A point-plane distance must relate exactly one point and one plane." ;
+    sh:property [ sh:path geom-rel:between-entities ; sh:maxCount 2 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:qualifiedValueShape [ sh:class geom:Point ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1
+    ] ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:qualifiedValueShape [ sh:class geom-ext:Plane ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1
+    ] .
+
+geom-rel-ext:PointLineDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-rel-ext:PointLineDistance ;
+    sh:message "A point-line distance must relate exactly one point and one line." ;
+    sh:property [ sh:path geom-rel:between-entities ; sh:maxCount 2 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:qualifiedValueShape [ sh:class geom:Point ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1
+    ] ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:qualifiedValueShape [ sh:class geom-ext:Line ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1
+    ] .
+
+geom-rel-ext:LineLineDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-rel-ext:LineLineDistance ;
+    sh:message "A line-line distance must relate exactly two lines." ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:maxCount 2 ;
+        sh:class geom-ext:Line
+    ] .
+
+geom-rel-ext:AngularDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-rel-ext:AngularDistance ;
+    sh:message "An angular distance must relate exactly two entities." ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:minCount 2 ;
+        sh:maxCount 2 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+geom-rel-ext:DirectionDirectionAngularDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-rel-ext:DirectionDirectionAngularDistance ;
+    sh:message "A direction-direction angular distance must relate exactly two unit vectors." ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:maxCount 2 ;
+        sh:class geom:UnitVector
+    ] .
+
+geom-rel-ext:DirectionPlaneAngularDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-rel-ext:DirectionPlaneAngularDistance ;
+    sh:message "A direction-plane angular distance must relate exactly one unit vector and one plane." ;
+    sh:property [ sh:path geom-rel:between-entities ; sh:maxCount 2 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:qualifiedValueShape [ sh:class geom:UnitVector ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1
+    ] ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:qualifiedValueShape [ sh:class geom-ext:Plane ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1
+    ] .
+
+geom-rel-ext:PlanePlaneAngularDistance
+    a rdfs:Class, sh:NodeShape ;
+    sh:targetClass geom-rel-ext:PlanePlaneAngularDistance ;
+    sh:message "A plane-plane angular distance must relate exactly two planes." ;
+    sh:property [
+        sh:path geom-rel:between-entities ;
+        sh:maxCount 2 ;
+        sh:class geom-ext:Plane
     ] .

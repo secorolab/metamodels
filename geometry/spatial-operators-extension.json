@@ -38,6 +38,25 @@
             }
         },
 
+        "AngleGradientFromDirections": {
+            "@id": "geom-op-ext:AngleGradientFromDirections",
+            "@context": {
+                "in1": { "@id": "geom-op:in1", "@type": "@id" },
+                "in2": { "@id": "geom-op:in2", "@type": "@id" },
+                "gradient": { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
+        "DirectionPlaneToAngularDistance": {
+            "@id": "geom-op-ext:DirectionPlaneToAngularDistance",
+            "@context": {
+                "in1": { "@id": "geom-op:in1", "@type": "@id" },
+                "in2": { "@id": "geom-op:in2", "@type": "@id" },
+                "angle": { "@id": "geom-op:angle", "@type": "@id" },
+                "gradient": { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
         "ComposeOrientation": {
             "@id": "geom-op-ext:ComposeOrientation",
             "@context": {
@@ -82,6 +101,61 @@
                 "in": { "@id": "geom-op:in", "@type": "@id" },
                 "direction": { "@id": "geom-op:direction", "@type": "@id" },
                 "along-speed": { "@id": "geom-op-ext:along-speed", "@type": "@id" }
+            }
+        },
+
+        "PointPlaneToLinearDistance": {
+            "@id": "geom-op-ext:PointPlaneToLinearDistance",
+            "@context": {
+                "in1":       { "@id": "geom-op:in1", "@type": "@id" },
+                "in2":       { "@id": "geom-op:in2", "@type": "@id" },
+                "direction": { "@id": "geom-op:direction", "@type": "@id" },
+                "distance":  { "@id": "geom-op:distance", "@type": "@id" },
+                "gradient":  { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
+        "PointLineToLinearDistance": {
+            "@id": "geom-op-ext:PointLineToLinearDistance",
+            "@context": {
+                "in1":       { "@id": "geom-op:in1", "@type": "@id" },
+                "in2":       { "@id": "geom-op:in2", "@type": "@id" },
+                "direction": { "@id": "geom-op:direction", "@type": "@id" },
+                "distance":  { "@id": "geom-op:distance", "@type": "@id" },
+                "gradient":  { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
+        "PointOnLineProjection": {
+            "@id": "geom-op-ext:PointOnLineProjection",
+            "@context": {
+                "in1":       { "@id": "geom-op:in1", "@type": "@id" },
+                "in2":       { "@id": "geom-op:in2", "@type": "@id" },
+                "direction": { "@id": "geom-op:direction", "@type": "@id" },
+                "distance":  { "@id": "geom-op:distance", "@type": "@id" },
+                "gradient":  { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
+        "LineLineToLinearDistance": {
+            "@id": "geom-op-ext:LineLineToLinearDistance",
+            "@context": {
+                "in1":      { "@id": "geom-op:in1", "@type": "@id" },
+                "in2":      { "@id": "geom-op:in2", "@type": "@id" },
+                "pose":     { "@id": "geom-op:pose", "@type": "@id" },
+                "distance": { "@id": "geom-op:distance", "@type": "@id" },
+                "gradient": { "@id": "geom-op-ext:gradient", "@type": "@id" }
+            }
+        },
+
+        "LineOnLineProjection": {
+            "@id": "geom-op-ext:LineOnLineProjection",
+            "@context": {
+                "in1":      { "@id": "geom-op:in1", "@type": "@id" },
+                "in2":      { "@id": "geom-op:in2", "@type": "@id" },
+                "pose":     { "@id": "geom-op:pose", "@type": "@id" },
+                "distance": { "@id": "geom-op:distance", "@type": "@id" },
+                "gradient": { "@id": "geom-op-ext:gradient", "@type": "@id" }
             }
         }
     }

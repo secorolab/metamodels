@@ -1,0 +1,23 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "geom": "https://comp-rob2b.github.io/metamodels/geometry/structural-entities#",
+        "geom-ext": "https://secorolab.github.io/metamodels/geometry/structural-entities#",
+
+        "Line": {
+            "@id": "geom-ext:Line",
+            "@context": {
+                "origin": { "@id": "geom:origin", "@type": "@id" },
+                "direction": { "@id": "geom-ext:direction", "@type": "@id" }
+            }
+        },
+
+        "Plane": {
+            "@id": "geom-ext:Plane",
+            "@context": {
+                "origin": { "@id": "geom:origin", "@type": "@id" },
+                "normal": { "@id": "geom-ext:normal", "@type": "@id" }
+            }
+        }
+    }
+}
