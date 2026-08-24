@@ -16,20 +16,13 @@
         "Selector": { "@id": "bt:Selector" },
         "Parallel": { "@id": "bt:Parallel" },
 
-        "has-child": { "@id": "bt:has-child", "@type": "@id" },
+        "memory": { "@id": "bt:memory", "@type": "xsd:boolean" },
+        "success-threshold": { "@id": "bt:success-threshold", "@type": "xsd:positiveInteger" },
 
-        "ActionSubtree": { "@id": "bt:ActionSubtree" },
-        "of-subtree": { "@id": "bt:of-subtree", "@type": "@id" },
-        "parent": { "@id": "bt:parent", "@type": "@id" },
-        "subroot": { "@id": "bt:subroot", "@type": "@id" },
+        "children": { "@id": "bt:children", "@container": "@list", "@type": "@id" },
 
+        "BehaviourTree": { "@id": "bt:BehaviourTree" },
         "BehaviourTreeWithEvents": { "@id": "bt:BehaviourTreeWithEvents" },
-        "root": { "@id": "bt:root", "@type": "@id" },
-
-        "SubtreeImpl": { "@id": "bt:SubtreeImpl" },
-
-        "PythonActionImpl": { "@id": "bt:PythonActionImpl" },
-
-        "uses-impl": { "@id": "bt:uses-implementation", "@type": "@id" }
+        "root": { "@id": "bt:root", "@type": "@id" }
     }
 }
