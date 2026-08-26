@@ -110,6 +110,12 @@ sens:UpdateRateShape
   sh:minCount 1 ;
   sh:maxCount 1 .
 
+sens:UpdateRateValueShape
+  a sh:NodeShape ;
+  sh:message "Whatever carries an update rate states it as a frequency quantity, whether or not the carrier is a typed sensor." ;
+  sh:targetObjectsOf sens:update-rate ;
+  sh:node sens:FrequencyQuantityShape .
+
 sens:FieldOfViewShape
   a sh:PropertyShape ;
   sh:path sens:field-of-view ;

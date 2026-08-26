@@ -1,9 +1,24 @@
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ms-prov: <https://secorolab.github.io/metamodels/motion-spec/prov#> .
 @prefix rec: <https://secorolab.github.io/metamodels/rec#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rec:QueuedRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
+rec:RunningRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
+rec:CompletedRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
+rec:FailedRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
+rec:InterruptedRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
+rec:CancelledRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
+rec:Metric a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
+rec:PathLocation a rdfs:Class ; rdfs:subClassOf prov:Location .
+rec:Host a rdfs:Class ; rdfs:subClassOf prov:Location .
+rec:Repository a rdfs:Class ; rdfs:subClassOf prov:Entity .
+rec:Dependency a rdfs:Class ; rdfs:subClassOf prov:Entity .
 
 rec:RunExecutionShape
     a sh:NodeShape ;
@@ -44,10 +59,10 @@ rec:RunExecutionShape
         sh:maxCount 1 ;
         sh:datatype xsd:dateTime ;
     ] ;
+    # Queueing and heartbeats are qualified influences carrying prov:atTime.
     sh:property [
-        sh:path rec:queued-time ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:dateTime ;
+        sh:path prov:qualifiedInfluence ;
+        sh:class prov:Influence ;
     ] ;
     # Stacktrace of the exception that ended a failed or interrupted run.
     sh:property [
@@ -69,37 +84,45 @@ rec:RunExecutionShape
         sh:maxCount 1 ;
     ] ;
     sh:property [
-        sh:path rec:agents ;
-        sh:class prov:Agent ;
-    ] ;
-    sh:property [
-        sh:path rec:activities ;
-        sh:class prov:Activity ;
-    ] ;
-    # resources: every input entity the run consumed (model sources, configs,
-    # data); each consumption is recorded as a qualified usage below. Software
-    # provenance of that input lives in rec:repositories / rec:dependencies.
-    sh:property [
-        sh:path rec:resources ;
-        sh:class prov:Entity ;
-    ] ;
-    sh:property [
-        sh:path prov:qualifiedUsage ;
-        sh:class prov:Usage ;
-    ] ;
-    # artefacts: output entities the run produced, each linked to its generating
-    # activity via a qualified generation (see ArtefactShape).
-    sh:property [
-        sh:path rec:artefacts ;
-        sh:node rec:ArtefactShape ;
-    ] ;
-    sh:property [
         sh:path rec:metrics ;
         sh:class rec:Metric ;
     ] .
 
+# Queue and heartbeat times: the influence itself says only when it happened.
+rec:RunInfluenceShape
+    a sh:NodeShape ;
+    sh:targetObjectsOf prov:qualifiedInfluence ;
+    sh:class prov:Influence ;
+    sh:property [
+        sh:path prov:atTime ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+    ] .
+
+# An input entity is consumed by the activity that used it, not by the run that
+# contains that activity. Software provenance of the input lives in
+# rec:repositories / rec:dependencies.
+rec:ResourceUsageShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf prov:qualifiedUsage ;
+    sh:class prov:Activity ;
+    sh:property [
+        sh:path prov:used ;
+        sh:minCount 1 ;
+        sh:class prov:Entity ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path prov:qualifiedUsage ;
+        sh:class prov:Usage ;
+    ] .
+
+# An output entity the run produced, linked to its generating activity by a
+# qualified generation, and pinned by hash and size.
 rec:ArtefactShape
     a sh:NodeShape ;
+    sh:targetSubjectsOf prov:qualifiedGeneration ;
     sh:class prov:Entity ;
     sh:property [
         sh:path prov:wasGeneratedBy ;
@@ -112,6 +135,17 @@ rec:ArtefactShape
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:class prov:Generation ;
+    ] ;
+    sh:property [
+        sh:path rec:sha256 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path rec:size-bytes ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
     ] .
 
 # Dependency version is a literal pin (dcat:version), not baked into the label.
@@ -119,7 +153,7 @@ rec:DependencyShape
     a sh:NodeShape ;
     sh:targetClass rec:Dependency ;
     sh:property [
-        sh:path rec:label ;
+        sh:path rdfs:label ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
@@ -130,11 +164,31 @@ rec:DependencyShape
         sh:datatype xsd:string ;
     ] .
 
+# A checked-out repository the run was produced from: where to fetch it and
+# which revision. rec records no hash or size for one.
+rec:RepositoryShape
+    a sh:NodeShape ;
+    sh:targetClass rec:Repository ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path dcat:accessURL ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path dcterms:hasVersion ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] .
+
 # prov:atLocation must be an IRI, so the path rides as a literal on the node.
 rec:PathLocationShape
     a sh:NodeShape ;
     sh:targetClass rec:PathLocation ;
-    sh:class prov:Location ;
     sh:property [
         sh:path rec:path ;
         sh:minCount 1 ;
@@ -145,7 +199,6 @@ rec:PathLocationShape
 rec:MetricShape
     a sh:NodeShape ;
     sh:targetClass rec:Metric ;
-    sh:class qudt:Quantity ;
     sh:property [
         sh:path qudt:hasQuantityKind ;
         sh:minCount 1 ;
@@ -175,7 +228,7 @@ rec:MetricShape
     ] ;
     # Metric name, since the IRI mangles characters that are illegal in a path.
     sh:property [
-        sh:path rec:label ;
+        sh:path rdfs:label ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
@@ -210,8 +263,8 @@ rec:HostShape
         sh:datatype xsd:string ;
     ] .
 
-# A source-code input, marked out from the other consumed inputs in
-# rec:resources (config, data), which stay plain prov:Entity.
+# A source-code input, marked out from the other consumed inputs
+# (config, data), which stay plain prov:Entity.
 rec:SourceFileShape
     a sh:NodeShape ;
     sh:targetClass rec:SourceFile ;
