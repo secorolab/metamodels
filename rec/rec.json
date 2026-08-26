@@ -4,6 +4,8 @@
         "rec": "https://secorolab.github.io/metamodels/rec#",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "dcat": "http://www.w3.org/ns/dcat#",
+        "dcterms": "http://purl.org/dc/terms/",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "Repository": "rec:Repository",
         "Dependency": "rec:Dependency",
         "Host": "rec:Host",
@@ -23,8 +25,13 @@
         "InterruptedRun": "rec:InterruptedRun",
         "CancelledRun": "rec:CancelledRun",
         "run_id": "rec:run-id",
-        "label": "rec:label",
+        "label": "rdfs:label",
         "version": "dcat:version",
+        "access_url": {
+            "@id": "dcat:accessURL",
+            "@type": "@id"
+        },
+        "has_version": "dcterms:hasVersion",
         "repositories": {
             "@id": "rec:repositories",
             "@container": "@set"
@@ -38,22 +45,6 @@
         "os": "rec:os",
         "runtime": "rec:runtime",
         "cpu": "rec:cpu",
-        "agents": {
-            "@id": "rec:agents",
-            "@container": "@set"
-        },
-        "activities": {
-            "@id": "rec:activities",
-            "@container": "@set"
-        },
-        "resources": {
-            "@id": "rec:resources",
-            "@container": "@set"
-        },
-        "artefacts": {
-            "@id": "rec:artefacts",
-            "@container": "@set"
-        },
         "metrics": {
             "@id": "rec:metrics",
             "@container": "@set"
@@ -61,14 +52,6 @@
         "step": {
             "@id": "rec:step",
             "@type": "xsd:integer"
-        },
-        "heartbeat_time": {
-            "@id": "rec:heartbeat-time",
-            "@type": "xsd:dateTime"
-        },
-        "queued_time": {
-            "@id": "rec:queued-time",
-            "@type": "xsd:dateTime"
         },
         "fail_trace": "rec:fail-trace",
         "result": "rec:result"

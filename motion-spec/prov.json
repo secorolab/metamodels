@@ -1,0 +1,11 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "ms-prov": "https://secorolab.github.io/metamodels/motion-spec/prov#",
+
+        "SpecCompilation": "ms-prov:SpecCompilation",
+        "TaskExecution": "ms-prov:TaskExecution",
+        "MotionExecution": "ms-prov:MotionExecution",
+        "ConstraintMaintenance": "ms-prov:ConstraintMaintenance"
+    }
+}

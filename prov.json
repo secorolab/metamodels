@@ -16,6 +16,7 @@
         "Bundle": "prov:Bundle",
         "Plan": "prov:Plan",
         "Role": "prov:Role",
+        "Location": "prov:Location",
 
         "Usage": "prov:Usage",
         "Generation": "prov:Generation",
