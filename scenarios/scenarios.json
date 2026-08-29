@@ -1,0 +1,21 @@
+{
+    "@context": {
+        "smm": "https://secorolab.github.io/metamodels/scenarios#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "osc": "https://secorolab.github.io/metamodels/scenarios/openscenario#",
+
+        "Scenario": "smm:Scenario",
+
+        "AbstractScenario": "osc:AbstractScenario",
+        "LogicalScenario": "osc:LogicalScenario",
+        "ConcreteScenario": "osc:ConcreteScenario",
+
+        "TestRun": "smm:TestRun",
+        "run_number": {
+            "@type": "xsd:int"
+        },
+
+        "Artefact": "smm:Artefact"
+
+    }
+}

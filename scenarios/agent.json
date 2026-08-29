@@ -1,0 +1,10 @@
+{
+    "@context": {
+        "agn": "https://secorolab.github.io/metamodels/agent#",
+
+        "Agent": "agn:Agent",
+        "Robot": "agn:Robot",
+        "ConfigFile": "agn:ConfigFile"
+
+    }
+}

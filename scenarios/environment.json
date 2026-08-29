@@ -1,0 +1,9 @@
+{
+    "@context": {
+        "env": "https://secorolab.github.io/metamodels/environment#",
+
+        "Environment": "env:Environment",
+        "Mesh": "env:Mesh",
+        "OccupancyGrid": "env:OccupancyGrid"
+    }
+}

@@ -2,6 +2,7 @@
     "@context": {
         "gzb": "https://secorolab.github.io/metamodels/gazebo#",
         "GazeboLinkRepresentation": "gzb:GazeboLinkRepresentation",
+        "GazeboModel": "gzb:GazeboModel",
         "visual": {
             "@id": "gzb:visual",
             "@type": "@id"
