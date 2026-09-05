@@ -43,7 +43,6 @@ obs:ObservationShape
     ] ;
     sh:property [
         sh:path obs:entity-mapper ;
-        sh:class py:ModuleAttribute ;
         sh:maxCount 1 ;
     ] ;
     sh:sparql [
