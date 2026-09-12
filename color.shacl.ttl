@@ -1,0 +1,46 @@
+# SPDX-License-Identifier:  MPL-2.0
+@prefix col: <https://secorolab.github.io/metamodels/color#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+col:Color
+    a rdfs:Class ;
+    rdfs:comment "A colour, written in one notation. An instance carries this class alongside its notation, so that anything drawn can require a colour without enumerating the notations. Channels are space-separated floats in [0, 1], which MJCF rgba, URDF color rgba and SDF diffuse all take as they stand." .
+
+col:RGB
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf col:Color ;
+    sh:targetClass col:RGB ;
+    sh:message "RGB is three channels in [0, 1], as '0.9 0.2 0.2'." ;
+    sh:property [
+        sh:path col:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+        sh:pattern "^(0(\\.\\d+)?|1(\\.0+)?)( (0(\\.\\d+)?|1(\\.0+)?)){2}$" ;
+    ] .
+
+col:RGBA
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf col:Color ;
+    sh:targetClass col:RGBA ;
+    sh:message "RGBA is four channels in [0, 1], as '0.9 0.2 0.2 1.0'." ;
+    sh:property [
+        sh:path col:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+        sh:pattern "^(0(\\.\\d+)?|1(\\.0+)?)( (0(\\.\\d+)?|1(\\.0+)?)){3}$" ;
+    ] .
+
+col:HSV
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf col:Color ;
+    sh:targetClass col:HSV ;
+    sh:message "HSV is hue in [0, 360) then saturation and value in [0, 1]." ;
+    sh:property [
+        sh:path col:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+        sh:pattern "^(3[0-5]\\d|[12]\\d\\d|\\d{1,2})(\\.\\d+)?( (0(\\.\\d+)?|1(\\.0+)?)){2}$" ;
+    ] .
+
+# A thing is drawn one way.
+col:HasColorShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf col:has-color ;
+    sh:message "A thing has at most one color, and it is a col:Color." ;
+    sh:property [ sh:path col:has-color ; sh:maxCount 1 ; sh:class col:Color ] .
