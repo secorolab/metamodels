@@ -1,57 +1,65 @@
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix oslc_auto: <http://open-services.net/ns/auto#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix prov-ext: <https://secorolab.github.io/metamodels/prov#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix ms-prov: <https://secorolab.github.io/metamodels/motion-spec/prov#> .
 @prefix rec: <https://secorolab.github.io/metamodels/rec#> .
+@prefix schema: <https://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix spdx: <http://spdx.org/rdf/terms#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rec:QueuedRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
-rec:RunningRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
-rec:CompletedRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
-rec:FailedRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
-rec:InterruptedRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
-rec:CancelledRun a rdfs:Class ; rdfs:subClassOf ms-prov:TaskExecution .
-rec:Metric a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
-rec:PathLocation a rdfs:Class ; rdfs:subClassOf prov:Location .
+rec:Metric a rdfs:Class ; rdfs:subClassOf qudt:Quantity, prov:Entity .
 rec:Host a rdfs:Class ; rdfs:subClassOf prov:Location .
-rec:Repository a rdfs:Class ; rdfs:subClassOf prov:Entity .
-rec:Dependency a rdfs:Class ; rdfs:subClassOf prov:Entity .
 
+# A run is an execution carrying an OSLC Automation state, and once complete a
+# verdict. Its archive directory and its host are both locations; the directory
+# is a file IRI, the host a rec:Host node.
 rec:RunExecutionShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf rec:run-id ;
-    sh:class prov:Activity ;
+    sh:targetSubjectsOf oslc_auto:state ;
+    sh:class prov-ext:Execution ;
     sh:property [
-        sh:path rec:run-id ;
+        sh:path oslc_auto:state ;
         sh:minCount 1 ;
-        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in ( oslc_auto:new oslc_auto:queued oslc_auto:inProgress
+                oslc_auto:canceling oslc_auto:canceled oslc_auto:complete ) ;
     ] ;
-    sh:xone (
-        [ sh:class rec:QueuedRun ]
-        [ sh:class rec:RunningRun ]
-        [ sh:class rec:CompletedRun ]
-        [ sh:class rec:FailedRun ]
-        [ sh:class rec:InterruptedRun ]
-        [ sh:class rec:CancelledRun ]
+    sh:property [
+        sh:path oslc_auto:verdict ;
+        sh:maxCount 1 ;
+        sh:in ( oslc_auto:unavailable oslc_auto:passed oslc_auto:warning
+                oslc_auto:failed oslc_auto:error ) ;
+    ] ;
+    # A verdict other than unavailable is only reached by a complete run.
+    sh:or (
+        [ sh:property [ sh:path oslc_auto:state ; sh:hasValue oslc_auto:complete ] ]
+        [ sh:property [ sh:path oslc_auto:verdict ; sh:maxCount 0 ] ]
+        [ sh:property [ sh:path oslc_auto:verdict ; sh:hasValue oslc_auto:unavailable ] ]
     ) ;
     sh:property [
         sh:path prov:atLocation ;
-        sh:maxCount 1 ;
-        sh:class rec:PathLocation ;
+        sh:maxCount 2 ;
+        sh:nodeKind sh:IRI ;
     ] ;
-    # A queued run has not started, and a cancelled one was stopped before it
-    # could, so neither carries a start time.
+    sh:property [
+        sh:path prov:atLocation ;
+        sh:qualifiedValueShape [ sh:class rec:Host ] ;
+        sh:qualifiedMaxCount 1 ;
+    ] ;
+    # A run that has not left the queue carries no start time.
     sh:property [
         sh:path prov:startedAtTime ;
         sh:maxCount 1 ;
         sh:datatype xsd:dateTime ;
     ] ;
     sh:or (
-        [ sh:class rec:QueuedRun ]
-        [ sh:class rec:CancelledRun ]
+        [ sh:property [
+            sh:path oslc_auto:state ;
+            sh:in ( oslc_auto:new oslc_auto:queued oslc_auto:canceling oslc_auto:canceled )
+        ] ]
         [ sh:property [ sh:path prov:startedAtTime ; sh:minCount 1 ] ]
     ) ;
     sh:property [
@@ -59,50 +67,38 @@ rec:RunExecutionShape
         sh:maxCount 1 ;
         sh:datatype xsd:dateTime ;
     ] ;
-    # Queueing and heartbeats are qualified influences carrying prov:atTime.
+    # When the run was queued, and the last time it reported itself alive.
     sh:property [
-        sh:path prov:qualifiedInfluence ;
-        sh:class prov:Influence ;
+        sh:path rec:queued-time ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
     ] ;
-    # Stacktrace of the exception that ended a failed or interrupted run.
+    sh:property [
+        sh:path rec:heartbeat-time ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    # Whatever the run's main() returned so far; the writer promises no datatype.
+    sh:property [
+        sh:path rec:result ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:Literal ;
+    ] ;
+    # Stacktrace of the exception that ended a run with a failed or error verdict.
     sh:property [
         sh:path rec:fail-trace ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] ;
-    sh:property [
-        sh:path rec:repositories ;
-        sh:class rec:Repository ;
-    ] ;
-    sh:property [
-        sh:path rec:dependencies ;
-        sh:class rec:Dependency ;
-    ] ;
-    sh:property [
-        sh:path rec:host-info ;
-        sh:class rec:Host ;
-        sh:maxCount 1 ;
-    ] ;
-    sh:property [
-        sh:path rec:metrics ;
-        sh:class rec:Metric ;
-    ] .
-
-# Queue and heartbeat times: the influence itself says only when it happened.
-rec:RunInfluenceShape
-    a sh:NodeShape ;
-    sh:targetObjectsOf prov:qualifiedInfluence ;
-    sh:class prov:Influence ;
-    sh:property [
-        sh:path prov:atTime ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:dateTime ;
-    ] .
+    sh:or (
+        [ sh:property [ sh:path oslc_auto:verdict ; sh:hasValue oslc_auto:failed ] ]
+        [ sh:property [ sh:path oslc_auto:verdict ; sh:hasValue oslc_auto:error ] ]
+        [ sh:property [ sh:path rec:fail-trace ; sh:maxCount 0 ] ]
+    ) .
 
 # An input entity is consumed by the activity that used it, not by the run that
-# contains that activity. Software provenance of the input lives in
-# rec:repositories / rec:dependencies.
+# contains that activity. The software that ran is a prov:SoftwareAgent the run
+# prov:wasAssociatedWith, described with the prov-ext package terms.
 rec:ResourceUsageShape
     a sh:NodeShape ;
     sh:targetSubjectsOf prov:qualifiedUsage ;
@@ -119,7 +115,8 @@ rec:ResourceUsageShape
     ] .
 
 # An output entity the run produced, linked to its generating activity by a
-# qualified generation, and pinned by hash and size.
+# qualified generation, and pinned by checksum and size as DCAT describes a
+# distribution.
 rec:ArtefactShape
     a sh:NodeShape ;
     sh:targetSubjectsOf prov:qualifiedGeneration ;
@@ -137,68 +134,42 @@ rec:ArtefactShape
         sh:class prov:Generation ;
     ] ;
     sh:property [
-        sh:path rec:sha256 ;
+        sh:path spdx:checksum ;
         sh:maxCount 1 ;
-        sh:datatype xsd:string ;
+        sh:node rec:ChecksumShape ;
     ] ;
     sh:property [
-        sh:path rec:size-bytes ;
+        sh:path dcat:byteSize ;
         sh:maxCount 1 ;
-        sh:datatype xsd:integer ;
-        sh:minInclusive 0 ;
+        sh:datatype xsd:nonNegativeInteger ;
     ] .
 
-# Dependency version is a literal pin (dcat:version), not baked into the label.
-rec:DependencyShape
+rec:ChecksumShape
     a sh:NodeShape ;
-    sh:targetClass rec:Dependency ;
+    sh:class spdx:Checksum ;
     sh:property [
-        sh:path rdfs:label ;
+        sh:path spdx:algorithm ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:string ;
-    ] ;
-    sh:property [
-        sh:path dcat:version ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:string ;
-    ] .
-
-# A checked-out repository the run was produced from: where to fetch it and
-# which revision. rec records no hash or size for one.
-rec:RepositoryShape
-    a sh:NodeShape ;
-    sh:targetClass rec:Repository ;
-    sh:property [
-        sh:path rdfs:label ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:string ;
-    ] ;
-    sh:property [
-        sh:path dcat:accessURL ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
     ] ;
     sh:property [
-        sh:path dcterms:hasVersion ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:string ;
-    ] .
-
-# prov:atLocation must be an IRI, so the path rides as a literal on the node.
-rec:PathLocationShape
-    a sh:NodeShape ;
-    sh:targetClass rec:PathLocation ;
-    sh:property [
-        sh:path rec:path ;
+        sh:path spdx:checksumValue ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:datatype xsd:string ;
+        sh:datatype xsd:hexBinary ;
     ] .
 
+# A metric is a quantity the run generated.
 rec:MetricShape
     a sh:NodeShape ;
     sh:targetClass rec:Metric ;
+    sh:property [
+        sh:path prov:wasGeneratedBy ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class prov:Activity ;
+    ] ;
     sh:property [
         sh:path qudt:hasQuantityKind ;
         sh:minCount 1 ;
@@ -243,7 +214,7 @@ rec:HostShape
     a sh:NodeShape ;
     sh:targetClass rec:Host ;
     sh:property [
-        sh:path rec:hostname ;
+        sh:path schema:identifier ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] ;
@@ -262,10 +233,3 @@ rec:HostShape
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] .
-
-# A source-code input, marked out from the other consumed inputs
-# (config, data), which stay plain prov:Entity.
-rec:SourceFileShape
-    a sh:NodeShape ;
-    sh:targetClass rec:SourceFile ;
-    sh:class prov:Entity .

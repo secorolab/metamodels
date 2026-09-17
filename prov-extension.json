@@ -1,0 +1,22 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "prov-ext": "https://secorolab.github.io/metamodels/prov#",
+        "schema": "https://schema.org/",
+        "dcterms": "http://purl.org/dc/terms/",
+
+        "Transformation": "prov-ext:Transformation",
+        "Generalization": "prov-ext:Generalization",
+        "Execution": "prov-ext:Execution",
+        "Assurance": "prov-ext:Assurance",
+
+        "name": "schema:name",
+        "softwareVersion": "schema:softwareVersion",
+        "codeRepository": {
+            "@id": "schema:codeRepository",
+            "@type": "@id"
+        },
+        "identifier": "schema:identifier",
+        "format": "dcterms:format"
+    }
+}
