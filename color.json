@@ -7,7 +7,6 @@
         "RGBScheme": { "@id": "col:RGBScheme" },
         "RGBAScheme": { "@id": "col:RGBAScheme" },
         "HSVScheme": { "@id": "col:HSVScheme" },
-        "HexScheme": { "@id": "col:HexScheme" },
 
         "has-color": { "@id": "col:has-color", "@type": "@id" },
         "value": { "@id": "col:value", "@type": "xsd:string" }
