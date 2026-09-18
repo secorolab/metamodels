@@ -4,73 +4,64 @@
         "rec": "https://secorolab.github.io/metamodels/rec#",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "dcat": "http://www.w3.org/ns/dcat#",
-        "Repository": "rec:Repository",
-        "Dependency": "rec:Dependency",
+        "oslc_auto": "http://open-services.net/ns/auto#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "schema": "https://schema.org/",
+        "spdx": "http://spdx.org/rdf/terms#",
         "Host": "rec:Host",
         "Metric": "rec:Metric",
-        "SourceFile": "rec:SourceFile",
-        "PathLocation": "rec:PathLocation",
-        "path": "rec:path",
-        "sha256": "rec:sha256",
-        "size_bytes": {
-            "@id": "rec:size-bytes",
-            "@type": "xsd:integer"
+        "Checksum": "spdx:Checksum",
+        "checksum": "spdx:checksum",
+        "algorithm": {
+            "@id": "spdx:algorithm",
+            "@type": "@vocab"
         },
-        "QueuedRun": "rec:QueuedRun",
-        "RunningRun": "rec:RunningRun",
-        "CompletedRun": "rec:CompletedRun",
-        "FailedRun": "rec:FailedRun",
-        "InterruptedRun": "rec:InterruptedRun",
-        "CancelledRun": "rec:CancelledRun",
-        "run_id": "rec:run-id",
-        "label": "rec:label",
-        "version": "dcat:version",
-        "repositories": {
-            "@id": "rec:repositories",
-            "@container": "@set"
+        "sha256": "spdx:checksumAlgorithm_sha256",
+        "checksum-value": {
+            "@id": "spdx:checksumValue",
+            "@type": "xsd:hexBinary"
         },
-        "dependencies": {
-            "@id": "rec:dependencies",
-            "@container": "@set"
+        "byte-size": {
+            "@id": "dcat:byteSize",
+            "@type": "xsd:nonNegativeInteger"
         },
-        "host_info": "rec:host-info",
-        "hostname": "rec:hostname",
+        "state": {
+            "@id": "oslc_auto:state",
+            "@type": "@vocab"
+        },
+        "new": "oslc_auto:new",
+        "queued": "oslc_auto:queued",
+        "in-progress": "oslc_auto:inProgress",
+        "canceling": "oslc_auto:canceling",
+        "canceled": "oslc_auto:canceled",
+        "complete": "oslc_auto:complete",
+        "verdict": {
+            "@id": "oslc_auto:verdict",
+            "@type": "@vocab"
+        },
+        "unavailable": "oslc_auto:unavailable",
+        "passed": "oslc_auto:passed",
+        "warning": "oslc_auto:warning",
+        "failed": "oslc_auto:failed",
+        "error": "oslc_auto:error",
+        "label": "rdfs:label",
+        "identifier": "schema:identifier",
         "os": "rec:os",
         "runtime": "rec:runtime",
         "cpu": "rec:cpu",
-        "agents": {
-            "@id": "rec:agents",
-            "@container": "@set"
-        },
-        "activities": {
-            "@id": "rec:activities",
-            "@container": "@set"
-        },
-        "resources": {
-            "@id": "rec:resources",
-            "@container": "@set"
-        },
-        "artefacts": {
-            "@id": "rec:artefacts",
-            "@container": "@set"
-        },
-        "metrics": {
-            "@id": "rec:metrics",
-            "@container": "@set"
-        },
         "step": {
             "@id": "rec:step",
             "@type": "xsd:integer"
         },
-        "heartbeat_time": {
+        "heartbeat-time": {
             "@id": "rec:heartbeat-time",
             "@type": "xsd:dateTime"
         },
-        "queued_time": {
+        "queued-time": {
             "@id": "rec:queued-time",
             "@type": "xsd:dateTime"
         },
-        "fail_trace": "rec:fail-trace",
+        "fail-trace": "rec:fail-trace",
         "result": "rec:result"
     }
 }

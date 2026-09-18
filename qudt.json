@@ -5,6 +5,17 @@
         "qkind-ext": "https://secorolab.github.io/metamodels/qudt/quantity-kind#",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "LinearJerk": { "@id": "qkind-ext:LinearJerk" },
+        "quantity-kind": {
+            "@id": "qudt-schema:hasQuantityKind",
+            "@type": "@id",
+            "@context": {
+                "@base": "http://qudt.org/vocab/quantitykind/"
+            }
+        },
+        "value": {
+            "@id": "qudt-schema:value",
+            "@type": "xsd:decimal"
+        },
          "unit": {
             "@id": "qudt-schema:unit",
             "@type": "@id",
