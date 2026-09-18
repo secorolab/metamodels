@@ -7,6 +7,12 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+prov-ext:Specification
+  a rdfs:Class ;
+  rdfs:subClassOf prov:Activity ;
+  rdfs:label "specification" ;
+  rdfs:comment "A person or a software agent writes a model specification." .
+
 prov-ext:Transformation
   a rdfs:Class ;
   rdfs:subClassOf prov:Activity ;
@@ -55,6 +61,22 @@ prov-ext:GeneratingActivityShape
     sh:minCount 1 ;
     sh:class prov:Entity ;
     sh:nodeKind sh:IRI
+  ] .
+
+# A specification may start from nothing, so it need not have used anything.
+prov-ext:SpecificationShape
+  a sh:NodeShape ;
+  sh:targetClass prov-ext:Specification ;
+  sh:message "A specification generates at least one entity and names the person or software agent that wrote it." ;
+  sh:node prov-ext:GeneratingActivityShape ;
+  sh:property [
+    sh:path prov:wasAssociatedWith ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:or (
+      [ sh:class prov:Person ]
+      [ sh:class prov:SoftwareAgent ]
+    )
   ] .
 
 prov-ext:TransformationShape
