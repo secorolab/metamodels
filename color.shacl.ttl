@@ -1,0 +1,52 @@
+# SPDX-License-Identifier:  MPL-2.0
+@prefix col: <https://secorolab.github.io/metamodels/color#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+col:Color
+    a rdfs:Class ;
+    rdfs:comment "A colour, written in one scheme. An instance carries this class alongside its scheme, so that anything drawn can require a colour without enumerating the schemes. Channels are space-separated floats in [0, 1], which MJCF rgba, URDF color rgba and SDF diffuse all take as they stand; RGB and RGBA also take the hex form." .
+
+col:RGBScheme
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf col:Color ;
+    sh:targetClass col:RGBScheme ;
+    sh:message "RGB is three channels in [0, 1], as '0.9 0.2 0.2', or '#RRGGBB'." ;
+    sh:property [
+        sh:path col:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+        sh:or (
+            [ sh:pattern "^(0(\\.\\d+)?|1(\\.0+)?)( (0(\\.\\d+)?|1(\\.0+)?)){2}$" ]
+            [ sh:pattern "^#[0-9A-Fa-f]{6}$" ]
+        ) ;
+    ] .
+
+col:RGBAScheme
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf col:Color ;
+    sh:targetClass col:RGBAScheme ;
+    sh:message "RGBA is four channels in [0, 1], as '0.9 0.2 0.2 1.0', or '#RRGGBBAA'." ;
+    sh:property [
+        sh:path col:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+        sh:or (
+            [ sh:pattern "^(0(\\.\\d+)?|1(\\.0+)?)( (0(\\.\\d+)?|1(\\.0+)?)){3}$" ]
+            [ sh:pattern "^#[0-9A-Fa-f]{8}$" ]
+        ) ;
+    ] .
+
+col:HSVScheme
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf col:Color ;
+    sh:targetClass col:HSVScheme ;
+    sh:message "HSV is hue in [0, 360) then saturation and value in [0, 1]." ;
+    sh:property [
+        sh:path col:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+        sh:pattern "^(3[0-5]\\d|[12]\\d\\d|\\d{1,2})(\\.\\d+)?( (0(\\.\\d+)?|1(\\.0+)?)){2}$" ;
+    ] .
+
+# A thing is drawn one way.
+col:HasColorShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf col:has-color ;
+    sh:message "A thing has at most one color, and it is a col:Color." ;
+    sh:property [ sh:path col:has-color ; sh:maxCount 1 ; sh:class col:Color ] .
