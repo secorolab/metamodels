@@ -1,0 +1,14 @@
+{
+    "@context": {
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "col": "https://secorolab.github.io/metamodels/color#",
+
+        "Color": { "@id": "col:Color" },
+        "RGBScheme": { "@id": "col:RGBScheme" },
+        "RGBAScheme": { "@id": "col:RGBAScheme" },
+        "HSVScheme": { "@id": "col:HSVScheme" },
+
+        "has-color": { "@id": "col:has-color", "@type": "@id" },
+        "value": { "@id": "col:value", "@type": "xsd:string" }
+    }
+}
