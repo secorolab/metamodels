@@ -6,6 +6,9 @@
 @prefix kc: <https://comp-rob2b.github.io/metamodels/kinematic-chain/structural-entities#> .
 @prefix kc-stat: <https://comp-rob2b.github.io/metamodels/kinematic-chain/state#> .
 @prefix act: <https://secorolab.github.io/metamodels/robot/actuation#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qkind: <http://qudt.org/vocab/quantitykind/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
 
 act:ActuationShape
   a sh:NodeShape ;
@@ -20,6 +23,12 @@ act:ActuationShape
     sh:path act:gear-ratio ;
     sh:datatype xsd:double ;
     sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  # Rotor inertia reflected to the joint side.
+  sh:property [
+    sh:path act:rotor-inertia ;
+    sh:node act:RotorInertiaShape ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
@@ -41,4 +50,18 @@ act:ActuationShape
         FILTER (?value = 0.0)
       }
     """ ;
+  ] .
+
+act:RotorInertiaShape
+  a sh:NodeShape ;
+  sh:message "A rotor inertia must be a non-negative moment of inertia in kg m^2." ;
+  sh:class qudt:Quantity ;
+  sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:MomentOfInertia ] ;
+  sh:property [ sh:path qudt:unit ; sh:hasValue unit:KiloGM-M2 ; sh:maxCount 1 ] ;
+  sh:property [
+    sh:path qudt:value ;
+    sh:datatype xsd:double ;
+    sh:minInclusive 0.0 ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
   ] .

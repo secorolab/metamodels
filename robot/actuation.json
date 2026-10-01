@@ -18,6 +18,10 @@
                     "@id": "act:gear-ratio",
                     "@type": "xsd:double"
                 },
+                "rotor-inertia": {
+                    "@id": "act:rotor-inertia",
+                    "@type": "@id"
+                },
                 "command-interface": {
                     "@id": "act:command-interface",
                     "@type": "@vocab",
