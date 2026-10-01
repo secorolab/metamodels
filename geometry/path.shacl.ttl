@@ -35,7 +35,7 @@ geom-path:Arc
     sh:message "An arc needs start and end poses, a bulge amplitude, and the normal of its plane." ;
     sh:property [ sh:path geom-path:start ; sh:minCount 1 ; sh:maxCount 1 ; sh:class geom-coord:PoseCoordinate ] ;
     sh:property [ sh:path geom-path:end ; sh:minCount 1 ; sh:maxCount 1 ; sh:class geom-coord:PoseCoordinate ] ;
-    sh:property [ sh:path geom-path:amplitude ; sh:minCount 1 ; sh:maxCount 1 ; sh:node geom-path:PositiveDistanceShape ] ;
+    sh:property [ sh:path geom-path:amplitude ; sh:minCount 1 ; sh:maxCount 1 ; sh:node geom-path:DistanceShape ] ;
     sh:property [ sh:path geom-path:plane-normal ; sh:minCount 1 ; sh:maxCount 1 ; sh:class geom-coord:DirectionCoordinate ] .
 
 geom-path:Helix
@@ -63,7 +63,8 @@ geom-path:DistanceShape
     a sh:NodeShape ;
     sh:message "This value must be a quantity whose quantity kind is distance." ;
     sh:class qudt:Quantity ;
-    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Distance ] .
+    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Distance ] ;
+    sh:property [ sh:path qudt:value ; sh:maxCount 1 ; sh:minInclusive 0 ] .
 
 geom-path:DimensionlessShape
     a sh:NodeShape ;
