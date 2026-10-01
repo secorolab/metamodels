@@ -53,6 +53,7 @@
         "Door": "floorplan:Door",
         "DoorLining": "floorplan:DoorLining",
         "DoorPanel": "floorplan:DoorPanel",
+        "DoorHandle": "floorplan:DoorHandle",
         "Opening": "floorplan:Opening",
         "Entryway": "floorplan:Entryway",
         "Window": "floorplan:Window",
