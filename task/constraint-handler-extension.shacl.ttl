@@ -4,6 +4,8 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix algo-ext: <https://secorolab.github.io/metamodels/algorithm#> .
 @prefix geom-op: <https://comp-rob2b.github.io/metamodels/geometry/spatial-operators#> .
+@prefix kc-op: <https://comp-rob2b.github.io/metamodels/kinematic-chain/operators#> .
+@prefix kc-op-ext: <https://secorolab.github.io/metamodels/kinematic-chain/operators#> .
 @prefix cstr_hdl: <https://comp-rob2b.github.io/metamodels/task/constraint-handler#> .
 @prefix cstr-hdl-ext: <https://secorolab.github.io/metamodels/task/constraint-handler#> .
 @prefix mot: <https://comp-rob2b.github.io/metamodels/task/motion-specification#> .
@@ -44,7 +46,7 @@ cstr-hdl-ext:ReferenceConsumer
 cstr-hdl-ext:SolverBoundController
     a sh:NodeShape ;
     sh:targetSubjectsOf cstr-hdl-ext:solver ;
-    sh:message "A solver-bound controller must reference exactly one solver." ;
+    sh:message "A solver-bound controller must reference exactly one solver that takes commands: a dynamics solver (not forward kinematics), a command-forwarding solver, or a velocity or force distribution." ;
     sh:class cstr_hdl:Controller ;
     sh:property [
         sh:path cstr-hdl-ext:solver ;
@@ -52,8 +54,19 @@ cstr-hdl-ext:SolverBoundController
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:or (
-            [ sh:class slv:SolverWithInputAndOutput ]
+            [
+                sh:class slv:SolverWithInputAndOutput ;
+                sh:not [
+                    sh:property [
+                        sh:path slv:solver ;
+                        sh:minCount 1 ;
+                        sh:in ( kc-op:ForwardPositionKinematics kc-op-ext:ForwardVelocityKinematics )
+                    ]
+                ]
+            ]
             [ sh:class slv-ext:CommandForwardingSolver ]
+            [ sh:class slv-ext:VelocityDistributionSolver ]
+            [ sh:class slv:ForceDistributionSolver ]
         )
     ] .
 
