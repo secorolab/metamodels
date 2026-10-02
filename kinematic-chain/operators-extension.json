@@ -1,0 +1,16 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "kc-op": "https://comp-rob2b.github.io/metamodels/kinematic-chain/operators#",
+        "kc-op-ext": "https://secorolab.github.io/metamodels/kinematic-chain/operators#",
+
+        "ForwardVelocityKinematics": {
+            "@id": "kc-op-ext:ForwardVelocityKinematics",
+            "@context": {
+                "joint": { "@id": "kc-op:joint", "@type": "@id" },
+                "joint-space-motion": { "@id": "kc-op:joint-space-motion", "@type": "@id" },
+                "cartesian-space-motion": { "@id": "kc-op:cartesian-space-motion", "@type": "@id" }
+            }
+        }
+    }
+}
