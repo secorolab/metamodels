@@ -95,6 +95,21 @@ cstr-ext:AngularDistanceConstraint
         sh:class qudt_quant:PlaneAngle
     ] .
 
+cstr-ext:OrientationConstraint
+    a rdfs:Class, sh:NodeShape ;
+    rdfs:subClassOf cstr:Constraint ;
+    sh:targetClass cstr-ext:OrientationConstraint ;
+    sh:message "Constrains an orientation against a reference orientation, within a plane-angle tolerance." ;
+    sh:property [
+        sh:path cstr:quantity ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:property [
+        sh:path cstr-ext:tolerance ;
+        sh:class qudt_quant:PlaneAngle
+    ] .
+
 cstr-ext:TimeConstraint
     a rdfs:Class, sh:NodeShape ;
     rdfs:subClassOf cstr:Constraint ;
