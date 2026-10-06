@@ -37,6 +37,12 @@ prov-ext:Assurance
   rdfs:label "assurance" ;
   rdfs:comment "Observations are evaluated to a verdict." .
 
+prov-ext:RelativeLocation
+  a rdfs:Class ;
+  rdfs:subClassOf prov:Location, prov:Entity ;
+  rdfs:label "relative location" ;
+  rdfs:comment "A location given by a path relative to the location it is at, e.g. a file under a generation root." .
+
 # Shared by every prov-ext activity: what it used and who ran it. Times are
 # left to prov:ActivityShape, since an activity may still be running.
 prov-ext:RecordedActivityShape
@@ -132,6 +138,25 @@ prov-ext:SoftwarePackageShape
     sh:path schema:identifier ;
     sh:maxCount 1 ;
     sh:datatype xsd:string
+  ] .
+
+# rel-path is an RFC 3986 relative reference, resolved against the IRI of the location it is at.
+prov-ext:RelativeLocationShape
+  a sh:NodeShape ;
+  sh:targetClass prov-ext:RelativeLocation ;
+  sh:message "A relative location has one path and is at one location that path is relative to." ;
+  sh:property [
+    sh:path prov-ext:rel-path ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:anyURI
+  ] ;
+  sh:property [
+    sh:path prov:atLocation ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class prov:Location ;
+    sh:nodeKind sh:IRI
   ] .
 
 prov-ext:FormatShape
