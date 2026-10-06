@@ -4,12 +4,18 @@
         "prov-ext": "https://secorolab.github.io/metamodels/prov#",
         "schema": "https://schema.org/",
         "dcterms": "http://purl.org/dc/terms/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
 
         "Specification": "prov-ext:Specification",
         "Transformation": "prov-ext:Transformation",
         "Generalization": "prov-ext:Generalization",
         "Execution": "prov-ext:Execution",
         "Assurance": "prov-ext:Assurance",
+        "RelativeLocation": "prov-ext:RelativeLocation",
+        "rel-path": {
+            "@id": "prov-ext:rel-path",
+            "@type": "xsd:anyURI"
+        },
 
         "name": "schema:name",
         "softwareVersion": "schema:softwareVersion",
