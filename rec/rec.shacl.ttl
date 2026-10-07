@@ -13,13 +13,21 @@
 rec:Metric a rdfs:Class ; rdfs:subClassOf qudt:Quantity, prov:Entity .
 rec:Host a rdfs:Class ; rdfs:subClassOf prov:Location .
 
-# A run is an execution carrying an OSLC Automation state, and once complete a
-# verdict. Its archive directory and its host are both locations; the directory
-# is a file IRI, the host a rec:Host node.
+# A run is an activity carrying an OSLC Automation state, an execution once it
+# has run, and once complete a verdict. Its archive directory and its host are
+# both locations; the directory is a file IRI, the host a rec:Host node.
 rec:RunExecutionShape
     a sh:NodeShape ;
     sh:targetSubjectsOf oslc_auto:state ;
-    sh:class prov-ext:Execution ;
+    sh:class prov:Activity ;
+    # A run that has not started has used nothing and been run by no one yet.
+    sh:or (
+        [ sh:property [
+            sh:path oslc_auto:state ;
+            sh:in ( oslc_auto:new oslc_auto:queued oslc_auto:canceling oslc_auto:canceled )
+        ] ]
+        [ sh:class prov-ext:Execution ]
+    ) ;
     sh:property [
         sh:path oslc_auto:state ;
         sh:minCount 1 ;
