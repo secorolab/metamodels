@@ -13,21 +13,14 @@
 rec:Metric a rdfs:Class ; rdfs:subClassOf qudt:Quantity, prov:Entity .
 rec:Host a rdfs:Class ; rdfs:subClassOf prov:Location .
 
-# A run is an activity carrying an OSLC Automation state, an execution once it
-# has run, and once complete a verdict. Its archive directory and its host are
-# both locations; the directory is a file IRI, the host a rec:Host node.
+# A run is an execution and an OSLC Automation result, its verdict unavailable until
+# complete. Its archive directory and its host are both locations; the directory is
+# a file IRI, the host a rec:Host node.
 rec:RunExecutionShape
     a sh:NodeShape ;
+    sh:targetClass oslc_auto:AutomationResult ;
     sh:targetSubjectsOf oslc_auto:state ;
-    sh:class prov:Activity ;
-    # A run that has not started has used nothing and been run by no one yet.
-    sh:or (
-        [ sh:property [
-            sh:path oslc_auto:state ;
-            sh:in ( oslc_auto:new oslc_auto:queued oslc_auto:canceling oslc_auto:canceled )
-        ] ]
-        [ sh:class prov-ext:Execution ]
-    ) ;
+    sh:class prov-ext:Execution, oslc_auto:AutomationResult ;
     sh:property [
         sh:path oslc_auto:state ;
         sh:minCount 1 ;
@@ -37,6 +30,7 @@ rec:RunExecutionShape
     ] ;
     sh:property [
         sh:path oslc_auto:verdict ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:in ( oslc_auto:unavailable oslc_auto:passed oslc_auto:warning
                 oslc_auto:failed oslc_auto:error ) ;
@@ -44,7 +38,6 @@ rec:RunExecutionShape
     # A verdict other than unavailable is only reached by a complete run.
     sh:or (
         [ sh:property [ sh:path oslc_auto:state ; sh:hasValue oslc_auto:complete ] ]
-        [ sh:property [ sh:path oslc_auto:verdict ; sh:maxCount 0 ] ]
         [ sh:property [ sh:path oslc_auto:verdict ; sh:hasValue oslc_auto:unavailable ] ]
     ) ;
     sh:property [
@@ -57,12 +50,20 @@ rec:RunExecutionShape
         sh:qualifiedValueShape [ sh:class rec:Host ] ;
         sh:qualifiedMaxCount 1 ;
     ] ;
-    # A run that has not left the queue carries no start time.
     sh:property [
         sh:path prov:startedAtTime ;
         sh:maxCount 1 ;
         sh:datatype xsd:dateTime ;
     ] ;
+    # A run that has not left the queue carries no start time.
+    sh:or (
+        [ sh:not [ sh:property [
+            sh:path oslc_auto:state ;
+            sh:in ( oslc_auto:new oslc_auto:queued )
+        ] ] ]
+        [ sh:property [ sh:path prov:startedAtTime ; sh:maxCount 0 ] ]
+    ) ;
+    # A run in progress or complete has started.
     sh:or (
         [ sh:property [
             sh:path oslc_auto:state ;
