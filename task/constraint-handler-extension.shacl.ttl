@@ -46,7 +46,7 @@ cstr-hdl-ext:ReferenceConsumer
 cstr-hdl-ext:SolverBoundController
     a sh:NodeShape ;
     sh:targetSubjectsOf cstr-hdl-ext:solver ;
-    sh:message "A solver-bound controller must reference exactly one solver that takes commands: a dynamics solver (not forward kinematics), a command-forwarding solver, or a velocity or force distribution." ;
+    sh:message "A solver-bound controller must reference exactly one solver that takes commands: a dynamics or inverse-kinematics solver (not forward kinematics), a command-forwarding solver, or a velocity or force distribution." ;
     sh:class cstr_hdl:Controller ;
     sh:property [
         sh:path cstr-hdl-ext:solver ;
