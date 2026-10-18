@@ -8,9 +8,6 @@
         "Cylinder": { "@id": "shapes:Cylinder" },
         "MeshShape": { "@id": "shapes:MeshShape" },
         "Scale": { "@id": "shapes:Scale" },
-        "XLength": { "@id": "shapes:XLength" },
-        "YLength": { "@id": "shapes:YLength" },
-        "ZLength": { "@id": "shapes:ZLength" },
         "source-path": { "@id": "shapes:source-path", "@type": "xsd:string" }
     }
 }

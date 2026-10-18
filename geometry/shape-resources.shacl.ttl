@@ -24,9 +24,6 @@ shapes:Cylinder a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
 shapes:MeshShape a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
 shapes:Scale a rdfs:Class ; rdfs:subClassOf shapes:MeshShape ;
     rdfs:comment "Marks a mesh whose local X, Y, and Z scale factors are given directly or sampled from a distribution." .
-shapes:XLength a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
-shapes:YLength a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
-shapes:ZLength a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
 shapes:source-path rdfs:domain shapes:MeshShape ; rdfs:range xsd:string .
 
 shapes:SphereShape
@@ -112,13 +109,16 @@ shapes:CubeDimensionsShape
         sh:class astro:length ; sh:node shapes:PositiveDistanceShape
     ] .
 
-shapes:SingleAxisLengthShape
+shapes:FixedPrismDimensionsShape
     a sh:NodeShape ;
-    sh:xone (
-        [ sh:class shapes:XLength ]
-        [ sh:class shapes:YLength ]
-        [ sh:class shapes:ZLength ]
-    ) .
+    sh:class geom-coord:VectorXYZ, qudt:Quantity ;
+    sh:property [ sh:path qudt:hasQuantityKind ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue qkind:Distance ] ;
+    sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( unit:M unit:CentiM unit:MilliM ) ] ;
+    sh:property [ sh:path qudt:value ; sh:maxCount 0 ] ;
+    sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ] ;
+    sh:property [ sh:path geom-coord:x ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
+    sh:property [ sh:path geom-coord:y ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
+    sh:property [ sh:path geom-coord:z ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] .
 
 shapes:RectangularPrismConstraint
     a sh:NodeShape ;
@@ -128,18 +128,19 @@ shapes:RectangularPrismConstraint
     sh:or (
         [
             sh:property [
-                sh:path shapes:has-dimension ; sh:minCount 3 ; sh:maxCount 3 ;
-                sh:node shapes:PositiveDistanceShape ;
-                sh:node shapes:SingleAxisLengthShape
-            ] ;
-            sh:property [ sh:path shapes:has-dimension ; sh:qualifiedValueShape [ sh:class shapes:XLength ] ; sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ] ;
-            sh:property [ sh:path shapes:has-dimension ; sh:qualifiedValueShape [ sh:class shapes:YLength ] ; sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ] ;
-            sh:property [ sh:path shapes:has-dimension ; sh:qualifiedValueShape [ sh:class shapes:ZLength ] ; sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ]
+                sh:path shapes:has-dimension ; sh:minCount 1 ; sh:maxCount 1 ;
+                sh:node shapes:FixedPrismDimensionsShape
+            ]
         ]
         [
             sh:property [
                 sh:path shapes:has-dimension ; sh:minCount 1 ; sh:maxCount 1 ;
-                sh:node shapes:PositiveDistanceShape ; sh:node shapes:ThreeComponentSampleShape ; sh:class geom-coord:VectorXYZ
+                sh:node shapes:PositiveDistanceShape ; sh:node shapes:ThreeComponentSampleShape ; sh:class geom-coord:VectorXYZ ;
+                sh:node [
+                    sh:property [ sh:path geom-coord:x ; sh:maxCount 0 ] ;
+                    sh:property [ sh:path geom-coord:y ; sh:maxCount 0 ] ;
+                    sh:property [ sh:path geom-coord:z ; sh:maxCount 0 ]
+                ]
             ]
         ]
         [ sh:class astro:cube ; sh:node shapes:CubeDimensionsShape ]
