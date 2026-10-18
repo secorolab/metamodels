@@ -1,6 +1,7 @@
 @prefix astro: <http://www.astro.umd.edu/~eshaya/astro-onto/owl/geometry.owl#> .
 @prefix distrib: <https://secorolab.github.io/metamodels/probability/distribution#> .
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
+@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -24,15 +25,11 @@ shapes:MeshShape a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
 shapes:XLength a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
 shapes:YLength a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
 shapes:ZLength a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
-shapes:DimensionsXYZ a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
-shapes:ScaleXYZ a rdfs:Class .
-
 shapes:source-path rdfs:domain shapes:MeshShape ; rdfs:range xsd:string .
-shapes:file-format rdfs:domain shapes:MeshShape ; rdfs:range xsd:string .
 shapes:scale-x rdfs:domain shapes:MeshShape ; rdfs:range xsd:double .
 shapes:scale-y rdfs:domain shapes:MeshShape ; rdfs:range xsd:double .
 shapes:scale-z rdfs:domain shapes:MeshShape ; rdfs:range xsd:double .
-shapes:scale rdfs:domain shapes:MeshShape ; rdfs:range shapes:ScaleXYZ .
+shapes:scale rdfs:domain shapes:MeshShape ; rdfs:range geom-coord:VectorXYZ .
 
 shapes:SphereShape
     a sh:NodeShape ;
@@ -144,7 +141,7 @@ shapes:RectangularPrismConstraint
         [
             sh:property [
                 sh:path shapes:has-dimension ; sh:minCount 1 ; sh:maxCount 1 ;
-                sh:node shapes:PositiveDistanceShape ; sh:node shapes:ThreeComponentSampleShape ; sh:class shapes:DimensionsXYZ
+                sh:node shapes:PositiveDistanceShape ; sh:node shapes:ThreeComponentSampleShape ; sh:class geom-coord:VectorXYZ
             ]
         ]
         [ sh:class astro:cube ; sh:node shapes:CubeDimensionsShape ]
@@ -179,10 +176,6 @@ shapes:MeshShapeConstraint
         sh:path shapes:source-path ; sh:minCount 1 ; sh:maxCount 1 ;
         sh:datatype xsd:string ; sh:pattern "\\.stl$" ; sh:flags "i"
     ] ;
-    sh:property [
-        sh:path shapes:file-format ; sh:minCount 1 ; sh:maxCount 1 ;
-        sh:hasValue "stl"
-    ] ;
     sh:or (
         [
             sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
@@ -200,7 +193,7 @@ shapes:MeshShapeConstraint
             sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-y ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-z ; sh:maxCount 0 ] ;
-            sh:property [ sh:path shapes:scale ; sh:minCount 1 ; sh:maxCount 1 ; sh:class shapes:ScaleXYZ ; sh:node shapes:ThreeComponentSampleShape ]
+            sh:property [ sh:path shapes:scale ; sh:minCount 1 ; sh:maxCount 1 ; sh:class geom-coord:VectorXYZ ; sh:node shapes:ThreeComponentSampleShape ]
         ]
     ) ;
     sh:property [ sh:path shapes:scale-x ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ] ;

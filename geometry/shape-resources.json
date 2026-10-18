@@ -1,6 +1,7 @@
 {
     "@context": {
         "shapes": "https://secorolab.github.io/metamodels/geometry/shape-resources#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
 
         "attached-to-frame": { "@id": "shapes:attached-to-frame", "@type": "@id" },
         "has-dimension": { "@id": "shapes:has-dimension", "@type": "@id" },
@@ -9,13 +10,10 @@
         "XLength": { "@id": "shapes:XLength" },
         "YLength": { "@id": "shapes:YLength" },
         "ZLength": { "@id": "shapes:ZLength" },
-        "DimensionsXYZ": { "@id": "shapes:DimensionsXYZ" },
-        "ScaleXYZ": { "@id": "shapes:ScaleXYZ" },
-        "source-path": { "@id": "shapes:source-path", "@type": "http://www.w3.org/2001/XMLSchema#string" },
-        "file-format": { "@id": "shapes:file-format", "@type": "http://www.w3.org/2001/XMLSchema#string" },
-        "scale-x": { "@id": "shapes:scale-x", "@type": "http://www.w3.org/2001/XMLSchema#double" },
-        "scale-y": { "@id": "shapes:scale-y", "@type": "http://www.w3.org/2001/XMLSchema#double" },
-        "scale-z": { "@id": "shapes:scale-z", "@type": "http://www.w3.org/2001/XMLSchema#double" },
+        "source-path": { "@id": "shapes:source-path", "@type": "xsd:string" },
+        "scale-x": { "@id": "shapes:scale-x", "@type": "xsd:double" },
+        "scale-y": { "@id": "shapes:scale-y", "@type": "xsd:double" },
+        "scale-z": { "@id": "shapes:scale-z", "@type": "xsd:double" },
         "scale": { "@id": "shapes:scale", "@type": "@id" }
     }
 }
