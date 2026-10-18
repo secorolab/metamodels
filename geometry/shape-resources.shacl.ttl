@@ -3,10 +3,36 @@
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix shapes: <https://secorolab.github.io/metamodels/geometry/shape-resources#> .
 @prefix unit: <http://qudt.org/vocab/unit/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+shapes:attached-to-frame
+    rdfs:domain astro:shape ;
+    rdfs:range geom:Frame ;
+    rdfs:comment "Links a shape to a body-owned frame. The shape's local origin and axes coincide with that frame's origin and axes; the frame's pose locates the shape relative to other frames." .
+
+shapes:has-dimension
+    rdfs:domain astro:shape ;
+    rdfs:range qudt:Quantity ;
+    rdfs:comment "Links a shape to a dimensional quantity, such as a radius. The quantity's geometric type, value, and unit are constrained for each shape kind." .
+
+shapes:Cylinder a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
+shapes:MeshShape a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
+shapes:XLength a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
+shapes:YLength a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
+shapes:ZLength a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
+shapes:DimensionsXYZ a rdfs:Class ; rdfs:subClassOf qudt:Quantity .
+shapes:ScaleXYZ a rdfs:Class .
+
+shapes:source-path rdfs:domain shapes:MeshShape ; rdfs:range xsd:string .
+shapes:file-format rdfs:domain shapes:MeshShape ; rdfs:range xsd:string .
+shapes:scale-x rdfs:domain shapes:MeshShape ; rdfs:range xsd:double .
+shapes:scale-y rdfs:domain shapes:MeshShape ; rdfs:range xsd:double .
+shapes:scale-z rdfs:domain shapes:MeshShape ; rdfs:range xsd:double .
+shapes:scale rdfs:domain shapes:MeshShape ; rdfs:range shapes:ScaleXYZ .
 
 shapes:SphereShape
     a sh:NodeShape ;
