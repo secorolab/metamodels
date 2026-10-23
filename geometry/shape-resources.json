@@ -4,7 +4,7 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
 
         "attached-to-frame": { "@id": "shapes:attached-to-frame", "@type": "@id" },
-        "has-dimension": { "@id": "shapes:has-dimension", "@type": "@id" },
+        "has-dimension": { "@id": "shapes:has-dimension", "@type": "@id", "@container": "@set" },
         "Cylinder": { "@id": "shapes:Cylinder" },
         "MeshShape": { "@id": "shapes:MeshShape" },
         "Scale": { "@id": "shapes:Scale" },
