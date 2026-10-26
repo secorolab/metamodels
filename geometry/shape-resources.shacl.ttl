@@ -3,6 +3,7 @@
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix shapes: <https://secorolab.github.io/metamodels/geometry/shape-resources#> .
@@ -181,10 +182,20 @@ shapes:ScaledShapeConstraint
             sh:property [
                 sh:path distrib:from-distribution ; sh:minCount 1 ; sh:maxCount 1 ;
                 sh:class distrib:Uniform ;
-                sh:node [ sh:property [
-                    sh:path distrib:dimension ; sh:minCount 1 ; sh:maxCount 1 ;
-                    sh:in ( "1"^^xsd:positiveInteger "3"^^xsd:positiveInteger )
-                ] ]
+                sh:node [
+                    sh:property [
+                        sh:path distrib:dimension ; sh:minCount 1 ; sh:maxCount 1 ;
+                        sh:in ( "1"^^xsd:positiveInteger "3"^^xsd:positiveInteger )
+                    ] ;
+                    sh:property [
+                        sh:path ( distrib:lower-bound [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+                        sh:minCount 1 ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double
+                    ] ;
+                    sh:property [
+                        sh:path ( distrib:upper-bound [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+                        sh:minCount 1 ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double
+                    ]
+                ]
             ] ;
             sh:property [ sh:path shapes:uniform-scale ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
