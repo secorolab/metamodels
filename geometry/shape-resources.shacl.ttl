@@ -1,7 +1,6 @@
 @prefix astro: <http://www.astro.umd.edu/~eshaya/astro-onto/owl/geometry.owl#> .
 @prefix distrib: <https://secorolab.github.io/metamodels/probability/distribution#> .
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
-@prefix geom-coord: <https://comp-rob2b.github.io/metamodels/geometry/coordinates#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -18,19 +17,26 @@ shapes:attached-to-frame
 shapes:has-dimension
     rdfs:domain astro:shape ;
     rdfs:range qudt:Quantity ;
-    rdfs:comment "Links a shape to a dimensional quantity, such as a radius. The quantity's geometric type, value, and unit are constrained for each shape kind." .
+    rdfs:comment "Links a primitive to its fixed unit-base dimension, with the value and unit constrained for each shape kind." .
 
 shapes:Cylinder a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
 shapes:MeshShape a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
-shapes:Scale a rdfs:Class ; rdfs:subClassOf shapes:MeshShape ;
-    rdfs:comment "Marks a mesh whose local X, Y, and Z scale factors are given directly or sampled from a distribution." .
+shapes:ScaledShape a rdfs:Class ;
+    rdfs:comment "Marks a shape whose positive, dimensionless local X, Y, and Z scale factors are given directly or sampled from a distribution. The geometric type identifies the unit base before scaling; scaling precedes the attached frame pose." .
+shapes:scale-x rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
+    rdfs:comment "Positive dimensionless factor along the shape's local X axis." .
+shapes:scale-y rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
+    rdfs:comment "Positive dimensionless factor along the shape's local Y axis." .
+shapes:scale-z rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
+    rdfs:comment "Positive dimensionless factor along the shape's local Z axis." .
 shapes:source-path rdfs:domain shapes:MeshShape ; rdfs:range xsd:string .
 
 shapes:SphereShape
     a sh:NodeShape ;
     sh:targetClass astro:sphere ;
-    sh:description "The attached frame is the sphere's local coordinate system. Its origin is the sphere center; orientation does not change the sphere." ;
+    sh:description "The attached frame origin is the sphere's geometric center; the base radius is 0.5 metre, so scale gives full axis extents in metres." ;
     sh:property shapes:AttachedFrameProperty ;
+    sh:class shapes:ScaledShape ;
     sh:property [
         sh:path shapes:has-dimension ;
         sh:minCount 1 ; sh:maxCount 1 ;
@@ -55,114 +61,70 @@ shapes:BodyOwnedFrameShape
 shapes:SphereRadiusShape
     a sh:NodeShape ;
     sh:class astro:radius ;
-    sh:node shapes:PositiveDistanceShape .
+    sh:node shapes:UnitRadiusShape .
 
 shapes:PositiveDistanceShape
     a sh:NodeShape ;
     sh:class qudt:Quantity ;
     sh:property [ sh:path qudt:hasQuantityKind ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue qkind:Distance ] ;
-    sh:or (
-        [ sh:property [
-            sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ;
-            sh:datatype xsd:double ; sh:minExclusive 0 ;
-            sh:maxExclusive "INF"^^xsd:double
-        ] ]
-        [ sh:node shapes:PositiveSampleShape ]
-    ) ;
+    sh:property [
+        sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:double ; sh:minExclusive 0 ;
+        sh:maxExclusive "INF"^^xsd:double
+    ] ;
     sh:property [
         sh:path qudt:unit ;
         sh:minCount 1 ; sh:maxCount 1 ;
         sh:in ( unit:M unit:CentiM unit:MilliM )
     ] .
 
-shapes:PositiveSampleShape
+shapes:UnitRadiusShape
     a sh:NodeShape ;
-    sh:class distrib:SampledQuantity ;
-    sh:property [ sh:path qudt:value ; sh:maxCount 0 ] ;
-    sh:property [
-        sh:path distrib:from-distribution ; sh:minCount 1 ; sh:maxCount 1 ;
-        sh:class distrib:Uniform
-    ] .
-
-shapes:ThreeComponentSampleShape
-    a sh:NodeShape ;
-    sh:node shapes:PositiveSampleShape ;
-    sh:property [
-        sh:path distrib:from-distribution ;
-        sh:node [ sh:property [
-            sh:path distrib:dimension ; sh:minCount 1 ; sh:maxCount 1 ;
-            sh:hasValue "3"^^xsd:positiveInteger
-        ] ]
-    ] .
-
-shapes:CubeConstraint
-    a sh:NodeShape ;
-    sh:targetClass astro:cube ;
-    sh:description "The attached frame is at the cube center; its side is the full length along each local axis." ;
-    sh:property shapes:AttachedFrameProperty ;
-    sh:node shapes:CubeDimensionsShape .
-
-shapes:CubeDimensionsShape
-    a sh:NodeShape ;
-    sh:property [
-        sh:path shapes:has-dimension ; sh:minCount 1 ; sh:maxCount 1 ;
-        sh:class astro:length ; sh:node shapes:PositiveDistanceShape
-    ] .
-
-shapes:FixedPrismDimensionsShape
-    a sh:NodeShape ;
-    sh:class geom-coord:VectorXYZ, qudt:Quantity ;
-    sh:property [ sh:path qudt:hasQuantityKind ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue qkind:Distance ] ;
-    sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( unit:M unit:CentiM unit:MilliM ) ] ;
-    sh:property [ sh:path qudt:value ; sh:maxCount 0 ] ;
-    sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ] ;
-    sh:property [ sh:path geom-coord:x ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
-    sh:property [ sh:path geom-coord:y ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
-    sh:property [ sh:path geom-coord:z ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] .
+    sh:node shapes:PositiveDistanceShape ;
+    sh:property [ sh:path qudt:value ; sh:hasValue "0.5"^^xsd:double ] ;
+    sh:property [ sh:path qudt:unit ; sh:hasValue unit:M ] .
 
 shapes:RectangularPrismConstraint
     a sh:NodeShape ;
     sh:targetClass astro:rectangularPrism ;
-    sh:description "The attached frame is at the rectangular prism center; X, Y, and Z lengths are full side lengths along its axes." ;
+    sh:description "The attached frame origin is the prism's geometric center. Its base is one metre along each local axis before scale." ;
     sh:property shapes:AttachedFrameProperty ;
-    sh:or (
-        [
-            sh:property [
-                sh:path shapes:has-dimension ; sh:minCount 1 ; sh:maxCount 1 ;
-                sh:node shapes:FixedPrismDimensionsShape
-            ]
+    sh:class shapes:ScaledShape ;
+    sh:node shapes:PrismUnitLengthShape .
+
+shapes:PrismUnitLengthShape
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shapes:has-dimension ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class astro:length ; sh:node shapes:PositiveDistanceShape ;
+        sh:node [
+            sh:property [ sh:path qudt:value ; sh:hasValue "1.0"^^xsd:double ] ;
+            sh:property [ sh:path qudt:unit ; sh:hasValue unit:M ]
         ]
-        [
-            sh:property [
-                sh:path shapes:has-dimension ; sh:minCount 1 ; sh:maxCount 1 ;
-                sh:node shapes:PositiveDistanceShape ; sh:node shapes:ThreeComponentSampleShape ; sh:class geom-coord:VectorXYZ ;
-                sh:node [
-                    sh:property [ sh:path geom-coord:x ; sh:maxCount 0 ] ;
-                    sh:property [ sh:path geom-coord:y ; sh:maxCount 0 ] ;
-                    sh:property [ sh:path geom-coord:z ; sh:maxCount 0 ]
-                ]
-            ]
-        ]
-        [ sh:class astro:cube ; sh:node shapes:CubeDimensionsShape ]
-    ) .
+    ] .
 
 shapes:CylinderShape
     a sh:NodeShape ;
     sh:targetClass shapes:Cylinder ;
-    sh:description "The attached frame is at the cylinder center; height runs along its Z axis." ;
+    sh:description "The attached frame origin is the cylinder's geometric center; the base radius is 0.5 metre and height is 1 metre along local Z." ;
     sh:property shapes:AttachedFrameProperty ;
+    sh:class shapes:ScaledShape ;
     sh:property [
         sh:path shapes:has-dimension ; sh:minCount 2 ; sh:maxCount 2 ;
         sh:node shapes:PositiveDistanceShape
     ] ;
     sh:property [
         sh:path shapes:has-dimension ;
-        sh:qualifiedValueShape [ sh:class astro:radius ] ;
+        sh:qualifiedValueShape [ sh:class astro:radius ; sh:node shapes:UnitRadiusShape ] ;
         sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1
     ] ;
     sh:property [
         sh:path shapes:has-dimension ;
-        sh:qualifiedValueShape [ sh:class astro:height ] ;
+        sh:qualifiedValueShape [
+            sh:class astro:height ;
+            sh:property [ sh:path qudt:value ; sh:hasValue "1.0"^^xsd:double ] ;
+            sh:property [ sh:path qudt:unit ; sh:hasValue unit:M ]
+        ] ;
         sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1
     ] .
 
@@ -176,25 +138,32 @@ shapes:MeshShapeConstraint
         sh:datatype xsd:string ; sh:pattern "\\.stl$" ; sh:flags "i"
     ] ;
     sh:or (
-        [ sh:class shapes:Scale ]
+        [ sh:class shapes:ScaledShape ]
         [
-            sh:property [ sh:path geom-coord:x ; sh:maxCount 0 ] ;
-            sh:property [ sh:path geom-coord:y ; sh:maxCount 0 ] ;
-            sh:property [ sh:path geom-coord:z ; sh:maxCount 0 ] ;
+            sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
+            sh:property [ sh:path shapes:scale-y ; sh:maxCount 0 ] ;
+            sh:property [ sh:path shapes:scale-z ; sh:maxCount 0 ] ;
             sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ]
         ]
-    ) .
+    ) ;
+    sh:property [
+        sh:path distrib:from-distribution ;
+        sh:node [ sh:property [ sh:path distrib:dimension ; sh:hasValue "3"^^xsd:positiveInteger ] ]
+    ] .
 
-shapes:ScaleConstraint
+shapes:ScaledShapeConstraint
     a sh:NodeShape ;
-    sh:targetClass shapes:Scale ;
-    sh:class shapes:MeshShape ;
+    sh:targetClass shapes:ScaledShape ;
+    sh:or (
+        [ sh:class shapes:MeshShape ] [ sh:class astro:rectangularPrism ]
+        [ sh:class astro:sphere ] [ sh:class shapes:Cylinder ]
+    ) ;
     sh:or (
         [
             sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ] ;
-            sh:property [ sh:path geom-coord:x ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
-            sh:property [ sh:path geom-coord:y ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
-            sh:property [ sh:path geom-coord:z ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ]
+            sh:property [ sh:path shapes:scale-x ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
+            sh:property [ sh:path shapes:scale-y ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
+            sh:property [ sh:path shapes:scale-z ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ]
         ]
         [
             sh:property [
@@ -202,11 +171,11 @@ shapes:ScaleConstraint
                 sh:class distrib:Uniform ;
                 sh:node [ sh:property [
                     sh:path distrib:dimension ; sh:minCount 1 ; sh:maxCount 1 ;
-                    sh:hasValue "3"^^xsd:positiveInteger
+                    sh:in ( "1"^^xsd:positiveInteger "3"^^xsd:positiveInteger )
                 ] ]
             ] ;
-            sh:property [ sh:path geom-coord:x ; sh:maxCount 0 ] ;
-            sh:property [ sh:path geom-coord:y ; sh:maxCount 0 ] ;
-            sh:property [ sh:path geom-coord:z ; sh:maxCount 0 ]
+            sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
+            sh:property [ sh:path shapes:scale-y ; sh:maxCount 0 ] ;
+            sh:property [ sh:path shapes:scale-z ; sh:maxCount 0 ]
         ]
     ) .
