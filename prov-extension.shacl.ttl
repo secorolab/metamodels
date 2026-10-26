@@ -5,6 +5,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <https://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix spdx-sw: <https://spdx.org/rdf/3.0.1/terms/Software/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 prov-ext:Specification
@@ -132,6 +133,36 @@ prov-ext:SoftwarePackageShape
     sh:path schema:identifier ;
     sh:maxCount 1 ;
     sh:datatype xsd:string
+  ] .
+
+# A package is found by its name: a ros:Package in the ROS package index, any other as installed.
+prov-ext:PackageShape
+  a sh:NodeShape ;
+  sh:targetClass spdx-sw:Package ;
+  sh:property [
+    sh:path schema:name ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "A package needs exactly one schema:name as a string, the name it is found by."
+  ] ;
+  sh:property [
+    sh:path schema:softwareVersion ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "A package states at most one schema:softwareVersion, as a string."
+  ] ;
+  sh:property [
+    sh:path schema:codeRepository ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "A package states at most one schema:codeRepository, the IRI of its source repository."
+  ] ;
+  sh:property [
+    sh:path schema:identifier ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "A package states at most one schema:identifier, the revision of its source, as a string."
   ] .
 
 # rel-path is an RFC 3986 relative reference, resolved against the IRI of the location it is at.
