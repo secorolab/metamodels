@@ -21,6 +21,10 @@ shapes:has-dimension
     rdfs:comment "Links a primitive to its fixed unit-base dimension, with the value and unit constrained for each shape kind." .
 
 shapes:Cylinder a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
+shapes:RightCircularCone a rdfs:Class ; rdfs:subClassOf astro:circularCone ;
+    rdfs:comment "Unit-base cone: its circular base is perpendicular to its local Z axis, with the apex directly above the base center. Independent X/Y scale can make the rendered cone elliptical." .
+shapes:Tetrahedron a rdfs:Class ; rdfs:subClassOf astro:pyramid .
+shapes:TriangularPrism a rdfs:Class ; rdfs:subClassOf astro:prism .
 shapes:MeshShape a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
 shapes:ScaledShape a rdfs:Class ;
     rdfs:comment "Marks a shape whose positive, dimensionless local scale is given as one uniform factor, three axis factors, or a sampled distribution. The geometric type identifies the unit base before scaling; scaling precedes the attached frame pose." .
@@ -93,9 +97,9 @@ shapes:RectangularPrismConstraint
     sh:description "The attached frame origin is the prism's geometric center. Its base is one metre along each local axis before scale." ;
     sh:property shapes:AttachedFrameProperty ;
     sh:class shapes:ScaledShape ;
-    sh:node shapes:PrismUnitLengthShape .
+    sh:node shapes:UnitExtentShape .
 
-shapes:PrismUnitLengthShape
+shapes:UnitExtentShape
     a sh:NodeShape ;
     sh:property [
         sh:path shapes:has-dimension ; sh:minCount 1 ; sh:maxCount 1 ;
@@ -110,6 +114,16 @@ shapes:CylinderShape
     a sh:NodeShape ;
     sh:targetClass shapes:Cylinder ;
     sh:description "The attached frame origin is the cylinder's geometric center; the base radius is 0.5 metre and height is 1 metre along local Z." ;
+    sh:node shapes:UnitRadiusHeightShape .
+
+shapes:RightCircularConeShape
+    a sh:NodeShape ;
+    sh:targetClass shapes:RightCircularCone ;
+    sh:description "Right circular cone with unit radius 0.5 metre and height 1 metre along local Z. The frame is at the midpoint of its bounds: base Z = -0.5, apex Z = +0.5 metre." ;
+    sh:node shapes:UnitRadiusHeightShape .
+
+shapes:UnitRadiusHeightShape
+    a sh:NodeShape ;
     sh:property shapes:AttachedFrameProperty ;
     sh:class shapes:ScaledShape ;
     sh:property [
@@ -130,6 +144,22 @@ shapes:CylinderShape
         ] ;
         sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1
     ] .
+
+shapes:TetrahedronShape
+    a sh:NodeShape ;
+    sh:targetClass shapes:Tetrahedron ;
+    sh:description "Regular tetrahedron with one metre bounds along each local axis. Its frame is at the midpoint of the bounds, which is also its volume centroid." ;
+    sh:property shapes:AttachedFrameProperty ;
+    sh:class shapes:ScaledShape ;
+    sh:node shapes:UnitExtentShape .
+
+shapes:TriangularPrismShape
+    a sh:NodeShape ;
+    sh:targetClass shapes:TriangularPrism ;
+    sh:description "Right prism with a right-isosceles triangular base and one metre bounds along each local axis. Its frame is at the midpoint of the bounds, not its volume centroid." ;
+    sh:property shapes:AttachedFrameProperty ;
+    sh:class shapes:ScaledShape ;
+    sh:node shapes:UnitExtentShape .
 
 shapes:MeshShapeConstraint
     a sh:NodeShape ;
@@ -161,6 +191,8 @@ shapes:ScaledShapeConstraint
     sh:or (
         [ sh:class shapes:MeshShape ] [ sh:class astro:rectangularPrism ]
         [ sh:class astro:sphere ] [ sh:class shapes:Cylinder ]
+        [ sh:class shapes:RightCircularCone ] [ sh:class shapes:Tetrahedron ]
+        [ sh:class shapes:TriangularPrism ]
     ) ;
     sh:or (
         [
@@ -171,7 +203,11 @@ shapes:ScaledShapeConstraint
             sh:property [ sh:path shapes:scale-z ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ]
         ]
         [
-            sh:or ( [ sh:class astro:rectangularPrism ] [ sh:class astro:sphere ] [ sh:class shapes:Cylinder ] ) ;
+            sh:or (
+                [ sh:class astro:rectangularPrism ] [ sh:class astro:sphere ]
+                [ sh:class shapes:Cylinder ] [ sh:class shapes:RightCircularCone ]
+                [ sh:class shapes:Tetrahedron ] [ sh:class shapes:TriangularPrism ]
+            ) ;
             sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:uniform-scale ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
             sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
