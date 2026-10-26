@@ -22,7 +22,9 @@ shapes:has-dimension
 shapes:Cylinder a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
 shapes:MeshShape a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
 shapes:ScaledShape a rdfs:Class ;
-    rdfs:comment "Marks a shape whose positive, dimensionless local X, Y, and Z scale factors are given directly or sampled from a distribution. The geometric type identifies the unit base before scaling; scaling precedes the attached frame pose." .
+    rdfs:comment "Marks a shape whose positive, dimensionless local scale is given as one uniform factor, three axis factors, or a sampled distribution. The geometric type identifies the unit base before scaling; scaling precedes the attached frame pose." .
+shapes:uniform-scale rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
+    rdfs:comment "Positive dimensionless factor applied equally along the shape's three local axes." .
 shapes:scale-x rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
     rdfs:comment "Positive dimensionless factor along the shape's local X axis." .
 shapes:scale-y rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
@@ -140,6 +142,7 @@ shapes:MeshShapeConstraint
     sh:or (
         [ sh:class shapes:ScaledShape ]
         [
+            sh:property [ sh:path shapes:uniform-scale ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-y ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-z ; sh:maxCount 0 ] ;
@@ -161,9 +164,18 @@ shapes:ScaledShapeConstraint
     sh:or (
         [
             sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ] ;
+            sh:property [ sh:path shapes:uniform-scale ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-x ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
             sh:property [ sh:path shapes:scale-y ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
             sh:property [ sh:path shapes:scale-z ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ]
+        ]
+        [
+            sh:or ( [ sh:class astro:rectangularPrism ] [ sh:class astro:sphere ] [ sh:class shapes:Cylinder ] ) ;
+            sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ] ;
+            sh:property [ sh:path shapes:uniform-scale ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
+            sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
+            sh:property [ sh:path shapes:scale-y ; sh:maxCount 0 ] ;
+            sh:property [ sh:path shapes:scale-z ; sh:maxCount 0 ]
         ]
         [
             sh:property [
@@ -174,6 +186,7 @@ shapes:ScaledShapeConstraint
                     sh:in ( "1"^^xsd:positiveInteger "3"^^xsd:positiveInteger )
                 ] ]
             ] ;
+            sh:property [ sh:path shapes:uniform-scale ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-y ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-z ; sh:maxCount 0 ]

@@ -24,13 +24,11 @@ ex:prismSide a astro:length, qudt:Quantity ;
     qudt:hasQuantityKind qkind:Distance ;
     qudt:value "1.0"^^xsd:double ; qudt:unit unit:M .
 
-# A single fixed DSL factor (scale: 0.05) is exported on all three axes.
+# A single fixed DSL factor (scale: 0.05) applies to all three local axes.
 ex:uniformPrism a astro:rectangularPrism, shapes:ScaledShape ;
     shapes:attached-to-frame ex:prismFrame ;
     shapes:has-dimension ex:prismSide ;
-    shapes:scale-x "0.05"^^xsd:double ;
-    shapes:scale-y "0.05"^^xsd:double ;
-    shapes:scale-z "0.05"^^xsd:double .
+    shapes:uniform-scale "0.05"^^xsd:double .
 
 ex:sphere a astro:sphere, shapes:ScaledShape ;
     shapes:attached-to-frame ex:sphereFrame ;
