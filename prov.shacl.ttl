@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MPL-2.0
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -64,6 +65,8 @@ prov:EntityShape
     sh:class prov:Invalidation
   ] .
 
+# Activity boundaries reference OWL-Time instants rather than datetime literals.
+# https://www.w3.org/TR/owl-time/#time-prov
 prov:ActivityShape
   a sh:NodeShape ;
   sh:targetClass prov:Activity ;
@@ -84,13 +87,15 @@ prov:ActivityShape
     sh:nodeKind sh:IRI
   ] ;
   sh:property [
-    sh:path prov:startedAtTime ;
-    sh:datatype xsd:dateTime ;
+    sh:path time:hasBeginning ;
+    sh:class time:Instant ;
+    sh:nodeKind sh:IRI ;
     sh:maxCount 1
   ] ;
   sh:property [
-    sh:path prov:endedAtTime ;
-    sh:datatype xsd:dateTime ;
+    sh:path time:hasEnd ;
+    sh:class time:Instant ;
+    sh:nodeKind sh:IRI ;
     sh:maxCount 1
   ] ;
   sh:property [
