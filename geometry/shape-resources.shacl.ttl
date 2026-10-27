@@ -15,9 +15,9 @@ shapes:attached-to-frame
 shapes:UnitCube a rdfs:Class ;
     rdfs:comment "One-metre cube with local X, Y, and Z bounds from -0.5 to +0.5 metre. The attached frame origin is its centroid." .
 shapes:UnitCylinder a rdfs:Class ;
-    rdfs:comment "Cylinder of radius 0.5 metre and height 1 metre along local Z, centered on the attached frame at its centroid." .
+    rdfs:comment "Cylinder of radius 1 metre and height 1 metre along local Z, centered on the attached frame at its centroid." .
 shapes:UnitSphere a rdfs:Class ;
-    rdfs:comment "Sphere of radius 0.5 metre, centered on the attached frame at its centroid." .
+    rdfs:comment "Sphere of radius 1 metre, centered on the attached frame at its centroid." .
 shapes:FileBasedShape a rdfs:Class ; rdfs:subClassOf prov:Entity .
 shapes:ScaledShape a rdfs:Class ;
     rdfs:comment "Marks a shape whose positive, dimensionless local scale is given as three axis factors or a sampled distribution. Equal axis factors give uniform scale. The geometric type identifies the unit base before scaling; scaling precedes the attached frame pose." .
