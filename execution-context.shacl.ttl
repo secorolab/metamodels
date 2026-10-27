@@ -9,8 +9,6 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
 @prefix ssn: <http://www.w3.org/ns/ssn/> .
-@prefix agent: <https://secorolab.github.io/metamodels/agent#> .
-@prefix geom-struct: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
 
 # The execution context is itself typed RealWorld or Simulation; a simulator is the platform it
 # is deployed on, and real-world hardware is named per device, on the system realizing it.
@@ -87,26 +85,6 @@ exec:TimeQuantityShape
     sh:minExclusive 0.0 ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
-  ] .
-
-# The hardware standing in for a modelled element. Model-to-reality correspondence is
-# outside SSN's scope, so the relation is local; its ends are not. The subject is the
-# deployed System, the object the scene element it realizes -- an agent, a kinematic tree,
-# or a sensor. Anything else is not an addressable target for a device.
-exec:RealizesShape
-  a sh:NodeShape ;
-  sh:targetSubjectsOf exec:realizes ;
-  sh:message "A device realizes an agent, a kinematic tree, or a sensor, and one of them." ;
-  sh:class ssn:System ;
-  sh:property [
-    sh:path exec:realizes ;
-    sh:nodeKind sh:IRI ;
-    sh:maxCount 1 ;
-    sh:or (
-      [ sh:class agent:Agent ]
-      [ sh:class geom-struct:KinematicTree ]
-      [ sh:class sosa:Sensor ]
-    ) ;
   ] .
 
 # One element, one device: two Systems realizing the same element would leave the run with
