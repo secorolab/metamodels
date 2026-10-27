@@ -11,7 +11,6 @@
         "TriangularPrism": { "@id": "shapes:TriangularPrism" },
         "FileBasedShape": { "@id": "shapes:FileBasedShape" },
         "ScaledShape": { "@id": "shapes:ScaledShape" },
-        "uniform-scale": { "@id": "shapes:uniform-scale", "@type": "xsd:double" },
         "scale-x": { "@id": "shapes:scale-x", "@type": "xsd:double" },
         "scale-y": { "@id": "shapes:scale-y", "@type": "xsd:double" },
         "scale-z": { "@id": "shapes:scale-z", "@type": "xsd:double" }
