@@ -65,7 +65,7 @@ prov:EntityShape
     sh:class prov:Invalidation
   ] .
 
-# Activity boundaries are PROV datetime literals or OWL-Time instants.
+# Activity boundaries reference OWL-Time instants rather than datetime literals.
 # https://www.w3.org/TR/owl-time/#time-prov
 prov:ActivityShape
   a sh:NodeShape ;
@@ -85,16 +85,6 @@ prov:ActivityShape
     sh:path prov:wasAssociatedWith ;
     sh:class prov:Agent ;
     sh:nodeKind sh:IRI
-  ] ;
-  sh:property [
-    sh:path prov:startedAtTime ;
-    sh:datatype xsd:dateTime ;
-    sh:maxCount 1
-  ] ;
-  sh:property [
-    sh:path prov:endedAtTime ;
-    sh:datatype xsd:dateTime ;
-    sh:maxCount 1
   ] ;
   sh:property [
     sh:path time:hasBeginning ;
