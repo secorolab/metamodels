@@ -55,15 +55,7 @@ shapes:FileBasedShapeConstraint
                 sh:class prov-ext:RelativeLocation
             ]
         ]
-    ] ;
-    sh:or (
-        [ sh:class shapes:ScaledShape ]
-        [
-            sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
-            sh:property [ sh:path shapes:scale-y ; sh:maxCount 0 ] ;
-            sh:property [ sh:path shapes:scale-z ; sh:maxCount 0 ]
-        ]
-    ) .
+    ] .
 
 shapes:ScaleFactorConstraint
     a sh:NodeShape ;
