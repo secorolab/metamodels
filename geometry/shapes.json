@@ -1,6 +1,6 @@
 {
     "@context": {
-        "shapes": "https://secorolab.github.io/metamodels/geometry/shape-resources#",
+        "shapes": "https://secorolab.github.io/metamodels/geometry/shapes#",
         "attached-to-frame": { "@id": "shapes:attached-to-frame", "@type": "@id" },
         "UnitCube": { "@id": "shapes:UnitCube" },
         "UnitCylinder": { "@id": "shapes:UnitCylinder" },
