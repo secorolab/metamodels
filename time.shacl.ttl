@@ -16,6 +16,11 @@ time:Instant
         sh:maxCount 1 ;
         sh:nodeKind sh:BlankNodeOrIRI ;
         sh:class time:TimePosition
+    ] ;
+    sh:property [
+        sh:path time:inXSDDateTimeStamp ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:dateTimeStamp
     ] .
 
 time:TimePosition

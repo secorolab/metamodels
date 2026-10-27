@@ -10,6 +10,9 @@
 @prefix cstr-ext: <https://secorolab.github.io/metamodels/task/constraint#> .
 @prefix sens: <https://secorolab.github.io/metamodels/robot/sensors#> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qudt-quant: <http://qudt.org/vocab/quantitykind/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
 @prefix geom-rel: <https://comp-rob2b.github.io/metamodels/geometry/spatial-relations#> .
 
 obs:ObservationShape
@@ -111,6 +114,28 @@ obs:LinearDistanceEvaluatorShape
         sh:path cstr-ext:has-constraint ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path obs:max-time-offset ;
+        sh:maxCount 1 ;
+        sh:node [
+            sh:class qudt:Quantity ;
+            sh:property [
+                sh:path qudt:hasQuantityKind ;
+                sh:hasValue qudt-quant:Time ;
+            ] ;
+            sh:property [
+                sh:path qudt:unit ;
+                sh:hasValue unit:SEC ;
+            ] ;
+            sh:property [
+                sh:path qudt:value ;
+                sh:datatype xsd:double ;
+                sh:minInclusive 0.0 ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+            ] ;
+        ] ;
     ] ;
     sh:sparql [
         sh:message "A linear evaluator can only reference observations of its policy." ;
