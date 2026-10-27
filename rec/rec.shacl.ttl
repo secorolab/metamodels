@@ -8,6 +8,7 @@
 @prefix schema: <https://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 rec:Metric a rdfs:Class ; rdfs:subClassOf qudt:Quantity, prov:Entity .
@@ -51,9 +52,10 @@ rec:RunExecutionShape
         sh:qualifiedMaxCount 1 ;
     ] ;
     sh:property [
-        sh:path prov:startedAtTime ;
+        sh:path time:hasBeginning ;
         sh:maxCount 1 ;
-        sh:datatype xsd:dateTime ;
+        sh:nodeKind sh:IRI ;
+        sh:class time:Instant ;
     ] ;
     # A run that has not left the queue carries no start time.
     sh:or (
@@ -61,7 +63,7 @@ rec:RunExecutionShape
             sh:path oslc_auto:state ;
             sh:in ( oslc_auto:new oslc_auto:queued )
         ] ] ]
-        [ sh:property [ sh:path prov:startedAtTime ; sh:maxCount 0 ] ]
+        [ sh:property [ sh:path time:hasBeginning ; sh:maxCount 0 ] ]
     ) ;
     # A run in progress or complete has started.
     sh:or (
@@ -69,12 +71,13 @@ rec:RunExecutionShape
             sh:path oslc_auto:state ;
             sh:in ( oslc_auto:new oslc_auto:queued oslc_auto:canceling oslc_auto:canceled )
         ] ]
-        [ sh:property [ sh:path prov:startedAtTime ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path time:hasBeginning ; sh:minCount 1 ] ]
     ) ;
     sh:property [
-        sh:path prov:endedAtTime ;
+        sh:path time:hasEnd ;
         sh:maxCount 1 ;
-        sh:datatype xsd:dateTime ;
+        sh:nodeKind sh:IRI ;
+        sh:class time:Instant ;
     ] ;
     # When the run was queued, and the last time it reported itself alive.
     sh:property [
