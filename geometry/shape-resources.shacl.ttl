@@ -12,7 +12,7 @@
 
 shapes:attached-to-frame
     rdfs:range geom:Frame ;
-    rdfs:comment "Links a shape to a body-owned frame. The shape's local origin and axes coincide with that frame's origin and axes; the frame's pose locates the shape relative to other frames." .
+    rdfs:comment "Links a shape to a placement frame. The shape's local origin and axes coincide with that frame's origin and axes; the frame's pose locates the shape relative to other frames. The frame need not belong to a rigid body." .
 
 shapes:UnitCube a rdfs:Class ;
     rdfs:comment "One-metre cube with local X, Y, and Z bounds from -0.5 to +0.5 metre. The attached frame origin is its centroid." .
@@ -40,16 +40,7 @@ shapes:AttachedFrameProperty
     a sh:PropertyShape ;
     sh:path shapes:attached-to-frame ;
     sh:minCount 1 ; sh:maxCount 1 ;
-    sh:class geom:Frame ;
-    sh:node shapes:BodyOwnedFrameShape .
-
-shapes:BodyOwnedFrameShape
-    a sh:NodeShape ;
-    sh:property [
-        sh:path [ sh:inversePath geom:simplices ] ;
-        sh:minCount 1 ; sh:maxCount 1 ;
-        sh:class geom:RigidBody
-    ] .
+    sh:class geom:Frame .
 
 shapes:FileBasedShapeConstraint
     a sh:NodeShape ;
