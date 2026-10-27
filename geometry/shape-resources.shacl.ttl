@@ -194,11 +194,7 @@ shapes:FileBasedShapeConstraint
             sh:property [ sh:path shapes:scale-z ; sh:maxCount 0 ] ;
             sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ]
         ]
-    ) ;
-    sh:property [
-        sh:path distrib:from-distribution ;
-        sh:node [ sh:property [ sh:path distrib:dimension ; sh:hasValue "3"^^xsd:positiveInteger ] ]
-    ] .
+    ) .
 
 shapes:ScaledShapeConstraint
     a sh:NodeShape ;
