@@ -82,10 +82,10 @@ shapes:ScaleFactorConstraint
             sh:class distrib:SampledQuantity ;
             sh:property [ sh:path qudt:value ; sh:maxCount 0 ] ;
             sh:property [
-                sh:path distrib:from-distribution ; sh:minCount 1 ; sh:maxCount 1 ;
-                sh:class distrib:Distribution, distrib:Uniform ;
+                sh:path distrib:from-distribution ;
+                sh:class distrib:Uniform ;
                 sh:node [
-                    sh:property [ sh:path distrib:dimension ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue "1"^^xsd:positiveInteger ] ;
+                    sh:property [ sh:path distrib:dimension ; sh:hasValue "1"^^xsd:positiveInteger ] ;
                     sh:property [ sh:path ( distrib:lower-bound [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ; sh:minCount 1 ; sh:maxCount 1 ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
                     sh:property [ sh:path ( distrib:upper-bound [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ; sh:minCount 1 ; sh:maxCount 1 ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ]
                 ]
