@@ -1,6 +1,8 @@
 @prefix astro: <http://www.astro.umd.edu/~eshaya/astro-onto/owl/geometry.owl#> .
 @prefix distrib: <https://secorolab.github.io/metamodels/probability/distribution#> .
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix prov-ext: <https://secorolab.github.io/metamodels/prov#> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -25,7 +27,7 @@ shapes:RightCircularCone a rdfs:Class ; rdfs:subClassOf astro:circularCone ;
     rdfs:comment "Unit-base cone: its circular base is perpendicular to its local Z axis, with the apex directly above the base center. Independent X/Y scale can make the rendered cone elliptical." .
 shapes:Tetrahedron a rdfs:Class ; rdfs:subClassOf astro:pyramid .
 shapes:TriangularPrism a rdfs:Class ; rdfs:subClassOf astro:prism .
-shapes:MeshShape a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape .
+shapes:MeshShape a rdfs:Class ; rdfs:subClassOf astro:three-D_Shape, prov:Entity .
 shapes:ScaledShape a rdfs:Class ;
     rdfs:comment "Marks a shape whose positive, dimensionless local scale is given as one uniform factor, three axis factors, or a sampled distribution. The geometric type identifies the unit base before scaling; scaling precedes the attached frame pose." .
 shapes:uniform-scale rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
@@ -36,7 +38,6 @@ shapes:scale-y rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
     rdfs:comment "Positive dimensionless factor along the shape's local Y axis." .
 shapes:scale-z rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
     rdfs:comment "Positive dimensionless factor along the shape's local Z axis." .
-shapes:source-path rdfs:domain shapes:MeshShape ; rdfs:range xsd:string .
 
 shapes:SphereShape
     a sh:NodeShape ;
@@ -166,9 +167,26 @@ shapes:MeshShapeConstraint
     sh:targetClass shapes:MeshShape ;
     sh:description "The attached frame coincides with the STL file's authored origin and axes; scale acts along file axes before that frame's pose." ;
     sh:property shapes:AttachedFrameProperty ;
+    sh:class prov:Entity ;
     sh:property [
-        sh:path shapes:source-path ; sh:minCount 1 ; sh:maxCount 1 ;
-        sh:datatype xsd:string ; sh:pattern "\\.stl$" ; sh:flags "i"
+        sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class prov:Entity ;
+        sh:node [
+            sh:property [
+                sh:path prov:atLocation ; sh:minCount 1 ; sh:maxCount 1 ;
+                sh:class prov-ext:RelativeLocation ;
+                sh:node [
+                    sh:property [
+                        sh:path prov-ext:rel-path ; sh:minCount 1 ; sh:maxCount 1 ;
+                        sh:datatype xsd:anyURI ; sh:pattern "\\.stl$" ; sh:flags "i"
+                    ] ;
+                    sh:property [
+                        sh:path prov:atLocation ; sh:minCount 1 ; sh:maxCount 1 ;
+                        sh:class prov:Location ; sh:nodeKind sh:IRI
+                    ]
+                ]
+            ]
+        ]
     ] ;
     sh:or (
         [ sh:class shapes:ScaledShape ]
