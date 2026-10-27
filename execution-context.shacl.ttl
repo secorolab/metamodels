@@ -2,8 +2,6 @@
 # Author: Minh Nguyen (minh@mail.minhnh.com)
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix qudt: <http://qudt.org/schema/qudt/> .
-@prefix qudt-quant: <http://qudt.org/vocab/quantitykind/> .
 @prefix schema: <https://schema.org/> .
 @prefix exec: <https://secorolab.github.io/metamodels/execution-context#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
@@ -20,12 +18,6 @@ exec:ExecutionContextShape
   sh:property [
     sh:path exec:runs-scene ;
     sh:nodeKind sh:IRI ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
-  sh:property [
-    sh:path exec:timestep ;
-    sh:node exec:TimeQuantityShape ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
@@ -59,30 +51,6 @@ exec:SimulationShape
   sh:property [
     sh:path ( ssn:deployedOnPlatform schema:name ) ;
     sh:datatype xsd:string ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] .
-
-exec:TimeQuantityShape
-  a sh:NodeShape ;
-  sh:class qudt:Quantity ;
-  sh:property [
-    sh:path qudt:hasQuantityKind ;
-    sh:hasValue qudt-quant:Time ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
-  sh:property [
-    sh:path qudt:unit ;
-    sh:nodeKind sh:IRI ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
-  sh:property [
-    sh:path qudt:value ;
-    sh:nodeKind sh:Literal ;
-    sh:datatype xsd:double ;
-    sh:minExclusive 0.0 ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] .

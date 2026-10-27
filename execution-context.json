@@ -14,7 +14,6 @@
 
         "has-config": { "@id": "exec:has-config", "@type": "@json" },
         "runs-scene": { "@id": "exec:runs-scene", "@type": "@id" },
-        "timestep": { "@id": "exec:timestep", "@type": "@id" },
 
         "realizes": { "@id": "exec:realizes", "@type": "@id" }
     }
