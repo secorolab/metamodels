@@ -1,10 +1,8 @@
-@prefix distrib: <https://secorolab.github.io/metamodels/probability/distribution#> .
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix prov-ext: <https://secorolab.github.io/metamodels/prov#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix shapes: <https://secorolab.github.io/metamodels/geometry/shapes#> .
@@ -63,8 +61,7 @@ shapes:FileBasedShapeConstraint
         [
             sh:property [ sh:path shapes:scale-x ; sh:maxCount 0 ] ;
             sh:property [ sh:path shapes:scale-y ; sh:maxCount 0 ] ;
-            sh:property [ sh:path shapes:scale-z ; sh:maxCount 0 ] ;
-            sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ]
+            sh:property [ sh:path shapes:scale-z ; sh:maxCount 0 ]
         ]
     ) .
 
@@ -72,26 +69,7 @@ shapes:ScaleFactorConstraint
     a sh:NodeShape ;
     sh:class qudt:Quantity ;
     sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Dimensionless ] ;
-    sh:or (
-        [
-            sh:not [ sh:class distrib:SampledQuantity ] ;
-            sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ] ;
-            sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ]
-        ]
-        [
-            sh:class distrib:SampledQuantity ;
-            sh:property [ sh:path qudt:value ; sh:maxCount 0 ] ;
-            sh:property [
-                sh:path distrib:from-distribution ;
-                sh:class distrib:Uniform ;
-                sh:node [
-                    sh:property [ sh:path distrib:dimension ; sh:hasValue "1"^^xsd:positiveInteger ] ;
-                    sh:property [ sh:path ( distrib:lower-bound [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ; sh:minCount 1 ; sh:maxCount 1 ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] ;
-                    sh:property [ sh:path ( distrib:upper-bound [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ; sh:minCount 1 ; sh:maxCount 1 ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ]
-                ]
-            ]
-        ]
-    ) .
+    sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] .
 
 shapes:ScaledShapeConstraint
     a sh:NodeShape ;
@@ -100,7 +78,6 @@ shapes:ScaledShapeConstraint
         [ sh:class shapes:FileBasedShape ] [ sh:class shapes:UnitCube ]
         [ sh:class shapes:UnitCylinder ] [ sh:class shapes:UnitSphere ]
     ) ;
-    sh:property [ sh:path distrib:from-distribution ; sh:maxCount 0 ] ;
     sh:property [ sh:path shapes:scale-x ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] ;
     sh:property [ sh:path shapes:scale-y ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] ;
     sh:property [ sh:path shapes:scale-z ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] .
