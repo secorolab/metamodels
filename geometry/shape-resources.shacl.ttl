@@ -54,17 +54,7 @@ shapes:FileBasedShapeConstraint
         sh:node [
             sh:property [
                 sh:path prov:atLocation ; sh:minCount 1 ; sh:maxCount 1 ;
-                sh:class prov-ext:RelativeLocation ;
-                sh:node [
-                    sh:property [
-                        sh:path prov-ext:rel-path ; sh:minCount 1 ; sh:maxCount 1 ;
-                        sh:datatype xsd:anyURI ; sh:pattern "\\.stl$" ; sh:flags "i"
-                    ] ;
-                    sh:property [
-                        sh:path prov:atLocation ; sh:minCount 1 ; sh:maxCount 1 ;
-                        sh:class prov:Location ; sh:nodeKind sh:IRI
-                    ]
-                ]
+                sh:class prov-ext:RelativeLocation
             ]
         ]
     ] ;
