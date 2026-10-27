@@ -5,10 +5,15 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
 
         "TRS": "time:TRS",
+        "has-time": { "@id": "time:hasTime", "@type": "@id" },
 
         "Instant": {
             "@id": "time:Instant",
             "@context": {
+                "in-datetime-stamp": {
+                    "@id": "time:inXSDDateTimeStamp",
+                    "@type": "xsd:dateTimeStamp"
+                },
                 "in-time-position": {
                     "@id": "time:inTimePosition",
                     "@type": "@id"
