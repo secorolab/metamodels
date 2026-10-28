@@ -1,0 +1,48 @@
+# SPDX-License-Identifier: MPL-2.0
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ros: <https://index.ros.org/p/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix spdx-sw: <https://spdx.org/rdf/3.0.1/terms/Software/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ros:Package
+  a rdfs:Class ;
+  rdfs:subClassOf spdx-sw:Package ;
+  rdfs:label "ROS package" ;
+  rdfs:comment "A software package with a ROS package manifest (package.xml), found by its name." .
+
+ros:ActionShape
+    a sh:NodeShape ;
+    sh:targetClass ros:Action ;
+    sh:property [
+        sh:path ros:channel-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A ROS action needs exactly one channel-name (the action name) as a string." ;
+    ] ;
+    sh:property [
+        sh:path ros:type-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A ROS action needs exactly one type-name (the action type, e.g. 'control_msgs/action/GripperCommand') as a string." ;
+    ] .
+
+ros:ServiceShape
+    a sh:NodeShape ;
+    sh:targetClass ros:Service ;
+    sh:property [
+        sh:path ros:channel-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A ROS service needs exactly one channel-name (the service name) as a string." ;
+    ] ;
+    sh:property [
+        sh:path ros:type-name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "A ROS service needs exactly one type-name (the service type, e.g. 'std_srvs/srv/Trigger') as a string." ;
+    ] .

@@ -8,6 +8,7 @@
 @prefix schema: <https://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 rec:Metric a rdfs:Class ; rdfs:subClassOf qudt:Quantity, prov:Entity .
@@ -50,18 +51,14 @@ rec:RunExecutionShape
         sh:qualifiedValueShape [ sh:class rec:Host ] ;
         sh:qualifiedMaxCount 1 ;
     ] ;
-    sh:property [
-        sh:path prov:startedAtTime ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:dateTime ;
-    ] ;
+    sh:node prov:ActivityShape ;
     # A run that has not left the queue carries no start time.
     sh:or (
         [ sh:not [ sh:property [
             sh:path oslc_auto:state ;
             sh:in ( oslc_auto:new oslc_auto:queued )
         ] ] ]
-        [ sh:property [ sh:path prov:startedAtTime ; sh:maxCount 0 ] ]
+        [ sh:property [ sh:path time:hasBeginning ; sh:maxCount 0 ] ]
     ) ;
     # A run in progress or complete has started.
     sh:or (
@@ -69,13 +66,8 @@ rec:RunExecutionShape
             sh:path oslc_auto:state ;
             sh:in ( oslc_auto:new oslc_auto:queued oslc_auto:canceling oslc_auto:canceled )
         ] ]
-        [ sh:property [ sh:path prov:startedAtTime ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path time:hasBeginning ; sh:minCount 1 ] ]
     ) ;
-    sh:property [
-        sh:path prov:endedAtTime ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:dateTime ;
-    ] ;
     # When the run was queued, and the last time it reported itself alive.
     sh:property [
         sh:path rec:queued-time ;
@@ -115,12 +107,6 @@ rec:ResourceUsageShape
     sh:property [
         sh:path prov:used ;
         sh:minCount 1 ;
-        sh:class prov:Entity ;
-        sh:nodeKind sh:IRI ;
-    ] ;
-    sh:property [
-        sh:path prov:qualifiedUsage ;
-        sh:class prov:Usage ;
     ] .
 
 # An output entity the run produced, linked to its generating activity by a
@@ -134,13 +120,11 @@ rec:ArtefactShape
         sh:path prov:wasGeneratedBy ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:class prov:Activity ;
     ] ;
     sh:property [
         sh:path prov:qualifiedGeneration ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:class prov:Generation ;
     ] ;
     sh:property [
         sh:path spdx:checksum ;
@@ -173,11 +157,11 @@ rec:ChecksumShape
 rec:MetricShape
     a sh:NodeShape ;
     sh:targetClass rec:Metric ;
+    sh:node prov:EntityShape ;
     sh:property [
         sh:path prov:wasGeneratedBy ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:class prov:Activity ;
     ] ;
     sh:property [
         sh:path qudt:hasQuantityKind ;
@@ -212,11 +196,6 @@ rec:MetricShape
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
-    ] ;
-    sh:property [
-        sh:path prov:generatedAtTime ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:dateTime ;
     ] .
 
 rec:HostShape
