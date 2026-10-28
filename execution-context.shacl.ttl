@@ -1,0 +1,80 @@
+# SPDX-License-Identifier:  MPL-2.0
+# Author: Minh Nguyen (minh@mail.minhnh.com)
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <https://schema.org/> .
+@prefix exec: <https://secorolab.github.io/metamodels/execution-context#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+
+# The execution context is itself typed RealWorld or Simulation; a simulator is the platform it
+# is deployed on, and real-world hardware is named per device, on the system realizing it.
+exec:ExecutionContextShape
+  a sh:NodeShape ;
+  sh:targetClass exec:ExecutionContext ;
+  sh:or ( [ sh:class exec:RealWorld ] [ sh:class exec:Simulation ] ) ;
+  sh:class ssn:Deployment ;
+  sh:property [
+    sh:path exec:runs-scene ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  # A file the run reads rather than carries -- device addresses and credentials change
+  # nothing the controller computes and must not travel in an archived run graph.
+  sh:property [
+    sh:path prov:wasDerivedFrom ;
+    sh:nodeKind sh:IRI ;
+    sh:class prov:Entity ;
+    # A file is named by its bytes, so the same bytes in several places are one file at each.
+    sh:node [
+      sh:property [
+        sh:path prov:atLocation ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+      ]
+    ] ;
+    sh:message "An execution context is derived from files the run reads, each a prov:Entity at a prov:Location." ;
+  ] .
+
+# A simulator's name is required — the parser dispatches the backend off it.
+exec:SimulationShape
+  a sh:NodeShape ;
+  sh:targetClass exec:Simulation ;
+  sh:property [
+    sh:path ssn:deployedOnPlatform ;
+    sh:class sosa:Platform ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path ( ssn:deployedOnPlatform schema:name ) ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+# One element, one device: two Systems realizing the same element would leave the run with
+# no way to say which hardware it is talking to.
+exec:RealizedOnceShape
+  a sh:NodeShape ;
+  sh:targetObjectsOf exec:realizes ;
+  sh:message "An element is realized by one device." ;
+  sh:property [
+    sh:path [ sh:inversePath exec:realizes ] ;
+    sh:maxCount 1 ;
+  ] .
+
+# A device has to say which hardware it is: without the product, a run has no way to pick
+# the driver that talks to it. What the config calls the device is the element it realizes.
+exec:DeviceShape
+  a sh:NodeShape ;
+  sh:targetSubjectsOf exec:realizes ;
+  sh:message "A device states the product it is." ;
+  sh:property [
+    sh:path schema:model ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .

@@ -5,6 +5,7 @@
         "schema": "https://schema.org/",
         "dcterms": "http://purl.org/dc/terms/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "spdx-sw": "https://spdx.org/rdf/3.0.1/terms/Software/",
 
         "Specification": "prov-ext:Specification",
         "Transformation": "prov-ext:Transformation",
@@ -16,6 +17,7 @@
             "@id": "prov-ext:rel-path",
             "@type": "xsd:anyURI"
         },
+        "Package": "spdx-sw:Package",
 
         "name": "schema:name",
         "softwareVersion": "schema:softwareVersion",
