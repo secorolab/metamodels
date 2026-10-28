@@ -74,10 +74,6 @@ shapes:ScaleFactorConstraint
 shapes:ScaledShapeConstraint
     a sh:NodeShape ;
     sh:targetClass shapes:ScaledShape ;
-    sh:or (
-        [ sh:class shapes:FileBasedShape ] [ sh:class shapes:UnitCube ]
-        [ sh:class shapes:UnitCylinder ] [ sh:class shapes:UnitSphere ]
-    ) ;
     sh:property [ sh:path shapes:scale-x ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] ;
     sh:property [ sh:path shapes:scale-y ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] ;
     sh:property [ sh:path shapes:scale-z ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] .
