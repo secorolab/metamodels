@@ -1,6 +1,5 @@
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
-@prefix prov-ext: <https://secorolab.github.io/metamodels/prov#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -61,7 +60,7 @@ shapes:FileBasedShapeConstraint
         sh:node [
             sh:property [
                 sh:path prov:atLocation ; sh:minCount 1 ; sh:maxCount 1 ;
-                sh:class prov-ext:RelativeLocation
+                sh:class prov:Location
             ]
         ]
     ] .
