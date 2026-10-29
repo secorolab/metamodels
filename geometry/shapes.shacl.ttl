@@ -30,8 +30,7 @@ shapes:CenteredPrimitiveShape
     a sh:NodeShape ;
     sh:targetClass shapes:UnitCube, shapes:UnitCylinder, shapes:UnitSphere ;
     sh:property shapes:AttachedFrameProperty ;
-    sh:property shapes:LengthUnitProperty ;
-    sh:class shapes:ScaledShape .
+    sh:property shapes:LengthUnitProperty .
 
 shapes:AttachedFrameProperty
     a sh:PropertyShape ;
@@ -57,8 +56,7 @@ shapes:FileBasedShapeConstraint
 shapes:ScaleFactorConstraint
     a sh:NodeShape ;
     sh:datatype xsd:double ;
-    sh:minExclusive 0 ;
-    sh:maxExclusive "INF"^^xsd:double .
+    sh:minExclusive 0 .
 
 shapes:ScaledShapeConstraint
     a sh:NodeShape ;
