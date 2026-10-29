@@ -1,7 +1,6 @@
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
-@prefix qkind: <http://qudt.org/vocab/quantitykind/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix shapes: <https://secorolab.github.io/metamodels/geometry/shapes#> .
@@ -19,12 +18,12 @@ shapes:UnitSphere a rdfs:Class ;
     rdfs:comment "Sphere of radius 1 in its declared length unit, centered on the attached frame at its centroid." .
 shapes:FileBasedShape a rdfs:Class ; rdfs:subClassOf prov:Entity .
 shapes:ScaledShape a rdfs:Class ;
-    rdfs:comment "Marks a shape whose positive, dimensionless local scale is given by axis factor quantities. A shared factor gives uniform scale. The geometric type identifies the unit base before scaling; scaling precedes the attached frame pose." .
-shapes:scale-x rdfs:domain shapes:ScaledShape ; rdfs:range qudt:Quantity ;
+    rdfs:comment "Marks a shape whose positive, dimensionless local scale is given by numeric axis factors. Equal factors give uniform scale. The geometric type identifies the unit base before scaling; scaling precedes the attached frame pose." .
+shapes:scale-x rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
     rdfs:comment "Positive dimensionless factor along the shape's local X axis." .
-shapes:scale-y rdfs:domain shapes:ScaledShape ; rdfs:range qudt:Quantity ;
+shapes:scale-y rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
     rdfs:comment "Positive dimensionless factor along the shape's local Y axis." .
-shapes:scale-z rdfs:domain shapes:ScaledShape ; rdfs:range qudt:Quantity ;
+shapes:scale-z rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
     rdfs:comment "Positive dimensionless factor along the shape's local Z axis." .
 
 shapes:CenteredPrimitiveShape
@@ -57,9 +56,9 @@ shapes:FileBasedShapeConstraint
 
 shapes:ScaleFactorConstraint
     a sh:NodeShape ;
-    sh:class qudt:Quantity ;
-    sh:property [ sh:path qudt:hasQuantityKind ; sh:hasValue qkind:Dimensionless ] ;
-    sh:property [ sh:path qudt:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:double ; sh:minExclusive 0 ; sh:maxExclusive "INF"^^xsd:double ] .
+    sh:datatype xsd:double ;
+    sh:minExclusive 0 ;
+    sh:maxExclusive "INF"^^xsd:double .
 
 shapes:ScaledShapeConstraint
     a sh:NodeShape ;
