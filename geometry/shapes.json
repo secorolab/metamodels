@@ -1,0 +1,15 @@
+{
+    "@context": {
+        "shapes": "https://secorolab.github.io/metamodels/geometry/shapes#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "attached-to-frame": { "@id": "shapes:attached-to-frame", "@type": "@id" },
+        "UnitCube": { "@id": "shapes:UnitCube" },
+        "UnitCylinder": { "@id": "shapes:UnitCylinder" },
+        "UnitSphere": { "@id": "shapes:UnitSphere" },
+        "FileBasedShape": { "@id": "shapes:FileBasedShape" },
+        "ScaledShape": { "@id": "shapes:ScaledShape" },
+        "scale-x": { "@id": "shapes:scale-x", "@type": "xsd:double" },
+        "scale-y": { "@id": "shapes:scale-y", "@type": "xsd:double" },
+        "scale-z": { "@id": "shapes:scale-z", "@type": "xsd:double" }
+    }
+}

@@ -1,0 +1,66 @@
+@prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shapes: <https://secorolab.github.io/metamodels/geometry/shapes#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+shapes:attached-to-frame
+    rdfs:range geom:Frame ;
+    rdfs:comment "Links a shape to a placement frame. The shape's local origin and axes coincide with that frame's origin and axes; the frame's pose locates the shape relative to other frames. The frame need not belong to a rigid body." .
+
+shapes:UnitCube a rdfs:Class ;
+    rdfs:comment "Cube with local X, Y, and Z bounds from -0.5 to +0.5 in its declared length unit. The attached frame origin is its centroid." .
+shapes:UnitCylinder a rdfs:Class ;
+    rdfs:comment "Cylinder of radius 1 and height 1 in its declared length unit along local Z, centered on the attached frame at its centroid." .
+shapes:UnitSphere a rdfs:Class ;
+    rdfs:comment "Sphere of radius 1 in its declared length unit, centered on the attached frame at its centroid." .
+shapes:FileBasedShape a rdfs:Class ; rdfs:subClassOf prov:Entity .
+shapes:ScaledShape a rdfs:Class ;
+    rdfs:comment "Marks a shape whose positive, dimensionless local scale is given by numeric axis factors. Equal factors give uniform scale. The geometric type identifies the unit base before scaling; scaling precedes the attached frame pose." .
+shapes:scale-x rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
+    rdfs:comment "Positive dimensionless factor along the shape's local X axis." .
+shapes:scale-y rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
+    rdfs:comment "Positive dimensionless factor along the shape's local Y axis." .
+shapes:scale-z rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
+    rdfs:comment "Positive dimensionless factor along the shape's local Z axis." .
+
+shapes:CenteredPrimitiveShape
+    a sh:NodeShape ;
+    sh:targetClass shapes:UnitCube, shapes:UnitCylinder, shapes:UnitSphere ;
+    sh:property shapes:AttachedFrameProperty ;
+    sh:property shapes:LengthUnitProperty .
+
+shapes:AttachedFrameProperty
+    a sh:PropertyShape ;
+    sh:path shapes:attached-to-frame ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:class geom:Frame .
+
+shapes:LengthUnitProperty
+    a sh:PropertyShape ;
+    sh:description "Length unit for local geometry; consumers check supported units." ;
+    sh:path qudt:unit ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:nodeKind sh:IRI .
+
+shapes:FileBasedShapeConstraint
+    a sh:NodeShape ;
+    sh:targetClass shapes:FileBasedShape ;
+    sh:description "The attached frame coincides with the STL file's authored origin and axes; its coordinates use the declared length unit and scale acts before the frame pose." ;
+    sh:property shapes:AttachedFrameProperty ;
+    sh:property shapes:LengthUnitProperty ;
+    sh:class prov:Entity .
+
+shapes:ScaleFactorConstraint
+    a sh:NodeShape ;
+    sh:datatype xsd:double ;
+    sh:minExclusive 0 .
+
+shapes:ScaledShapeConstraint
+    a sh:NodeShape ;
+    sh:targetClass shapes:ScaledShape ;
+    sh:property [ sh:path shapes:scale-x ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] ;
+    sh:property [ sh:path shapes:scale-y ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] ;
+    sh:property [ sh:path shapes:scale-z ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] .
