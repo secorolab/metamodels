@@ -45,7 +45,8 @@
 
         "states": {
             "@id": "fsm:states",
-            "@container": "@set"
+            "@container": "@set",
+            "@type": "@id"
         },
 
         "start-state": { "@id": "fsm:start-state", "@type": "@id" },
@@ -54,12 +55,14 @@
 
         "transitions": {
             "@id": "fsm:transitions",
-            "@container": "@set"
+            "@container": "@set",
+            "@type": "@id"
         },
 
         "reactions": {
             "@id": "fsm:reactions",
-            "@container": "@list"
+            "@container": "@list",
+            "@type": "@id"
         }
     }
 }
