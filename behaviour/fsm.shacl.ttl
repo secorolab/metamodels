@@ -10,6 +10,11 @@ fsm:FSMShape
   sh:targetClass fsm:FiniteStateMachine ;
 
   sh:property [
+    sh:path rdf:type ;
+    sh:hasValue fsm:OrderedReactions ;
+  ] ;
+
+  sh:property [
     sh:path fsm:name ;
     sh:datatype xsd:string ;
     sh:minCount 1 ;
@@ -64,6 +69,13 @@ fsm:FSMShape
 
   sh:property [
     sh:path fsm:reactions ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  # An RDF list: the order of the reactions is their firing priority.
+  sh:property [
+    sh:path ( fsm:reactions [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
     sh:node fsm:ReactionShape ;
     sh:minCount 1 ;
   ] .
