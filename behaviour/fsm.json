@@ -5,7 +5,7 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
 
         "FSM": "fsm:FiniteStateMachine",
-        "OrderBasedReactions": "fsm:OrderBasedReactions",
+        "OrderedReactions": "fsm:OrderedReactions",
 
         "name": { "@id": "fsm:name", "@type": "xsd:string" },
         "description": { "@id": "fsm:description", "@type": "xsd:string" },
