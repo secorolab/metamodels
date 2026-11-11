@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
+@prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix bt: <https://secorolab.github.io/metamodels/behaviour/behaviour-tree#> .
@@ -64,6 +66,57 @@ bt:ParallelShape
     sh:path bt:success-threshold ;
     sh:datatype xsd:positiveInteger ;
     sh:minInclusive 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+bt:Inverter rdfs:subClassOf bt:Decorator .
+bt:Retry rdfs:subClassOf bt:Decorator .
+bt:Timeout rdfs:subClassOf bt:Decorator .
+
+bt:DecoratorShape
+  a sh:NodeShape ;
+  sh:description "a decorator has exactly one child" ;
+  sh:targetClass bt:Decorator, bt:Inverter, bt:Retry, bt:Timeout ;
+
+  sh:property [
+    sh:path bt:children ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path ( bt:children rdf:first ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path ( bt:children rdf:rest ) ;
+    sh:hasValue rdf:nil ;
+  ] .
+
+bt:RetryShape
+  a sh:NodeShape ;
+  sh:targetClass bt:Retry ;
+
+  sh:property [
+    sh:description ":max-tries is how often the child may fail before the retry fails" ;
+    sh:path bt:max-tries ;
+    sh:datatype xsd:positiveInteger ;
+    sh:minInclusive 1 ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+bt:TimeoutShape
+  a sh:NodeShape ;
+  sh:targetClass bt:Timeout ;
+
+  sh:property [
+    sh:description ":max-duration is how long the child may run before the timeout fails" ;
+    sh:path bt:max-duration ;
+    sh:class qudt:Quantity ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] .
