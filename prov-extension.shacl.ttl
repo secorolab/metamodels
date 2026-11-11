@@ -18,7 +18,7 @@ prov-ext:Transformation
   a rdfs:Class ;
   rdfs:subClassOf prov:Activity ;
   rdfs:label "transformation" ;
-  rdfs:comment "A software package turns source entities into target entities, model-to-model or model-to-code." .
+  rdfs:comment "A software package transforms source entities into generated target entities and may also contribute to existing entities, model-to-model or model-to-code." .
 
 prov-ext:Generalization
   a rdfs:Class ;
@@ -86,11 +86,19 @@ prov-ext:SpecificationShape
     )
   ] .
 
+# Generation completes a new entity. Contributions to an existing entity use influence;
+# multiple generations of the same entity must coincide in PROV's event ordering:
+# https://www.w3.org/TR/prov-constraints/#generation-generation-ordering
 prov-ext:TransformationShape
   a sh:NodeShape ;
   sh:targetClass prov-ext:Transformation ;
-  sh:message "A transformation uses at least one source entity, generates at least one target entity, and is run by a software package." ;
+  sh:message "A transformation uses at least one source entity, generates at least one target entity, may influence additional target entities, and is run by a software package." ;
   sh:node prov-ext:RecordedActivityShape, prov-ext:GeneratingActivityShape ;
+  sh:property [
+    sh:path [ sh:inversePath prov:wasInfluencedBy ] ;
+    sh:class prov:Entity ;
+    sh:nodeKind sh:IRI
+  ] ;
   sh:property [
     sh:path prov:wasAssociatedWith ;
     sh:class prov:SoftwareAgent
