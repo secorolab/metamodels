@@ -1,0 +1,91 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bpc: <https://secorolab.github.io/metamodels/block-port-connector#> .
+
+bpc:PortShape
+  a sh:NodeShape ;
+  sh:targetClass bpc:Port ;
+
+  sh:property [
+    sh:path bpc:direction ;
+    sh:in ( bpc:Input bpc:Output bpc:InputOutput ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path bpc:data-type ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+bpc:HasPortShape
+  a sh:NodeShape ;
+  sh:targetSubjectsOf bpc:has-port ;
+
+  sh:property [
+    sh:path bpc:has-port ;
+    sh:class bpc:Port ;
+  ] .
+
+bpc:ConnectorShape
+  a sh:NodeShape ;
+  sh:targetClass bpc:Connector ;
+
+  sh:property [
+    sh:path bpc:port ;
+    sh:class bpc:Port ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:property [
+    sh:path bpc:connects ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+
+  sh:or (
+    [
+      sh:path ( bpc:port bpc:direction ) ;
+      sh:hasValue bpc:Input ;
+    ]
+    [
+      sh:path bpc:connects ;
+      sh:class bpc:Data ;
+    ]
+  ) ;
+  sh:message "a connector on an output or input-output port connects to bpc:Data, never to a constant" .
+
+bpc:HasConnectorShape
+  a sh:NodeShape ;
+  sh:targetSubjectsOf bpc:has-connector ;
+
+  sh:property [
+    sh:path bpc:has-connector ;
+    sh:class bpc:Connector ;
+  ] ;
+
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "port {?port} is connected more than once on this block" ;
+    sh:prefixes bpc: ;
+    sh:select """
+      SELECT $this ?port
+      WHERE {
+        $this bpc:has-connector ?first, ?second .
+        ?first bpc:port ?port .
+        ?second bpc:port ?port .
+        FILTER (?first != ?second)
+      }
+    """ ;
+  ] .
+
+bpc:
+  a owl:Ontology ;
+  sh:declare [
+    sh:prefix "bpc" ;
+    sh:namespace "https://secorolab.github.io/metamodels/block-port-connector#"^^xsd:anyURI ;
+  ] .
