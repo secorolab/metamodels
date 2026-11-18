@@ -3,6 +3,7 @@
         "shapes": "https://secorolab.github.io/metamodels/geometry/shapes#",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "attached-to-frame": { "@id": "shapes:attached-to-frame", "@type": "@id" },
+        "Shape": { "@id": "shapes:Shape" },
         "UnitCube": { "@id": "shapes:UnitCube" },
         "UnitCylinder": { "@id": "shapes:UnitCylinder" },
         "UnitSphere": { "@id": "shapes:UnitSphere" },
