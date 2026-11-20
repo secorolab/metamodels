@@ -44,10 +44,11 @@ shapes:ShapeConstraint
         [ sh:class shapes:CollisionShape ]
     ) .
 
-shapes:CenteredPrimitiveShape
+shapes:ShapeClassConstraint
     a sh:NodeShape ;
-    sh:targetClass shapes:UnitCube, shapes:UnitCylinder, shapes:UnitSphere ;
-    sh:description "A primitive's node also carries Shape, which brings the frame, unit and role constraints." ;
+    sh:targetClass shapes:UnitCube, shapes:UnitCylinder, shapes:UnitSphere, shapes:FileBasedShape ;
+    sh:targetClass shapes:VisualShape, shapes:CollisionShape ;
+    sh:description "A geometric type or a role marks a shape, so its node also carries Shape, which brings the frame, unit and role constraints." ;
     sh:class shapes:Shape .
 
 shapes:AttachedFrameProperty
@@ -66,8 +67,7 @@ shapes:LengthUnitProperty
 shapes:FileBasedShapeConstraint
     a sh:NodeShape ;
     sh:targetClass shapes:FileBasedShape ;
-    sh:description "The attached frame coincides with the STL file's authored origin and axes; its coordinates use the declared length unit and scale acts before the frame pose. Its node also carries Shape, which brings the frame, unit and role constraints, and prov:Entity as a second type, not a superclass, so the file's provenance can be recorded." ;
-    sh:class shapes:Shape ;
+    sh:description "The attached frame coincides with the STL file's authored origin and axes; its coordinates use the declared length unit and scale acts before the frame pose. Its node also carries prov:Entity as a second type, not a superclass, so the file's provenance can be recorded." ;
     sh:class prov:Entity .
 
 shapes:ScaleFactorConstraint
@@ -81,12 +81,6 @@ shapes:ScaledShapeConstraint
     sh:property [ sh:path shapes:scale-x ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] ;
     sh:property [ sh:path shapes:scale-y ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] ;
     sh:property [ sh:path shapes:scale-z ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] .
-
-shapes:ShapeRoleConstraint
-    a sh:NodeShape ;
-    sh:targetClass shapes:VisualShape, shapes:CollisionShape ;
-    sh:description "A role marks a shape, so its node is also a Shape, which brings the frame and unit constraints." ;
-    sh:class shapes:Shape .
 
 shapes:VisualShapeColorConstraint
     a sh:NodeShape ;
