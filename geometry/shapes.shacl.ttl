@@ -1,4 +1,3 @@
-@prefix col: <https://secorolab.github.io/metamodels/color#> .
 @prefix geom: <https://comp-rob2b.github.io/metamodels/geometry/structural-entities#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
@@ -29,9 +28,9 @@ shapes:scale-y rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
 shapes:scale-z rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
     rdfs:comment "Positive dimensionless factor along the shape's local Z axis." .
 shapes:VisualShape a rdfs:Class ;
-    rdfs:comment "Marks a shape that is drawn: viewers and renderers show it, in the one colour it has. It says nothing about contact. Every shape is a VisualShape, a CollisionShape, or both." .
+    rdfs:comment "Marks a shape that is drawn: viewers and renderers show it. It says nothing about contact. Every shape is a VisualShape, a CollisionShape, or both." .
 shapes:CollisionShape a rdfs:Class ;
-    rdfs:comment "Marks a shape that takes part in contact: collision checkers and physics engines test it. A CollisionShape that is not also a VisualShape is not drawn, so it has no colour. Every shape is a VisualShape, a CollisionShape, or both." .
+    rdfs:comment "Marks a shape that takes part in contact: collision checkers and physics engines test it. A CollisionShape that is not also a VisualShape is not drawn by default; a viewer may still show it when displaying collision geometry for debugging. Every shape is a VisualShape, a CollisionShape, or both." .
 
 shapes:ShapeConstraint
     a sh:NodeShape ;
@@ -81,18 +80,3 @@ shapes:ScaledShapeConstraint
     sh:property [ sh:path shapes:scale-x ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] ;
     sh:property [ sh:path shapes:scale-y ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] ;
     sh:property [ sh:path shapes:scale-z ; sh:minCount 1 ; sh:maxCount 1 ; sh:node shapes:ScaleFactorConstraint ] .
-
-shapes:VisualShapeColorConstraint
-    a sh:NodeShape ;
-    sh:targetClass shapes:VisualShape ;
-    sh:description "A drawn shape is drawn in exactly one colour." ;
-    sh:property [ sh:path col:has-color ; sh:minCount 1 ; sh:maxCount 1 ; sh:class col:Color ] .
-
-shapes:CollisionOnlyShapeColorConstraint
-    a sh:NodeShape ;
-    sh:targetClass shapes:CollisionShape ;
-    sh:description "A colour says how a shape is drawn, so a CollisionShape that is not also a VisualShape has none." ;
-    sh:or (
-        [ sh:class shapes:VisualShape ]
-        [ sh:path col:has-color ; sh:maxCount 0 ]
-    ) .
