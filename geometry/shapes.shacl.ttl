@@ -10,13 +10,16 @@ shapes:attached-to-frame
     rdfs:range geom:Frame ;
     rdfs:comment "Links a shape to a placement frame. The shape's local origin and axes coincide with that frame's origin and axes; the frame's pose locates the shape relative to other frames. The frame need not belong to a rigid body." .
 
-shapes:UnitCube a rdfs:Class ;
+shapes:Shape a rdfs:Class ;
+    rdfs:comment "Geometry on a frame, in a length unit, that is drawn, takes part in contact, or both. An instance carries this class alongside its geometric type, such as UnitCube, so that a constraint can require a shape without enumerating the types." .
+shapes:UnitCube a rdfs:Class ; rdfs:subClassOf shapes:Shape ;
     rdfs:comment "Cube with local X, Y, and Z bounds from -0.5 to +0.5 in its declared length unit. The attached frame origin is its centroid." .
-shapes:UnitCylinder a rdfs:Class ;
+shapes:UnitCylinder a rdfs:Class ; rdfs:subClassOf shapes:Shape ;
     rdfs:comment "Cylinder of radius 1 and height 1 in its declared length unit along local Z, centered on the attached frame at its centroid." .
-shapes:UnitSphere a rdfs:Class ;
+shapes:UnitSphere a rdfs:Class ; rdfs:subClassOf shapes:Shape ;
     rdfs:comment "Sphere of radius 1 in its declared length unit, centered on the attached frame at its centroid." .
-shapes:FileBasedShape a rdfs:Class ; rdfs:subClassOf prov:Entity .
+shapes:FileBasedShape a rdfs:Class ; rdfs:subClassOf shapes:Shape ;
+    rdfs:comment "Shape whose geometry is read from a file, such as a mesh, instead of a unit base. The file's authored origin and axes are the shape's local origin and axes." .
 shapes:ScaledShape a rdfs:Class ;
     rdfs:comment "Marks a shape whose positive, dimensionless local scale is given by numeric axis factors. Equal factors give uniform scale. The geometric type identifies the unit base before scaling; scaling precedes the attached frame pose." .
 shapes:scale-x rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
@@ -25,12 +28,28 @@ shapes:scale-y rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
     rdfs:comment "Positive dimensionless factor along the shape's local Y axis." .
 shapes:scale-z rdfs:domain shapes:ScaledShape ; rdfs:range xsd:double ;
     rdfs:comment "Positive dimensionless factor along the shape's local Z axis." .
+shapes:VisualShape a rdfs:Class ;
+    rdfs:comment "Marks a shape that is drawn: viewers and renderers show it. It says nothing about contact. Every shape is a VisualShape, a CollisionShape, or both." .
+shapes:CollisionShape a rdfs:Class ;
+    rdfs:comment "Marks a shape that takes part in contact: collision checkers and physics engines test it. A CollisionShape that is not also a VisualShape is not drawn by default; a viewer may still show it when displaying collision geometry for debugging. Every shape is a VisualShape, a CollisionShape, or both." .
 
-shapes:CenteredPrimitiveShape
+shapes:ShapeConstraint
     a sh:NodeShape ;
-    sh:targetClass shapes:UnitCube, shapes:UnitCylinder, shapes:UnitSphere ;
+    sh:targetClass shapes:Shape ;
+    sh:description "Every shape hangs on one frame, has one length unit, and states what it is for: it is a VisualShape, a CollisionShape, or both." ;
     sh:property shapes:AttachedFrameProperty ;
-    sh:property shapes:LengthUnitProperty .
+    sh:property shapes:LengthUnitProperty ;
+    sh:or (
+        [ sh:class shapes:VisualShape ]
+        [ sh:class shapes:CollisionShape ]
+    ) .
+
+shapes:ShapeClassConstraint
+    a sh:NodeShape ;
+    sh:targetClass shapes:UnitCube, shapes:UnitCylinder, shapes:UnitSphere, shapes:FileBasedShape ;
+    sh:targetClass shapes:VisualShape, shapes:CollisionShape ;
+    sh:description "A geometric type or a role marks a shape, so its node also carries Shape, which brings the frame, unit and role constraints." ;
+    sh:class shapes:Shape .
 
 shapes:AttachedFrameProperty
     a sh:PropertyShape ;
@@ -48,9 +67,7 @@ shapes:LengthUnitProperty
 shapes:FileBasedShapeConstraint
     a sh:NodeShape ;
     sh:targetClass shapes:FileBasedShape ;
-    sh:description "The attached frame coincides with the STL file's authored origin and axes; its coordinates use the declared length unit and scale acts before the frame pose." ;
-    sh:property shapes:AttachedFrameProperty ;
-    sh:property shapes:LengthUnitProperty ;
+    sh:description "The attached frame coincides with the file's authored origin and axes; its coordinates use the declared length unit and scale acts before the frame pose. Its node also carries prov:Entity as a second type, not a superclass, so the shape's derivation from the file can be recorded." ;
     sh:class prov:Entity .
 
 shapes:ScaleFactorConstraint
