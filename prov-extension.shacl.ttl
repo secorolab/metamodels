@@ -198,5 +198,5 @@ prov-ext:FormatShape
   sh:property [
     sh:path dcterms:format ;
     sh:maxCount 1 ;
-    sh:datatype xsd:string
+    sh:nodeKind sh:IRI
   ] .

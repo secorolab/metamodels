@@ -26,6 +26,9 @@
             "@type": "@id"
         },
         "identifier": "schema:identifier",
-        "format": "dcterms:format"
+        "format": {
+            "@id": "dcterms:format",
+            "@type": "@id"
+        }
     }
 }
