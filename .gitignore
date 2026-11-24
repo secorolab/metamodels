@@ -6,3 +6,8 @@ _site/
 .bundle/
 vendor/
 Gemfile.lock
+
+_release_site/
+
+# Python
+__pycache__
