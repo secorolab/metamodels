@@ -14,7 +14,8 @@ Before the first release:
   deployments reconstruct snapshots from these tags.
 - Merge the website changes into gh-pages and install `.github/workflows/publish-model-updates.yml`
   on main, then create and push the first stable tag.
-  Without stable tags the build fails and leaves the existing deployment intact.
+  Without stable tags, root and `/latest/` still publish main; `/stable/` and its dropdown option
+  appear after the first stable release.
 - Verify the university domain serves nested paths such as `/metamodels/v1.0.0/`.
 
 Push a new stable tag to publish a release. Manual dispatch rebuilds all releases.
@@ -25,7 +26,7 @@ The main-branch trigger calls the reusable publishing workflow on gh-pages.
 Changes to gh-pages and manual dispatch also rebuild the site. The old branch-sync workflow is no longer needed.
 
 Local assembly: `git fetch origin +refs/heads/main:refs/remotes/origin/main --tags`,
-then `python3 scripts/assemble_releases.py` (requires stable tags and access to submodule repositories).
+then `python3 scripts/assemble_releases.py` (requires access to submodule repositories).
 Output is `_release_site/`; configure Jekyll with baseurl `/metamodels` when building locally.
 The Pages build configures the deployment base URL.
 

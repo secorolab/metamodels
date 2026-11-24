@@ -20,8 +20,6 @@ def stable_versions(tags):
 
 def main():
     versions = stable_versions(git('tag', '--list').splitlines())
-    if not versions:
-        raise SystemExit('No stable release tags; leaving the published site unchanged.')
     output = ROOT / '_release_site'
     if output.exists():
         shutil.rmtree(output)
@@ -55,8 +53,9 @@ def main():
                 if source.suffix in {'.json', '.ttl'}:
                     listing.setdefault(str(relative.parent), []).append(dict(path=relative.as_posix(), name=source.name, extension=source.suffix[1:].upper()))
             listings[version] = listing
-    listings['stable'] = listings[versions[0]]
-    for version in [None, 'stable', 'latest', *versions]:
+    if versions:
+        listings['stable'] = listings[versions[0]]
+    for version in [None, *listings]:
         selected = version or 'latest'
         page = template.replace('layout: default', f'layout: default\nrelease: {selected}')
         (output / version if version else output).joinpath('index.md').write_text(page)

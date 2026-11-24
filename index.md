@@ -8,7 +8,9 @@ layout: default
 <label for="release">Version</label>
 <select id="release" onchange="window.location.href=this.value">
 <option value="{{ '/latest/' | relative_url }}" {% if page.release == 'latest' %}selected{% endif %}>Latest (main)</option>
+{% if site.data.releases.versions.size > 0 %}
 <option value="{{ '/stable/' | relative_url }}" {% if page.release == 'stable' %}selected{% endif %}>Stable ({{ site.data.releases.versions.first }})</option>
+{% endif %}
 {% for version in site.data.releases.versions %}
 <option value="{{ '/' | append: version | append: '/' | relative_url }}" {% if page.release == version %}selected{% endif %}>{{ version }}</option>
 {% endfor %}

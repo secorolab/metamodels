@@ -16,32 +16,38 @@ class ReleaseVersionsTest(unittest.TestCase):
     def test_no_stable_tags(self):
         self.assertEqual(releases.stable_versions(['v1.0.0-beta']), [])
 
-    def test_root_tracks_main_while_stable_tracks_release(self):
+    def test_aliases_with_and_without_stable_releases(self):
         import tempfile
         from unittest.mock import patch
 
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            for name in ['assets', '_includes', '_layouts']:
-                (root / name).mkdir()
-            (root / '_config.yaml').write_text('title: Models\n')
-            (root / 'index.md').write_text('---\nlayout: default\n---\n')
+        for tags in ['v1.0.0', '']:
+            with self.subTest(tags=tags):
+                with tempfile.TemporaryDirectory() as temporary:
+                    root = Path(temporary)
+                    for name in ['assets', '_includes', '_layouts']:
+                        (root / name).mkdir()
+                    (root / '_config.yaml').write_text('title: Models\n')
+                    (root / 'index.md').write_text('---\nlayout: default\n---\n')
 
-            def fake_git(*args):
-                if args[0] == 'tag':
-                    return 'v1.0.0'
-                return 'main-commit' if args[1].startswith('origin/main') else 'release-commit'
+                    def fake_git(*args):
+                        if args[0] == 'tag':
+                            return tags
+                        return 'main-commit' if args[1].startswith('origin/main') else 'release-commit'
 
-            def fake_run(command, **kwargs):
-                if command[1] == 'clone':
-                    Path(command[-1]).mkdir()
-                elif 'checkout' in command:
-                    snapshot = Path(command[2])
-                    (snapshot / 'model.json').write_text(command[-1])
+                    def fake_run(command, **kwargs):
+                        if command[1] == 'clone':
+                            Path(command[-1]).mkdir()
+                        elif 'checkout' in command:
+                            snapshot = Path(command[2])
+                            (snapshot / 'model.json').write_text(command[-1])
 
-            with patch.object(releases, 'ROOT', root), patch.object(releases, 'git', side_effect=fake_git), patch.object(releases.subprocess, 'run', side_effect=fake_run):
-                releases.main()
-            output = root / '_release_site'
-            self.assertEqual((output / 'model.json').read_text(), 'main-commit')
-            self.assertEqual((output / 'stable/model.json').read_text(), 'release-commit')
-            self.assertIn('release: latest', (output / 'index.md').read_text())
+                    with patch.object(releases, 'ROOT', root), patch.object(releases, 'git', side_effect=fake_git), patch.object(releases.subprocess, 'run', side_effect=fake_run):
+                        releases.main()
+                    output = root / '_release_site'
+                    self.assertEqual((output / 'model.json').read_text(), 'main-commit')
+                    if tags:
+                        self.assertEqual((output / 'stable/model.json').read_text(), 'release-commit')
+                    else:
+                        self.assertFalse((output / 'stable').exists())
+                    self.assertEqual((output / 'latest/model.json').read_text(), 'main-commit')
+                    self.assertIn('release: latest', (output / 'index.md').read_text())
