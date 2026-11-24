@@ -47,8 +47,8 @@ def main():
                 target = output / version / relative
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(source, target)
-                if version == versions[0]:
-                    for alias in [output, output / 'stable']:
+                if version == 'latest' or version == versions[0]:
+                    for alias in ([output] if version == 'latest' else [output / 'stable']):
                         target_alias = alias / relative
                         target_alias.parent.mkdir(parents=True, exist_ok=True)
                         shutil.copyfile(source, target_alias)
@@ -57,7 +57,7 @@ def main():
             listings[version] = listing
     listings['stable'] = listings[versions[0]]
     for version in [None, 'stable', 'latest', *versions]:
-        selected = version or 'stable'
+        selected = version or 'latest'
         page = template.replace('layout: default', f'layout: default\nrelease: {selected}')
         (output / version if version else output).joinpath('index.md').write_text(page)
     data = output / '_data'
