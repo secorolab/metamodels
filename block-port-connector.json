@@ -1,0 +1,21 @@
+{
+    "@context": {
+        "@version": 1.1,
+        "bpc": "https://secorolab.github.io/metamodels/block-port-connector#",
+
+        "Port": { "@id": "bpc:Port" },
+        "has-port": { "@id": "bpc:has-port", "@type": "@id", "@container": "@set" },
+        "direction": { "@id": "bpc:direction", "@type": "@vocab" },
+        "Input": { "@id": "bpc:Input" },
+        "Output": { "@id": "bpc:Output" },
+        "InputOutput": { "@id": "bpc:InputOutput" },
+        "data-type": { "@id": "bpc:data-type", "@type": "@id" },
+
+        "Data": { "@id": "bpc:Data" },
+
+        "Connector": { "@id": "bpc:Connector" },
+        "has-connector": { "@id": "bpc:has-connector", "@type": "@id", "@container": "@set" },
+        "port": { "@id": "bpc:port", "@type": "@id" },
+        "connects": { "@id": "bpc:connects" }
+    }
+}
