@@ -1,0 +1,98 @@
+# SPDX-License-Identifier: MPL-2.0
+@prefix contact: <https://secorolab.github.io/metamodels/newtonian-rigid-body-dynamics/contact#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shapes: <https://secorolab.github.io/metamodels/geometry/shapes#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+contact:SurfaceFriction a rdfs:Class ;
+    rdfs:comment "The friction parameters of one contact surface. Friction belongs to a pair of surfaces in contact; a coefficient of one surface is what a physics engine combines with the other surface's to get the pair's (MuJoCo takes the element-wise maximum unless one geom has higher priority). A coefficient stated here is therefore not the friction of any particular contact. An instance carries this class alongside its friction model, such as CoulombFriction, which says what its coefficients mean, so that a constraint can require a surface friction without enumerating the models." .
+
+contact:CoulombFriction a rdfs:Class ; rdfs:subClassOf contact:SurfaceFriction ;
+    rdfs:comment "Coulomb friction with one coefficient per component, equal in every tangent direction and used for both sticking and slipping (no separate static and kinetic coefficients). It always has a sliding component and may have torsional and rolling ones. A stated coefficient makes its component active; a component without a coefficient is inactive and resists nothing. This is MuJoCo's geom friction, friction=\"sliding torsional rolling\", with condim derived from the stated components: sliding only is condim 3, with torsional condim 4, with rolling condim 6 (torsional 0 when not stated). A sliding coefficient of 0 with no torsional or rolling coefficient is frictionless contact (condim 1)." .
+
+contact:has-surface-friction
+    rdfs:domain shapes:CollisionShape ;
+    rdfs:range contact:SurfaceFriction ;
+    rdfs:comment "Links a collision shape to the friction parameters of its surface. A collision shape without one leaves its friction unspecified, and a reader uses its own default." .
+
+contact:sliding rdfs:domain contact:CoulombFriction ; rdfs:range xsd:double ;
+    rdfs:comment "Non-negative, dimensionless coefficient of sliding (tangential) friction: the tangential friction force is at most this coefficient times the normal force." .
+contact:torsional rdfs:domain contact:CoulombFriction ; rdfs:range xsd:double ;
+    rdfs:comment "Non-negative coefficient of torsional (spin) friction about the contact normal. It is a length, in the CoulombFriction's qudt:unit: the friction torque about the normal is at most this length times the normal force." .
+contact:rolling rdfs:domain contact:CoulombFriction ; rdfs:range xsd:double ;
+    rdfs:comment "Non-negative coefficient of rolling friction about the tangent axes. It is a length, in the CoulombFriction's qudt:unit: the rolling resistance torque is at most this length times the normal force." .
+
+contact:NonNegativeCoefficientShape
+    a sh:NodeShape ;
+    sh:message "A friction coefficient is a non-negative xsd:double." ;
+    sh:datatype xsd:double ;
+    sh:minInclusive 0 .
+
+contact:SurfaceFrictionModelShape
+    a sh:NodeShape ;
+    sh:targetClass contact:SurfaceFriction ;
+    sh:description "A surface friction states its friction model, which says what its coefficients mean." ;
+    sh:message "A surface friction states its friction model: it is a contact:CoulombFriction." ;
+    sh:class contact:CoulombFriction .
+
+contact:CoulombFrictionCoefficientsShape
+    a sh:NodeShape ;
+    sh:targetClass contact:CoulombFriction ;
+    sh:description "A Coulomb friction states its sliding coefficient and may state torsional and rolling ones, each once and non-negative." ;
+    sh:property [
+        sh:path contact:sliding ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:node contact:NonNegativeCoefficientShape ;
+        sh:message "A Coulomb friction states one non-negative sliding coefficient." ;
+    ] ;
+    sh:property [
+        sh:path contact:torsional ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:node contact:NonNegativeCoefficientShape ;
+        sh:message "A Coulomb friction states at most one non-negative torsional coefficient." ;
+    ] ;
+    sh:property [
+        sh:path contact:rolling ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:node contact:NonNegativeCoefficientShape ;
+        sh:message "A Coulomb friction states at most one non-negative rolling coefficient." ;
+    ] ;
+    sh:property [
+        sh:path qudt:unit ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "A Coulomb friction states at most one length unit, as an IRI." ;
+    ] .
+
+contact:CoulombFrictionUnitShape
+    a sh:NodeShape ;
+    sh:targetClass contact:CoulombFriction ;
+    sh:description "Torsional and rolling coefficients are lengths, so a Coulomb friction that states either states their length unit." ;
+    sh:message "A Coulomb friction that states a torsional or rolling coefficient states their length unit (qudt:unit)." ;
+    sh:or (
+        [ sh:and (
+            [ sh:path contact:torsional ; sh:maxCount 0 ]
+            [ sh:path contact:rolling ; sh:maxCount 0 ]
+        ) ]
+        [ sh:path qudt:unit ; sh:minCount 1 ]
+    ) .
+
+contact:SurfaceFrictionOwnerShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf contact:has-surface-friction ;
+    sh:description "Only a collision shape has a surface friction, and at most one." ;
+    sh:message "Only a shapes:CollisionShape has a surface friction." ;
+    sh:class shapes:CollisionShape ;
+    sh:property [
+        sh:path contact:has-surface-friction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class contact:SurfaceFriction ;
+        sh:message "A collision shape has at most one surface friction, typed contact:SurfaceFriction." ;
+    ] .
